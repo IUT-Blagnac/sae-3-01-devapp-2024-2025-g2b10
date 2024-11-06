@@ -52,7 +52,7 @@ toc::[]
 
 Projet est réalisé par::
 
-- https://github.com/janeDoe[Jane Doe]
+- https://github.com/Quentin158[Quentin Martinez]
 - https://github.com/johnSmith[John Smith]
 ...
 
