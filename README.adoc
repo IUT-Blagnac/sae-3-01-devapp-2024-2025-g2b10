@@ -53,9 +53,9 @@ toc::[]
 Projet est réalisé par::
 
 - https://github.com/Cracotte-Mu-Da[GIARD--PELLAT Jules]
+- https://github.com/Romy514[CHAUVIERE Romy]
 - https://github.com/AlbiMousse[ESTIENNE Alban-Moussa]
 - https://github.com/Quentin158[MARTINEZ Quentin]
-- https://github.com/Romy514[CHAUVIERE Romy]
 - https://github.com/Matthias426[PAPA-PATSOUMOUDOU Matthias]
 ...
 
