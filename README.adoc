@@ -71,7 +71,7 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 |===
 | Date    | Nom         |  Lien                       
 | Sem.45  | Documentation conception      |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae-3b02/blob/main/Cahier%20des%20charges/CDCU_V1.adoc[CDCU_V1]     
-|  | Collecte et analyse des données (IoT)      |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae-3b02/blob/main/Cahier%20des%20charges/CDCU_V1.adoc[CDCU_V1]                         
+|  | Collecte et analyse des données (IoT)      |   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/master/IoT[IoT]                  
 |===
 
 == Réalisations 
