@@ -63,7 +63,7 @@ Tuteur/tutrice enseignant(e) de l'équipe::
 
 == Sujet du projet
 
-Ce projet consiste en la création d'un site e-commerce spécialisé dans la vente de produits magiques et mystiques, conçu pour offrir une expérience immersive aux amateurs de magie. Nommé "Abraca-dabra-cadabra," le site propose une large gamme de produits classés en diverses catégories, allant des baguettes magiques et potions aux grimoires, tenues, et ingrédients rares. L'objectif est de créer un environnement où les utilisateurs peuvent facilement naviguer entre les produits, bénéficier d'informations détaillées, et effectuer des achats en toute simplicité.
+Ce projet consiste en la création d'un site e-commerce spécialisé dans la vente de produits magiques et mystiques, conçu pour offrir une expérience immersive aux amateurs de magie. Nommée "Abraca-dabra-cadabra," le site propose une large gamme de produits classés en diverses catégories, allant des baguettes magiques et potions aux grimoires, tenues, et ingrédients rares. L'objectif est de créer un environnement où les utilisateurs peuvent facilement naviguer entre les produits, bénéficier d'informations détaillées, et effectuer des achats en toute simplicité.
 
 == Livrables
 
