@@ -56,10 +56,10 @@ Projet est réalisé par::
 
 Tuteur/tutrice enseignant(e) de l'équipe:: 
 
-mailto:jean-michel.bruel@univ-tlse2.fr[JMB] +
-mailto:esther.pendaries@univ-tlse2.fr[EP] + 
-mailto:laurent.nonne@univ-tlse2.fr[LN] + 
-mailto:nabil.hanine@free.fr[NH] + 
+mailto:jean-michel.bruel@univ-tlse2.fr[Jean-Michel Bruel] +
+mailto:esther.pendaries@univ-tlse2.fr[Esther Pendaries] + 
+mailto:laurent.nonne@univ-tlse2.fr[Laurent Nonne] + 
+mailto:nabil.hanine@free.fr[Nabil Hanine] + 
 
 == Sujet du projet
 
