@@ -70,10 +70,10 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 [cols="2,2,2",options=header]
 |===
 | Date    | Nom         |  Lien                       
-| Sem.45  | Documentation conception      |  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/DocConception.adoc[Documentation Conception]     
+| Sem.45  | Documentation conception      |  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Documentations_Conception/DocConception.adoc[Documentation Conception] 
 |  | Collecte et analyse des données (IoT)      |   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/master/IoT[IoT]      
-| Sem.46  | Ordre du jour #1      |  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/ODJ%231.pdf[Ordre du jour #1]     
-|  | Compte Rendu #1|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/CR%231.pdf[Compte Rendu #1]   
+| Sem.46  | Ordre du jour #1      |  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%231.pdf[Ordre du jour #1]     
+|  | Compte Rendu #1|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%231.pdf[Compte Rendu #1]   
 |===
 
 == Réalisations 
@@ -83,18 +83,18 @@ Nous mettons à disposition plusieurs documents pour vous aider à comprendre à
 === 📘 Documentation de conception
 Ce document est destiné aux développeurs et contributeurs techniques. Il décrit la conception du système et inclut des diagrammes UML détaillés ainsi que les cas d'utilisations principaux
 
-- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/DocConception.adoc[Documentation Conception]
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Documentations_Conception/DocConception.adoc[Documentation Conception]
 
 === 🛠️ Documentation technique
 Ce document est destiné aux développeurs et contributeurs techniques. 
 Il contient des informations détaillées sur l'architecture, le code, et les technologies utilisées dans ce projet.
 
-- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/DocConception.adoc[Lien temporaire]
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Documentation_Technique/DocTechniqueV0.adoc[Documentation Technique]
 
 === 🧑‍💻 Documentation utilisateur
 Ce document s'adresse aux utilisateurs finaux. Il explique comment utiliser le projet et ses fonctionnalités.
 
-- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/DocConception.adoc[Lien temporaire]
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Documentation_Utilisateur/DocUtilisateurV0.adoc[Documentation Utilisateur]
 
 == Gestion de projet & Qualité
 
