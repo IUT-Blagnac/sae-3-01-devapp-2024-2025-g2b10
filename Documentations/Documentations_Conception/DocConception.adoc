@@ -4,14 +4,14 @@
 :toc:
 :toc-title: Sommaire
 
-:Entreprise: DailyBank
-:Equipe:  
+:Entreprise: Abraca-dabra-cadabra
+:Equipe:  2B10
 
 Date: 08/11/2024
 
-Créé par : _Quentin Martinez_ | _Nolhan Biblocque_ | _Romy Chauviere_ | _Alban-Moussa Estienne_ | _Matthias Papa-Patsoumoudou_
+Créé par : _Quentin Martinez_ | _Jules Giard--Pellat_ | _Romy Chauviere_ | _Alban-Moussa Estienne_ | _Matthias Papa-Patsoumoudou_
 
-Créé pour : _Jean-Michel Bruel_
+Créé pour : _Jean-Michel Bruel_ | _Esther Pendaries_
 
 image::../../images/IUT.png[IUT Blagnac]
 
@@ -19,7 +19,10 @@ image::../../images/IUT.png[IUT Blagnac]
 
 == I. Introduction
 [.text-justify]
-Ce document a été produit pour rassembler l'ensemble des diagrammes demandés (US, DC, DSS).
+Ce document a été produit pour rassembler l'ensemble des diagrammes demandés (US, DC, DSS) dans le cadre d'un projet de développement de site web d'e-commerce pour l'entreprise Abraca-dabra-cadabra.
+Abraca-dabra-cadabra opère dans le secteur de la vente et des services, plus spécifiquement dans le domaine d'activité de la magie depuis des siècles. L'entreprise est une référence dans la matière, cependant elle a noté un déclin dans les ventes ces dernières années. 
+L'objectif du projet est de concevoir un site sur lequel Abraca-dabra-cadabra pourra vendre ses produits et services comme en boutique, tout en attirant une nouvelle clientèle, redynamisant ainsi l'activité de l'entreprise. 
+Le projet est actuellement principalement à échelle nationale mais pourrait à l'avenir évoluer vers une portée plus internationale. La clientèle visée est constituée majoritairement de passionnés de magie et d'alchimie qui savent généralement ce qu'ils cherchent. Le site devra donc répondre à cette attente en proposant un système de recherche et de catégories abouti et facile d'utilisation.
 
 == II. Diagramme des Cas d'Utilisation
 [.text-justify]
