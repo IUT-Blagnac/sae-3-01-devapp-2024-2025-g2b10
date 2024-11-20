@@ -1,0 +1,43 @@
+= Documentation Technique - Abraca-dabra-cadabra
+:toc:
+:toc-title: Sommaire
+
+:Entreprise: DailyBank
+:Equipe:  
+
+Date: 20/11/2024
+
+Créé par : _MARTINEZ Quentin_ | _CHAUVIERE Romy_ | _ESTIENNE Alban-Moussa_ | _PAPA-PATSOUMOUDOU Matthias_ | _GIARD--PELLAT Jules_ 
+
+Créé pour : _Esther Pendaries_
+
+image::../../images/IUT.png[IUT Blagnac]
+
+---
+
+== I. Introduction
+[.text-justify]
+Ce document a été produit dans le contexte de la création d'un site web e-commerce pour l'entreprise _"Abraca-dabra-cadabra"_, d'un point de vue technique.
+
+== II. Présentation de l'application
+[.text-justify]
+Développement de l'existant, ainsi que des fonctionnalités de chaque membre du groupe.
+
+== III. Architecture
+[.text-justify]
+Faire une structuration de l'application.
+
+== IV. Présentation diagrammes
+[.text-justify]
+Effectuer les Use Case et les Diagrammes de classes pour chaque fonctionnalité développée.
+
+=== 1. Use Case :
+[.text-justify]
+
+=== 2. Diagramme de classes :
+[.text-justify]
+
+
+== V. Eléments de codes significatifs
+[.text-justify]
+Faire les commentaires de chaque fonctionnalité.
