@@ -36,8 +36,6 @@ endif::[]
 
 // Tags
 image:{baseURL}/actions/workflows/blank.yml/badge.svg[Bidon] 
-image:{baseURL}/actions/workflows/build.yml/badge.svg[Build] 
-image:{baseURL}/actions/workflows/tests.yml/badge.svg[Tests] 
 image:https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg[License: MPL-2.0, link="https://opensource.org/licenses/MPL-2.0"]
 //---------------------------------------------------------------
 
@@ -46,20 +44,22 @@ Ainsi que les différents livrables et réalisations que nous avons effectués.
 
 toc::[]
 
-== Equipe
+== Equipe et rôle
 
 Projet est réalisé par::
 
-- https://github.com/Cracotte-Mu-Da[GIARD--PELLAT Jules]
-- https://github.com/Romy514[CHAUVIERE Romy]
-- https://github.com/AlbiMousse[ESTIENNE Alban-Moussa]
-- https://github.com/Quentin158[MARTINEZ Quentin]
-- https://github.com/Matthias426[PAPA-PATSOUMOUDOU Matthias]
+- https://github.com/Cracotte-Mu-Da[GIARD--PELLAT Jules] : *Développeur*
+- https://github.com/Romy514[CHAUVIERE Romy] *Développeuse*
+- https://github.com/AlbiMousse[ESTIENNE Alban-Moussa] *Product Owner*
+- https://github.com/Quentin158[MARTINEZ Quentin] *Scrum Master*
+- https://github.com/Matthias426[PAPA-PATSOUMOUDOU Matthias] *Développeur*
 
 Tuteur/tutrice enseignant(e) de l'équipe:: 
 
-mailto:jean-michel.bruel@univ-tlse2.fr[JMB]
-mailto:esther.pendaries@univ-tlse2.fr[EP]
+mailto:jean-michel.bruel@univ-tlse2.fr[JMB] +
+mailto:esther.pendaries@univ-tlse2.fr[EP] + 
+mailto:laurent.nonne@univ-tlse2.fr[LN] + 
+mailto:nabil.hanine@free.fr[NH] + 
 
 == Sujet du projet
 
@@ -78,9 +78,48 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 
 == Réalisations 
 
-TIP: Mettez ici toutes les informations nécessaire à l'utilisation de votre dépôt (comment on installe votre application, où sont les docs, etc.)
+Nous mettons à disposition plusieurs documents pour vous aider à comprendre à utiliser notre projet. Ces documents incluent :
+
+=== 📘 Documentation de conception
+Ce document est destiné aux développeurs et contributeurs techniques. Il décrit la conception du système et inclut des diagrammes UML détaillés ainsi que les cas d'utilisations principaux
+
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/DocConception.adoc[Documentation Conception]
+
+=== 🛠️ Documentation technique
+Ce document est destiné aux développeurs et contributeurs techniques. 
+Il contient des informations détaillées sur l'architecture, le code, et les technologies utilisées dans ce projet.
+
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/DocConception.adoc[Lien temporaire]
+
+=== 🧑‍💻 Documentation utilisateur
+Ce document s'adresse aux utilisateurs finaux. Il explique comment utiliser le projet et ses fonctionnalités.
+
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/DocConception.adoc[Lien temporaire]
 
 == Gestion de projet & Qualité
+
+Pour faciliter le suivi du projet, nous avons mis en place des outils de gestion disponibles sur GitHub:
+
+=== 🚀 Release
+La dernière version stable de l'application est disponible via le lien ci-dessous.
+Téléchargez-la pour accéder aux dernières fonctionnalités
+
+- Lien : https://github.com/IUT-Blagnac/sae3-01-template/releases/tag/v0.1.2[v0.1.2]
+
+=== 🗒️ Board GitHub
+Notre board vous permettra de suivre l'état d'avancement des tâches. Il est organisé en trois colonnes :
+
+- **A réaliser** : Liste des tâches à réaliser +
+- **En cours** : Tâches en cours de réalisation + 
+- **Terminé** : Tâches terminées +
+
+- Lien : https://github.com/orgs/IUT-Blagnac/projects/261[Board]
+
+=== 🎯 Milestones
+Les milestones représentent chaque sprint du projet, accompagnés de leurs objectifs, délais ainsi que de leur avancement représenté en pourcentage.
+
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/milestones[Milestones]
+
 === Evaluation bi-hebdomadaire
 
 ifdef::env-github[]
