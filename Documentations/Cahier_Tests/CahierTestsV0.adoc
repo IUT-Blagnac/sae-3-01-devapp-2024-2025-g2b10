@@ -1,0 +1,202 @@
+= Cahier De Tests - Abraca-dabra-cadabra
+:toc:
+:toc-title: Sommaire
+
+:Entreprise: Abraca-dabra-cadabra
+:Equipe:  
+
+Date: 22/11/2024
+
+Créé par : _MARTINEZ Quentin_ | _CHAUVIERE Romy_ | _ESTIENNE Alban-Moussa_ | _PAPA-PATSOUMOUDOU Matthias_ | _GIARD--PELLAT Jules_ 
+
+Créé pour : _Esther Pendaries_
+
+image::../../images/IUT.png[IUT Blagnac]
+
+---
+
+== I. Introduction
+=== 1. Objet :
+[.text-justify]
+Ce document a été produit dans le cadre de la création et de la validation d'un site web e-commerce pour l'entreprise _"Abraca-dabra-cadabra"_.
+Le site permet aux utilisateurs de rechercher, comparer, acheter des produits, et aux administrateurs de gérer l'inventaire et les commandes.
+
+== II. Pre-Requis :
+[.text-justify]
+L'exécution des tests spécifiés au chapitre suivant requiert :
+
+* Une base de données configurée (produits, utilisateurs, commandes, etc.).
+* L’application déployée dans un environnement accessible via un navigateur.
+* Un jeu de données réalistes (produits, utilisateurs enregistrés, avis, etc.).
+
+
+=== 1. Éléments à tester :
+[.text-justify]
+Les fonctionnalités sont testées selon les **user stories** :
+
+- **Visiteur** : navigation sur le site, recherche de produits, gestion du panier.
+- **Client** : fonctionnalités avancées liées aux commandes, avis, et suivi de compte.
+- **Administrateur** : gestion des stocks, produits, et gestion clients.
+
+=== 2. Environnement de test :
+[.text-justify]
+Configuration recommandée :
+
+* Système d’exploitation Windows/MacOS/Linux.
+* Navigateurs pris en charge : Chrome, Firefox, Edge...
+
+== III. Cas de test :
+=== 1. Fonctionnalités visiteur :
+==== 1.1 Consultation des produits :
+
+|====
+
+>|Cas de test 4+|Test-01-01-01
+>|Titre 4+|Consultation de la liste des produits
+>|Objectif 4+| Vérifier que les visiteurs peuvent consulter les produits
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Visit_Prod.1 ^|Accéder à la page d'accueil du site. ^|La liste des produits est affichée avec leurs noms, images, prix et notes. ^|Le site contient des produits actifs. ^|
+
+5+|
+
+5+|Commentaire :
+Compléter et si on ne valide pas, ...
+|====
+
+==== 1.2 Recherche de produits :
+
+
+|====
+
+>|Cas de test 4+|Test-01-02-01
+>|Titre 4+|Recherche d'un produit par mot-clé
+>|Objectif 4+| Vérifier que les visiteurs peuvent rechercher des produits
+
+5+|
+
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Visit_Recherche.1 ^|Saisir un mot-clé dans la barre de recherche et valider. ^|Les produits correspondants s'affichent. ^|Des produits correspondent au mot-clé saisi. ^|
+^|Visit_Recherche.2 ^|Saisir un mot-clé inexistant. ^|Message "Aucun produit trouvé". ^|Aucun produit ne correspond au mot-clé saisi. ^|
+
+|====
+
+
+==== 1.3 Tri des produits :
+
+|====
+
+>|Cas de test 4+|Test-01-03-01
+>|Titre 4+|Tri des produits par prix
+>|Objectif 4+| Vérifier que les visiteurs peuvent trier les produits
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Visit_Tri.1 ^|Sélectionner le tri par "Prix croissant". ^|Les produits s’affichent dans l’ordre des prix croissants. ^|Des produits avec des prix différents existent. ^|
+|====
+
+==== 1.4 Détails d'un produits :
+
+|====
+
+>|Cas de test 4+|Test-01-04-01
+>|Titre 4+|Consultation du détail d’un produit
+>|Objectif 4+| Vérifier que les visiteurs peuvent consulter le détail d’un produit
+
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Visit_Detail.1 ^|Cliquer sur un produit. ^|La page de détail s’affiche avec description, prix, avis, etc. ^|Le produit est actif. ^|
+|====
+
+==== 1.5 Création d'un compte :
+
+|====
+
+>|Cas de test 4+|Test-01-05-01
+>|Titre 4+|Création d'un compte
+>|Objectif 4+| Vérifier que les visiteurs peuvent créer un compte
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Visit_Compte.1 ^|Cliquer sur "Créer un compte" et remplir les champs obligatoires. ^|Un compte est créé et l’utilisateur est connecté. ^|Les données saisies sont valides. ^|
+|====
+
+
+=== 2. Fonctionnalités client :
+[.text-justify]
+Les clients ont accès aux mêmes fonctionnalités que les visiteurs, ainsi que d'autres qui leur sont réservées.
+
+==== 2.1 Ecriture d'un avis :
+
+|====
+>|Cas de test 4+|Test-02-01-01
+>|Titre 4+|Écriture d’un avis
+>|Objectif 4+| Vérifier que les clients peuvent écrire un avis pour un produit acheté
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Client_Avis.1 ^|Cliquer sur "Écrire un avis". ^|Un formulaire s’affiche. ^|Le produit a été acheté. ^|
+|====
+
+==== 2.2 Gestion du panier :
+
+|====
+>|Cas de test 4+|Test-02-02-01
+>|Titre 4+|Modification de la quantité d’un produit dans le panier
+>|Objectif 4+| Vérifier que les clients peuvent modifier leur panier
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Client_Panier.1 ^|Changer la quantité d’un produit. ^|Le total est mis à jour. ^|Le produit est dans le panier. ^|
+|====
+
+==== 2.3 Points de fidélité :
+
+|====
+>|Cas de test 4+|Test-02-03-01
+>|Titre 4+|Gestion des points de fidélité
+>|Objectif 4+| Vérifier que les clients peuvent consulter leurs points
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Client_Points.1 ^|Accéder à la section "Mes points". ^|Les points de fidélité sont affichés. ^|Le client a des points. ^|
+|====
+
+=== 3. Fonctionnalités administrateur :
+==== 3.1 Gestion des stocks :
+
+|====
+>|Cas de test 4+|Test-03-01-01
+>|Titre 4+|Mise à jour des stocks
+>|Objectif 4+| Vérifier que l’administrateur peut modifier les stocks
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Admin_Stock.1 ^|Modifier le stock d’un produit via l’interface admin. ^|Le stock est mis à jour et sauvegardé. ^|Le produit existe. ^|
+|====
+
+==== 3.2 Gestion des produits :
+
+|====
+>|Cas de test 4+|Test-03-02-01
+>|Titre 4+|Ajout d’un produit
+>|Objectif 4+| Vérifier que l’administrateur peut ajouter un produit
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Admin_AjoutProd.1 ^|Remplir le formulaire d’ajout de produit et valider. ^|Le produit est créé et affiché sur le site. ^|Les données saisies sont valides. ^|
+|====
+
+==== 3.3 Réponse aux avis clients :
+
+|====
+>|Cas de test 4+|Test-03-03-01
+>|Titre 4+|Réponse à un avis
+>|Objectif 4+| Vérifier que l’administrateur peut répondre à un avis
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Admin_Reponse.1 ^|Sélectionner un avis et rédiger une réponse. ^|La réponse est publiée sous l’avis. ^|Un avis existe. ^|
+|====
