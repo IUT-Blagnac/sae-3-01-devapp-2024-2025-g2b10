@@ -76,6 +76,7 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 |  | Compte Rendu #1|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%231.pdf[Compte Rendu #1]   
 | Sem.47  | Ordre du jour #2      |  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%232.pdf[Ordre du jour #2]     
 |  | Compte Rendu #2|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%232.pdf[Compte Rendu #2]  
+|  | IHM v0|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/master/IHM[IHM v0] 
 |===
 
 == Réalisations 
