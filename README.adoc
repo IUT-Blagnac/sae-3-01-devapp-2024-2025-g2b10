@@ -96,6 +96,11 @@ Ce document s'adresse aux utilisateurs finaux. Il explique comment utiliser le p
 
 - Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Documentation_Utilisateur/DocUtilisateurV0.adoc[Documentation Utilisateur]
 
+=== ✅ Cahier de tests
+Ce document détaille les cas de tests pour valider les fonctionnalités du projet en fonction des rôles définis (visiteur, client, administrateur). Chaque cas de test comprend les préconditions, les actions à réaliser et les résultats attendus.
+
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Cahier_Tests/CahierTestsV0.adoc[Cahier de tests]
+
 == Gestion de projet & Qualité
 
 Pour faciliter le suivi du projet, nous avons mis en place des outils de gestion disponibles sur GitHub:
