@@ -60,6 +60,7 @@ Tuteur/tutrice enseignant(e) de l'équipe::
 - mailto:esther.pendaries@univ-tlse2.fr[Esther Pendaries] + 
 - mailto:laurent.nonne@univ-tlse2.fr[Laurent Nonne] + 
 - mailto:nabil.hanine@free.fr[Nabil Hanine] + 
+- mailto:andre.peninou@univ-tlse2.fr[André Peninou] + 
 
 == Sujet du projet
 
