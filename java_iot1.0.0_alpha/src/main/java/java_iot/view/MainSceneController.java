@@ -51,6 +51,8 @@ public class MainSceneController implements Initializable{
 	@FXML
 	protected Button treatmentButton;
 	@FXML
+	protected Button connectionTestButton;
+	@FXML
 	protected ToggleButton am107Button;
 	@FXML
 	protected ToggleButton triphasoButton;
@@ -63,6 +65,9 @@ public class MainSceneController implements Initializable{
 	protected TextField portField;
 	@FXML
 	protected TextField kaField;
+
+	@FXML
+	protected Label connectionStateLabel;
 
 
 

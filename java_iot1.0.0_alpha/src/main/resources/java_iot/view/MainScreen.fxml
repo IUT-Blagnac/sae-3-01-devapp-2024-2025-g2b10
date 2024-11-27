@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1120.0" stylesheets="@../ressources/css/button_styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="java_iot.view.MainSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1120.0" stylesheets="@../ressources/css/button_styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="java_iot.view.MainSceneController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -161,6 +161,16 @@
                         <Font name="Corbel" size="19.0" />
                      </font>
                   </TextField>
+                  <Button fx:id="connectionTestButton" layoutX="338.0" layoutY="246.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="312.0" style="-fx-background-color: Transparent; -fx-border-color: #a0a0a0; -fx-border-radius: 5;" text="Tester la connexion" textFill="#000000de">
+                     <font>
+                        <Font name="Ebrima Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="connectionStateLabel" alignment="CENTER" layoutX="378.0" layoutY="290.0" prefHeight="22.0" prefWidth="232.0" textFill="#ab743a">
+                     <font>
+                        <Font name="MS UI Gothic" size="16.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Pane fx:id="topicPane" layoutX="1.0" layoutY="140.0" prefHeight="492.0" prefWidth="888.0" visible="false">

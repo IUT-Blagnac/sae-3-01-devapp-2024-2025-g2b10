@@ -6,7 +6,10 @@ import java.util.List;
 
 import java_iot.Main;
 import java_iot.model.Settings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 
@@ -32,6 +35,7 @@ public class SettingsView {
 
 	private List<Button> settingButtonList;
 	private List<ToggleButton> toggleButtonList;
+	private List<TextField> informationFieldList;
 
 	/**
 	 * Private constructor for the SettingsView singleton.
@@ -42,6 +46,7 @@ public class SettingsView {
 	private SettingsView(MainSceneController _msc){
 		settingButtonList = new ArrayList<>();
 		toggleButtonList = new ArrayList<>();
+		informationFieldList = new ArrayList<>();
 		msc = _msc;
 
 		connectionInfoPane = msc.connectionPane;
@@ -56,7 +61,24 @@ public class SettingsView {
 		toggleButtonList.add(msc.triphasoButton);
 		toggleButtonList.add(msc.solarDataButton);
 
+		informationFieldList.add(msc.adressField);
+		informationFieldList.add(msc.portField);
+		informationFieldList.add(msc.kaField);
+
         settingsAccesser = new Settings();
+
+		ChangeListener<Boolean> focusListener = new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (!newValue) {
+					settingsAccesser.writeSettingInFile(informationFieldList);
+				}
+			}
+		};
+
+		msc.adressField.focusedProperty().addListener(focusListener);
+		msc.portField.focusedProperty().addListener(focusListener);
+		msc.kaField.focusedProperty().addListener(focusListener);
 		
 	}
 
@@ -131,7 +153,7 @@ public class SettingsView {
 	
 
 	/**
-	 * Same as showConnectionPage()
+	 * Same as {@link java_iot.view.SettingsView.showConnectionPage()}
 	 */
 	protected void showTopicPage(){
 		connectionInfoPane.setVisible(false);
@@ -175,6 +197,14 @@ public class SettingsView {
 	protected void switchSolar(){
 		switchButton(msc.solarDataButton);
 	}
+
+	protected void startConnectionTest(){
+		String status = settingsAccesser.testConnection();
+		String[] splitedStatus = status.split("/");
+		msc.connectionStateLabel.setStyle("-fx-text-fill: " + splitedStatus[1] + ";");
+		msc.connectionStateLabel.setText(splitedStatus[2]);
+	}
+
 
 
 
