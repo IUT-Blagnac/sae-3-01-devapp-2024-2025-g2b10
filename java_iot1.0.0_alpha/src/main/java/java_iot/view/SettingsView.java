@@ -6,6 +6,7 @@ import java.util.List;
 
 import java_iot.Main;
 import java_iot.model.Settings;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;

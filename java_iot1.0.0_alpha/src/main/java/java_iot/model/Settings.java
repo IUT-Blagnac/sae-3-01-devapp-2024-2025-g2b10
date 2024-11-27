@@ -2,20 +2,14 @@ package java_iot.model;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.WildcardType;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.UUID;
 
-import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttClient;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -24,17 +18,8 @@ import org.ini4j.Profile.Section;
 import org.ini4j.Wini;
 
 import java_iot.App;
-import java_iot.Main;
-import java_iot.view.MainSceneController;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.Pane;
 
 /**
  * Settings is a model class that allows R/W access to the config.ini file
@@ -102,16 +87,20 @@ public class Settings {
 	public String testConnection(){
 		try{
 			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
-			String server = ini.get("Connection infos", "host");
-			String port = ini.get("Connection infos", "port");
+			String server = ini.get("Connection Infos", "host");
+			String port = ini.get("Connection Infos", "port");
+			System.out.println(server);
+			System.err.println(port);
 			String finalUrl = "tcp://" + server + ":" + port;
 			String publisherId = UUID.randomUUID().toString();
 			IMqttClient publisher = new MqttClient(finalUrl, publisherId);
+			publisher.connect();
+			publisher.disconnect();
 			return "0/"+ OK_COLOR_HEX +"/Connexion Réussie";
 		}catch (IOException e){
 			return "1/" + ERROR_COLOR_HEX + "/Fichier de configuration introuvable";
 		}catch (MqttException e){
-			return "1/" + ERROR_COLOR_HEX + "/La connexion au serveur MQTT a échoué : " + e.getMessage();
+			return "1/" + ERROR_COLOR_HEX + "/La connexion au serveur MQTT a échoué : " + e.toString();
 		}
 	}
 
@@ -124,17 +113,19 @@ public class Settings {
 	public boolean writeSettingInFile(List<TextField> fieldData){
 		try{
 			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
-			Iterator<Entry<String, String>> entryS = ini.get("Connection Infos").entrySet().iterator();
+			// Ok so I found no better way to iterate through the variable all while modifying.
+			// Since iniIterable is readOnly, i don't know. Maybe i'm sacrificing RAM for simplicity
+			Wini iniIterable = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
+			Iterator<String> iterator = iniIterable.get("Connection Infos").keySet().iterator();
 			for (TextField tF : fieldData){
-				String dataSection = entryS.next().getKey();
 				String value = tF.getText();
-				System.out.println("text value is ! "+ value);
-				System.out.println("Field name is : " + dataSection);
-				//ini.put("Connection Infos", value, dataSection);
+				String dataSection = iterator.next();
+				ini.put("Connection Infos", dataSection, value);
 			}
 			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
 			return true;
 		}catch (Exception e){
+			System.out.println(e);
 			return false;
 		}
 	}

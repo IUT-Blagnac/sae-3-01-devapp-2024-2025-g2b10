@@ -79,6 +79,8 @@ public class MainSceneController implements Initializable{
 		navigationBar.setGraphPane(graphPane);
 
 		settings = SettingsView.getInstance(this);
+
+		navigationBar.showGraphPane();
 	}
 
 	/*
@@ -87,6 +89,11 @@ public class MainSceneController implements Initializable{
 	@FXML
 	 private void toggleSettings(){
 		navigationBar.showSettingPane();
+	 }
+
+	 @FXML
+	 private void testConnection(){
+		settings.startConnectionTest();
 	 }
 
 	 @FXML
