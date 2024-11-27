@@ -24,22 +24,41 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 
+/*
+ * Settings is a model class that allows R/W access to the config.ini file
+ * Located in resources/ressources/data_collecting/config.ini
+ * Settings should NOT be called by a controller.
+ * Settings provide the data necessary for SettingsView to read
+ * SettingsView notifies Settings of any update on the Settings interface
+ * 
+ * @author Alban-Moussa ESTIENNE
+ * @see java/java_iot/view/SettingsView
+ */
 public class Settings {
 
+	// ALL_TOPIC_LIST refers to the list of subscribable topics.
 	private final String[] ALL_TOPIC_LIST = {"AM107/by-room/#", "Triphaso/by-room/#", "solaredge/blagnac/#"};
+	// NAME_TO_TOPIC converts the button ID to its corresponding topic name.
 	private final Map<String, Integer> NAME_TO_TOPIC = Map.of("am107Button", 0, "triphasoButton", 1, "solarDataButton", 2);
 
+	/*
+	 * Saves the enabled topics in the .ini file 
+	 * Convert binary ON/OFF states of button into a string list of topic to be subscribed to
+	 * 
+	 * @param list : List of topic togglebuttons to be read
+	 * @author Alban-Moussa ESTIENNE
+	 */
 	public void saveTopicSettings(List<ToggleButton> list){
 		String constructedString = "";
 		for (ToggleButton tb : list){
 			if (tb.isSelected()){
-				System.out.println("My iD is : " + tb.getId());
 				constructedString += ALL_TOPIC_LIST[NAME_TO_TOPIC.get(tb.getId())];
 				constructedString += ",";
 			}
 		}
 
 		// Gets rid of the last ,
+		// Looks overly complicated but really it just crops the last char or nothing if the string is empty
 		constructedString = constructedString.substring(0, Math.max(0, constructedString.length() - 1));
 		System.out.println(constructedString);
 		try{
@@ -50,10 +69,25 @@ public class Settings {
 		}
 	}
 
+	/*
+	 * Loads the settings based on the requested parameter field
+	 * OPTION Connection Infos will provide the host, port and keepalive values
+	 * OPTION Topics will provide the topic list
+	 * OPTION Data treatment will provide the :
+	 *  - frequency at which datas are written
+	 *  - list of alerts
+	 *  - list of kept data
+	 *  - list of listened rooms
+	 * @param page_settings_name : The name of the field to retrieve
+	 * 
+	 * @author Alban-Moussa ESTIENNE
+	 */
 	public HashMap<String, String> loadSetting(String page_setting_name){	
 		try{
+			// Loads the ini file from the ressources folder
 			Ini ini = new Ini(App.class.getResource("ressources/data_collecting/config.ini"));
 			HashMap<String, String> fieldSettings = new HashMap<>();
+			
 			switch (page_setting_name){
 				case "Connection Infos":
 					Section cInfo = ini.get(page_setting_name);

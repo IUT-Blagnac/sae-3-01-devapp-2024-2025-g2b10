@@ -10,6 +10,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 
+/*
+ * SettingsView is working in conjunction with java_iot.model.Settings and handles the 
+ * graphical part of the settings interface.
+ * SettingsView stores a reference to the main scene controller.
+ * SettingsView is a singleton as it should prevent duplication in data reading and writing
+ * SettingsView should ONLY be called within the view package, as Navbar needs to call a data loading
+ * process to load the according settings without any further requests.
+ * 
+ * @see java_iot.model.Settings
+ * @author ESTIENNE Alban-Moussa
+ */
 public class SettingsView {
     
 	private MainSceneController msc;
@@ -22,6 +33,12 @@ public class SettingsView {
 	private List<Button> settingButtonList;
 	private List<ToggleButton> toggleButtonList;
 
+	/*
+	 * Private constructor for the SettingsView singleton.
+	 * Stores a single instance of _msc that will be UNCHANGEABLE unless force-overwritten.
+	 * 
+	 * @author ESTIENNE Alban-Moussa
+	 */
 	private SettingsView(MainSceneController _msc){
 		settingButtonList = new ArrayList<>();
 		toggleButtonList = new ArrayList<>();
@@ -43,7 +60,12 @@ public class SettingsView {
 		
 	}
 
-    
+    /*
+	 * Returns the instance of the SettingsView, creates one if none exists.
+	 * 
+	 * @param MainSceneController _msc : The Main Scene Controller
+	 * @author ESTIENNE Alban-Moussa
+	 */
 	public static SettingsView getInstance(MainSceneController _msc){
 		if (instance == null){
 			instance = new SettingsView(_msc);
@@ -51,7 +73,9 @@ public class SettingsView {
 		return instance;
 	}
 
-    
+    /*
+	 * 
+	 */
 	protected void changeButtonStyle(Button button){
 		settingButtonList.forEach((n) -> n.getStyleClass().clear());
 		settingButtonList.forEach((n) -> n.getStyleClass().add(0, "unselected"));
