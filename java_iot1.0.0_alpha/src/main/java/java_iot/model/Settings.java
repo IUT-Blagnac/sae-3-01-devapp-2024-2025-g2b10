@@ -2,6 +2,8 @@ package java_iot.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.WildcardType;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +13,7 @@ import java.util.ResourceBundle;
 
 import org.ini4j.Ini;
 import org.ini4j.Profile.Section;
+import org.ini4j.Wini;
 
 import java_iot.App;
 import java_iot.Main;
@@ -24,7 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 
-/*
+/**
  * Settings is a model class that allows R/W access to the config.ini file
  * Located in resources/ressources/data_collecting/config.ini
  * Settings should NOT be called by a controller.
@@ -41,7 +44,7 @@ public class Settings {
 	// NAME_TO_TOPIC converts the button ID to its corresponding topic name.
 	private final Map<String, Integer> NAME_TO_TOPIC = Map.of("am107Button", 0, "triphasoButton", 1, "solarDataButton", 2);
 
-	/*
+	/**
 	 * Saves the enabled topics in the .ini file 
 	 * Convert binary ON/OFF states of button into a string list of topic to be subscribed to
 	 * 
@@ -62,24 +65,27 @@ public class Settings {
 		constructedString = constructedString.substring(0, Math.max(0, constructedString.length() - 1));
 		System.out.println(constructedString);
 		try{
-			Ini ini = new Ini(App.class.getResource("ressources/data_collecting/config.ini"));
+			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
 			ini.put("Topics", "topics", constructedString);
+			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+		} catch (URISyntaxException e){
+			e.printStackTrace();
 		} catch (IOException e){
 			e.printStackTrace();
 		}
 	}
 
-	/*
-	 * Loads the settings based on the requested parameter field
-	 * OPTION Connection Infos will provide the host, port and keepalive values
-	 * OPTION Topics will provide the topic list
-	 * OPTION Data treatment will provide the :
-	 *  - frequency at which datas are written
-	 *  - list of alerts
-	 *  - list of kept data
-	 *  - list of listened rooms
-	 * @param page_settings_name : The name of the field to retrieve
-	 * 
+	/**
+	 * <p>Loads the settings based on the requested parameter field<br>
+	 * OPTION Connection Infos will provide the host, port and keepalive values<br>
+	 * OPTION Topics will provide the topic list<br>
+	 * OPTION Data treatment will provide the :<br>
+	 *  - frequency at which datas are written<br>
+	 *  - list of alerts<br>
+	 *  - list of kept data<br>
+	 *  - list of listened rooms</p>
+	 * @param page_setting_name : The name of the field to retrieve
+	 * @return A HashMap<String, String> of the setting name and its value.
 	 * @author Alban-Moussa ESTIENNE
 	 */
 	public HashMap<String, String> loadSetting(String page_setting_name){	

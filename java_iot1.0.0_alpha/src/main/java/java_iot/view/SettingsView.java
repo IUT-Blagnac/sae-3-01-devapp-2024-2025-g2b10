@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 
-/*
+/**
  * SettingsView is working in conjunction with java_iot.model.Settings and handles the 
  * graphical part of the settings interface.
  * SettingsView stores a reference to the main scene controller.
@@ -33,7 +33,7 @@ public class SettingsView {
 	private List<Button> settingButtonList;
 	private List<ToggleButton> toggleButtonList;
 
-	/*
+	/**
 	 * Private constructor for the SettingsView singleton.
 	 * Stores a single instance of _msc that will be UNCHANGEABLE unless force-overwritten.
 	 * 
@@ -60,7 +60,7 @@ public class SettingsView {
 		
 	}
 
-    /*
+    /**
 	 * Returns the instance of the SettingsView, creates one if none exists.
 	 * 
 	 * @param MainSceneController _msc : The Main Scene Controller
@@ -73,8 +73,13 @@ public class SettingsView {
 		return instance;
 	}
 
-    /*
+    /**
+	 * Switches the button style.
+	 * This is used on the settings menu button so that the user knows
+	 * in which section he is. (Inverse the colours)
 	 * 
+	 * @param Button : The Button to be switched
+	 * @author ESTIENNE Alban-Moussa
 	 */
 	protected void changeButtonStyle(Button button){
 		settingButtonList.forEach((n) -> n.getStyleClass().clear());
@@ -82,6 +87,36 @@ public class SettingsView {
 		button.getStyleClass().set(0, "selected");
 	}
 
+	/*
+	 * Switches the toggleButton style to match their value
+	 * 
+	 * @param ToggleButton button : The button to switch
+	 * @author ESTIENNE Alban-Moussa
+	 * 
+	 * Footnote : This one should be more efficient as you will not need
+	 * to write a bunch of if/then to make it work, adding a button 
+	 * will just result in storing it in the array and plugging this function
+	 * into the button (scroll down for example)
+	 */
+	private void switchButton(ToggleButton button){
+		button.getStyleClass().clear();
+		String status = button.isSelected() == true ? "on" : "off";
+		button.getStyleClass().add(status);
+		button.setText(status.toUpperCase());
+
+		settingsAccesser.saveTopicSettings(toggleButtonList);
+	}
+
+	/*
+	 * Toggles the connection page.
+	 * It doesn't look pretty, i'm sorry, but since the interface is 
+	 * going to change very little, i just assumed it would be impactless
+	 * One better way to do it would be to store all the tabs into a table
+	 * and manually set all to visible false except the wanted pane.
+	 * if it looks too unpractical in the future i'll change it 
+	 * 
+	 * @author ESTIENNE Alban-Moussa
+	 */
 	protected void showConnectionPage(){
 		connectionInfoPane.setVisible(true);
 		topicsPane.setVisible(false);
@@ -93,7 +128,11 @@ public class SettingsView {
         msc.portField.setText(fieldDatas.get("port"));
         msc.kaField.setText(fieldDatas.get("keepalive"));
 	}
+	
 
+	/**
+	 * Same as showConnectionPage()
+	 */
 	protected void showTopicPage(){
 		connectionInfoPane.setVisible(false);
 		topicsPane.setVisible(true);
@@ -123,15 +162,6 @@ public class SettingsView {
 			msc.solarDataButton.setSelected(false);
 		}
         
-	}
-
-	private void switchButton(ToggleButton button){
-		button.getStyleClass().clear();
-		String status = button.isSelected() == true ? "on" : "off";
-		button.getStyleClass().add(status);
-		button.setText(status.toUpperCase());
-
-		settingsAccesser.saveTopicSettings(toggleButtonList);
 	}
 
 	protected void switchAM107(){
