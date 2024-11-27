@@ -1,0 +1,42 @@
+.on {
+    -fx-background-color: Transparent; 
+    -fx-border-color: #2d8a11; 
+    -fx-border-radius: 30; 
+    -fx-border-width: 3; 
+    -fx-text-fill: #2d8a11;
+}
+
+.off {
+    -fx-background-color: Transparent;
+    -fx-border-color: #8a1111; 
+    -fx-border-radius: 30; 
+    -fx-border-width: 3; 
+    -fx-text-fill: #8a1111;
+}
+
+.selected {
+    -fx-background-color: #ffffff; 
+    -fx-text-fill: #000000;
+    -fx-alignment: center;
+    -fx-border-radius: 5;
+}
+
+.unselected {
+    -fx-background-color: #1a1a1a; 
+    -fx-text-fill: #dadada;
+    -fx-alignment: center;
+    -fx-border-radius: 5;
+}
+
+.unselected:hover {
+    -fx-text-fill: #ffffff;
+}
+
+.navbar-button:hover{
+    -fx-text-fill: #ffffff;
+}
+
+.navbar-button{
+    -fx-text-fill: #b9b9b9;
+    -fx-background-color: Transparent;
+}
