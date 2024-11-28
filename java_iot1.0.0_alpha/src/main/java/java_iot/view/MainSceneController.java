@@ -10,9 +10,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class MainSceneController implements Initializable{
 
@@ -65,6 +67,20 @@ public class MainSceneController implements Initializable{
 	protected TextField portField;
 	@FXML
 	protected TextField kaField;
+	@FXML
+	protected TextField frequencyField;
+
+	@FXML
+	protected VBox alertContainer;
+	@FXML
+	protected VBox keptValueContainer;
+	@FXML
+	protected VBox listenedRoomContainer;
+
+	@FXML
+	protected Pane biComponentSettingPane;
+	@FXML
+	protected Pane monoComponentSettingPane;
 
 	@FXML
 	protected Label connectionStateLabel;

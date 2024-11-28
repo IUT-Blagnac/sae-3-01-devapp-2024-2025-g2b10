@@ -3,13 +3,18 @@ package java_iot.view;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import java_iot.Main;
+import java_iot.model.PaneCloner;
 import java_iot.model.Settings;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
@@ -72,7 +77,7 @@ public class SettingsView {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (!newValue) {
-					settingsAccesser.writeSettingInFile(informationFieldList);
+					settingsAccesser.writeConnectionSettingInFile(informationFieldList);
 				}
 			}
 		};
@@ -154,7 +159,7 @@ public class SettingsView {
 	
 
 	/**
-	 * Same as {@link java_iot.view.SettingsView.showConnectionPage()}
+	 * Same as {@link #showConnectionPage()}
 	 */
 	protected void showTopicPage(){
 		connectionInfoPane.setVisible(false);
@@ -187,6 +192,57 @@ public class SettingsView {
         
 	}
 
+	protected void showTreatmentPage(){
+		connectionInfoPane.setVisible(false);
+		topicsPane.setVisible(false);
+		treatmentPane.setVisible(true);
+
+		changeButtonStyle(settingButtonList.get(2));
+		HashMap<String, String> fieldDatas = settingsAccesser.loadSetting("Data treatment");
+
+		String rawAlerts = settingsAccesser.neutralize(fieldDatas.get("alerts"));
+		String rawFrequency = settingsAccesser.neutralize(fieldDatas.get("step"));
+		String rawDtk = settingsAccesser.neutralize(fieldDatas.get("data_to_keep"));
+		String rawListenedRooms = settingsAccesser.neutralize(fieldDatas.get("listened_rooms"));
+
+		String[] rawAlertsTable = rawAlerts.split(",");
+		Map<String, Integer> alerts = new HashMap<>();
+
+		for (String s : rawAlertsTable){
+			String seperated[] = s.split(":");
+			alerts.put(seperated[0], Integer.valueOf(seperated[1]));
+		}
+
+		String[] dtk = rawDtk.split(",");
+		String[] listenedRooms = rawListenedRooms.split(",");
+
+		msc.frequencyField.setText(rawFrequency);
+		
+		/* Documentation on the pane elements.
+		* 0 is a label. Contains the name of the alert data name
+		* 1 is a textfield. Contains the value of the section
+		* 2 is a button. The remove button
+		*/ 
+		for (String key : alerts.keySet()){
+			msc.alertContainer.getChildren().clear();
+
+			Pane clonedPane = PaneCloner.cloneSettingPane(msc.biComponentSettingPane);
+			msc.alertContainer.getChildren().add(clonedPane);
+			ObservableList<Node> elementList = clonedPane.getChildren();
+			Node loadedElement = (Label) elementList.get(0);
+			((Label) loadedElement).setText(key);
+			loadedElement = (TextField) elementList.get(1);
+			((TextField) loadedElement).setText(alerts.get(key).toString());
+			loadedElement = (Button) elementList.get(2);
+			// ((Button) loadedElement); do this later, plug it with the delete func (thaaaat gotta be written)
+			// hehe oopsie :,)
+
+			
+		}
+		
+
+	}
+
 	protected void switchAM107(){
 		switchButton(msc.am107Button);
 	}
@@ -204,17 +260,6 @@ public class SettingsView {
 		String[] splitedStatus = status.split("/");
 		msc.connectionStateLabel.setStyle("-fx-text-fill: " + splitedStatus[1] + ";");
 		msc.connectionStateLabel.setText(splitedStatus[2]);
-	}
-
-
-
-
-	protected void showTreatmentPage(){
-		connectionInfoPane.setVisible(false);
-		topicsPane.setVisible(false);
-		treatmentPane.setVisible(true);
-
-		changeButtonStyle(settingButtonList.get(2));
 	}
 
 }

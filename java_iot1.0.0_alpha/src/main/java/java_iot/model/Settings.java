@@ -106,11 +106,11 @@ public class Settings {
 
 	/**
 	 * Write parameters in file based on the input of the TextField.
-	 * @TODO : Check input value and notifies user if data is wrong.
+	 * @todo : Check input value and notifies user if data is wrong.
 	 * @param fieldData : The list of TextField to retrieve text from
 	 * @return boolean : The response of the writing attempt.
 	 */
-	public boolean writeSettingInFile(List<TextField> fieldData){
+	public boolean writeConnectionSettingInFile(List<TextField> fieldData){
 		try{
 			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
 			// Ok so I found no better way to iterate through the variable all while modifying.
@@ -128,6 +128,16 @@ public class Settings {
 			System.out.println(e);
 			return false;
 		}
+	}
+
+	/**
+	 * Neutralizes the white space that follows the comma in the .ini
+	 * 
+	 * @param settingListString : The string to neutralize
+	 * @return String : The same string to be used with string.split()
+	 */
+	public String neutralize(String settingListString){
+		return settingListString.replaceAll(",\\s+",",");
 	}
 
 	/**
@@ -163,6 +173,8 @@ public class Settings {
 					cInfo = ini.get(page_setting_name);
 					String topicList = cInfo.get("topics");
 					String[] seperatedTopicList = topicList.split(",");
+					// Essentially what this does is putting a 1 to all toggled topics
+					// And a 0 to any topics that aren't inside this list.
 					for (String s : seperatedTopicList){
 						fieldSettings.put(s, "1");
 					}
@@ -172,7 +184,17 @@ public class Settings {
 						}
 					}
 					break;
-				
+				case "Data treatment":
+					cInfo = ini.get(page_setting_name);
+					String frequence = cInfo.get("step");
+					fieldSettings.put("step", frequence);
+					String alerts = cInfo.get("alerts");
+					fieldSettings.put("alerts", alerts);
+					String data_to_keep = cInfo.get("data_to_keep");
+					fieldSettings.put("data_to_keep", data_to_keep);
+					String listenedRooms = cInfo.get("listened_rooms");
+					fieldSettings.put("listened_rooms", listenedRooms);
+					break;
 
 			}
 			return fieldSettings;

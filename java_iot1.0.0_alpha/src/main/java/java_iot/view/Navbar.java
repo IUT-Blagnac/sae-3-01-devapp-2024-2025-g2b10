@@ -12,7 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
-/*
+/**
  * Navbar is a view class that coordinates the lateral navigation bar displayed pane and
  * the navigation between UI elements.
  * Navbar is a singleton to avoid any duplication of object that could cause a desync
@@ -33,7 +33,7 @@ class Navbar {
 	private Pane graphPane;
 	private Pane navPane;
 
-	/*
+	/**
 	 * Private constructor to initialize the singleton
 	 * Nothing much to see here, sets the settingPane and graphPane to null, and await for input
 	 */
@@ -44,7 +44,7 @@ class Navbar {
 
 	}
 
-	/*
+	/**
 	 * Return the instance of Navbar existing, creates one if none
 	 * @parem MainSceneController _msc : The one and only MSC that handles the app
 	 */
@@ -55,7 +55,7 @@ class Navbar {
 		return instance;
 	}
 
-	/*
+	/**
 	 * Checks if all the required panes are set.
 	 * @return The state of the main panes
 	 * @author ESTIENNE Alban-Moussa
@@ -85,7 +85,7 @@ class Navbar {
 		graphPane = gP;
 	}
 
-	/*
+	/**
 	 * Toggle the graphPane, and disable the settingPane
 	 * The check condition is legacy, as it should always provide TRUE
 	 * 
@@ -100,7 +100,7 @@ class Navbar {
 		return validity;
 	}
 
-	/*
+	/**
 	 * Toggle the settingPane, and disable the graphPane
 	 * The check condition is legacy, as it should always provide TRUE
 	 * 
