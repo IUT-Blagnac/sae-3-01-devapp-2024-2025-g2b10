@@ -12,9 +12,11 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
@@ -72,6 +74,10 @@ public class SettingsView {
 		informationFieldList.add(msc.kaField);
 
         settingsAccesser = new Settings();
+
+		ScrollBar sc = new ScrollBar();
+		sc.setMin(0);
+		sc.setOrientation(Orientation.VERTICAL);
 
 		ChangeListener<Boolean> focusListener = new ChangeListener<Boolean>() {
 			@Override
@@ -208,6 +214,10 @@ public class SettingsView {
 		String[] rawAlertsTable = rawAlerts.split(",");
 		Map<String, Integer> alerts = new HashMap<>();
 
+		msc.alertContainer.getChildren().clear();
+		msc.keptValueContainer.getChildren().clear();
+		msc.listenedRoomContainer.getChildren().clear();
+
 		for (String s : rawAlertsTable){
 			String seperated[] = s.split(":");
 			alerts.put(seperated[0], Integer.valueOf(seperated[1]));
@@ -219,12 +229,15 @@ public class SettingsView {
 		msc.frequencyField.setText(rawFrequency);
 		
 		/* Documentation on the pane elements.
-		* 0 is a label. Contains the name of the alert data name
-		* 1 is a textfield. Contains the value of the section
-		* 2 is a button. The remove button
+		 * biComponentSettingPane :
+		 * 	0 is a label. Contains the name of the alert data name
+		 * 	1 is a textfield. Contains the value of the section
+		 * 	2 is a button. The remove button
+		 * monoComponentSettingPane :
+		 *  0 is a label. Contains the name
+		 *  1 is a button. The remove button
 		*/ 
 		for (String key : alerts.keySet()){
-			msc.alertContainer.getChildren().clear();
 
 			Pane clonedPane = PaneCloner.cloneSettingPane(msc.biComponentSettingPane);
 			msc.alertContainer.getChildren().add(clonedPane);
@@ -238,6 +251,30 @@ public class SettingsView {
 			// hehe oopsie :,)
 
 			
+		}
+
+		for (String key : dtk){
+
+			Pane clonedPane = PaneCloner.cloneSettingPane(msc.monoComponentSettingPane);
+			msc.keptValueContainer.getChildren().add(clonedPane);
+			ObservableList<Node> elementList = clonedPane.getChildren();
+			Node loadedElement = (Label) elementList.get(0);
+			((Label) loadedElement).setText(key);
+			loadedElement = (Button) elementList.get(1);
+			// ((Button) loadedElement); do this later, plug it with the delete func (thaaaat gotta be written)
+			// hehe oopsie :,)
+		}
+
+		for (String key : listenedRooms){
+
+			Pane clonedPane = PaneCloner.cloneSettingPane(msc.monoComponentSettingPane);
+			msc.listenedRoomContainer.getChildren().add(clonedPane);
+			ObservableList<Node> elementList = clonedPane.getChildren();
+			Node loadedElement = (Label) elementList.get(0);
+			((Label) loadedElement).setText(key);
+			loadedElement = (Button) elementList.get(1);
+			// ((Button) loadedElement); do this later, plug it with the delete func (thaaaat gotta be written)
+			// hehe oopsie :,)
 		}
 		
 

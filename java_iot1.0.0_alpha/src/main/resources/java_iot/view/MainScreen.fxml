@@ -224,7 +224,7 @@
                         <Font name="Leelawadee UI Bold" size="24.0" />
                      </font>
                   </Label>
-                  <ScrollPane hbarPolicy="NEVER" layoutX="43.0" layoutY="158.0" prefHeight="314.0" prefWidth="217.0">
+                  <ScrollPane fx:id="alertSp" hbarPolicy="NEVER" layoutX="43.0" layoutY="158.0" prefHeight="314.0" prefWidth="217.0">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="308.0" prefWidth="217.0">
                            <children>
@@ -260,11 +260,11 @@
                         <Font name="Leelawadee UI Bold" size="24.0" />
                      </font>
                   </Label>
-                  <ScrollPane hbarPolicy="NEVER" layoutX="321.0" layoutY="96.0" prefHeight="376.0" prefWidth="217.0">
+                  <ScrollPane fx:id="keptValueSp" hbarPolicy="NEVER" layoutX="321.0" layoutY="96.0" prefHeight="376.0" prefWidth="217.0">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="308.0" prefWidth="217.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="217.0">
                            <children>
-                              <VBox fx:id="keptValueContainer" alignment="TOP_CENTER" prefHeight="369.0" prefWidth="217.0" spacing="5.0" AnchorPane.bottomAnchor="-61.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox fx:id="keptValueContainer" alignment="TOP_CENTER" prefHeight="369.0" prefWidth="217.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <Pane fx:id="monoComponentSettingPane" prefHeight="50.0" prefWidth="217.0" style="-fx-background-color: #ffffff;">
                                        <children>
@@ -295,9 +295,9 @@
                         <Font name="Leelawadee UI Bold" size="24.0" />
                      </font>
                   </Label>
-                  <ScrollPane hbarPolicy="NEVER" layoutX="602.0" layoutY="96.0" prefHeight="376.0" prefWidth="217.0">
+                  <ScrollPane fx:id="listenedRoomSp" hbarPolicy="NEVER" layoutX="602.0" layoutY="96.0" prefHeight="376.0" prefWidth="217.0">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="308.0" prefWidth="217.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="217.0">
                            <children>
                               <VBox fx:id="listenedRoomContainer" alignment="TOP_CENTER" prefHeight="370.0" prefWidth="217.0" spacing="5.0" AnchorPane.bottomAnchor="-62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>

@@ -78,6 +78,13 @@ public class MainSceneController implements Initializable{
 	protected VBox listenedRoomContainer;
 
 	@FXML
+	protected ScrollPane alertSp;
+	@FXML
+	protected ScrollPane keptValueSp;
+	@FXML
+	protected ScrollPane listenedRoomSp;
+
+	@FXML
 	protected Pane biComponentSettingPane;
 	@FXML
 	protected Pane monoComponentSettingPane;
