@@ -80,7 +80,7 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 |  | IHM v0|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/master/IHM[IHM v0] 
 | Sem.48  | Ordre du jour #3      |      
 |  | Compte Rendu #3|  
-|  | IHM v0|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/master/IHM[IHM v0] 
+|  | IHM v1|  
 |  | PHP v0|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/009385c2517c71c242498bb6f847dc2bbbcaadfd/PHP[PHP v0]
 |===
 
