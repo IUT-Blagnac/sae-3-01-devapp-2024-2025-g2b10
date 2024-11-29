@@ -18,6 +18,4 @@
             <h1 class="small-banner">Profitez de réductions sur nos objets magiques !</h1>
         </div>
     </header>
-
-
 </body>
