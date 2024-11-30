@@ -5,11 +5,6 @@
         <div class="footer-column">
             <h5><strong>Magie</strong></h5>
             <p>Découvrez nos objets magiques uniques et fascinants.</p>
-            <div>
-                <img src="https://img.icons8.com/material-outlined/50/ffffff/facebook.png" alt="Facebook">
-                <img src="https://img.icons8.com/material-outlined/50/ffffff/instagram-new.png" alt="Instagram">
-                <img src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=FFFFFF" alt="Twitter">
-            </div>
             &copy; 2024. Tous droits réservés.
         </div>
 
@@ -17,13 +12,12 @@
         <div class="footer-column">
             <h5><strong>Produits</strong></h5>
             <p>+33 1 23 45 67 89</p>
-            <p>contact@abracadabra</p>
-            <p>cadabra.com</p>
+            <p>contact@abracadabracadabra.com</p>
         </div>
 
         <!-- Colonne droite -->
         <div class="footer-column contact-form">
-            <h5>Contact</h5><br>
+            <h5>Contact</h5>
             <form>
                 <input type="email" placeholder="Entrez votre adresse email">
                 <button type="submit">Envoyer</button>
@@ -74,18 +68,13 @@
         padding: 10px;
     }
 
-    .footer-column img {
-        width: 30px;
-        margin: 5px 3px;
-    }
-
     .footer-column p {
         margin: 1px 0;
     }
 
     .contact-form input[type="email"] {
-        width: 70%;
-        padding: 6px;
+        width: 50%; /* Réduire la largeur */
+        padding: 4px; /* Réduire le padding */
         border-radius: 15px;
         border: 1px solid #ccc;
         margin-right: 5px;

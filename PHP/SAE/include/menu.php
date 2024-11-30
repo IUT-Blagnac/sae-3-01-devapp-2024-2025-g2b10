@@ -16,7 +16,7 @@
             </li>
             <li class="icon">
                 <!-- Deuxième image, icône compte -->
-                <a href="#"><img src="https://img.icons8.com/?size=100&id=83190&format=png&color=000000" alt="Compte"></a>
+                <a href="compte.php"><img src="https://img.icons8.com/?size=100&id=83190&format=png&color=000000" alt="Compte"></a>
             </li>
         </ul>
     </div>

@@ -13,13 +13,15 @@
 
         <!-- partie contenu principal -->
         <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-4">
-            <br>
-            <h2>Bienvenue sur notre site</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, dolor a vehicula vulputate, arcu urna suscipit dui, at pharetra odio erat nec nisl. Quisque euismod velit vitae nulla vehicula, a tincidunt nisi vestibulum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, dolor a vehicula vulputate, arcu urna suscipit dui, at pharetra odio erat nec nisl. Quisque euismod velit vitae nulla vehicula, a tincidunt nisi vestibulum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, dolor a vehicula vulputate, arcu urna suscipit dui, at pharetra odio erat nec nisl. Quisque euismod velit vitae nulla vehicula, a tincidunt nisi vestibulum.</p>
+            <div class="image-text-section"> 
+                <img src="images/logo_abracadabra.png" alt="Description de l'image" class="center-image full-width-image"> 
+                <div class="text-overlay">
+                    <h1>La Magie à portée de main</h1> 
+                    <p>Découvrez nos objets magiques : balais volants, baguettes et bien plus encore dans notre boutique en ligne.</p> 
+                    <button class="explore-button">Explorer</button> 
+                </div> 
+            </div>
         </main>
-
     </div>
 </div>
 
