@@ -3,6 +3,7 @@ package java_iot.view;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import java_iot.model.Data;
 import java_iot.model.Settings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -16,7 +17,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class MainSceneController implements Initializable{
+public class MainSceneController implements Initializable {
 
 	private Navbar navigationBar;
 	private SettingsView settings;
@@ -91,8 +92,7 @@ public class MainSceneController implements Initializable{
 
 	@FXML
 	protected Label connectionStateLabel;
-
-
+	private Data data;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -110,48 +110,48 @@ public class MainSceneController implements Initializable{
 	 * FXML FUNCTIONS
 	 */
 	@FXML
-	 private void toggleSettings(){
+	private void toggleSettings() {
 		navigationBar.showSettingPane();
-	 }
+	}
 
-	 @FXML
-	 private void testConnection(){
+	@FXML
+	private void testConnection() {
 		settings.startConnectionTest();
-	 }
+	}
 
-	 @FXML
-	 private void toggleGraph(){
+	@FXML
+	private void toggleGraph() {
 		navigationBar.showGraphPane();
-	 }
+	}
 
-	 @FXML
-	 private void connectionButton(){
+	@FXML
+	private void connectionButton() {
 		settings.showConnectionPage();
-	 }
+	}
 
-	 @FXML
-	 private void topicButton(){
+	@FXML
+	private void topicButton() {
 		settings.showTopicPage();
-	 }
+	}
 
-	 @FXML
-	 private void treatmentButton(){
+	@FXML
+	private void treatmentButton() {
 		settings.showTreatmentPage();
-	 }
+	}
 
-	 @FXML
-	 private void switchAM107(){
+	@FXML
+	private void switchAM107() {
 		settings.switchAM107();
-	 }
+	}
 
-	 @FXML
-	 private void switchTriphaso(){
+	@FXML
+	private void switchTriphaso() {
 		settings.switchTriphaso();
-	 }
+	}
 
-	 @FXML
-	 private void switchSolar(){
+	@FXML
+	private void switchSolar() {
 		settings.switchSolar();
-	 }
+	}
 
 }
