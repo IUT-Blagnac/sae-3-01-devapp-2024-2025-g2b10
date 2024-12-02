@@ -10,6 +10,8 @@ import java.util.Optional;
 
 import java_iot.Main;
 import java_iot.controller.AdditionController;
+import java_iot.controller.MainSceneController;
+import java_iot.controller.SettingsController;
 import java_iot.model.PaneCloner;
 import java_iot.model.Settings;
 import javafx.application.Platform;
@@ -49,9 +51,10 @@ import javafx.scene.layout.VBox;
 public class SettingsView {
     
 	private MainSceneController msc;
+	private MainSceneView msv;
 	private AdditionController ac;
+	private SettingsController sc;
 	private static SettingsView instance;
-    private Settings settingsAccesser;
 	private Pane connectionInfoPane;
 	private Pane topicsPane;
 	private Pane treatmentPane;
@@ -59,14 +62,7 @@ public class SettingsView {
 	private List<Button> settingButtonList;
 	private List<ToggleButton> toggleButtonList;
 	private List<TextField> informationFieldList;
-
-	private Map<String, Integer> alerts;
-	private List<String> dtk;
-	private List<String> listenedRooms;
-
-	private ObservableMap<String, Integer> observable_alerts;
-	private ObservableList<String> observable_dtk;
-	private ObservableList<String> observables_rooms;
+	private List<VBox> containersList;
 
 	/**
 	 * Private constructor for the SettingsView singleton.
@@ -75,89 +71,75 @@ public class SettingsView {
 	 * @author ESTIENNE Alban-Moussa
 	 */
 	private SettingsView(MainSceneController _msc){
+
 		settingButtonList = new ArrayList<>();
 		toggleButtonList = new ArrayList<>();
 		informationFieldList = new ArrayList<>();
+		containersList = new ArrayList<>();
+
 		msc = _msc;
+
+		msv = msc.getMainSceneView();
 		ac = new AdditionController(msc);
+		sc = new SettingsController(msc);
 
-		connectionInfoPane = msc.connectionPane;
-		topicsPane = msc.topicPane;
-		treatmentPane = msc.treatmentPane;
+		connectionInfoPane = msv.connectionPane;
+		topicsPane = msv.topicPane;
+		treatmentPane = msv.treatmentPane;
 
-		settingButtonList.add(msc.connectionButton);
-		settingButtonList.add(msc.topicButton);
-		settingButtonList.add(msc.treatmentButton);
+		/*
+		 * Ok, so before you start to scream that this code is horrendous, let me explain
+		 * Settings is supposed to be an extention of MainScene, the pane containing Settings
+		 * is itself a "child" of MainScene, its properties cannot be accessed from Settings.
+		 * Their attributes are protected, so only the View package can see it.
+		 * Since these attributes were never meant to be their in the first place, and I
+		 * didn't want to write thousands of getters/setters, putting them in protected
+		 * was, according to me, a smart choice.
+		 * 
+		 */
 
-		toggleButtonList.add(msc.am107Button);
-		toggleButtonList.add(msc.triphasoButton);
-		toggleButtonList.add(msc.solarDataButton);
+		settingButtonList.add(msv.connectionButton);
+		settingButtonList.add(msv.topicButton);
+		settingButtonList.add(msv.treatmentButton);
 
-		informationFieldList.add(msc.adressField);
-		informationFieldList.add(msc.portField);
-		informationFieldList.add(msc.kaField);
+		toggleButtonList.add(msv.am107Button);
+		toggleButtonList.add(msv.triphasoButton);
+		toggleButtonList.add(msv.solarDataButton);
 
-		alerts = new HashMap<>();
-		dtk = new ArrayList<>();
-		listenedRooms = new ArrayList<>();
+		informationFieldList.add(msv.adressField);
+		informationFieldList.add(msv.portField);
+		informationFieldList.add(msv.kaField);
 
-		observable_alerts = FXCollections.observableMap(alerts);
-		observable_dtk = FXCollections.observableArrayList(dtk);
-		observables_rooms = FXCollections.observableArrayList(listenedRooms);
-
-		observable_alerts.addListener((MapChangeListener<String, Integer>) c ->{
-            if (c.wasAdded()){
-				int value = c.getMap().get(c.getKey());
-				updateContainer(msc.alertContainer, observable_alerts, c.getKey(), value);
-			}else if (c.wasRemoved()){
-				settingsAccesser.removeDataTreatmentElement("alerts", "co2");
-				msc.alertContainer.getChildren().removeIf(n -> n.getId() == c.getKey());
-			}
-        });
-
-		observable_dtk.addListener((ListChangeListener<String>) c ->{
-			while (c.next()){
-				if (c.wasAdded()){
-					for (String key : c.getAddedSubList()){
-						updateContainer(msc.keptValueContainer, observable_dtk, key);
-					}
-				}
-				if (c.wasRemoved()){
-					for (String key : c.getRemoved()){
-						settingsAccesser.removeDataTreatmentElement("data_to_keep", key);
-						msc.keptValueContainer.getChildren().removeIf(n -> n.getId() == key);
-					}
-				}
-			}
-        });
-
-		observables_rooms.addListener((ListChangeListener<String>) c ->{
-			while (c.next()){
-				for (String key : c.getAddedSubList()){
-					if (c.wasAdded()){
-						updateContainer(msc.listenedRoomContainer, observables_rooms, key);
-					}else if (c.wasRemoved()){
-						settingsAccesser.removeDataTreatmentElement("listened_rooms", key);
-						msc.listenedRoomContainer.getChildren().removeIf(n -> n.getId() == key);
-					}
-				}
-			}
-        });
-
-        settingsAccesser = new Settings();
+		containersList.add(msv.alertContainer);
+		containersList.add(msv.keptValueContainer);
+		containersList.add(msv.listenedRoomContainer);
 
 		ChangeListener<Boolean> focusListener = new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (!newValue) {
-					settingsAccesser.writeConnectionSettingInFile(informationFieldList);
+					sc.requestConnectionSettingInFile(informationFieldList);
 				}
 			}
 		};
 
-		msc.adressField.focusedProperty().addListener(focusListener);
-		msc.portField.focusedProperty().addListener(focusListener);
-		msc.kaField.focusedProperty().addListener(focusListener);
+		ChangeListener<Boolean> frequencyFocusListener = new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (!newValue) {
+					boolean valid = sc.requestSettingChange("Data treatment", "step", msv.frequencyField.getText());
+					if (!valid){
+						msv.frequencyField.setText("1");
+					}
+				}
+			}
+		};
+
+		msv.adressField.focusedProperty().addListener(focusListener);
+		msv.portField.focusedProperty().addListener(focusListener);
+		msv.kaField.focusedProperty().addListener(focusListener);
+
+		msv.frequencyField.focusedProperty().addListener(frequencyFocusListener);
 		
 	}
 
@@ -177,8 +159,9 @@ public class SettingsView {
 	 * @see #toggleConfirmation()
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	private void updateContainer(VBox container, ObservableMap ob, String key, Integer value){
-		Pane clonedPane = PaneCloner.cloneSettingPane(msc.biComponentSettingPane);
+	public void updateContainer(int containerIndex, ObservableMap ob, String key, Integer value){
+		VBox container = containersList.get(containerIndex);
+		Pane clonedPane = PaneCloner.cloneSettingPane(msv.biComponentSettingPane);
 		clonedPane.setId(key);
 		container.getChildren().add(clonedPane);
 		ObservableList<Node> elementList = clonedPane.getChildren();
@@ -205,8 +188,9 @@ public class SettingsView {
 	 * @see #toggleConfirmation()
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	private void updateContainer(VBox container, ObservableList ol, String key){
-		Pane clonedPane = PaneCloner.cloneSettingPane(msc.monoComponentSettingPane);
+	public void updateContainer(int containersIndex, ObservableList ol, String key){
+		VBox container = containersList.get(containersIndex);
+		Pane clonedPane = PaneCloner.cloneSettingPane(msv.monoComponentSettingPane);
 		clonedPane.setId(key);
 		container.getChildren().add(clonedPane);
 		ObservableList<Node> elementList = clonedPane.getChildren();
@@ -216,10 +200,15 @@ public class SettingsView {
 		((Button) loadedElement).setOnAction(event -> toggleConfirmation(event, ol, key));
 	}
 
+	public void removeWithId(int containersIndex, String key){
+		VBox containers = containersList.get(containersIndex);
+		containers.getChildren().removeIf(n -> n.getId() == key);
+	}
+
     /**
 	 * Returns the instance of the SettingsView, creates one if none exists.
 	 * 
-	 * @param MainSceneController _msc : The Main Scene Controller
+	 * @param MainSceneView _msc : The Main Scene Controller
 	 * @author ESTIENNE Alban-Moussa
 	 */
 	public static SettingsView getInstance(MainSceneController _msc){
@@ -260,7 +249,7 @@ public class SettingsView {
 		button.getStyleClass().add(status);
 		button.setText(status.toUpperCase());
 
-		settingsAccesser.saveTopicSettings(toggleButtonList);
+		sc.requestSaveTopicSettings(toggleButtonList);
 	}
 
 	/*
@@ -279,10 +268,10 @@ public class SettingsView {
 		treatmentPane.setVisible(false);
 
 		changeButtonStyle(settingButtonList.get(0));
-		HashMap<String, String> fieldDatas = settingsAccesser.loadSetting("Connection Infos");
-        msc.adressField.setText(fieldDatas.get("host"));
-        msc.portField.setText(fieldDatas.get("port"));
-        msc.kaField.setText(fieldDatas.get("keepalive"));
+		HashMap<String, String> fieldDatas = sc.requestSettings("Connection Infos");
+        msv.adressField.setText(fieldDatas.get("host"));
+        msv.portField.setText(fieldDatas.get("port"));
+        msv.kaField.setText(fieldDatas.get("keepalive"));
 	}
 	
 
@@ -295,61 +284,46 @@ public class SettingsView {
 		treatmentPane.setVisible(false);
 
 		changeButtonStyle(settingButtonList.get(1));
-		HashMap<String, String> fieldDatas = settingsAccesser.loadSetting("Topics");
+		HashMap<String, String> fieldDatas = sc.requestSettings("Topics");
 
 		if (fieldDatas.get("AM107/by-room/#").equals("0")){
-			msc.am107Button.getStyleClass().clear();
-			msc.am107Button.getStyleClass().add("off");
-			msc.am107Button.setText("OFF");
-			msc.am107Button.setSelected(false);
+			msv.am107Button.getStyleClass().clear();
+			msv.am107Button.getStyleClass().add("off");
+			msv.am107Button.setText("OFF");
+			msv.am107Button.setSelected(false);
 		}
 
 		if (fieldDatas.get("Triphaso/by-room/#").equals("0")){
-			msc.triphasoButton.getStyleClass().clear();
-			msc.triphasoButton.getStyleClass().add("off");
-			msc.triphasoButton.setText("OFF");
-			msc.triphasoButton.setSelected(false);
+			msv.triphasoButton.getStyleClass().clear();
+			msv.triphasoButton.getStyleClass().add("off");
+			msv.triphasoButton.setText("OFF");
+			msv.triphasoButton.setSelected(false);
 		}
 
 		if (fieldDatas.get("solaredge/blagnac/#").equals("0")){
-			msc.solarDataButton.getStyleClass().clear();
-			msc.solarDataButton.getStyleClass().add("off");
-			msc.solarDataButton.setText("OFF");
-			msc.solarDataButton.setSelected(false);
+			msv.solarDataButton.getStyleClass().clear();
+			msv.solarDataButton.getStyleClass().add("off");
+			msv.solarDataButton.setText("OFF");
+			msv.solarDataButton.setSelected(false);
 		}
         
 	}
 
+	public void changeFrequencyText(String s){
+		msv.frequencyField.setText(s);
+	}
+
 	protected void showTreatmentPage(){
+		sc.setSettingsView(instance);
+
 		connectionInfoPane.setVisible(false);
 		topicsPane.setVisible(false);
 		treatmentPane.setVisible(true);
 
 		changeButtonStyle(settingButtonList.get(2));
-		HashMap<String, String> fieldDatas = settingsAccesser.loadSetting("Data treatment");
+		sc.clearContainers();
 
-		String rawAlerts = settingsAccesser.neutralize(fieldDatas.get("alerts"));
-		String rawFrequency = settingsAccesser.neutralize(fieldDatas.get("step"));
-		String rawDtk = settingsAccesser.neutralize(fieldDatas.get("data_to_keep"));
-		String rawListenedRooms = settingsAccesser.neutralize(fieldDatas.get("listened_rooms"));
-
-		String[] rawAlertsTable = rawAlerts.split(",");
-		
-		observable_alerts.clear();
-		observable_dtk.clear();
-		observables_rooms.clear();
-
-		for (String s : rawAlertsTable){
-			String seperated[] = s.split(":");
-			observable_alerts.put(seperated[0], Integer.valueOf(seperated[1]));
-		}
-
-		observable_dtk.addAll(Arrays.asList(rawDtk.split(",")));
-		observables_rooms.addAll(Arrays.asList(rawListenedRooms.split(",")));
-
-		
-
-		msc.frequencyField.setText(rawFrequency);
+		sc.requestSettings("Data treatment");
 		
 	}
 
@@ -379,22 +353,22 @@ public class SettingsView {
 	}
 
 	protected void switchAM107(){
-		switchButton(msc.am107Button);
+		switchButton(msv.am107Button);
 	}
 
 	protected void switchTriphaso(){
-		switchButton(msc.triphasoButton);
+		switchButton(msv.triphasoButton);
 	}
 
 	protected void switchSolar(){
-		switchButton(msc.solarDataButton);
+		switchButton(msv.solarDataButton);
 	}
 
 	protected void startConnectionTest(){
-		String status = settingsAccesser.testConnection();
+		String status = sc.requestConnectionTest();
 		String[] splitedStatus = status.split("/");
-		msc.connectionStateLabel.setStyle("-fx-text-fill: " + splitedStatus[1] + ";");
-		msc.connectionStateLabel.setText(splitedStatus[2]);
+		msv.connectionStateLabel.setStyle("-fx-text-fill: " + splitedStatus[1] + ";");
+		msv.connectionStateLabel.setText(splitedStatus[2]);
 	}
 
 }

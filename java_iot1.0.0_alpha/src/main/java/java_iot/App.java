@@ -2,10 +2,12 @@ package java_iot;
 	
 import java.io.IOException;
 
-import java_iot.view.AdditionController;
-import java_iot.view.MainSceneController;
+import java_iot.controller.AdditionController;
+import java_iot.view.AdditionView;
+import java_iot.view.MainSceneView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -14,6 +16,7 @@ import javafx.scene.layout.Pane;
 public class App extends Application {
 	
 	private Pane rootPane;
+	private Stage overlayStage;
 	private Stage primaryStage;
 	
 	public App() {
@@ -38,13 +41,20 @@ public class App extends Application {
 
 		Scene scene = new Scene(rootPane);
 		scene.getStylesheets().add(getClass().getResource("ressources/css/button_styles.css").toExternalForm());
+
 		primaryStage.setTitle("Java IoT");
 		primaryStage.setScene(scene);
 
 		primaryStage.show();		
 		
 	}
-	
+
+	public void closeOverlay(){
+		if (overlayStage != null){
+			overlayStage.close();
+		}
+	}
+
 	public void loadMainScreen() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -53,10 +63,11 @@ public class App extends Application {
 			Pane vueListe = loader.load();
 			this.rootPane = vueListe;
 			
-			MainSceneController ctrl = loader.getController();
-			ctrl.setApp(this);
+			MainSceneView ctrl = loader.getController();
+			ctrl.getController().setApp(this);
 						
 		} catch (IOException e) {
+			e.printStackTrace();
 			System.out.println("Ressource FXML non disponible : MainScreen");
 			System.exit(1);
 		}	
@@ -66,13 +77,24 @@ public class App extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/Addition.fxml"));
+
+			overlayStage = new Stage();
+			overlayStage.initModality(Modality.WINDOW_MODAL);
+			overlayStage.initOwner(this.primaryStage);
 			
 			Pane vueListe = loader.load();
 			this.rootPane = vueListe;
+
+			Scene scene = new Scene(vueListe);
 			
-			AdditionController ctrl = loader.getController();
+			AdditionView ctrl = loader.getController();
+			ctrl.setApp(this);
+
+			overlayStage.setScene(scene);
+			overlayStage.show();
 						
 		} catch (IOException e) {
+			e.printStackTrace();
 			System.out.println("Ressource FXML non disponible : Addition");
 			System.exit(1);
 		}	
