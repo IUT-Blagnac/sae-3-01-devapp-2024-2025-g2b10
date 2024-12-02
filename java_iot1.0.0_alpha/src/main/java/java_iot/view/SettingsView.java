@@ -1,25 +1,38 @@
 package java_iot.view;
 
+import java.beans.EventHandler;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import java_iot.Main;
 import java_iot.model.PaneCloner;
 import java_iot.model.Settings;
 import javafx.application.Platform;
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
+import javafx.event.ActionEvent;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * SettingsView is working in conjunction with java_iot.model.Settings and handles the 
@@ -44,6 +57,14 @@ public class SettingsView {
 	private List<Button> settingButtonList;
 	private List<ToggleButton> toggleButtonList;
 	private List<TextField> informationFieldList;
+
+	private Map<String, Integer> alerts;
+	private List<String> dtk;
+	private List<String> listenedRooms;
+
+	private ObservableMap<String, Integer> observable_alerts;
+	private ObservableList<String> observable_dtk;
+	private ObservableList<String> observables_rooms;
 
 	/**
 	 * Private constructor for the SettingsView singleton.
@@ -73,11 +94,50 @@ public class SettingsView {
 		informationFieldList.add(msc.portField);
 		informationFieldList.add(msc.kaField);
 
-        settingsAccesser = new Settings();
+		alerts = new HashMap<>();
+		dtk = new ArrayList<>();
+		listenedRooms = new ArrayList<>();
 
-		ScrollBar sc = new ScrollBar();
-		sc.setMin(0);
-		sc.setOrientation(Orientation.VERTICAL);
+		observable_alerts = FXCollections.observableMap(alerts);
+		observable_dtk = FXCollections.observableArrayList(dtk);
+		observables_rooms = FXCollections.observableArrayList(listenedRooms);
+
+		observable_alerts.addListener((MapChangeListener<String, Integer>) c ->{
+            if (c.wasAdded()){
+				updateContainer(msc.alertContainer, observable_alerts, c.getKey(), c.getMap().get(c.getKey()));
+			}else if (c.wasRemoved()){
+				msc.alertContainer.getChildren().removeIf(n -> n.getId() == c.getKey());
+			}
+        });
+
+		observable_dtk.addListener((ListChangeListener<String>) c ->{
+			while (c.next()){
+				if (c.wasAdded()){
+					for (String key : c.getAddedSubList()){
+						updateContainer(msc.keptValueContainer, observable_dtk, key);
+					}
+				}
+				if (c.wasRemoved()){
+					for (String key : c.getRemoved()){
+						msc.keptValueContainer.getChildren().removeIf(n -> n.getId() == key);
+					}
+				}
+			}
+        });
+
+		observables_rooms.addListener((ListChangeListener<String>) c ->{
+			while (c.next()){
+				for (String key : c.getAddedSubList()){
+					if (c.wasAdded()){
+						updateContainer(msc.listenedRoomContainer, observables_rooms, key);
+					}else if (c.wasRemoved()){
+						msc.listenedRoomContainer.getChildren().removeIf(n -> n.getId() == key);
+					}
+				}
+			}
+        });
+
+        settingsAccesser = new Settings();
 
 		ChangeListener<Boolean> focusListener = new ChangeListener<Boolean>() {
 			@Override
@@ -92,6 +152,39 @@ public class SettingsView {
 		msc.portField.focusedProperty().addListener(focusListener);
 		msc.kaField.focusedProperty().addListener(focusListener);
 		
+	}
+
+			/* Documentation on the pane elements.
+		 * biComponentSettingPane :
+		 * 	0 is a label. Contains the name of the alert data name
+		 * 	1 is a textfield. Contains the value of the section
+		 * 	2 is a button. The remove button
+		 * monoComponentSettingPane :
+		 *  0 is a label. Contains the name
+		 *  1 is a button. The remove button
+		*/ 
+	private void updateContainer(VBox container, ObservableMap ob, String key, Integer value){
+		Pane clonedPane = PaneCloner.cloneSettingPane(msc.biComponentSettingPane);
+		clonedPane.setId(key);
+		container.getChildren().add(clonedPane);
+		ObservableList<Node> elementList = clonedPane.getChildren();
+		Node loadedElement = (Label) elementList.get(0);
+		((Label) loadedElement).setText(key);
+		loadedElement = (TextField) elementList.get(1);
+		((TextField) loadedElement).setText(value.toString());
+		loadedElement = (Button) elementList.get(2);
+		((Button) loadedElement).setOnAction(event -> toggleConfirmation(event, ob, key));
+	}
+
+	private void updateContainer(VBox container, ObservableList ol, String key){
+		Pane clonedPane = PaneCloner.cloneSettingPane(msc.monoComponentSettingPane);
+		clonedPane.setId(key);
+		container.getChildren().add(clonedPane);
+		ObservableList<Node> elementList = clonedPane.getChildren();
+		Node loadedElement = (Label) elementList.get(0);
+		((Label) loadedElement).setText(key);
+		loadedElement = (Button) elementList.get(1);
+		((Button) loadedElement).setOnAction(event -> toggleConfirmation(event, ol, key));
 	}
 
     /**
@@ -212,72 +305,40 @@ public class SettingsView {
 		String rawListenedRooms = settingsAccesser.neutralize(fieldDatas.get("listened_rooms"));
 
 		String[] rawAlertsTable = rawAlerts.split(",");
-		Map<String, Integer> alerts = new HashMap<>();
-
-		msc.alertContainer.getChildren().clear();
-		msc.keptValueContainer.getChildren().clear();
-		msc.listenedRoomContainer.getChildren().clear();
+		
+		observable_alerts.clear();
+		observable_dtk.clear();
+		observables_rooms.clear();
 
 		for (String s : rawAlertsTable){
 			String seperated[] = s.split(":");
-			alerts.put(seperated[0], Integer.valueOf(seperated[1]));
+			observable_alerts.put(seperated[0], Integer.valueOf(seperated[1]));
 		}
 
-		String[] dtk = rawDtk.split(",");
-		String[] listenedRooms = rawListenedRooms.split(",");
+		observable_dtk.addAll(Arrays.asList(rawDtk.split(",")));
+		observables_rooms.addAll(Arrays.asList(rawListenedRooms.split(",")));
+
+		
 
 		msc.frequencyField.setText(rawFrequency);
 		
-		/* Documentation on the pane elements.
-		 * biComponentSettingPane :
-		 * 	0 is a label. Contains the name of the alert data name
-		 * 	1 is a textfield. Contains the value of the section
-		 * 	2 is a button. The remove button
-		 * monoComponentSettingPane :
-		 *  0 is a label. Contains the name
-		 *  1 is a button. The remove button
-		*/ 
-		for (String key : alerts.keySet()){
+	}
 
-			Pane clonedPane = PaneCloner.cloneSettingPane(msc.biComponentSettingPane);
-			msc.alertContainer.getChildren().add(clonedPane);
-			ObservableList<Node> elementList = clonedPane.getChildren();
-			Node loadedElement = (Label) elementList.get(0);
-			((Label) loadedElement).setText(key);
-			loadedElement = (TextField) elementList.get(1);
-			((TextField) loadedElement).setText(alerts.get(key).toString());
-			loadedElement = (Button) elementList.get(2);
-			// ((Button) loadedElement); do this later, plug it with the delete func (thaaaat gotta be written)
-			// hehe oopsie :,)
+	private void toggleConfirmation(ActionEvent e, Observable ol, String key){
+		Alert a = new Alert(AlertType.CONFIRMATION);
+		a.setContentText("Etes-vous certain de vouloir supprimer l'attribut " + key.toUpperCase() + "?");
+		Optional<ButtonType> option = a.showAndWait();
 
-			
+		if (option.get().equals(ButtonType.OK)){
+			if (ol instanceof ObservableList){
+				((ObservableList) ol).remove(key);
+				System.out.println("Removing "+key);
+			}else if (ol instanceof ObservableMap){
+				((ObservableMap) ol).remove(key);
+			}
 		}
 
-		for (String key : dtk){
-
-			Pane clonedPane = PaneCloner.cloneSettingPane(msc.monoComponentSettingPane);
-			msc.keptValueContainer.getChildren().add(clonedPane);
-			ObservableList<Node> elementList = clonedPane.getChildren();
-			Node loadedElement = (Label) elementList.get(0);
-			((Label) loadedElement).setText(key);
-			loadedElement = (Button) elementList.get(1);
-			// ((Button) loadedElement); do this later, plug it with the delete func (thaaaat gotta be written)
-			// hehe oopsie :,)
-		}
-
-		for (String key : listenedRooms){
-
-			Pane clonedPane = PaneCloner.cloneSettingPane(msc.monoComponentSettingPane);
-			msc.listenedRoomContainer.getChildren().add(clonedPane);
-			ObservableList<Node> elementList = clonedPane.getChildren();
-			Node loadedElement = (Label) elementList.get(0);
-			((Label) loadedElement).setText(key);
-			loadedElement = (Button) elementList.get(1);
-			// ((Button) loadedElement); do this later, plug it with the delete func (thaaaat gotta be written)
-			// hehe oopsie :,)
-		}
-		
-
+		e.consume();
 	}
 
 	protected void switchAM107(){

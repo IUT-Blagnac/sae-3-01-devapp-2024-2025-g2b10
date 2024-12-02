@@ -41,6 +41,7 @@ public class Settings {
 	private final String OK_COLOR_HEX = "#4d8e41";
 	private final String ERROR_COLOR_HEX = "#902d2d";
 	private final String WARNING_COLOR_HEX = "#ab743a";
+	
 
 	/**
 	 * Saves the enabled topics in the .ini file 
@@ -90,7 +91,7 @@ public class Settings {
 			String server = ini.get("Connection Infos", "host");
 			String port = ini.get("Connection Infos", "port");
 			System.out.println(server);
-			System.err.println(port);
+			System.out.println(port);
 			String finalUrl = "tcp://" + server + ":" + port;
 			String publisherId = UUID.randomUUID().toString();
 			IMqttClient publisher = new MqttClient(finalUrl, publisherId);

@@ -104,6 +104,10 @@ public class MainSceneController implements Initializable{
 		settings = SettingsView.getInstance(this);
 
 		navigationBar.showGraphPane();
+
+		keptValueContainer.getChildren().clear();
+		alertContainer.getChildren().clear();
+		listenedRoomContainer.getChildren().clear();
 	}
 
 	/*

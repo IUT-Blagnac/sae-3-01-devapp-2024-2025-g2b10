@@ -262,32 +262,28 @@
                   </Label>
                   <ScrollPane fx:id="keptValueSp" hbarPolicy="NEVER" layoutX="321.0" layoutY="96.0" prefHeight="376.0" prefWidth="217.0">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="217.0">
+                        <VBox fx:id="keptValueContainer" alignment="TOP_CENTER" spacing="5.0">
                            <children>
-                              <VBox fx:id="keptValueContainer" alignment="TOP_CENTER" prefHeight="369.0" prefWidth="217.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Pane fx:id="monoComponentSettingPane" prefHeight="50.0" prefWidth="217.0" style="-fx-background-color: #ffffff;">
                                  <children>
-                                    <Pane fx:id="monoComponentSettingPane" prefHeight="50.0" prefWidth="217.0" style="-fx-background-color: #ffffff;">
-                                       <children>
-                                          <Label alignment="CENTER" layoutX="7.0" prefHeight="51.0" prefWidth="171.0" text="CO2" textAlignment="CENTER" wrapText="true">
-                                             <font>
-                                                <Font name="Segoe UI" size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <Button layoutX="169.0" layoutY="6.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="35.0" style="-fx-background-color: Transparent;">
-                                             <graphic>
-                                                <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../ressources/images/remove.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </Button>
-                                       </children>
-                                    </Pane>
+                                    <Label alignment="CENTER" layoutX="7.0" prefHeight="51.0" prefWidth="171.0" text="CO2" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="Segoe UI" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Button layoutX="169.0" layoutY="6.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="35.0" style="-fx-background-color: Transparent;">
+                                       <graphic>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../ressources/images/remove.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
-                              </VBox>
+                              </Pane>
                            </children>
-                        </AnchorPane>
+                        </VBox>
                      </content>
                   </ScrollPane>
                   <Label contentDisplay="RIGHT" layoutX="602.0" layoutY="41.0" prefHeight="43.0" prefWidth="243.0" text="Salles activées">
