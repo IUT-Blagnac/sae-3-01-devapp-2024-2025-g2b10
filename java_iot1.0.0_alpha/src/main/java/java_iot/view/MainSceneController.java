@@ -3,6 +3,7 @@ package java_iot.view;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import java_iot.App;
 import java_iot.model.Settings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ public class MainSceneController implements Initializable{
 
 	private Navbar navigationBar;
 	private SettingsView settings;
+	private App app;
 
 	/*
 	 * FXML VARIABLES
@@ -110,6 +112,14 @@ public class MainSceneController implements Initializable{
 		listenedRoomContainer.getChildren().clear();
 	}
 
+	public void setApp(App _app){
+		app = _app;
+	}
+
+	public void requestNewAddition(boolean mono){
+		app.showAdditionMenu(mono);
+	}
+
 	/*
 	 * FXML FUNCTIONS
 	 */
@@ -156,6 +166,20 @@ public class MainSceneController implements Initializable{
 	 @FXML
 	 private void switchSolar(){
 		settings.switchSolar();
+	 }
+
+	 @FXML
+	 private void addValueBi(){
+		// This line is just a reminder that false is bicomponent
+		boolean mono = false;
+		settings.openAdditionDialogue(mono);
+	 }
+
+	 @FXML
+	 private void addValueMono(){
+		// And here it is monocomponent
+		boolean mono = true;
+		settings.openAdditionDialogue(mono);
 	 }
 
 }

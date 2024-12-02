@@ -319,7 +319,7 @@
                   </ScrollPane>
                   <Separator layoutX="266.0" layoutY="44.0" orientation="VERTICAL" prefHeight="428.0" prefWidth="50.0" />
                   <Separator layoutX="539.0" layoutY="44.0" orientation="VERTICAL" prefHeight="428.0" prefWidth="63.0" />
-                  <Button layoutX="217.0" layoutY="116.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="7.0" style="-fx-background-color: Transparent;">
+                  <Button layoutX="217.0" layoutY="116.0" mnemonicParsing="false" onAction="#addValueBi" prefHeight="13.0" prefWidth="7.0" style="-fx-background-color: Transparent;">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -328,7 +328,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="495.0" layoutY="44.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="44.0" style="-fx-background-color: Transparent;">
+                  <Button layoutX="495.0" layoutY="44.0" mnemonicParsing="false" onAction="#addValueMono" prefHeight="40.0" prefWidth="44.0" style="-fx-background-color: Transparent;">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -337,7 +337,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="776.0" layoutY="44.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="44.0" style="-fx-background-color: Transparent;">
+                  <Button layoutX="776.0" layoutY="44.0" mnemonicParsing="false" onAction="#addValueMono" prefHeight="40.0" prefWidth="44.0" style="-fx-background-color: Transparent;">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>

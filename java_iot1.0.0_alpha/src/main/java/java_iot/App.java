@@ -2,6 +2,7 @@ package java_iot;
 	
 import java.io.IOException;
 
+import java_iot.view.AdditionController;
 import java_iot.view.MainSceneController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -53,9 +54,26 @@ public class App extends Application {
 			this.rootPane = vueListe;
 			
 			MainSceneController ctrl = loader.getController();
+			ctrl.setApp(this);
 						
 		} catch (IOException e) {
 			System.out.println("Ressource FXML non disponible : MainScreen");
+			System.exit(1);
+		}	
+	}
+
+	public void showAdditionMenu(boolean mono){
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(App.class.getResource("view/Addition.fxml"));
+			
+			Pane vueListe = loader.load();
+			this.rootPane = vueListe;
+			
+			AdditionController ctrl = loader.getController();
+						
+		} catch (IOException e) {
+			System.out.println("Ressource FXML non disponible : Addition");
 			System.exit(1);
 		}	
 	}

@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import java_iot.Main;
+import java_iot.controller.AdditionController;
 import java_iot.model.PaneCloner;
 import java_iot.model.Settings;
 import javafx.application.Platform;
@@ -48,6 +49,7 @@ import javafx.scene.layout.VBox;
 public class SettingsView {
     
 	private MainSceneController msc;
+	private AdditionController ac;
 	private static SettingsView instance;
     private Settings settingsAccesser;
 	private Pane connectionInfoPane;
@@ -77,6 +79,7 @@ public class SettingsView {
 		toggleButtonList = new ArrayList<>();
 		informationFieldList = new ArrayList<>();
 		msc = _msc;
+		ac = new AdditionController(msc);
 
 		connectionInfoPane = msc.connectionPane;
 		topicsPane = msc.topicPane;
@@ -354,8 +357,8 @@ public class SettingsView {
 	 * Opens the dialogue to add an element to the Data Treatment .ini file section.
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	private void openAdditionDialogue(ActionEvent e){
-
+	public void openAdditionDialogue(boolean mono){
+		ac.requestNewWindow(mono);
 	}
 
 	private void toggleConfirmation(ActionEvent e, Observable ol, String key){
