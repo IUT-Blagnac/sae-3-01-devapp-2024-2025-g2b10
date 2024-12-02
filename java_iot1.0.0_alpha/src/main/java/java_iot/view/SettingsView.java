@@ -104,8 +104,10 @@ public class SettingsView {
 
 		observable_alerts.addListener((MapChangeListener<String, Integer>) c ->{
             if (c.wasAdded()){
-				updateContainer(msc.alertContainer, observable_alerts, c.getKey(), c.getMap().get(c.getKey()));
+				int value = c.getMap().get(c.getKey());
+				updateContainer(msc.alertContainer, observable_alerts, c.getKey(), value);
 			}else if (c.wasRemoved()){
+				settingsAccesser.removeDataTreatmentElement("alerts", "co2");
 				msc.alertContainer.getChildren().removeIf(n -> n.getId() == c.getKey());
 			}
         });
@@ -119,6 +121,7 @@ public class SettingsView {
 				}
 				if (c.wasRemoved()){
 					for (String key : c.getRemoved()){
+						settingsAccesser.removeDataTreatmentElement("data_to_keep", key);
 						msc.keptValueContainer.getChildren().removeIf(n -> n.getId() == key);
 					}
 				}
@@ -131,6 +134,7 @@ public class SettingsView {
 					if (c.wasAdded()){
 						updateContainer(msc.listenedRoomContainer, observables_rooms, key);
 					}else if (c.wasRemoved()){
+						settingsAccesser.removeDataTreatmentElement("listened_rooms", key);
 						msc.listenedRoomContainer.getChildren().removeIf(n -> n.getId() == key);
 					}
 				}
@@ -154,15 +158,22 @@ public class SettingsView {
 		
 	}
 
-			/* Documentation on the pane elements.
-		 * biComponentSettingPane :
-		 * 	0 is a label. Contains the name of the alert data name
-		 * 	1 is a textfield. Contains the value of the section
-		 * 	2 is a button. The remove button
-		 * monoComponentSettingPane :
-		 *  0 is a label. Contains the name
-		 *  1 is a button. The remove button
-		*/ 
+	/**
+	 * <p>Generate a new pane based on the value and list being updated.
+	 * <p>This method follows some strict rules that are defined inside the
+	   very conception of the interface. Rules are :
+	 * <ul>
+	 * <li> <b>Element 0</b> is a Label and contains the <b>name</b> of the attribute
+	 * <li> <b>Element 1</b> is a TextField and contains the <b>value</b> of the attribute
+	 * <li> <b>Element 2</b> is a Button that allows interaction for <b>removal</b>.
+	 * </ul>
+	 * @param container : The VBox containing the elements
+	 * @param ob : The ObservableList to remove values from
+	 * @param key : The name of the attribute
+	 * @param value : The value of the attribute
+	 * @see #toggleConfirmation()
+	 * @author ESTIENNE Alban-Moussa
+	 */
 	private void updateContainer(VBox container, ObservableMap ob, String key, Integer value){
 		Pane clonedPane = PaneCloner.cloneSettingPane(msc.biComponentSettingPane);
 		clonedPane.setId(key);
@@ -176,6 +187,21 @@ public class SettingsView {
 		((Button) loadedElement).setOnAction(event -> toggleConfirmation(event, ob, key));
 	}
 
+	/**
+	 * <p>Generate a new pane based on the value and list being updated.
+	 * <p>This method follows some strict rules that are defined inside the
+	   very conception of the interface. Rules are :
+	 * <ul>
+	 * <li> <b>Element 0</b> is a Label and contains the <b>name</b> of the attribute
+	 * <li> <b>Element 1</b> is a Button that allows interaction for <b>removal</b>.
+	 * </ul>
+	 * @param container : The VBox containing the elements
+	 * @param ob : The ObservableList to remove values from
+	 * @param key : The name of the attribute
+	 * @param value : The value of the attribute
+	 * @see #toggleConfirmation()
+	 * @author ESTIENNE Alban-Moussa
+	 */
 	private void updateContainer(VBox container, ObservableList ol, String key){
 		Pane clonedPane = PaneCloner.cloneSettingPane(msc.monoComponentSettingPane);
 		clonedPane.setId(key);
@@ -322,6 +348,14 @@ public class SettingsView {
 
 		msc.frequencyField.setText(rawFrequency);
 		
+	}
+
+	/**
+	 * Opens the dialogue to add an element to the Data Treatment .ini file section.
+	 * @author ESTIENNE Alban-Moussa
+	 */
+	private void openAdditionDialogue(ActionEvent e){
+
 	}
 
 	private void toggleConfirmation(ActionEvent e, Observable ol, String key){

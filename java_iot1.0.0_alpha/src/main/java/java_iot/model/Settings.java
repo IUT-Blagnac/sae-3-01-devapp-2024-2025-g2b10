@@ -3,12 +3,14 @@ package java_iot.model;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.eclipse.paho.client.mqttv3.IMqttClient;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -132,6 +134,31 @@ public class Settings {
 	}
 
 	/**
+	 * Grabs the .ini line corresponding to the "Data Treament" section.
+	 * @param row
+	 * @param element
+	 */
+	public void removeDataTreatmentElement(String row, String element){
+		System.out.println(element);
+		System.out.println(row);
+		try{
+			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
+			String line = ini.get("Data treatment", row);
+			List<String> attributes = Arrays.stream(line.split(", "))
+								.filter(word -> !word.contains(element))
+								.collect(Collectors.toList());
+			line = String.join(", ", attributes);
+			line = line.replace(", ,", ",");
+			line = line.replaceAll("^,|,$", "").trim();
+			System.out.println(line);
+			ini.put("Data treatment", row, line);
+			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+		}catch (Exception e){
+			System.out.println(e);
+		}
+	}
+
+	/**
 	 * Neutralizes the white space that follows the comma in the .ini
 	 * 
 	 * @param settingListString : The string to neutralize
@@ -189,11 +216,11 @@ public class Settings {
 					cInfo = ini.get(page_setting_name);
 					String frequence = cInfo.get("step");
 					fieldSettings.put("step", frequence);
-					String alerts = cInfo.get("alerts");
+					String alerts = cInfo.get("alerts").trim();
 					fieldSettings.put("alerts", alerts);
-					String data_to_keep = cInfo.get("data_to_keep");
+					String data_to_keep = cInfo.get("data_to_keep").trim();
 					fieldSettings.put("data_to_keep", data_to_keep);
-					String listenedRooms = cInfo.get("listened_rooms");
+					String listenedRooms = cInfo.get("listened_rooms").trim();
 					fieldSettings.put("listened_rooms", listenedRooms);
 					break;
 
