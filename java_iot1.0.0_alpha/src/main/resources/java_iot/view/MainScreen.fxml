@@ -293,32 +293,28 @@
                   </Label>
                   <ScrollPane fx:id="listenedRoomSp" hbarPolicy="NEVER" layoutX="602.0" layoutY="96.0" prefHeight="376.0" prefWidth="217.0">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="217.0">
+                        <VBox fx:id="listenedRoomContainer" alignment="TOP_CENTER" spacing="5.0">
                            <children>
-                              <VBox fx:id="listenedRoomContainer" alignment="TOP_CENTER" prefHeight="370.0" prefWidth="217.0" spacing="5.0" AnchorPane.bottomAnchor="-62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Pane prefHeight="50.0" prefWidth="217.0" style="-fx-background-color: #ffffff;">
                                  <children>
-                                    <Pane prefHeight="50.0" prefWidth="217.0" style="-fx-background-color: #ffffff;">
-                                       <children>
-                                          <Label alignment="CENTER" layoutX="7.0" prefHeight="51.0" prefWidth="171.0" text="Global" textAlignment="CENTER" wrapText="true">
-                                             <font>
-                                                <Font name="Segoe UI" size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <Button layoutX="169.0" layoutY="6.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="35.0" style="-fx-background-color: Transparent;">
-                                             <graphic>
-                                                <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../ressources/images/remove.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </Button>
-                                       </children>
-                                    </Pane>
+                                    <Label alignment="CENTER" layoutX="7.0" prefHeight="51.0" prefWidth="171.0" text="Global" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="Segoe UI" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Button layoutX="169.0" layoutY="6.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="35.0" style="-fx-background-color: Transparent;">
+                                       <graphic>
+                                          <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../ressources/images/remove.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
-                              </VBox>
+                              </Pane>
                            </children>
-                        </AnchorPane>
+                        </VBox>
                      </content>
                   </ScrollPane>
                   <Separator layoutX="266.0" layoutY="44.0" orientation="VERTICAL" prefHeight="428.0" prefWidth="50.0" />
