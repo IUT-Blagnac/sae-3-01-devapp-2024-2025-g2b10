@@ -16,5 +16,10 @@ public class ByroomPopupController {
 
     @FXML
     private ChoiceBox choice;
+
+    @FXML
+    private void validation(){
+        
+    }
     
 }
