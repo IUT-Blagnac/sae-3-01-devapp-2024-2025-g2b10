@@ -66,6 +66,7 @@ public class App extends Application {
             this.rootPane = vueListe;
 
             MainSceneView ctrl = loader.getController();
+            ctrl.getController().setApp(this);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Ressource FXML non disponible : MainScreen");
