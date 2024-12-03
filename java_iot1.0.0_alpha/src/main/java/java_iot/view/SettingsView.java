@@ -80,8 +80,8 @@ public class SettingsView {
 		msc = _msc;
 
 		msv = msc.getMainSceneView();
-		ac = new AdditionController(msc);
-		sc = new SettingsController(msc);
+		ac = AdditionController.getInstance();
+		sc = SettingsController.getInstance();
 
 		connectionInfoPane = msv.connectionPane;
 		topicsPane = msv.topicPane;
@@ -268,7 +268,7 @@ public class SettingsView {
 		treatmentPane.setVisible(false);
 
 		changeButtonStyle(settingButtonList.get(0));
-		HashMap<String, String> fieldDatas = sc.requestSettings("Connection Infos");
+		HashMap<String, String> fieldDatas = sc.requestSettings("Connection Infos", false);
         msv.adressField.setText(fieldDatas.get("host"));
         msv.portField.setText(fieldDatas.get("port"));
         msv.kaField.setText(fieldDatas.get("keepalive"));
@@ -284,7 +284,7 @@ public class SettingsView {
 		treatmentPane.setVisible(false);
 
 		changeButtonStyle(settingButtonList.get(1));
-		HashMap<String, String> fieldDatas = sc.requestSettings("Topics");
+		HashMap<String, String> fieldDatas = sc.requestSettings("Topics", false);
 
 		if (fieldDatas.get("AM107/by-room/#").equals("0")){
 			msv.am107Button.getStyleClass().clear();
@@ -323,7 +323,7 @@ public class SettingsView {
 		changeButtonStyle(settingButtonList.get(2));
 		sc.clearContainers();
 
-		sc.requestSettings("Data treatment");
+		sc.requestSettings("Data treatment", true);
 		
 	}
 
@@ -331,8 +331,8 @@ public class SettingsView {
 	 * Opens the dialogue to add an element to the Data Treatment .ini file section.
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	public void openAdditionDialogue(boolean mono){
-		ac.requestNewWindow(mono);
+	public void openAdditionDialogue(boolean mono, String buttonCaller){
+		ac.requestNewWindow(mono, buttonCaller);
 	}
 
 	private void toggleConfirmation(ActionEvent e, Observable ol, String key){

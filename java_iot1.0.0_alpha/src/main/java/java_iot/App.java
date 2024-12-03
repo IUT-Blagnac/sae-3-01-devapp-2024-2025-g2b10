@@ -73,7 +73,7 @@ public class App extends Application {
 		}	
 	}
 
-	public void showAdditionMenu(boolean mono){
+	public void showAdditionMenu(boolean mono, String callerButton){
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/Addition.fxml"));
@@ -88,7 +88,10 @@ public class App extends Application {
 			Scene scene = new Scene(vueListe);
 			
 			AdditionView ctrl = loader.getController();
+			System.out.println(callerButton);
 			ctrl.setApp(this);
+			ctrl.setCallerId(callerButton);
+			ctrl.start();
 
 			overlayStage.setScene(scene);
 			overlayStage.show();

@@ -3,14 +3,17 @@ package java_iot.model;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.eclipse.paho.client.mqttv3.IMqttClient;
@@ -22,10 +25,7 @@ import org.ini4j.Wini;
 
 import java_iot.App;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ObservableIntegerValue;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.control.TextField;
@@ -47,7 +47,21 @@ public class Settings {
 	private final String[] ALL_TOPIC_LIST = {"AM107/by-room/#", "Triphaso/by-room/#", "solaredge/blagnac/#"};
 	// NAME_TO_TOPIC converts the button ID to its corresponding topic name.
 	private final Map<String, Integer> NAME_TO_TOPIC = Map.of("am107Button", 0, "triphasoButton", 1, "solarDataButton", 2);
+	// ALL VALUES AVAILABLE
+	private final String[] ALL_TRIPHASO_VALUES = {"Irms", "Vrms", "phase_angle", "negative_active_power_W", "negative_reactive_power_VAR", 
+	"positive_active_power_W","positive_reactive_power_VAR","sum_negative_active_energy_Wh","sum_negative_reactive_energy_VARh", 
+	"sum_positive_active_energy_Wh","sum_positive_reactive_energy_VARh","positive_active_power_W","positive_reactive_power_VAR",
+	"sum_negative_active_energy_Wh","sum_negative_reactive_energy_VARh", "sum_positive_active_energy_Wh", "sum_positive_reactive_energy_VARh"};
+
+	private final String[] ALL_AM107_VALUES = {"temperature","humidity","activity","co2","tvoc","illumination","infrared", "infrared_and_visible", "pressure"};
+
+	private final String[] ALL_SOLAREDGE_VALUES = {"lastUpdateTime","lastUpdateTime","lifeTimeData","lastYearData","lastMonthData","lastDayData","currentPower","measuredBy"};
+
+	private final String[] TOPICS_NAMES_ORDERED = {"AM107", "Triphaso", "Solaredge"};
 	// Some final colours codes
+
+	private final String[][] ALL_VALUES = {ALL_TRIPHASO_VALUES, ALL_AM107_VALUES, ALL_SOLAREDGE_VALUES};
+
 	private final String OK_COLOR_HEX = "#4d8e41";
 	private final String ERROR_COLOR_HEX = "#902d2d";
 	private final String WARNING_COLOR_HEX = "#ab743a";
@@ -92,6 +106,43 @@ public class Settings {
 	 public SimpleIntegerProperty getFrequencyObservable(){
 		return this.observable_frequency;
 	 }
+
+	 public String[][] getAllAvailableSettings(){
+		return this.ALL_VALUES;
+	 }
+
+	 public String getSectionNameFromId(int numberIndex){
+		try{
+			String configString = Files.readString(Paths.get(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+
+			/*
+			 * Ok so you must probably wonder what the hell this is
+			 * Well let me explain
+			 * Since ini4j is wonderful and only gives a SET of sections, I CANNOT use an index to specify which
+			 * section. So I need to manually go in the String of the file, filter anything in brackets, and
+			 * THEN AND ONLY THEN can I see the order of the sections.
+			 * Thanks.
+			 */
+
+			// This section is purely CHATGPT (thanks bud), sorry but regex are hell
+			List<String> sections = new ArrayList<>();
+			Pattern pattern = Pattern.compile("\\[([a-zA-Z0-9\\s]+)\\]");
+			Matcher matcher = pattern.matcher(configString);
+
+			// Find all matches and add them to the list
+			while (matcher.find()) {
+				sections.add(matcher.group(1)); // Group 1 contains the section name
+			}
+
+			return sections.get(numberIndex);
+		}catch (Exception e){
+			return "";
+		}
+	}
+
+	public String getTopicNameFromIndex(int index){
+		return TOPICS_NAMES_ORDERED[index];
+	}
 
 	/**
 	 * Saves the enabled topics in the .ini file 
@@ -257,7 +308,7 @@ public class Settings {
 	 * @return A HashMap<String, String> of the setting name and its value.
 	 * @author Alban-Moussa ESTIENNE
 	 */
-	public HashMap<String, String> loadSetting(String page_setting_name){	
+	public HashMap<String, String> loadSetting(String page_setting_name, boolean loadSettingsIntoMemory){	
 		try{
 			// Loads the ini file from the ressources folder
 			Ini ini = new Ini(App.class.getResource("ressources/data_collecting/config.ini"));
@@ -296,12 +347,18 @@ public class Settings {
 					String listenedRooms = cInfo.get("listened_rooms").trim();
 					fieldSettings.put("listened_rooms", listenedRooms);
 
+					if (!loadSettingsIntoMemory){
+						return fieldSettings;
+					}
+
 					String rawAlerts = neutralize(fieldSettings.get("alerts"));
 					String rawFrequency = neutralize(fieldSettings.get("step"));
 					String rawDtk = neutralize(fieldSettings.get("data_to_keep"));
 					String rawListenedRooms = neutralize(fieldSettings.get("listened_rooms"));
 			
 					String[] rawAlertsTable = rawAlerts.split(",");
+
+					clearAll();
 
 					for (String s : rawAlertsTable){
 						String seperated[] = s.split(":");
@@ -310,7 +367,6 @@ public class Settings {
 
 					observable_dtk.addAll(Arrays.asList(rawDtk.split(",")));
 					observables_rooms.addAll(Arrays.asList(rawListenedRooms.split(",")));
-
 					observable_frequency.set(Integer.valueOf(rawFrequency));
 
 					break;
