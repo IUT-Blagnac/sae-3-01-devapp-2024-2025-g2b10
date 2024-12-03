@@ -40,6 +40,18 @@ public class AdditionController{
         return sc.requestTopicNameFromIndex(index);
     }
 
+    public String[] getTopicNameFromIndex(){
+        return sc.requestTopicNameFromIndex();
+    }
+
+    public String requestFieldFromIndex(String category, int index){
+        return sc.requestFieldNameFromIndex(category, index);
+    }
+
+    public void requestSettingChange(String section, String name, String text, boolean addition){
+        sc.requestSettingChange(section, name, text, addition);
+    }
+
     /**
      * Request the java_iot.controller.SettingsController for a setting field based on Index.
      * @param id : The id of the button containing the index of the field.

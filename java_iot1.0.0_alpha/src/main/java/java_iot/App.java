@@ -88,9 +88,9 @@ public class App extends Application {
 			Scene scene = new Scene(vueListe);
 			
 			AdditionView ctrl = loader.getController();
-			System.out.println(callerButton);
 			ctrl.setApp(this);
 			ctrl.setCallerId(callerButton);
+			ctrl.setMonoDialogue(mono);
 			ctrl.start();
 
 			overlayStage.setScene(scene);

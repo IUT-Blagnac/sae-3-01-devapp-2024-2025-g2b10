@@ -101,6 +101,14 @@ public class SettingsController {
         return se.getTopicNameFromIndex(index);
     }
 
+    public String[] requestTopicNameFromIndex(){
+        return se.getTopicNameFromIndex();
+    }
+
+    public String requestFieldNameFromIndex(String category, int index){
+        return se.getFieldFromIndex(category, index);
+    }
+
     /**
      * Submit a request to get the specificed section of the settings file.
      * @param section :  The section to get
@@ -118,15 +126,12 @@ public class SettingsController {
      * @param text : The new value to input.
      * @return boolean : If the change was successful or not.
      */
-    public boolean requestSettingChange(String section, String name, String text){
-        return se.changeSettingField(section, name, text);
+    public boolean requestSettingChange(String section, String name, String text, boolean addition){
+        return se.changeSettingField(section, name, text, addition);
     }
     
     public String requestConnectionTest(){
         return se.testConnection();
-    }
-    public void clearContainers(){
-        
     }
 
     

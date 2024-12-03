@@ -60,7 +60,7 @@ public class Settings {
 	private final String[] TOPICS_NAMES_ORDERED = {"AM107", "Triphaso", "Solaredge"};
 	// Some final colours codes
 
-	private final String[][] ALL_VALUES = {ALL_TRIPHASO_VALUES, ALL_AM107_VALUES, ALL_SOLAREDGE_VALUES};
+	private final String[][] ALL_VALUES = {ALL_AM107_VALUES, ALL_TRIPHASO_VALUES, ALL_SOLAREDGE_VALUES};
 
 	private final String OK_COLOR_HEX = "#4d8e41";
 	private final String ERROR_COLOR_HEX = "#902d2d";
@@ -140,8 +140,46 @@ public class Settings {
 		}
 	}
 
+	public String getFieldFromIndex(String category, int index){
+		try{
+			String config = Files.readString(Paths.get(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+
+			Pattern categoryPattern = Pattern.compile("\\[([A-Za-z0-9\\s]+)\\]"); 
+			Matcher categoryMatcher = categoryPattern.matcher(config);
+
+			List<String> fields = new ArrayList<>();
+
+			while (categoryMatcher.find()) {
+				String categoryName = categoryMatcher.group(1);
+				if (categoryName.equals(category)) {
+					int startIndex = categoryMatcher.end();
+					String categoryData = config.substring(startIndex);
+
+					Pattern fieldPattern = Pattern.compile("^(?!\\[)([^=\\n]+)(?=\\s*=)", Pattern.MULTILINE);
+					Matcher fieldMatcher = fieldPattern.matcher(categoryData);
+
+					while (fieldMatcher.find()) {
+						fields.add(fieldMatcher.group(1).trim());
+					}
+					if (fields.size() >= index + 1) {
+						return fields.get(index);
+					} else {
+						return "";
+					}
+				}
+			}
+			return "";
+		}catch (Exception e){
+			return "";
+		}
+	}
+
 	public String getTopicNameFromIndex(int index){
 		return TOPICS_NAMES_ORDERED[index];
+	}
+
+	public String[] getTopicNameFromIndex(){
+		return TOPICS_NAMES_ORDERED;
 	}
 
 	/**
@@ -242,11 +280,18 @@ public class Settings {
 		}
 	}
 
-	public boolean changeSettingField(String section, String data, String val){
+	public boolean changeSettingField(String section, String data, String val, boolean addition){
 		try{
-			int frequency = Integer.parseInt(val);
 			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
-			ini.put(section, data, val);
+			if (!addition){
+				int frequency = Integer.parseInt(val);
+				ini.put(section, data, val);
+			}else{
+				String selection = ini.get(section, data);
+				selection += ", ";
+				selection += val;
+				ini.put(section, data, val);
+			}
 			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
 			return true;
 		}catch (NumberFormatException e){
@@ -347,9 +392,13 @@ public class Settings {
 					String listenedRooms = cInfo.get("listened_rooms").trim();
 					fieldSettings.put("listened_rooms", listenedRooms);
 
+					System.err.println("PERMISSION TO LOAD INTO MEMORY HAS BEEN SET TO " + loadSettingsIntoMemory);
+
 					if (!loadSettingsIntoMemory){
 						return fieldSettings;
 					}
+
+					System.err.println("CODE LOADED INTO MEMORY");
 
 					String rawAlerts = neutralize(fieldSettings.get("alerts"));
 					String rawFrequency = neutralize(fieldSettings.get("step"));
@@ -358,15 +407,23 @@ public class Settings {
 			
 					String[] rawAlertsTable = rawAlerts.split(",");
 
-					clearAll();
+					
 
 					for (String s : rawAlertsTable){
 						String seperated[] = s.split(":");
-						observable_alerts.put(seperated[0], Integer.valueOf(seperated[1]));
+						observable_alerts.putIfAbsent(seperated[0], Integer.valueOf(seperated[1]));
 					}
 
-					observable_dtk.addAll(Arrays.asList(rawDtk.split(",")));
-					observables_rooms.addAll(Arrays.asList(rawListenedRooms.split(",")));
+					for (String s : rawDtk.split(",")){
+						if (!observable_dtk.contains(s)){
+							observable_dtk.add(s);
+						}
+					}
+					for (String s : rawListenedRooms.split(",")){
+						if (!observables_rooms.contains(s)){
+							observables_rooms.add(s);
+						}
+					}
 					observable_frequency.set(Integer.valueOf(rawFrequency));
 
 					break;

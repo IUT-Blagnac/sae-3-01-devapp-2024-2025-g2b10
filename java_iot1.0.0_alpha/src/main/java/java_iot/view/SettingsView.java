@@ -55,7 +55,9 @@ public class SettingsView {
 	private AdditionController ac;
 	private SettingsController sc;
 	private static SettingsView instance;
+
 	private Pane connectionInfoPane;
+	private Pane currentlyOpenedPane;
 	private Pane topicsPane;
 	private Pane treatmentPane;
 
@@ -127,7 +129,7 @@ public class SettingsView {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (!newValue) {
-					boolean valid = sc.requestSettingChange("Data treatment", "step", msv.frequencyField.getText());
+					boolean valid = sc.requestSettingChange("Data treatment", "step", msv.frequencyField.getText(), false);
 					if (!valid){
 						msv.frequencyField.setText("1");
 					}
@@ -263,6 +265,11 @@ public class SettingsView {
 	 * @author ESTIENNE Alban-Moussa
 	 */
 	protected void showConnectionPage(){
+		if (currentlyOpenedPane == connectionInfoPane){
+			return;
+		}
+
+		currentlyOpenedPane = connectionInfoPane;
 		connectionInfoPane.setVisible(true);
 		topicsPane.setVisible(false);
 		treatmentPane.setVisible(false);
@@ -279,6 +286,11 @@ public class SettingsView {
 	 * Same as {@link #showConnectionPage()}
 	 */
 	protected void showTopicPage(){
+		if (currentlyOpenedPane == topicsPane){
+			return;
+		}
+
+		currentlyOpenedPane = topicsPane;
 		connectionInfoPane.setVisible(false);
 		topicsPane.setVisible(true);
 		treatmentPane.setVisible(false);
@@ -314,6 +326,11 @@ public class SettingsView {
 	}
 
 	protected void showTreatmentPage(){
+		if (currentlyOpenedPane == treatmentPane){
+			return;
+		}
+
+		currentlyOpenedPane = treatmentPane;
 		sc.setSettingsView(instance);
 
 		connectionInfoPane.setVisible(false);
@@ -321,8 +338,6 @@ public class SettingsView {
 		treatmentPane.setVisible(true);
 
 		changeButtonStyle(settingButtonList.get(2));
-		sc.clearContainers();
-
 		sc.requestSettings("Data treatment", true);
 		
 	}
