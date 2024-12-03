@@ -148,8 +148,29 @@ public class AdditionView implements Initializable{
     @FXML
     private void confirm(){
         String selectedItem = containerList.getSelectionModel().getSelectedItem();
-        if (!selectedItem.equals("")){
-            ac.requestSettingChange(section, name, selectedItem, true);
+        System.out.println(selectedItem);
+        if (selectedItem != null){
+            if (mono){
+                ac.requestSettingChange(section, name, selectedItem, true);
+                app.closeOverlay();
+            }else{
+                if (valueField.getText().isBlank()){
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Entrez un seuil d'alerte.");
+                    a.showAndWait();
+                    return;
+                }
+                String text = valueField.getText().replaceAll("[^A-Za-z0-9]", "");
+                String processedItem = selectedItem + ":" + text;
+                boolean result = ac.requestSettingChange(section, name, processedItem, true);
+                if (!result){
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Le seuil doit être un chiffre.");
+                    a.showAndWait();
+                    return;
+                }
+                app.closeOverlay();
+            }
         }else{
             Alert a = new Alert(AlertType.ERROR);
             a.setContentText("Une valeur doit etre sélectionnée");

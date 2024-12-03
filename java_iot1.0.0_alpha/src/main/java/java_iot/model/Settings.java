@@ -287,14 +287,21 @@ public class Settings {
 				int frequency = Integer.parseInt(val);
 				ini.put(section, data, val);
 			}else{
+				String[] checker = val.split(":");
+				if (checker.length == 2){
+					int checkInt = Integer.parseInt(checker[1]);
+				}
+				System.out.println("Received request.");
 				String selection = ini.get(section, data);
 				selection += ", ";
 				selection += val;
-				ini.put(section, data, val);
+				ini.put(section, data, selection);
+				loadSetting("Data treatment", true);
 			}
 			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
 			return true;
 		}catch (NumberFormatException e){
+			System.err.println("REJECTED CHANGE WITH REASON : MALFORMED NUMBER");
 			return false;
 		}catch (IOException e){
 			return false;
@@ -335,7 +342,7 @@ public class Settings {
 	 * @return String : The same string to be used with string.split()
 	 */
 	public String neutralize(String settingListString){
-		return settingListString.replaceAll(",\\s+",",");
+		return settingListString.replaceAll("\\s+","");
 	}
 
 	/**
@@ -405,6 +412,7 @@ public class Settings {
 					String rawDtk = neutralize(fieldSettings.get("data_to_keep"));
 					String rawListenedRooms = neutralize(fieldSettings.get("listened_rooms"));
 			
+					System.out.println(rawAlerts);
 					String[] rawAlertsTable = rawAlerts.split(",");
 
 					

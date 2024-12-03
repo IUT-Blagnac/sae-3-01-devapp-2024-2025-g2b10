@@ -48,8 +48,8 @@ public class AdditionController{
         return sc.requestFieldNameFromIndex(category, index);
     }
 
-    public void requestSettingChange(String section, String name, String text, boolean addition){
-        sc.requestSettingChange(section, name, text, addition);
+    public boolean requestSettingChange(String section, String name, String text, boolean addition){
+        return sc.requestSettingChange(section, name, text, addition);
     }
 
     /**

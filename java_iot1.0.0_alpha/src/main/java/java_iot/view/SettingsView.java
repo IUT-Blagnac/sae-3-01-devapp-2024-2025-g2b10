@@ -171,6 +171,23 @@ public class SettingsView {
 		((Label) loadedElement).setText(key);
 		loadedElement = (TextField) elementList.get(1);
 		((TextField) loadedElement).setText(value.toString());
+
+		ChangeListener<Boolean> frequencyFocusListener = new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (!newValue) {
+					boolean valid = sc.requestSettingChange("Data treatment", "alerts", key + ":" , false);
+					if (!valid){
+						msv.frequencyField.setText("");
+					}else{
+
+					}
+				}
+			}
+		};
+
+		((TextField) loadedElement).focusedProperty().addListener(frequencyFocusListener);
+
 		loadedElement = (Button) elementList.get(2);
 		((Button) loadedElement).setOnAction(event -> toggleConfirmation(event, ob, key));
 	}
