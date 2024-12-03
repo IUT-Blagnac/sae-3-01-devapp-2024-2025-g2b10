@@ -148,6 +148,11 @@ endif::[]
 === retour sprint 1 / Initialisation du dépôt
 Il manque les rôles de chacun. Je ne trouve ni backlog de sprint, ni backlog produit !!  J'ai la doc de conception (qui ne précise pas le contexte du projet !) mais pas de liens vers les autres documentations qui devraient être initialisées ! Je n'ai pas de cahier de tests; pas de release ou de date de release !
 
+=== Retour semaine 48
+
+Backlog : j'ai des US mais pas de backlog produit avec evaluation de la complexité: il manque les finalités (afin de ) dans les US et critères acceptabilité. Backlog de sprint : ok milestone de sprint indiqué mais confus j'ai un projet mais on ne sait pas dans quel sprint on est !  Les US ne sont pas demandées en IOT. Tasks : Il faut les assigner et les rattacher à une US, je dois voir les tâches en cours de traitement dans le board du projet. Tests ok mais mettre à jour les résultats ! DOCS : coneption ok, pour user et tech à avancer on est à mi projet !! release ok 
+
+=== Attendus
 Chaque sprint (semaine) vous devrez livrer une nouvelle version de votre application (release).
 Utilisez pour cela les fonctionnalités de GitHub pour les https://docs.github.com/en/repositories/releasing-projects-on-github[Releases].
 
