@@ -9,31 +9,35 @@ public class MainSceneController {
     private MainSceneView msv;
     private static MainSceneController instance;
 
-    private MainSceneController(){
-        
+    private MainSceneController() {
+
     }
 
-    public void setMainSceneView(MainSceneView _msv){
+    public void setMainSceneView(MainSceneView _msv) {
         msv = _msv;
     }
 
-    public void setApp(App _app){
+    public void setApp(App _app) {
         app = _app;
     }
 
-    public void requestNewAddition(boolean mono, String callerButton){
-		app.showAdditionMenu(mono, callerButton);
-	}
+    public void requestNewAlert(boolean mono) {
+        app.showAlertPopup(mono);
+    }
 
-    public static MainSceneController getInstance(){
-        if (instance == null){
+    public void requestNewAddition(boolean mono, String callerButton) {
+        app.showAdditionMenu(mono, callerButton);
+    }
+
+    public static MainSceneController getInstance() {
+        if (instance == null) {
             instance = new MainSceneController();
         }
         return instance;
     }
 
-    public MainSceneView getMainSceneView(){
+    public MainSceneView getMainSceneView() {
         return msv;
     }
-    
+
 }
