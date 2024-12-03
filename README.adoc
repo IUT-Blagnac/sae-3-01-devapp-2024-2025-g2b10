@@ -84,6 +84,13 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 |  | PHP v0|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/009385c2517c71c242498bb6f847dc2bbbcaadfd/PHP[PHP v0]
 |===
 
+=== Evaluation communication EP
+
+==== retour semaine 48
+
+ODJ : Précisez qui est resp de chaque rubrique. CR : Manque synthese rdv client, manque analyse difficultés-réussites, manque resp prochaine réunion.
+note : 1,9/3
+
 == Réalisations 
 
 Nous mettons à disposition plusieurs documents pour vous aider à comprendre à utiliser notre projet. Ces documents incluent :
