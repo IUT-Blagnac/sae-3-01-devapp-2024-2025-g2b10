@@ -49,10 +49,10 @@ toc::[]
 Projet est réalisé par::
 
 - https://github.com/Cracotte-Mu-Da[GIARD--PELLAT Jules] : *Développeur*
-- https://github.com/Romy514[CHAUVIERE Romy] *Développeuse*
+- https://github.com/Romy514[CHAUVIERE Romy] *Scrum Master*
 - https://github.com/AlbiMousse[ESTIENNE Alban-Moussa] *Product Owner*
 - https://github.com/Quentin158[MARTINEZ Quentin] *Développeur*
-- https://github.com/Matthias426[PAPA-PATSOUMOUDOU Matthias] *Scrum Master*
+- https://github.com/Matthias426[PAPA-PATSOUMOUDOU Matthias] *Développeur*
 
 Tuteur/tutrice enseignant(e) de l'équipe:: 
 
@@ -78,7 +78,18 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 | Sem.47  | Ordre du jour #2      |  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%232.pdf[Ordre du jour #2]     
 |  | Compte Rendu #2|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%232.pdf[Compte Rendu #2]  
 |  | IHM v0|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/master/IHM[IHM v0] 
+| Sem.48  | Ordre du jour #3      |     https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%233.pdf[Ordre du jour #3] 
+|  | Compte Rendu #3|  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%233.pdf[Compte Rendu #3] 
+|  | IHM v1|  
+|  | PHP v0|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/009385c2517c71c242498bb6f847dc2bbbcaadfd/PHP[PHP v0]
 |===
+
+=== Evaluation communication EP
+
+==== retour semaine 48
+
+ODJ : Précisez qui est resp de chaque rubrique. CR : Manque synthese rdv client, manque analyse difficultés-réussites, manque resp prochaine réunion.
+note : 1,9/3
 
 == Réalisations 
 
@@ -113,7 +124,7 @@ Pour faciliter le suivi du projet, nous avons mis en place des outils de gestion
 La dernière version stable de l'application est disponible via le lien ci-dessous.
 Téléchargez-la pour accéder aux dernières fonctionnalités
 
-- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/releases/tag/v0.0[IHM v0.0]
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/releases/tag/v0.1.0[DevWeb v0.1.0]
 
 === 🗒️ Board GitHub
 Notre board vous permettra de suivre l'état d'avancement des tâches. Il est organisé en trois colonnes :
@@ -132,18 +143,23 @@ Les milestones représentent chaque sprint du projet, accompagnés de leurs obje
 === Evaluation bi-hebdomadaire
 
 ifdef::env-github[]
-image:https://docs.google.com/spreadsheets/d/e/2PACX-1vSACcYeKaH_ims3faegSLAFJ9s5_Kd9Fbyi4ODEb8BTN5OnUXWenVGhlVPo84yQDhTkTj3f9nXiluh1/pubchart?oid=1704009585&amp;format=image[link=https://docs.google.com/spreadsheets/d/e/2PACX-1vSACcYeKaH_ims3faegSLAFJ9s5_Kd9Fbyi4ODEb8BTN5OnUXWenVGhlVPo84yQDhTkTj3f9nXiluh1/pubchart?oid=1704009585&amp;format=image]
+image:https://docs.google.com/spreadsheets/d/e/2PACX-1vSACcYeKaH_ims3faegSLAFJ9s5_Kd9Fbyi4ODEb8BTN5OnUXWenVGhlVPo84yQDhTkTj3f9nXiluh1/pubchart?oid=1704009585&format=image[link=https://docs.google.com/spreadsheets/d/e/2PACX-1vSACcYeKaH_ims3faegSLAFJ9s5_Kd9Fbyi4ODEb8BTN5OnUXWenVGhlVPo84yQDhTkTj3f9nXiluh1/pubchart?oid=1704009585&format=image]
 endif::[]
 
 ifndef::env-github[]
 ++++
-<iframe width="786" height="430" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSACcYeKaH_ims3faegSLAFJ9s5_Kd9Fbyi4ODEb8BTN5OnUXWenVGhlVPo84yQDhTkTj3f9nXiluh1/pubchart?oid=1704009585&amp;format=interactive"></iframe>
+<iframe width="786" height="430" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSACcYeKaH_ims3faegSLAFJ9s5_Kd9Fbyi4ODEb8BTN5OnUXWenVGhlVPo84yQDhTkTj3f9nXiluh1/pubchart?oid=1704009585&format=interactive"></iframe>
 ++++
 endif::[]
 
 === retour sprint 1 / Initialisation du dépôt
 Il manque les rôles de chacun. Je ne trouve ni backlog de sprint, ni backlog produit !!  J'ai la doc de conception (qui ne précise pas le contexte du projet !) mais pas de liens vers les autres documentations qui devraient être initialisées ! Je n'ai pas de cahier de tests; pas de release ou de date de release !
 
+=== Retour semaine 48
+
+Backlog : j'ai des US mais pas de backlog produit avec evaluation de la complexité: il manque les finalités (afin de ) dans les US et critères acceptabilité. Backlog de sprint : ok milestone de sprint indiqué mais confus j'ai un projet mais on ne sait pas dans quel sprint on est !  Les US ne sont pas demandées en IOT. Tasks : Il faut les assigner et les rattacher à une US, je dois voir les tâches en cours de traitement dans le board du projet. Tests ok mais mettre à jour les résultats ! DOCS : coneption ok, pour user et tech à avancer on est à mi projet !! release ok 
+
+=== Attendus
 Chaque sprint (semaine) vous devrez livrer une nouvelle version de votre application (release).
 Utilisez pour cela les fonctionnalités de GitHub pour les https://docs.github.com/en/repositories/releasing-projects-on-github[Releases].
 

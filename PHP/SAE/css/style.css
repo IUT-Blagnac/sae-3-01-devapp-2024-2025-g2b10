@@ -1,0 +1,148 @@
+.full-width-image {
+    width: 100%;
+    height: calc(100vh - 100px);
+    object-fit: cover; /* Coupe l'image si nécessaire pour remplir l'espace */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Place l'image derrière le contenu */
+}
+
+.image-text-section {
+    position: relative;
+    text-align: center;
+    color: white;
+    height: calc(100vh - 100px); /* Ajustez cette valeur en fonction de la hauteur de votre header et footer */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-text-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(40, 15, 50, 0.55); /* Filtre bleu avec 55% d'opacité */
+    z-index: 0; /* Place le filtre derrière le texte */
+}
+
+.text-overlay {
+    z-index: 1; /* Assure que le texte est au-dessus de l'image et du filtre */
+    text-align: left; /* Aligner le texte à gauche */
+}
+
+.text-overlay h1 {
+    font-size: 4rem; /* Augmenter la taille du titre */
+    margin: 10px 0; /* Ajouter un espace autour du titre */
+}
+
+.explore-button {
+    background-color: #6a0dad; /* Couleur violette */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px; /* Bords arrondis */
+    margin: 20px 0;
+    margin-left: 270px;
+}
+
+.account-section {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.account-form {
+    display: inline-block;
+    text-align: left;
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="tel"],
+.form-group input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 5px; /* Ajustez cette valeur selon vos besoins */
+    font-size: 12px; /* Ajustez la taille de la police si nécessaire */
+    color: #007bff; /* Couleur du lien */
+    text-decoration: none; /* Supprime la décoration par défaut */
+    padding-left: 263px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline; /* Ajoute une décoration au survol */
+}
+
+.login-button 
+.register-button {
+    background-color: #6a0dad; /* Couleur violette */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px; /* Bords arrondis */
+    width: 100%;
+    margin-top: 10px;
+}
+
+.no-account
+.already-account {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #6a0dad;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.no-account:hover
+.already-account:hover {
+    text-decoration: none;
+}
+
+.no-account a 
+.already-account a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.no-account a:hover {
+    text-decoration: underline; /* Ajoute une décoration au survol */
+}
+
+.form-group-inline {
+    display: flex;
+    align-items: center;
+}
+
+.form-group-inline input[type="checkbox"] {
+    margin-right: 5px; /* Ajustez cette valeur selon vos besoins */
+}
+
