@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1120.0" stylesheets="@../ressources/css/button_styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="java_iot.view.MainSceneView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1120.0" stylesheets="@../ressources/css/button_styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="java_iot.view.MainSceneView">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -27,7 +27,7 @@
                               <Font name="Franklin Gothic Medium Italic" size="22.0" />
                            </font>
                         </Label>
-                        <Label alignment="BOTTOM_CENTER" prefHeight="67.0" prefWidth="204.0" text="Visualitation" textFill="#ffffffd3">
+                        <Label alignment="BOTTOM_CENTER" prefHeight="67.0" prefWidth="204.0" text="Visualisation" textFill="#ffffffd3">
                            <font>
                               <Font name="Marlett" size="30.0" />
                            </font>
@@ -319,7 +319,16 @@
                   </ScrollPane>
                   <Separator layoutX="266.0" layoutY="44.0" orientation="VERTICAL" prefHeight="428.0" prefWidth="50.0" />
                   <Separator layoutX="539.0" layoutY="44.0" orientation="VERTICAL" prefHeight="428.0" prefWidth="63.0" />
-                  <Button layoutX="217.0" layoutY="116.0" mnemonicParsing="false" onAction="#addValueBi" prefHeight="13.0" prefWidth="7.0" style="-fx-background-color: Transparent;">
+                  <Button id="0" fx:id="alertAdditionButton" layoutX="217.0" layoutY="116.0" mnemonicParsing="false" onAction="#addValueBi" prefHeight="13.0" prefWidth="7.0" style="-fx-background-color: Transparent;">
+                     <graphic>
+                        <ImageView id="0" fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../ressources/images/add_button.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button id="1" fx:id="dtkAdditionButton" layoutX="495.0" layoutY="44.0" mnemonicParsing="false" onAction="#addValueMono" prefHeight="40.0" prefWidth="44.0" style="-fx-background-color: Transparent;">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -328,18 +337,9 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="495.0" layoutY="44.0" mnemonicParsing="false" onAction="#addValueMono" prefHeight="40.0" prefWidth="44.0" style="-fx-background-color: Transparent;">
+                  <Button fx:id="roomsAdditionButton" layoutX="776.0" layoutY="44.0" mnemonicParsing="false" onAction="#addValueMono" prefHeight="40.0" prefWidth="44.0" style="-fx-background-color: Transparent;">
                      <graphic>
-                        <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../ressources/images/add_button.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button layoutX="776.0" layoutY="44.0" mnemonicParsing="false" onAction="#addValueMono" prefHeight="40.0" prefWidth="44.0" style="-fx-background-color: Transparent;">
-                     <graphic>
-                        <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView id="2" fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../ressources/images/add_button.png" />
                            </image>

@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import java_iot.controller.MainSceneController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -51,6 +52,12 @@ public class MainSceneView implements Initializable{
 	@FXML
 	protected Button connectionTestButton;
 	@FXML
+	protected Button alertAdditionButton;
+	@FXML
+	protected Button dtkAdditionButton;
+	@FXML
+	protected Button roomsAdditionButton;
+	@FXML
 	protected ToggleButton am107Button;
 	@FXML
 	protected ToggleButton triphasoButton;
@@ -91,7 +98,8 @@ public class MainSceneView implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		msc = new MainSceneController(this);
+		msc = MainSceneController.getInstance();
+		msc.setMainSceneView(this);
 		settings = SettingsView.getInstance(msc);
 
 		navigationBar = Navbar.getInstance(msc);
@@ -159,17 +167,21 @@ public class MainSceneView implements Initializable{
 	 }
 
 	 @FXML
-	 public void addValueBi(){
+	 public void addValueBi(ActionEvent event){
 		// This line is just a reminder that false is bicomponent
+		Button sourceButton = (Button) event.getSource();
+
 		boolean mono = false;
-		settings.openAdditionDialogue(mono);
+		settings.openAdditionDialogue(mono, sourceButton.getId());
 	 }
 
 	 @FXML
-	 public void addValueMono(){
+	 public void addValueMono(ActionEvent event){
 		// And here it is monocomponent
+		Button sourceButton = (Button) event.getSource();
+
 		boolean mono = true;
-		settings.openAdditionDialogue(mono);
+		settings.openAdditionDialogue(mono, sourceButton.getId());
 	 }
 
 }

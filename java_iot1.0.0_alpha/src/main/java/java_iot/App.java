@@ -41,7 +41,6 @@ public class App extends Application {
 
         primaryStage.setTitle("Java IoT");
         primaryStage.setScene(scene);
-
         primaryStage.show();
 
     }
@@ -67,8 +66,6 @@ public class App extends Application {
             this.rootPane = vueListe;
 
             MainSceneView ctrl = loader.getController();
-            ctrl.getController().setApp(this);
-
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Ressource FXML non disponible : MainScreen");
@@ -76,7 +73,7 @@ public class App extends Application {
         }
     }
 
-    public void showAdditionMenu(boolean mono) {
+    public void showAdditionMenu(boolean mono, String callerButton) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource("view/Addition.fxml"));
@@ -92,6 +89,9 @@ public class App extends Application {
 
             AdditionView ctrl = loader.getController();
             ctrl.setApp(this);
+            ctrl.setCallerId(callerButton);
+            ctrl.setMonoDialogue(mono);
+            ctrl.start();
 
             overlayStage.setScene(scene);
             overlayStage.show();

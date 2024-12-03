@@ -1,20 +1,12 @@
 package java_iot.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import java_iot.Main;
 import java_iot.model.Settings;
-import java_iot.view.MainSceneView;
 import java_iot.view.SettingsView;
-import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.MapChangeListener;
-import javafx.collections.ListChangeListener.Change;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 
@@ -23,9 +15,10 @@ public class SettingsController {
     private SettingsView sv;
     private Settings se;
     private MainSceneController msc;
+    private static SettingsController instance;
     
-    public SettingsController(MainSceneController _msc){
-        this.msc = _msc;
+    private SettingsController(){
+        this.msc = MainSceneController.getInstance();
         this.se = new Settings();
         
         se.getAlertsObservable().addListener((MapChangeListener<String, Integer>) c ->{
@@ -72,6 +65,26 @@ public class SettingsController {
         });
     }
 
+    public static SettingsController getInstance(){
+        if (instance == null){
+            instance = new SettingsController();
+        }
+        return instance;
+    }
+
+    /**
+     * Request a field name based on its position in the settings file.
+     * @param id : The id of the button containing the index of the field.
+     * @return
+     */
+    public String requestSettingsFromId(int id){
+        return se.getSectionNameFromId(id);
+    }
+
+    public String[][] requestAllAvailableFields(){
+        return se.getAllAvailableSettings();
+    }
+
     public void setSettingsView(SettingsView _sv){
         this.sv = _sv;
     }
@@ -84,19 +97,41 @@ public class SettingsController {
         se.saveTopicSettings(list);
     }
 
-    public HashMap<String, String> requestSettings(String section){
-        return se.loadSetting(section);
+    public String requestTopicNameFromIndex(int index){
+        return se.getTopicNameFromIndex(index);
     }
 
-    public boolean requestSettingChange(String section, String name, String text){
-        return se.changeSettingField(section, name, text);
+    public String[] requestTopicNameFromIndex(){
+        return se.getTopicNameFromIndex();
+    }
+
+    public String requestFieldNameFromIndex(String category, int index){
+        return se.getFieldFromIndex(category, index);
+    }
+
+    /**
+     * Submit a request to get the specificed section of the settings file.
+     * @param section :  The section to get
+     * @param loadSettingsIntoMemory : Specify if the returned settings should also be loaded into memory for usage
+     * @return HashMap<String, String> : The map of the values. Key is the name and value is its value.
+     */
+    public HashMap<String, String> requestSettings(String section, boolean loadSettingsIntoMemory){
+        return se.loadSetting(section, loadSettingsIntoMemory);
+    }
+
+    /**
+     * Submit a request for the controller to pass down to the model section to change a specified settings.
+     * @param section : The section of the .INI file where the field is located.
+     * @param name : The field name of the parameter
+     * @param text : The new value to input.
+     * @return boolean : If the change was successful or not.
+     */
+    public boolean requestSettingChange(String section, String name, String text, boolean addition){
+        return se.changeSettingField(section, name, text, addition);
     }
     
     public String requestConnectionTest(){
         return se.testConnection();
-    }
-    public void clearContainers(){
-        
     }
 
     

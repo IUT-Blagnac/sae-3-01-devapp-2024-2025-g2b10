@@ -55,7 +55,9 @@ public class SettingsView {
 	private AdditionController ac;
 	private SettingsController sc;
 	private static SettingsView instance;
+
 	private Pane connectionInfoPane;
+	private Pane currentlyOpenedPane;
 	private Pane topicsPane;
 	private Pane treatmentPane;
 
@@ -80,8 +82,8 @@ public class SettingsView {
 		msc = _msc;
 
 		msv = msc.getMainSceneView();
-		ac = new AdditionController(msc);
-		sc = new SettingsController(msc);
+		ac = AdditionController.getInstance();
+		sc = SettingsController.getInstance();
 
 		connectionInfoPane = msv.connectionPane;
 		topicsPane = msv.topicPane;
@@ -127,7 +129,7 @@ public class SettingsView {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (!newValue) {
-					boolean valid = sc.requestSettingChange("Data treatment", "step", msv.frequencyField.getText());
+					boolean valid = sc.requestSettingChange("Data treatment", "step", msv.frequencyField.getText(), false);
 					if (!valid){
 						msv.frequencyField.setText("1");
 					}
@@ -263,12 +265,17 @@ public class SettingsView {
 	 * @author ESTIENNE Alban-Moussa
 	 */
 	protected void showConnectionPage(){
+		if (currentlyOpenedPane == connectionInfoPane){
+			return;
+		}
+
+		currentlyOpenedPane = connectionInfoPane;
 		connectionInfoPane.setVisible(true);
 		topicsPane.setVisible(false);
 		treatmentPane.setVisible(false);
 
 		changeButtonStyle(settingButtonList.get(0));
-		HashMap<String, String> fieldDatas = sc.requestSettings("Connection Infos");
+		HashMap<String, String> fieldDatas = sc.requestSettings("Connection Infos", false);
         msv.adressField.setText(fieldDatas.get("host"));
         msv.portField.setText(fieldDatas.get("port"));
         msv.kaField.setText(fieldDatas.get("keepalive"));
@@ -279,12 +286,17 @@ public class SettingsView {
 	 * Same as {@link #showConnectionPage()}
 	 */
 	protected void showTopicPage(){
+		if (currentlyOpenedPane == topicsPane){
+			return;
+		}
+
+		currentlyOpenedPane = topicsPane;
 		connectionInfoPane.setVisible(false);
 		topicsPane.setVisible(true);
 		treatmentPane.setVisible(false);
 
 		changeButtonStyle(settingButtonList.get(1));
-		HashMap<String, String> fieldDatas = sc.requestSettings("Topics");
+		HashMap<String, String> fieldDatas = sc.requestSettings("Topics", false);
 
 		if (fieldDatas.get("AM107/by-room/#").equals("0")){
 			msv.am107Button.getStyleClass().clear();
@@ -314,6 +326,11 @@ public class SettingsView {
 	}
 
 	protected void showTreatmentPage(){
+		if (currentlyOpenedPane == treatmentPane){
+			return;
+		}
+
+		currentlyOpenedPane = treatmentPane;
 		sc.setSettingsView(instance);
 
 		connectionInfoPane.setVisible(false);
@@ -321,9 +338,7 @@ public class SettingsView {
 		treatmentPane.setVisible(true);
 
 		changeButtonStyle(settingButtonList.get(2));
-		sc.clearContainers();
-
-		sc.requestSettings("Data treatment");
+		sc.requestSettings("Data treatment", true);
 		
 	}
 
@@ -331,8 +346,8 @@ public class SettingsView {
 	 * Opens the dialogue to add an element to the Data Treatment .ini file section.
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	public void openAdditionDialogue(boolean mono){
-		ac.requestNewWindow(mono);
+	public void openAdditionDialogue(boolean mono, String buttonCaller){
+		ac.requestNewWindow(mono, buttonCaller);
 	}
 
 	private void toggleConfirmation(ActionEvent e, Observable ol, String key){
