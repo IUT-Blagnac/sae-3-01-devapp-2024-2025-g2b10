@@ -252,7 +252,7 @@ public class SettingsView {
 		sc.requestSaveTopicSettings(toggleButtonList);
 	}
 
-	/*
+	/**
 	 * Toggles the connection page.
 	 * It doesn't look pretty, i'm sorry, but since the interface is 
 	 * going to change very little, i just assumed it would be impactless

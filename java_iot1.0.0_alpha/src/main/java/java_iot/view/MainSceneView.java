@@ -137,6 +137,16 @@ public class MainSceneView implements Initializable{
 	 }
 
 	 @FXML
+	 public void showRoom(){
+		navigationBar.showRoomPane();
+	 }
+
+	 @FXML
+	 public void showPanel(){
+		navigationBar.showPanelPane();
+	 }
+
+	 @FXML
 	 public void connectionButton(){
 		settings.showConnectionPage();
 	 }
