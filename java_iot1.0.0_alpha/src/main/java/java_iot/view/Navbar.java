@@ -90,6 +90,36 @@ class Navbar {
 	 * Toggle the graphPane, and disable the settingPane
 	 * The check condition is legacy, as it should always provide TRUE
 	 * 
+	 * @authors ESTIENNE Alban-Moussa GIARD--PELLAT Jules
+	 */
+	public boolean showRoomPane(){
+		boolean validity = checkPanes();
+		if (validity){
+			graphPane.setVisible(true);
+			settingPane.setVisible(false);
+		}
+		return validity;
+	}
+
+		/**
+	 * Toggle the graphPane, and disable the settingPane
+	 * The check condition is legacy, as it should always provide TRUE
+	 * 
+	 * @author ESTIENNE Alban-Moussa
+	 */
+	public boolean showPanelPane(){
+		boolean validity = checkPanes();
+		if (validity){
+			graphPane.setVisible(true);
+			settingPane.setVisible(false);
+		}
+		return validity;
+	}
+
+	/**
+	 * Toggle the graphPane, and disable the settingPane
+	 * The check condition is legacy, as it should always provide TRUE
+	 * 
 	 * @author ESTIENNE Alban-Moussa
 	 */
 	public boolean showGraphPane(){
