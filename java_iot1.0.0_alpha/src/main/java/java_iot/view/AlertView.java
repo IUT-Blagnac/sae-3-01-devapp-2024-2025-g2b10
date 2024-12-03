@@ -20,8 +20,6 @@ public class AlertView implements Initializable {
 
     private List<Pane> alertList;
 
-    private static AlertView instance;
-
     private App app;
 
     public AlertView() {
@@ -35,13 +33,6 @@ public class AlertView implements Initializable {
 
     public void setApp(App _app) {
         app = _app;
-    }
-
-    public static AlertView getInstance() {
-        if (instance == null) {
-            instance = new AlertView();
-        }
-        return instance;
     }
 
 }

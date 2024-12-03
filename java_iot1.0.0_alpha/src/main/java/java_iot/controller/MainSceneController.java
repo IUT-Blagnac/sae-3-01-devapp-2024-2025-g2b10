@@ -8,20 +8,24 @@ public class MainSceneController {
     private App app;
     private MainSceneView msv;
 
-    public MainSceneController(MainSceneView _msv){
+    public MainSceneController(MainSceneView _msv) {
         msv = _msv;
     }
 
-    public void setApp(App _app){
+    public void setApp(App _app) {
         app = _app;
     }
 
-    public void requestNewAddition(boolean mono){
-		app.showAdditionMenu(mono);
-	}
+    public void requestNewAddition(boolean mono) {
+        app.showAdditionMenu(mono);
+    }
 
-    public MainSceneView getMainSceneView(){
+    public void requestNewAlert(boolean mono) {
+        app.showAlertPopup(mono);
+    }
+
+    public MainSceneView getMainSceneView() {
         return msv;
     }
-    
+
 }
