@@ -11,15 +11,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Cell;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class AdditionView implements Initializable{
 
@@ -55,8 +52,9 @@ public class AdditionView implements Initializable{
     public void start(){
         containerList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        HashMap<String, String> settings = ac.requestSettingsList("Data treatment");
         section = "Data treatment";
+        HashMap<String, String> settings = ac.requestSettingsList(section);
+        
         String fieldName = ac.requestFieldFromIndex("Data treatment", Integer.valueOf(callerId)+1);
         name = fieldName;
         String settingValue = settings.get(fieldName);
@@ -65,12 +63,8 @@ public class AdditionView implements Initializable{
         System.err.println(settings);
 
         String[] seperatedSettings = settingValue.split(",");
-
-        for (String s : seperatedSettings){
-            System.out.println();
-        }
         
-        String[][] allAvailableSettings = ac.getAllSettings();
+        String[][] allAvailableSettings = ac.getAllSettings(fieldName);
 
         for (int i = 0; i < allAvailableSettings.length; i++){
             containerList.getItems().add(ac.getTopicNameFromIndex(i)); // Add category
@@ -148,8 +142,29 @@ public class AdditionView implements Initializable{
     @FXML
     private void confirm(){
         String selectedItem = containerList.getSelectionModel().getSelectedItem();
-        if (!selectedItem.equals("")){
-            ac.requestSettingChange(section, name, selectedItem, true);
+        System.out.println(selectedItem);
+        if (selectedItem != null){
+            if (mono){
+                ac.requestSettingChange(section, name, selectedItem, true);
+                app.closeOverlay();
+            }else{
+                if (valueField.getText().isBlank()){
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Entrez un seuil d'alerte.");
+                    a.showAndWait();
+                    return;
+                }
+                String text = valueField.getText().replaceAll("[^A-Za-z0-9]", "");
+                String processedItem = selectedItem + ":" + text;
+                boolean result = ac.requestSettingChange(section, name, processedItem, true);
+                if (!result){
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Le seuil doit être un chiffre.");
+                    a.showAndWait();
+                    return;
+                }
+                app.closeOverlay();
+            }
         }else{
             Alert a = new Alert(AlertType.ERROR);
             a.setContentText("Une valeur doit etre sélectionnée");

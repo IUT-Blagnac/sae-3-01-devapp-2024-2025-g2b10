@@ -1,16 +1,6 @@
 package java_iot.view;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import java_iot.Main;
 import java_iot.controller.MainSceneController;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 /**
@@ -32,6 +22,7 @@ class Navbar {
 	// The buttons of MSC being set to protected, these are obsolete
 	private Pane settingPane;
 	private Pane graphPane;
+	@SuppressWarnings("unused")
 	private Pane navPane;
 
 	/**

@@ -337,7 +337,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="roomsAdditionButton" layoutX="776.0" layoutY="44.0" mnemonicParsing="false" onAction="#addValueMono" prefHeight="40.0" prefWidth="44.0" style="-fx-background-color: Transparent;">
+                  <Button id="2" fx:id="roomsAdditionButton" layoutX="776.0" layoutY="44.0" mnemonicParsing="false" onAction="#addValueMono" prefHeight="40.0" prefWidth="44.0" style="-fx-background-color: Transparent;">
                      <graphic>
                         <ImageView id="2" fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>

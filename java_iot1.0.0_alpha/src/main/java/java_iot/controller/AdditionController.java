@@ -32,8 +32,8 @@ public class AdditionController{
         return sc.requestSettings("Data treatment", false);
     }
 
-    public String[][] getAllSettings(){
-        return sc.requestAllAvailableFields();
+    public String[][] getAllSettings(String field){
+        return sc.requestAllAvailableFields(field);
     }
 
     public String getTopicNameFromIndex(int index){
@@ -48,8 +48,8 @@ public class AdditionController{
         return sc.requestFieldNameFromIndex(category, index);
     }
 
-    public void requestSettingChange(String section, String name, String text, boolean addition){
-        sc.requestSettingChange(section, name, text, addition);
+    public boolean requestSettingChange(String section, String name, String text, boolean addition){
+        return sc.requestSettingChange(section, name, text, addition);
     }
 
     /**

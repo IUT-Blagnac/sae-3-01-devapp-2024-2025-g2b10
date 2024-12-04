@@ -1,36 +1,25 @@
 package java_iot.view;
 
-import java.beans.EventHandler;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import java_iot.Main;
 import java_iot.controller.AdditionController;
 import java_iot.controller.MainSceneController;
 import java_iot.controller.SettingsController;
-import java_iot.model.PaneCloner;
-import java_iot.model.Settings;
-import javafx.application.Platform;
+import java_iot.utility.PaneCloner;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
-import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Alert.AlertType;
@@ -98,124 +87,131 @@ public class SettingsView {
 		 * didn't want to write thousands of getters/setters, putting them in protected
 		 * was, according to me, a smart choice.
 		 * 
-         */
-        settingButtonList.add(msv.connectionButton);
-        settingButtonList.add(msv.topicButton);
-        settingButtonList.add(msv.treatmentButton);
+		 */
 
-        toggleButtonList.add(msv.am107Button);
-        toggleButtonList.add(msv.triphasoButton);
-        toggleButtonList.add(msv.solarDataButton);
+		settingButtonList.add(msv.connectionButton);
+		settingButtonList.add(msv.topicButton);
+		settingButtonList.add(msv.treatmentButton);
 
-        informationFieldList.add(msv.adressField);
-        informationFieldList.add(msv.portField);
-        informationFieldList.add(msv.kaField);
+		toggleButtonList.add(msv.am107Button);
+		toggleButtonList.add(msv.triphasoButton);
+		toggleButtonList.add(msv.solarDataButton);
 
-        containersList.add(msv.alertContainer);
-        containersList.add(msv.keptValueContainer);
-        containersList.add(msv.listenedRoomContainer);
+		informationFieldList.add(msv.adressField);
+		informationFieldList.add(msv.portField);
+		informationFieldList.add(msv.kaField);
 
-        ChangeListener<Boolean> focusListener = new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (!newValue) {
-                    sc.requestConnectionSettingInFile(informationFieldList);
-                }
-            }
-        };
+		containersList.add(msv.alertContainer);
+		containersList.add(msv.keptValueContainer);
+		containersList.add(msv.listenedRoomContainer);
 
-        ChangeListener<Boolean> frequencyFocusListener = new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (!newValue) {
-                    boolean valid = sc.requestSettingChange("Data treatment", "step", msv.frequencyField.getText(), false);
-                    if (!valid) {
-                        msv.frequencyField.setText("1");
-                    }
-                }
-            }
-        };
+		ChangeListener<Boolean> focusListener = new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (!newValue) {
+					sc.requestConnectionSettingInFile(informationFieldList);
+				}
+			}
+		};
 
-        msv.adressField.focusedProperty().addListener(focusListener);
-        msv.portField.focusedProperty().addListener(focusListener);
-        msv.kaField.focusedProperty().addListener(focusListener);
+		ChangeListener<Boolean> frequencyFocusListener = new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (!newValue) {
+					boolean valid = sc.requestSettingChange("Data treatment", "step", msv.frequencyField.getText(), false);
+					if (!valid){
+						msv.frequencyField.setText("1");
+					}
+				}
+			}
+		};
 
-        msv.frequencyField.focusedProperty().addListener(frequencyFocusListener);
+		msv.adressField.focusedProperty().addListener(focusListener);
+		msv.portField.focusedProperty().addListener(focusListener);
+		msv.kaField.focusedProperty().addListener(focusListener);
 
-    }
+		msv.frequencyField.focusedProperty().addListener(frequencyFocusListener);
+		
+	}
 
-    /**
-     * <p>
-     * Generate a new pane based on the value and list being updated.
-     * <p>
-     * This method follows some strict rules that are defined inside the very
-     * conception of the interface. Rules are :
-     * <ul>
-     * <li> <b>Element 0</b> is a Label and contains the <b>name</b> of the
-     * attribute
-     * <li> <b>Element 1</b> is a TextField and contains the <b>value</b> of the
-     * attribute
-     * <li> <b>Element 2</b> is a Button that allows interaction for
-     * <b>removal</b>.
-     * </ul>
-     *
-     * @param container : The VBox containing the elements
-     * @param ob : The ObservableList to remove values from
-     * @param key : The name of the attribute
-     * @param value : The value of the attribute
-     * @see #toggleConfirmation()
-     * @author ESTIENNE Alban-Moussa
-     */
-    public void updateContainer(int containerIndex, ObservableMap ob, String key, Integer value) {
-        VBox container = containersList.get(containerIndex);
-        Pane clonedPane = PaneCloner.cloneSettingPane(msv.biComponentSettingPane);
-        clonedPane.setId(key);
-        container.getChildren().add(clonedPane);
-        ObservableList<Node> elementList = clonedPane.getChildren();
-        Node loadedElement = (Label) elementList.get(0);
-        ((Label) loadedElement).setText(key);
-        loadedElement = (TextField) elementList.get(1);
-        ((TextField) loadedElement).setText(value.toString());
-        loadedElement = (Button) elementList.get(2);
-        ((Button) loadedElement).setOnAction(event -> toggleConfirmation(event, ob, key));
-    }
+	/**
+	 * <p>Generate a new pane based on the value and list being updated.
+	 * <p>This method follows some strict rules that are defined inside the
+	   very conception of the interface. Rules are :
+	 * <ul>
+	 * <li> <b>Element 0</b> is a Label and contains the <b>name</b> of the attribute
+	 * <li> <b>Element 1</b> is a TextField and contains the <b>value</b> of the attribute
+	 * <li> <b>Element 2</b> is a Button that allows interaction for <b>removal</b>.
+	 * </ul>
+	 * @param container : The VBox containing the elements
+	 * @param ob : The ObservableList to remove values from
+	 * @param key : The name of the attribute
+	 * @param value : The value of the attribute
+	 * @see #toggleConfirmation()
+	 * @author ESTIENNE Alban-Moussa
+	 */
+	public void updateContainer(int containerIndex, ObservableMap<String, Integer> ob, String key, Integer value){
+		VBox container = containersList.get(containerIndex);
+		Pane clonedPane = PaneCloner.cloneSettingPane(msv.biComponentSettingPane);
+		clonedPane.setId(key);
+		container.getChildren().add(clonedPane);
+		ObservableList<Node> elementList = clonedPane.getChildren();
+        TextField keptField = (TextField) elementList.get(1);
+		Node loadedElement = (Label) elementList.get(0);
+		((Label) loadedElement).setText(key);
+		loadedElement = (TextField) elementList.get(1);
+		((TextField) loadedElement).setText(value.toString());
 
-    /**
-     * <p>
-     * Generate a new pane based on the value and list being updated.
-     * <p>
-     * This method follows some strict rules that are defined inside the very
-     * conception of the interface. Rules are :
-     * <ul>
-     * <li> <b>Element 0</b> is a Label and contains the <b>name</b> of the
-     * attribute
-     * <li> <b>Element 1</b> is a Button that allows interaction for
-     * <b>removal</b>.
-     * </ul>
-     *
-     * @param container : The VBox containing the elements
-     * @param ob : The ObservableList to remove values from
-     * @param key : The name of the attribute
-     * @param value : The value of the attribute
-     * @see #toggleConfirmation()
-     * @author ESTIENNE Alban-Moussa
-     */
-    public void updateContainer(int containersIndex, ObservableList ol, String key) {
-        VBox container = containersList.get(containersIndex);
-        Pane clonedPane = PaneCloner.cloneSettingPane(msv.monoComponentSettingPane);
-        clonedPane.setId(key);
-        container.getChildren().add(clonedPane);
-        ObservableList<Node> elementList = clonedPane.getChildren();
-        Node loadedElement = (Label) elementList.get(0);
-        ((Label) loadedElement).setText(key);
-        loadedElement = (Button) elementList.get(1);
-        ((Button) loadedElement).setOnAction(event -> toggleConfirmation(event, ol, key));
-    }
+		ChangeListener<Boolean> frequencyFocusListener = new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (!newValue) {
+					boolean valid = sc.requestSettingChange("Data treatment", "alerts", key + ":" + keptField.getText(), true);
+					if (!valid){
+						msv.frequencyField.setText("");
+					}
+				}
+			}
+		};
 
-    public void removeWithId(int containersIndex, String key) {
-        VBox containers = containersList.get(containersIndex);
-        containers.getChildren().removeIf(n -> n.getId() == key);
-    }
+		((TextField) loadedElement).focusedProperty().addListener(frequencyFocusListener);
+
+		loadedElement = (Button) elementList.get(2);
+		((Button) loadedElement).setOnAction(event -> toggleConfirmation(event, ob, key));
+	}
+
+	/**
+	 * <p>Generate a new pane based on the value and list being updated.
+	 * <p>This method follows some strict rules that are defined inside the
+	   very conception of the interface. Rules are :
+	 * <ul>
+	 * <li> <b>Element 0</b> is a Label and contains the <b>name</b> of the attribute
+	 * <li> <b>Element 1</b> is a Button that allows interaction for <b>removal</b>.
+	 * </ul>
+	 * @param container : The VBox containing the elements
+	 * @param ob : The ObservableList to remove values from
+	 * @param key : The name of the attribute
+	 * @param value : The value of the attribute
+	 * @see #toggleConfirmation()
+	 * @author ESTIENNE Alban-Moussa
+	 */
+	public void updateContainer(int containersIndex, ObservableList<String> ol, String key){
+		VBox container = containersList.get(containersIndex);
+		Pane clonedPane = PaneCloner.cloneSettingPane(msv.monoComponentSettingPane);
+		clonedPane.setId(key);
+		container.getChildren().add(clonedPane);
+		ObservableList<Node> elementList = clonedPane.getChildren();
+		Node loadedElement = (Label) elementList.get(0);
+		((Label) loadedElement).setText(key);
+		loadedElement = (Button) elementList.get(1);
+		((Button) loadedElement).setOnAction(event -> toggleConfirmation(event, ol, key));
+	}
+
+	public void removeWithId(int containersIndex, String key){
+		VBox containers = containersList.get(containersIndex);
+		containers.getChildren().removeIf(n -> n.getId() == key);
+	}
+
 
     /**
      * Returns the instance of the SettingsView, creates one if none exists.
@@ -366,12 +362,7 @@ public class SettingsView {
         Optional<ButtonType> option = a.showAndWait();
 
         if (option.get().equals(ButtonType.OK)) {
-            if (ol instanceof ObservableList) {
-                ((ObservableList) ol).remove(key);
-                System.out.println("Removing " + key);
-            } else if (ol instanceof ObservableMap) {
-                ((ObservableMap) ol).remove(key);
-            }
+            sc.requestDeletionOfSettings(ol, key);
         }
 
         e.consume();
