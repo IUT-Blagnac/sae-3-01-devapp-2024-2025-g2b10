@@ -37,6 +37,10 @@ public class MainSceneView implements Initializable {
 	@FXML
 	protected Pane dashPane;
 	@FXML
+	protected Pane roomPane;
+	@FXML
+	protected Pane panelPane;
+	@FXML
 	protected Pane connectionPane;
 	@FXML
 	protected Pane topicPane;
