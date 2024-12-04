@@ -44,7 +44,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="roomButton" alignment="BOTTOM_RIGHT" graphicTextGap="110.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="251.0" styleClass="navbar-button" text="Salles" textFill="#b9b9b9">
+                        <Button fx:id="roomButton" alignment="BOTTOM_RIGHT" graphicTextGap="110.0" mnemonicParsing="false" onMouseClicked="#showRoom" prefHeight="51.0" prefWidth="251.0" styleClass="navbar-button" text="Salles" textFill="#b9b9b9">
                            <font>
                               <Font name="DejaVu Sans ExtraLight" size="20.0" />
                            </font>
@@ -56,7 +56,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="solarButton" alignment="BOTTOM_RIGHT" graphicTextGap="92.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="251.0" styleClass="navbar-button" text="Solaire" textFill="#b9b9b9">
+                        <Button fx:id="solarButton" alignment="BOTTOM_RIGHT" graphicTextGap="92.0" mnemonicParsing="false" onMouseClicked="#showPanel" prefHeight="51.0" prefWidth="251.0" styleClass="navbar-button" text="Solaire" textFill="#b9b9b9">
                            <font>
                               <Font name="DejaVu Sans ExtraLight" size="20.0" />
                            </font>

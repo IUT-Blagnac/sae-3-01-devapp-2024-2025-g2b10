@@ -105,7 +105,7 @@ public class MainSceneView implements Initializable{
 		navigationBar = Navbar.getInstance(msc);
 		navigationBar.setSettingPane(settingPane);
 		navigationBar.setGraphPane(graphPane);
-		navigationBar.showGraphPane();
+		navigationBar.showDashPane();
 
 		keptValueContainer.getChildren().clear();
 		alertContainer.getChildren().clear();
@@ -133,7 +133,7 @@ public class MainSceneView implements Initializable{
 
 	 @FXML
 	 public void toggleGraph(){
-		navigationBar.showGraphPane();
+		navigationBar.showDashPane();
 	 }
 
 	 @FXML

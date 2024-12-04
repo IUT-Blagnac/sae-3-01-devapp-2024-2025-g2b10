@@ -87,7 +87,7 @@ class Navbar {
 	}
 
 	/**
-	 * Toggle the graphPane, and disable the settingPane
+	 * Brings forth ByroomPopup, and disable the settingPane
 	 * The check condition is legacy, as it should always provide TRUE
 	 * 
 	 * @authors ESTIENNE Alban-Moussa GIARD--PELLAT Jules
@@ -101,11 +101,11 @@ class Navbar {
 		return validity;
 	}
 
-		/**
-	 * Toggle the graphPane, and disable the settingPane
+	/**
+	 * Brings forth BypanelPopup, and disable the settingPane
 	 * The check condition is legacy, as it should always provide TRUE
 	 * 
-	 * @author ESTIENNE Alban-Moussa
+	 * @authors ESTIENNE Alban-Moussa GIARD--PELLAT Jules
 	 */
 	public boolean showPanelPane(){
 		boolean validity = checkPanes();
@@ -117,12 +117,12 @@ class Navbar {
 	}
 
 	/**
-	 * Toggle the graphPane, and disable the settingPane
+	 * Toggle the DashPane, and disable the settingPane
 	 * The check condition is legacy, as it should always provide TRUE
 	 * 
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	public boolean showGraphPane(){
+	public boolean showDashPane(){
 		boolean validity = checkPanes();
 		if (validity){
 			graphPane.setVisible(true);
