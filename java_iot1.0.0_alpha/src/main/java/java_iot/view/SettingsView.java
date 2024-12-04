@@ -38,18 +38,21 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
- * SettingsView is working in conjunction with java_iot.model.Settings and handles the 
+ * SettingsView is working in conjunction with java_iot.model.Settings and
+ * handles the
  * graphical part of the settings interface.
  * SettingsView stores a reference to the main scene controller.
- * SettingsView is a singleton as it should prevent duplication in data reading and writing
- * SettingsView should ONLY be called within the view package, as Navbar needs to call a data loading
+ * SettingsView is a singleton as it should prevent duplication in data reading
+ * and writing
+ * SettingsView should ONLY be called within the view package, as Navbar needs
+ * to call a data loading
  * process to load the according settings without any further requests.
  * 
  * @see java_iot.model.Settings
  * @author ESTIENNE Alban-Moussa
  */
 public class SettingsView {
-    
+
 	private MainSceneController msc;
 	private MainSceneView msv;
 	private AdditionController ac;
@@ -66,11 +69,12 @@ public class SettingsView {
 
 	/**
 	 * Private constructor for the SettingsView singleton.
-	 * Stores a single instance of _msc that will be UNCHANGEABLE unless force-overwritten.
+	 * Stores a single instance of _msc that will be UNCHANGEABLE unless
+	 * force-overwritten.
 	 * 
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	private SettingsView(MainSceneController _msc){
+	private SettingsView(MainSceneController _msc) {
 
 		settingButtonList = new ArrayList<>();
 		toggleButtonList = new ArrayList<>();
@@ -88,9 +92,12 @@ public class SettingsView {
 		treatmentPane = msv.treatmentPane;
 
 		/*
-		 * Ok, so before you start to scream that this code is horrendous, let me explain
-		 * Settings is supposed to be an extention of MainScene, the pane containing Settings
-		 * is itself a "child" of MainScene, its properties cannot be accessed from Settings.
+		 * Ok, so before you start to scream that this code is horrendous, let me
+		 * explain
+		 * Settings is supposed to be an extention of MainScene, the pane containing
+		 * Settings
+		 * is itself a "child" of MainScene, its properties cannot be accessed from
+		 * Settings.
 		 * Their attributes are protected, so only the View package can see it.
 		 * Since these attributes were never meant to be their in the first place, and I
 		 * didn't want to write thousands of getters/setters, putting them in protected
@@ -128,7 +135,7 @@ public class SettingsView {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (!newValue) {
 					boolean valid = sc.requestSettingChange("Data treatment", "step", msv.frequencyField.getText());
-					if (!valid){
+					if (!valid) {
 						msv.frequencyField.setText("1");
 					}
 				}
@@ -140,26 +147,30 @@ public class SettingsView {
 		msv.kaField.focusedProperty().addListener(focusListener);
 
 		msv.frequencyField.focusedProperty().addListener(frequencyFocusListener);
-		
+
 	}
 
 	/**
-	 * <p>Generate a new pane based on the value and list being updated.
-	 * <p>This method follows some strict rules that are defined inside the
-	   very conception of the interface. Rules are :
+	 * <p>
+	 * Generate a new pane based on the value and list being updated.
+	 * <p>
+	 * This method follows some strict rules that are defined inside the
+	 * very conception of the interface. Rules are :
 	 * <ul>
-	 * <li> <b>Element 0</b> is a Label and contains the <b>name</b> of the attribute
-	 * <li> <b>Element 1</b> is a TextField and contains the <b>value</b> of the attribute
-	 * <li> <b>Element 2</b> is a Button that allows interaction for <b>removal</b>.
+	 * <li><b>Element 0</b> is a Label and contains the <b>name</b> of the attribute
+	 * <li><b>Element 1</b> is a TextField and contains the <b>value</b> of the
+	 * attribute
+	 * <li><b>Element 2</b> is a Button that allows interaction for <b>removal</b>.
 	 * </ul>
+	 * 
 	 * @param container : The VBox containing the elements
-	 * @param ob : The ObservableList to remove values from
-	 * @param key : The name of the attribute
-	 * @param value : The value of the attribute
+	 * @param ob        : The ObservableList to remove values from
+	 * @param key       : The name of the attribute
+	 * @param value     : The value of the attribute
 	 * @see #toggleConfirmation()
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	public void updateContainer(int containerIndex, ObservableMap ob, String key, Integer value){
+	public void updateContainer(int containerIndex, ObservableMap ob, String key, Integer value) {
 		VBox container = containersList.get(containerIndex);
 		Pane clonedPane = PaneCloner.cloneSettingPane(msv.biComponentSettingPane);
 		clonedPane.setId(key);
@@ -174,21 +185,24 @@ public class SettingsView {
 	}
 
 	/**
-	 * <p>Generate a new pane based on the value and list being updated.
-	 * <p>This method follows some strict rules that are defined inside the
-	   very conception of the interface. Rules are :
+	 * <p>
+	 * Generate a new pane based on the value and list being updated.
+	 * <p>
+	 * This method follows some strict rules that are defined inside the
+	 * very conception of the interface. Rules are :
 	 * <ul>
-	 * <li> <b>Element 0</b> is a Label and contains the <b>name</b> of the attribute
-	 * <li> <b>Element 1</b> is a Button that allows interaction for <b>removal</b>.
+	 * <li><b>Element 0</b> is a Label and contains the <b>name</b> of the attribute
+	 * <li><b>Element 1</b> is a Button that allows interaction for <b>removal</b>.
 	 * </ul>
+	 * 
 	 * @param container : The VBox containing the elements
-	 * @param ob : The ObservableList to remove values from
-	 * @param key : The name of the attribute
-	 * @param value : The value of the attribute
+	 * @param ob        : The ObservableList to remove values from
+	 * @param key       : The name of the attribute
+	 * @param value     : The value of the attribute
 	 * @see #toggleConfirmation()
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	public void updateContainer(int containersIndex, ObservableList ol, String key){
+	public void updateContainer(int containersIndex, ObservableList ol, String key) {
 		VBox container = containersList.get(containersIndex);
 		Pane clonedPane = PaneCloner.cloneSettingPane(msv.monoComponentSettingPane);
 		clonedPane.setId(key);
@@ -200,25 +214,25 @@ public class SettingsView {
 		((Button) loadedElement).setOnAction(event -> toggleConfirmation(event, ol, key));
 	}
 
-	public void removeWithId(int containersIndex, String key){
+	public void removeWithId(int containersIndex, String key) {
 		VBox containers = containersList.get(containersIndex);
 		containers.getChildren().removeIf(n -> n.getId() == key);
 	}
 
-    /**
+	/**
 	 * Returns the instance of the SettingsView, creates one if none exists.
 	 * 
 	 * @param MainSceneView _msc : The Main Scene Controller
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	public static SettingsView getInstance(MainSceneController _msc){
-		if (instance == null){
+	public static SettingsView getInstance(MainSceneController _msc) {
+		if (instance == null) {
 			instance = new SettingsView(_msc);
 		}
 		return instance;
 	}
 
-    /**
+	/**
 	 * Switches the button style.
 	 * This is used on the settings menu button so that the user knows
 	 * in which section he is. (Inverse the colours)
@@ -226,7 +240,7 @@ public class SettingsView {
 	 * @param Button : The Button to be switched
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	protected void changeButtonStyle(Button button){
+	protected void changeButtonStyle(Button button) {
 		settingButtonList.forEach((n) -> n.getStyleClass().clear());
 		settingButtonList.forEach((n) -> n.getStyleClass().add(0, "unselected"));
 		button.getStyleClass().set(0, "selected");
@@ -236,14 +250,15 @@ public class SettingsView {
 	 * Switches the toggleButton style to match their value
 	 * 
 	 * @param ToggleButton button : The button to switch
+	 * 
 	 * @author ESTIENNE Alban-Moussa
 	 * 
 	 * Footnote : This one should be more efficient as you will not need
-	 * to write a bunch of if/then to make it work, adding a button 
+	 * to write a bunch of if/then to make it work, adding a button
 	 * will just result in storing it in the array and plugging this function
 	 * into the button (scroll down for example)
 	 */
-	private void switchButton(ToggleButton button){
+	private void switchButton(ToggleButton button) {
 		button.getStyleClass().clear();
 		String status = button.isSelected() == true ? "on" : "off";
 		button.getStyleClass().add(status);
@@ -254,31 +269,30 @@ public class SettingsView {
 
 	/**
 	 * Toggles the connection page.
-	 * It doesn't look pretty, i'm sorry, but since the interface is 
+	 * It doesn't look pretty, i'm sorry, but since the interface is
 	 * going to change very little, i just assumed it would be impactless
 	 * One better way to do it would be to store all the tabs into a table
 	 * and manually set all to visible false except the wanted pane.
-	 * if it looks too unpractical in the future i'll change it 
+	 * if it looks too unpractical in the future i'll change it
 	 * 
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	protected void showConnectionPage(){
+	protected void showConnectionPage() {
 		connectionInfoPane.setVisible(true);
 		topicsPane.setVisible(false);
 		treatmentPane.setVisible(false);
 
 		changeButtonStyle(settingButtonList.get(0));
 		HashMap<String, String> fieldDatas = sc.requestSettings("Connection Infos", false);
-        msv.adressField.setText(fieldDatas.get("host"));
-        msv.portField.setText(fieldDatas.get("port"));
-        msv.kaField.setText(fieldDatas.get("keepalive"));
+		msv.adressField.setText(fieldDatas.get("host"));
+		msv.portField.setText(fieldDatas.get("port"));
+		msv.kaField.setText(fieldDatas.get("keepalive"));
 	}
-	
 
 	/**
 	 * Same as {@link #showConnectionPage()}
 	 */
-	protected void showTopicPage(){
+	protected void showTopicPage() {
 		connectionInfoPane.setVisible(false);
 		topicsPane.setVisible(true);
 		treatmentPane.setVisible(false);
@@ -286,34 +300,34 @@ public class SettingsView {
 		changeButtonStyle(settingButtonList.get(1));
 		HashMap<String, String> fieldDatas = sc.requestSettings("Topics", false);
 
-		if (fieldDatas.get("AM107/by-room/#").equals("0")){
+		if (fieldDatas.get("AM107/by-room/#").equals("0")) {
 			msv.am107Button.getStyleClass().clear();
 			msv.am107Button.getStyleClass().add("off");
 			msv.am107Button.setText("OFF");
 			msv.am107Button.setSelected(false);
 		}
 
-		if (fieldDatas.get("Triphaso/by-room/#").equals("0")){
+		if (fieldDatas.get("Triphaso/by-room/#").equals("0")) {
 			msv.triphasoButton.getStyleClass().clear();
 			msv.triphasoButton.getStyleClass().add("off");
 			msv.triphasoButton.setText("OFF");
 			msv.triphasoButton.setSelected(false);
 		}
 
-		if (fieldDatas.get("solaredge/blagnac/#").equals("0")){
+		if (fieldDatas.get("solaredge/blagnac/#").equals("0")) {
 			msv.solarDataButton.getStyleClass().clear();
 			msv.solarDataButton.getStyleClass().add("off");
 			msv.solarDataButton.setText("OFF");
 			msv.solarDataButton.setSelected(false);
 		}
-        
+
 	}
 
-	public void changeFrequencyText(String s){
+	public void changeFrequencyText(String s) {
 		msv.frequencyField.setText(s);
 	}
 
-	protected void showTreatmentPage(){
+	protected void showTreatmentPage() {
 		sc.setSettingsView(instance);
 
 		connectionInfoPane.setVisible(false);
@@ -324,27 +338,28 @@ public class SettingsView {
 		sc.clearContainers();
 
 		sc.requestSettings("Data treatment", true);
-		
+
 	}
 
 	/**
 	 * Opens the dialogue to add an element to the Data Treatment .ini file section.
+	 * 
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	public void openAdditionDialogue(boolean mono, String buttonCaller){
+	public void openAdditionDialogue(boolean mono, String buttonCaller) {
 		ac.requestNewWindow(mono, buttonCaller);
 	}
 
-	private void toggleConfirmation(ActionEvent e, Observable ol, String key){
+	private void toggleConfirmation(ActionEvent e, Observable ol, String key) {
 		Alert a = new Alert(AlertType.CONFIRMATION);
 		a.setContentText("Etes-vous certain de vouloir supprimer l'attribut " + key.toUpperCase() + "?");
 		Optional<ButtonType> option = a.showAndWait();
 
-		if (option.get().equals(ButtonType.OK)){
-			if (ol instanceof ObservableList){
+		if (option.get().equals(ButtonType.OK)) {
+			if (ol instanceof ObservableList) {
 				((ObservableList) ol).remove(key);
-				System.out.println("Removing "+key);
-			}else if (ol instanceof ObservableMap){
+				System.out.println("Removing " + key);
+			} else if (ol instanceof ObservableMap) {
 				((ObservableMap) ol).remove(key);
 			}
 		}
@@ -352,19 +367,19 @@ public class SettingsView {
 		e.consume();
 	}
 
-	protected void switchAM107(){
+	protected void switchAM107() {
 		switchButton(msv.am107Button);
 	}
 
-	protected void switchTriphaso(){
+	protected void switchTriphaso() {
 		switchButton(msv.triphasoButton);
 	}
 
-	protected void switchSolar(){
+	protected void switchSolar() {
 		switchButton(msv.solarDataButton);
 	}
 
-	protected void startConnectionTest(){
+	protected void startConnectionTest() {
 		String status = sc.requestConnectionTest();
 		String[] splitedStatus = status.split("/");
 		msv.connectionStateLabel.setStyle("-fx-text-fill: " + splitedStatus[1] + ";");

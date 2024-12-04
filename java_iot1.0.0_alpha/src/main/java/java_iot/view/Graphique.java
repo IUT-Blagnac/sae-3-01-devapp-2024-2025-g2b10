@@ -29,7 +29,7 @@ public class Graphique {
     }
 
     public void showDash() {
-        //Je te laisse ça vide Quentin
+        // Je te laisse ça vide Quentin
     }
 
     public void showRoom() {

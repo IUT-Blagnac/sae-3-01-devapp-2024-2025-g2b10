@@ -15,7 +15,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class MainSceneView implements Initializable{
+public class MainSceneView implements Initializable {
 
 	private Navbar navigationBar;
 	private SettingsView settings;
@@ -35,7 +35,7 @@ public class MainSceneView implements Initializable{
 	@FXML
 	protected Pane settingPane;
 	@FXML
-	protected Pane graphPane;
+	protected Pane dashPane;
 	@FXML
 	protected Pane connectionPane;
 	@FXML
@@ -94,8 +94,6 @@ public class MainSceneView implements Initializable{
 	@FXML
 	protected Label connectionStateLabel;
 
-
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		msc = MainSceneController.getInstance();
@@ -104,17 +102,16 @@ public class MainSceneView implements Initializable{
 
 		navigationBar = Navbar.getInstance(msc);
 		navigationBar.setSettingPane(settingPane);
-		navigationBar.setGraphPane(graphPane);
+		navigationBar.setDashPane(dashPane);
 		navigationBar.showDashPane();
 
 		keptValueContainer.getChildren().clear();
 		alertContainer.getChildren().clear();
 		listenedRoomContainer.getChildren().clear();
 
-		
 	}
 
-	public MainSceneController getController(){
+	public MainSceneController getController() {
 		return msc;
 	}
 
@@ -122,76 +119,76 @@ public class MainSceneView implements Initializable{
 	 * FXML FUNCTIONS
 	 */
 	@FXML
-	 public void toggleSettings(){
+	public void toggleSettings() {
 		navigationBar.showSettingPane();
-	 }
+	}
 
-	 @FXML
-	 public void testConnection(){
+	@FXML
+	public void testConnection() {
 		settings.startConnectionTest();
-	 }
+	}
 
-	 @FXML
-	 public void toggleGraph(){
+	@FXML
+	public void toggleGraph() {
 		navigationBar.showDashPane();
-	 }
+	}
 
-	 @FXML
-	 public void showRoom(){
+	@FXML
+	public void showRoom() {
 		navigationBar.showRoomPane();
-	 }
+	}
 
-	 @FXML
-	 public void showPanel(){
+	@FXML
+	public void showPanel() {
 		navigationBar.showPanelPane();
-	 }
+	}
 
-	 @FXML
-	 public void connectionButton(){
+	@FXML
+	public void connectionButton() {
 		settings.showConnectionPage();
-	 }
+	}
 
-	 @FXML
-	 public void topicButton(){
+	@FXML
+	public void topicButton() {
 		settings.showTopicPage();
-	 }
+	}
 
-	 @FXML
-	 public void treatmentButton(){
+	@FXML
+	public void treatmentButton() {
 		settings.showTreatmentPage();
-	 }
+	}
 
-	 @FXML
-	 public void switchAM107(){
+	@FXML
+	public void switchAM107() {
 		settings.switchAM107();
-	 }
+	}
 
-	 @FXML
-	 public void switchTriphaso(){
+	@FXML
+	public void switchTriphaso() {
 		settings.switchTriphaso();
-	 }
+	}
 
-	 @FXML
-	 public void switchSolar(){
+	@FXML
+	public void switchSolar() {
 		settings.switchSolar();
-	 }
+	}
 
-	 @FXML
-	 public void addValueBi(ActionEvent event){
+	@FXML
+	public void addValueBi(ActionEvent event) {
 		// This line is just a reminder that false is bicomponent
 		Button sourceButton = (Button) event.getSource();
 
 		boolean mono = false;
 		settings.openAdditionDialogue(mono, sourceButton.getId());
-	 }
+	}
 
-	 @FXML
-	 public void addValueMono(ActionEvent event){
+	@FXML
+	public void addValueMono(ActionEvent event) {
 		// And here it is monocomponent
 		Button sourceButton = (Button) event.getSource();
 
 		boolean mono = true;
 		settings.openAdditionDialogue(mono, sourceButton.getId());
-	 }
+	}
 
 }
