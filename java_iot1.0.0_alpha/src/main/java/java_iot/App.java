@@ -1,5 +1,5 @@
 package java_iot;
-	
+
 import java.io.IOException;
 
 import java_iot.controller.AdditionController;
@@ -12,30 +12,27 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
-
 public class App extends Application {
-	
+
 	private Pane rootPane;
 	private Stage overlayStage;
 	private Stage primaryStage;
-	
+
 	public App() {
-		
+
 	}
-	
+
 	@Override
 	public void start(Stage primaryStage) {
-		
-		this.primaryStage = primaryStage;
-		this.rootPane     = new Pane();
 
-		primaryStage.setMinWidth(1120); 
-		primaryStage.setMinHeight(630);  
+		this.primaryStage = primaryStage;
+		this.rootPane = new Pane();
+
+		primaryStage.setMinWidth(1120);
+		primaryStage.setMinHeight(630);
 		primaryStage.setResizable(false);
-		
-		
-		//scene.getStylesheets().add(lireeApp.class.getResource("style.css").toExternalForm());
-		
+
+		// scene.getStylesheets().add(lireeApp.class.getResource("style.css").toExternalForm());
 
 		loadMainScreen();
 
@@ -45,12 +42,12 @@ public class App extends Application {
 		primaryStage.setTitle("Java IoT");
 		primaryStage.setScene(scene);
 
-		primaryStage.show();		
-		
+		primaryStage.show();
+
 	}
 
-	public void closeOverlay(){
-		if (overlayStage != null){
+	public void closeOverlay() {
+		if (overlayStage != null) {
 			overlayStage.close();
 		}
 	}
@@ -59,21 +56,21 @@ public class App extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/MainScreen.fxml"));
-			
+
 			Pane vueListe = loader.load();
 			this.rootPane = vueListe;
-			
+
 			MainSceneView ctrl = loader.getController();
 			ctrl.getController().setApp(this);
-						
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Ressource FXML non disponible : MainScreen");
 			System.exit(1);
-		}	
+		}
 	}
 
-	public void showAdditionMenu(boolean mono, String callerButton){
+	public void showAdditionMenu(boolean mono, String callerButton) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/Addition.fxml"));
@@ -81,12 +78,12 @@ public class App extends Application {
 			overlayStage = new Stage();
 			overlayStage.initModality(Modality.WINDOW_MODAL);
 			overlayStage.initOwner(this.primaryStage);
-			
+
 			Pane vueListe = loader.load();
 			this.rootPane = vueListe;
 
 			Scene scene = new Scene(vueListe);
-			
+
 			AdditionView ctrl = loader.getController();
 			System.out.println(callerButton);
 			ctrl.setApp(this);
@@ -95,12 +92,12 @@ public class App extends Application {
 
 			overlayStage.setScene(scene);
 			overlayStage.show();
-						
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Ressource FXML non disponible : Addition");
 			System.exit(1);
-		}	
+		}
 	}
 
 	public static void main2(String[] args) {
