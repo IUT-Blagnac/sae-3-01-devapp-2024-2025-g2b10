@@ -1,4 +1,4 @@
-package java_iot.model;
+package java_iot.classes;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package java_iot.model;
+package java_iot.classes;
 
 public class Sensor {
     private String name;
