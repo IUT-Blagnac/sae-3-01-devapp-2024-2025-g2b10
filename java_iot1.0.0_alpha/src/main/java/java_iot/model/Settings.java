@@ -33,14 +33,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 
 /**
- * Settings is a model class that allows R/W access to the config.ini file
- * Located in resources/ressources/data_collecting/config.ini
- * Settings should NOT be called by a controller.
- * Settings provide the data necessary for SettingsView to read
- * SettingsView notifies Settings of any update on the Settings interface
+ * <p>Settings is a model class that allows R/W access to the config.ini file, typically the 
+   reading of a specified or all settings, and the updating, deletion and creating of a requested
+   settings.
+ * <p>This class handles all the necessary verifications to ensure a proper configuration file, and 
+   provides an adequate answer for the controller to relay.
+   Located in resources/ressources/data_collecting/config.ini
+ * <p>Settings should NOT be called by a view.
+ * <p>Settings provide the data necessary for SettingsController to pass down.
+ * <p>SettingsController notifies Settings of any update on the Settings interface
  * 
  * @author Alban-Moussa ESTIENNE
- * @see java/java_iot/view/SettingsView
+ * @see java_iot.view.SettingsController
  */
 public class Settings {
 
@@ -117,6 +121,21 @@ public class Settings {
 		return this.observable_frequency;
 	 }
 
+	 public String getTopicNameFromIndex(int index){
+		return TOPICS_NAMES_ORDERED[index];
+	}
+
+	public String[] getTopicNameFromIndex(){
+		return TOPICS_NAMES_ORDERED;
+	}
+
+	 /**
+	  * <p>Returns a list of all the associated values with a provided field.
+	  * <p>This method isn't as efficient as I had wished it to be, as I found
+	    no other ways to distinguish rooms from sensors datas.
+	  * @param field : The field name of the data.
+	  * @return String[][] : All the possible options inside.
+	  */
 	 public String[][] getAllAvailableSettings(String field){
 		if (field.equals("listened_rooms")){
 			return this.ALL_ROOMS_VALUES;
@@ -125,6 +144,19 @@ public class Settings {
 		}
 	 }
 
+	/**
+	 * <p>Reads the raw ini file and withdraw the categories by string regex.
+	 * <p>Provide the requested category based on its position in the configuration file.
+	 * <p>The only purpose of this class is to prevent having to pass down full string of category names which
+	   can cause issues when adding or modifying existing categories. The advantage of using indexes is that it
+	   is versatile for further additions.
+
+	 * <p><b>Footnote : The regexes and the match finders were 90% ChatGPT as I cannot comprehend how a regex work.
+	 * @param index : The ID of the button linked to the position of the category.
+	 * @return fieldName : The field name associated with the index provided.
+	 * 
+	 * @author ChatGPT 4o Mini, ESTIENNE Alban-Moussa
+	 */
 	 public String getSectionNameFromId(int numberIndex){
 		try{
 			String configString = Files.readString(Paths.get(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
@@ -155,10 +187,19 @@ public class Settings {
 	}
 
 	/**
-	 * Provides the 
-	 * @param category
-	 * @param index
-	 * @return
+	 * <p>Reads the raw ini file and withdraw the fields by string regex.
+	 * <p>Provides the request field based on its <b>position</b> in the sub-sequent <b>provided category</b>
+	   of the ini file
+	 * <p>The only purpose of this class is to prevent having to pass down full string of field names which
+	   can cause issues when adding or modifying existing fields. The advantage of using indexes is that it
+	   is versatile for further additions.
+
+	 * <p><b>Footnote : The regexes and the match finders were 90% ChatGPT as I cannot comprehend how a regex work.
+	 * @param category : The category where to find the index.
+	 * @param index : The ID of the button linked to the position of the field.
+	 * @return fieldName : The field name associated with the index provided.
+	 * 
+	 * @author ChatGPT 4o Mini, ESTIENNE Alban-Moussa
 	 */
 	public String getFieldFromIndex(String category, int index){
 		try{
@@ -194,14 +235,6 @@ public class Settings {
 		}
 	}
 
-	public String getTopicNameFromIndex(int index){
-		return TOPICS_NAMES_ORDERED[index];
-	}
-
-	public String[] getTopicNameFromIndex(){
-		return TOPICS_NAMES_ORDERED;
-	}
-
 	/**
 	 * Saves the enabled topics in the .ini file 
 	 * Convert binary ON/OFF states of button into a string list of topic to be subscribed to
@@ -209,7 +242,7 @@ public class Settings {
 	 * @param list : List of topic togglebuttons to be read
 	 * @author Alban-Moussa ESTIENNE
 	 */
-	public void saveTopicSettings(List<ToggleButton> list){
+	public void saveToggleButtonTopicSettings(List<ToggleButton> list){
 		String constructedString = "";
 		for (ToggleButton tb : list){
 			if (tb.isSelected()){
@@ -233,8 +266,8 @@ public class Settings {
 	}
 
 	/**
-	 * Clears all the containers on request
-	 * @return
+	 * Clears all the containers on request.
+	 * This is more of a debugging option and shouldn't be used in a functional way.
 	 */
 	public void clearAll(){
 		this.observable_alerts.clear();
@@ -380,6 +413,11 @@ public class Settings {
 		return settingListString.replaceAll("\\s+","");
 	}
 
+	/**
+	 * Removes a setting in the provided list on request.
+	 * @param ol : The list where to remove it. 
+	 * @param key : The name of the field to remove.
+	 */
 	public void removeSettings(Observable ol, String key){
         if (ol instanceof ObservableList) {
             ((ObservableList) ol).remove(key);

@@ -18,6 +18,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 
+/**
+ * <p>AdditionView is a class that gets called when the user attempts to 
+   create a new setting in the Data treatment tab of the app.
+ * <p>This class only handles the reading and transmission of inputs of the user
+   to its dedicated controller.
+ * <p>This class <b>SHOULD ONLY REFERENCE</br> {@link java_iot.controller.AdditionController}
+   and {@link java_iot.App} as they are needed to assure a good functioning of this class.
+ * @author ESTIENNE Alban-Moussa
+ */
 public class AdditionView implements Initializable{
 
     
@@ -45,10 +54,25 @@ public class AdditionView implements Initializable{
         ac = AdditionController.getInstance();
     }
 
+    /**
+     * Sets the app that called this window in other to request a closure. 
+     */
     public void setApp(App _app){
         app = _app;
     }
 
+    /**
+     * <p>Sets the start of the addition window.
+     * <p>The start of the application has been delayed to allow {@link java_iot.App} to provide its instance
+       to this class, in order for {@link java_iot.view.AdditionView#confirm()} to initialize the closing process
+       of the window.
+     * <p>This function withdraw the callerButtonId to know which button was pressed, and requests the 
+       setting list accordingly. For now, as only Data Treatment has been planed to use this view, the 
+       only section of the parameter file that this view calls is "Data treatment", further development will
+       require to store the calling category inside this view.
+     * <p>This function utilizes ListView and a factory to display the cell of the field, or the category 
+       accordingly to whether or not it is present in the list {@link java_iot.model.Settings} provided.
+     */
     public void start(){
         containerList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
@@ -66,8 +90,12 @@ public class AdditionView implements Initializable{
         
         String[][] allAvailableSettings = ac.getAllSettings(fieldName);
 
+        /*
+         * The outer loops iterate through all the categories, and adds he corresponding name
+         */
         for (int i = 0; i < allAvailableSettings.length; i++){
             containerList.getItems().add(ac.getTopicNameFromIndex(i)); // Add category
+            // The inner loop iterate through all the settings and adds them under the category.
             for (String s : allAvailableSettings[i]){
                 System.out.println("CURRENTLY INPUTING : "+s);
                 if (!Arrays.asList(seperatedSettings).stream().anyMatch(str -> str.contains(s))){
@@ -79,6 +107,9 @@ public class AdditionView implements Initializable{
             }
         }
 
+        /*
+         * this factory is responsible for the style of the categories or regular fiels.
+         */
         containerList.setCellFactory(param -> new ListCell<String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -92,7 +123,7 @@ public class AdditionView implements Initializable{
                     setText(item);
                     if (isCategory(item)) {
                         setDisable(true);
-                        setStyle("-fx-background-color: #acfffc; -fx-text-fill: white; -fx-font-weight: bold;");
+                        setStyle("-fx-background-color: #3c3c3c; -fx-text-fill: white; -fx-font-weight: bold;");
                     } else {
                         setDisable(false);
                         setStyle("");
@@ -108,10 +139,6 @@ public class AdditionView implements Initializable{
 
         // Helper method to determine if the item is a category
         private boolean isCategory(String item) {
-            // You can add logic here to determine if an item is a category
-            // For example, if the item is one of the category names
-            // Or you could simply check based on the index you add them in
-            // Here we just assume categories contain a specific naming pattern
             return Arrays.asList(ac.getTopicNameFromIndex()).contains(item);
         }
         });
@@ -139,6 +166,23 @@ public class AdditionView implements Initializable{
         app.closeOverlay();
     }
 
+    /**
+     * <p>Initiate the confirmation process of the addition windows.
+     * <p>The following situations will provide an error alert : 
+     * <ul>
+     * <li>If a mono dialogue : 
+     * <ul>
+     * <li>Nothing has been selected.
+     * </ul>
+     * <li>If a bi dialogue :
+     * <ul>
+     * <li>Nothing has been selected.
+     * <li>No values have been entered.
+     * <li>The entered value is malformed.
+     * </ul>
+     * </ul>
+     * 
+     */
     @FXML
     private void confirm(){
         String selectedItem = containerList.getSelectionModel().getSelectedItem();

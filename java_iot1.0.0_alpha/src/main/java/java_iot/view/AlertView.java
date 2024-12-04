@@ -10,7 +10,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
+/**
+ * Oublie pas la javadoc Romy ;)
+ * @author CHAUVIERE Romy
+ */
 public class AlertView implements Initializable {
 
     @FXML
