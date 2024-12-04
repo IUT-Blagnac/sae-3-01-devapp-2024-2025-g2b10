@@ -1,23 +1,14 @@
 package java_iot.view;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import java_iot.Main;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import java_iot.controller.MainSceneController;
 import javafx.scene.layout.Pane;
 
 /**
- * Navbar is a view class that coordinates the lateral navigation bar displayed pane and
+ * <p>Navbar is a view class that coordinates the lateral navigation bar displayed pane and
  * the navigation between UI elements.
- * Navbar is a singleton to avoid any duplication of object that could cause a desync
+ * <p>Navbar is a singleton to avoid any duplication of object that could cause a desync
  * during the navigation.
- * Navbar should ONLY be called by java_iot.view.MainSceneController.java (it is only visible to the view package anyways)
+ * <p>Navbar should ONLY be called by {@link java_iot.view.MainSceneView} (it is only visible to the view package anyways)
  * 
  * @author ESTIENNE Alban-Moussa
  */
@@ -31,6 +22,7 @@ class Navbar {
 	// The buttons of MSC being set to protected, these are obsolete
 	private Pane settingPane;
 	private Pane graphPane;
+	@SuppressWarnings("unused")
 	private Pane navPane;
 
 	/**
