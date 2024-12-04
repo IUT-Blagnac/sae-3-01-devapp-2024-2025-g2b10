@@ -7,6 +7,8 @@ import java_iot.App;
 import java_iot.controller.AlertController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -34,28 +36,32 @@ public class AlertView implements Initializable {
     }
 
     /**
-     * Ajoute une alerte à partir d'une pièce.
-     *
-     * @param room La pièce contenant les données d'alerte.
-     *
-     * public void addAlert(Data data) { if (data.isAlertRaised()) { Pane
-     * alertPane = new Pane(); alertPane.setStyle("-fx-background-color:
-     * #FFCCCC; -fx-padding: 10; -fx-border-color: black;");
-
-     *      *Label label = new Label("Température anormale enregistrée dans la salle "
-     * + room.getName()); alertPane.getChildren().add(label);
-
-     *      *containerBox.getChildren().add(alertPane); // Ajouter l'alerte au
-     * conteneur } }
+     * Met à jour la vue en fonction de la liste d'alertes actuelle.
      */
+    public void updateView() {
+        containerBox.getChildren().clear(); // Réinitialise la vue
+
+        // Pour chaque alerte, crée un Pane et l'ajoute à la vue
+        for (Alert alert : ac.getAlerts()) {
+            Pane alertPane = createAlertPane(alert);
+            containerBox.getChildren().add(alertPane);
+        }
+    }
+
     /**
-     * Charge toutes les alertes dynamiquement.
+     * Crée dynamiquement un Pane pour afficher une alerte.
      *
-     * @param rooms Liste des pièces à analyser.
-     *
-     * public void loadAlerts(List<Alert> alerts) {
-     * containerBox.getChildren().clear(); // Réinitialiser la liste des alertes
-     * for (Alert alerts : alert) { addAlert(alert); // Ajouter chaque alerte
-     * active } }
+     * @param alert L'alerte à afficher.
+     * @return Un Pane configuré avec les informations de l'alerte.
      */
+    private Pane createAlertPane(Alert alert) {
+        Pane pane = new Pane();
+        pane.setStyle("-fx-background-color: #FFCCCC; -fx-padding: 10; -fx-border-color: black;");
+
+        Label label = new Label(alert.toString());
+        label.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
+        pane.getChildren().add(label);
+
+        return pane;
+    }
 }
