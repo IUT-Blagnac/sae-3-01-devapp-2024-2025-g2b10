@@ -5,8 +5,11 @@ import java.util.List;
 
 import java_iot.model.Settings;
 import java_iot.view.SettingsView;
+import javafx.beans.Observable;
 import javafx.collections.ListChangeListener;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 
@@ -49,14 +52,18 @@ public class SettingsController {
 
 		se.getRoomsObservable().addListener((ListChangeListener<String>) c ->{
 			while (c.next()){
-				for (String key : c.getAddedSubList()){
-					if (c.wasAdded()){
+                if (c.wasAdded()){
+				    for (String key : c.getAddedSubList()){
 						sv.updateContainer(2, se.getRoomsObservable(), key);
-					}else if (c.wasRemoved()){
-						se.removeDataTreatmentElement("listened_rooms", key);
-						sv.removeWithId(2, key);
 					}
 				}
+                if (c.wasRemoved()){
+                    for (String key : c.getRemoved()){
+                        se.removeDataTreatmentElement("listened_rooms", key);
+                        System.out.println("SENDING SIGNAL TO REMOVE : " + key);
+                        sv.removeWithId(2, key);
+                    }
+                }
 			}
         });
 
@@ -81,8 +88,8 @@ public class SettingsController {
         return se.getSectionNameFromId(id);
     }
 
-    public String[][] requestAllAvailableFields(){
-        return se.getAllAvailableSettings();
+    public String[][] requestAllAvailableFields(String field){
+        return se.getAllAvailableSettings(field);
     }
 
     public void setSettingsView(SettingsView _sv){
@@ -107,6 +114,10 @@ public class SettingsController {
 
     public String requestFieldNameFromIndex(String category, int index){
         return se.getFieldFromIndex(category, index);
+    }
+
+    public void requestDeletionOfSettings(Observable ol, String key){
+        se.removeSettings(ol, key);
     }
 
     /**

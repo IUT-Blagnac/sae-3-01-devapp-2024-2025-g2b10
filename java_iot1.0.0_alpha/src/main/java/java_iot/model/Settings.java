@@ -24,6 +24,7 @@ import org.ini4j.Profile.Section;
 import org.ini4j.Wini;
 
 import java_iot.App;
+import javafx.beans.Observable;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,13 +58,22 @@ public class Settings {
 
 	private final String[] ALL_SOLAREDGE_VALUES = {"lastUpdateTime","lastUpdateTime","lifeTimeData","lastYearData","lastMonthData","lastDayData","currentPower","measuredBy"};
 
-	private final String[] TOPICS_NAMES_ORDERED = {"AM107", "Triphaso", "Solaredge"};
+	private final String[] TOPICS_NAMES_ORDERED = {"AM107", "Triphaso", "Solaredge", "Rooms"};
+
+	private final String[] ALL_ROOMS = {"A011", "Amphi1", "Amphi2", "Amphi3", "B004", "B005", "B006", "B007", "B008", "B009", "B010", "B101", 
+										"B102", "B103", "B104", "B105", "B106", "B107", "B108", "B109", "B110", "B111", "B112", "B113", 
+										"B115", "B201", "B202", "B203", "B212", "B212b", "B219", "B234", "C004", "C006", "D001", "E001", "E002", 
+										"E003", "E004", "E005", "E006", "E007", "E008", "E101", "E102", "E103", "E104", "E105", "E106", "E206", 
+										"E207", "E208", "E209", "E210", "E211", "Labo", "hall-amphi", "hall-entrée-principale", 
+	"Salle anechoique", "Salle-conseil", "Atelier recherche", "Local-velo", "Foyer-personnels"};
 	// Some final colours codes
 
 	private final String[][] ALL_VALUES = {ALL_AM107_VALUES, ALL_TRIPHASO_VALUES, ALL_SOLAREDGE_VALUES};
+	private final String[][] ALL_ROOMS_VALUES = {ALL_ROOMS};
 
 	private final String OK_COLOR_HEX = "#4d8e41";
 	private final String ERROR_COLOR_HEX = "#902d2d";
+	@SuppressWarnings("unused")
 	private final String WARNING_COLOR_HEX = "#ab743a";
 
 	private Map<String, Integer> alerts;
@@ -107,8 +117,12 @@ public class Settings {
 		return this.observable_frequency;
 	 }
 
-	 public String[][] getAllAvailableSettings(){
-		return this.ALL_VALUES;
+	 public String[][] getAllAvailableSettings(String field){
+		if (field.equals("listened_rooms")){
+			return this.ALL_ROOMS_VALUES;
+		}else{
+			return this.ALL_VALUES;
+		}
 	 }
 
 	 public String getSectionNameFromId(int numberIndex){
@@ -140,6 +154,12 @@ public class Settings {
 		}
 	}
 
+	/**
+	 * Provides the 
+	 * @param category
+	 * @param index
+	 * @return
+	 */
 	public String getFieldFromIndex(String category, int index){
 		try{
 			String config = Files.readString(Paths.get(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
@@ -280,6 +300,7 @@ public class Settings {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public boolean changeSettingField(String section, String data, String val, boolean addition){
 		try{
 			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
@@ -287,25 +308,39 @@ public class Settings {
 				int frequency = Integer.parseInt(val);
 				ini.put(section, data, val);
 			}else{
+				System.out.println("REQUEST RECEIVED.");
 				String[] checker = val.split(":");
+				// Alerts are formatted like : name:value. If the splitter provides 2 fields, it's an alert.
 				if (checker.length == 2){
 					int checkInt = Integer.parseInt(checker[1]);
 				}
-				System.out.println("Received request.");
 				String selection = ini.get(section, data);
-				selection += ", ";
-				selection += val;
+				
+				// Checks if the field already exists, if it does, replace it, if not, add it
+				if (selection.contains(checker[0])){
+					System.out.println("REROUTING PROCESS TO : REPLACE");
+					System.out.println("REPLACING "+ checker[0] + " FIELD WITH VALUE : "+ checker[1]);
+					selection = selection.replaceAll(checker[0]+":\\d+", val);
+				}else{
+					// Prevents the addition of the , if this is the first value
+					if (!selection.isBlank()){
+						selection += ", ";
+					}
+					selection += val;
+				}
 				ini.put(section, data, selection);
-				loadSetting("Data treatment", true);
 			}
 			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+			loadSetting("Data treatment", true);
 			return true;
 		}catch (NumberFormatException e){
-			System.err.println("REJECTED CHANGE WITH REASON : MALFORMED NUMBER");
+			System.err.println("REJECTED REQUEST WITH REASON : MALFORMED NUMBER");
 			return false;
 		}catch (IOException e){
+			System.err.println("REJECTED REQUEST WITH REASON : UNAVAILABLE RESOURCE");
 			return false;
 		}catch (URISyntaxException e){
+			System.err.println("REJECTED REQUEST WITH REASON : UNREADABLE RESOURCE");
 			return false;
 		}
 	}
@@ -343,6 +378,14 @@ public class Settings {
 	 */
 	public String neutralize(String settingListString){
 		return settingListString.replaceAll("\\s+","");
+	}
+
+	public void removeSettings(Observable ol, String key){
+        if (ol instanceof ObservableList) {
+            ((ObservableList) ol).remove(key);
+        } else if (ol instanceof ObservableMap) {
+            ((ObservableMap) ol).remove(key);
+        }
 	}
 
 	/**
@@ -419,17 +462,20 @@ public class Settings {
 
 					for (String s : rawAlertsTable){
 						String seperated[] = s.split(":");
-						observable_alerts.putIfAbsent(seperated[0], Integer.valueOf(seperated[1]));
+						if (!s.isBlank()) observable_alerts.putIfAbsent(seperated[0], Integer.valueOf(seperated[1]));
 					}
 
 					for (String s : rawDtk.split(",")){
+						s = s.trim();
 						if (!observable_dtk.contains(s)){
-							observable_dtk.add(s);
+							if (!s.isBlank()) observable_dtk.add(s);
 						}
 					}
 					for (String s : rawListenedRooms.split(",")){
+						s = s.trim();
+						System.out.println("LOADING : " + s);
 						if (!observables_rooms.contains(s)){
-							observables_rooms.add(s);
+							if (!s.isBlank()) observables_rooms.add(s);
 						}
 					}
 					observable_frequency.set(Integer.valueOf(rawFrequency));

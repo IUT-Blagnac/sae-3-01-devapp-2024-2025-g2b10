@@ -11,15 +11,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Cell;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class AdditionView implements Initializable{
 
@@ -55,8 +52,9 @@ public class AdditionView implements Initializable{
     public void start(){
         containerList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        HashMap<String, String> settings = ac.requestSettingsList("Data treatment");
         section = "Data treatment";
+        HashMap<String, String> settings = ac.requestSettingsList(section);
+        
         String fieldName = ac.requestFieldFromIndex("Data treatment", Integer.valueOf(callerId)+1);
         name = fieldName;
         String settingValue = settings.get(fieldName);
@@ -65,12 +63,8 @@ public class AdditionView implements Initializable{
         System.err.println(settings);
 
         String[] seperatedSettings = settingValue.split(",");
-
-        for (String s : seperatedSettings){
-            System.out.println();
-        }
         
-        String[][] allAvailableSettings = ac.getAllSettings();
+        String[][] allAvailableSettings = ac.getAllSettings(fieldName);
 
         for (int i = 0; i < allAvailableSettings.length; i++){
             containerList.getItems().add(ac.getTopicNameFromIndex(i)); // Add category

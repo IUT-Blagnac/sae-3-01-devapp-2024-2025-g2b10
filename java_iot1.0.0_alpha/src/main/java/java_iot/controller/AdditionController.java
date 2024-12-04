@@ -32,8 +32,8 @@ public class AdditionController{
         return sc.requestSettings("Data treatment", false);
     }
 
-    public String[][] getAllSettings(){
-        return sc.requestAllAvailableFields();
+    public String[][] getAllSettings(String field){
+        return sc.requestAllAvailableFields(field);
     }
 
     public String getTopicNameFromIndex(int index){
