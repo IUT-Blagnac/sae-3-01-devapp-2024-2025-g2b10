@@ -97,6 +97,7 @@ class Navbar {
 		if (validity){
 			graphPane.setVisible(true);
 			settingPane.setVisible(false);
+			Graphique.getInstance(msc).showRoom();
 		}
 		return validity;
 	}
@@ -112,6 +113,7 @@ class Navbar {
 		if (validity){
 			graphPane.setVisible(true);
 			settingPane.setVisible(false);
+			Graphique.getInstance(msc).showPanel();
 		}
 		return validity;
 	}
@@ -127,6 +129,7 @@ class Navbar {
 		if (validity){
 			graphPane.setVisible(true);
 			settingPane.setVisible(false);
+			Graphique.getInstance(msc).showDash();
 		}
 		return validity;
 	}
