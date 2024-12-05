@@ -1,13 +1,17 @@
 package java_iot.classes;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class dataLoader {
 
@@ -64,9 +68,9 @@ public class dataLoader {
                             String sensorKey = sensorEntry.getKey();
                             Object sensorValue = sensorEntry.getValue();
 
-                            if (sensorKey.equals("temperature") ||
-                                    sensorKey.equals("humidity") ||
-                                    sensorKey.equals("co2")) {
+                            if (sensorKey.equals("temperature")
+                                    || sensorKey.equals("humidity")
+                                    || sensorKey.equals("co2")) {
                                 if (sensorValue instanceof List) {
                                     List<Object> sensorDetails = (List<Object>) sensorValue;
                                     if (sensorDetails.size() == 2) {
@@ -109,8 +113,7 @@ public class dataLoader {
             ProcessBuilder pb = new ProcessBuilder("python", scriptPath, jsonFilePath);
             Process process = pb.start();
 
-            try (BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+            try (BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream())); BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
 
                 String line;
                 while ((line = stdInput.readLine()) != null) {
