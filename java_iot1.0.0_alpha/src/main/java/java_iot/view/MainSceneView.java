@@ -1,8 +1,11 @@
 package java_iot.view;
 
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
+import java_iot.classes.dataLoader;
 import java_iot.controller.MainSceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +18,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class MainSceneView implements Initializable{
+public class MainSceneView implements Initializable {
 
 	private Navbar navigationBar;
 	private SettingsView settings;
@@ -94,8 +97,6 @@ public class MainSceneView implements Initializable{
 	@FXML
 	protected Label connectionStateLabel;
 
-
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		msc = MainSceneController.getInstance();
@@ -111,10 +112,9 @@ public class MainSceneView implements Initializable{
 		alertContainer.getChildren().clear();
 		listenedRoomContainer.getChildren().clear();
 
-		
 	}
 
-	public MainSceneController getController(){
+	public MainSceneController getController() {
 		return msc;
 	}
 
@@ -122,66 +122,86 @@ public class MainSceneView implements Initializable{
 	 * FXML FUNCTIONS
 	 */
 	@FXML
-	 public void toggleSettings(){
+	public void toggleSettings() {
 		navigationBar.showSettingPane();
-	 }
+	}
 
-	 @FXML
-	 public void testConnection(){
+	@FXML
+	public void testConnection() {
 		settings.startConnectionTest();
-	 }
+	}
 
-	 @FXML
-	 public void toggleGraph(){
+	@FXML
+	public void toggleGraph() {
 		navigationBar.showGraphPane();
-	 }
+	}
 
-	 @FXML
-	 public void connectionButton(){
+	@FXML
+	public void connectionButton() {
 		settings.showConnectionPage();
-	 }
+	}
 
-	 @FXML
-	 public void topicButton(){
+	@FXML
+	public void topicButton() {
 		settings.showTopicPage();
-	 }
+	}
 
-	 @FXML
-	 public void treatmentButton(){
+	@FXML
+	public void treatmentButton() {
 		settings.showTreatmentPage();
-	 }
+	}
 
-	 @FXML
-	 public void switchAM107(){
+	@FXML
+	public void switchAM107() {
 		settings.switchAM107();
-	 }
+	}
 
-	 @FXML
-	 public void switchTriphaso(){
+	@FXML
+	public void switchTriphaso() {
 		settings.switchTriphaso();
-	 }
+	}
 
-	 @FXML
-	 public void switchSolar(){
+	@FXML
+	public void switchSolar() {
 		settings.switchSolar();
-	 }
+	}
 
-	 @FXML
-	 public void addValueBi(ActionEvent event){
+	@FXML
+	public void addValueBi(ActionEvent event) {
 		// This line is just a reminder that false is bicomponent
 		Button sourceButton = (Button) event.getSource();
 
 		boolean mono = false;
 		settings.openAdditionDialogue(mono, sourceButton.getId());
-	 }
+	}
 
-	 @FXML
-	 public void addValueMono(ActionEvent event){
+	@FXML
+	public void addValueMono(ActionEvent event) {
 		// And here it is monocomponent
 		Button sourceButton = (Button) event.getSource();
 
 		boolean mono = true;
 		settings.openAdditionDialogue(mono, sourceButton.getId());
-	 }
+	}
+
+	/**
+	 * Méthode qui exécute le script Python pour générer les nouvelles données
+	 * 
+	 * @param event L'événement déclenché par l'appui sur le bouton.
+	 */
+	@FXML
+	public void InitialisationButton(ActionEvent event) {
+		String scriptPath = "java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\main.py";
+		String jsonFilePath = "java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\data.json";
+
+		if (Files.exists(Paths.get(jsonFilePath))) {
+
+			dataLoader loader = new dataLoader();
+			loader.runPythonScript(scriptPath, jsonFilePath);
+
+		} else {
+			System.err.println("Fichier JSON introuvable : " + jsonFilePath);
+		}
+	}
 
 }

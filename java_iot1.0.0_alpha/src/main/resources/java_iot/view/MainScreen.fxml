@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1120.0" stylesheets="@../ressources/css/button_styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="java_iot.view.MainSceneView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1120.0" stylesheets="@../ressources/css/button_styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="java_iot.view.MainSceneView">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -85,7 +85,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="initializeButton" alignment="BOTTOM_RIGHT" graphicTextGap="77.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="251.0" styleClass="navbar-button" text="Initialiser" textFill="#b9b9b9">
+                        <Button fx:id="initializeButton" alignment="BOTTOM_RIGHT" graphicTextGap="77.0" mnemonicParsing="false" onAction="#InitialisationButton" prefHeight="51.0" prefWidth="251.0" styleClass="navbar-button" text="Initialiser" textFill="#b9b9b9">
                            <font>
                               <Font name="DejaVu Sans ExtraLight" size="20.0" />
                            </font>
