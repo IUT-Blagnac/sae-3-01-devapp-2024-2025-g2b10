@@ -125,6 +125,7 @@ public class MainSceneView implements Initializable {
 	@FXML
 	public void toggleSettings() {
 		navigationBar.showSettingPane();
+		System.out.println("set");
 	}
 
 	@FXML
@@ -135,16 +136,19 @@ public class MainSceneView implements Initializable {
 	@FXML
 	public void toggleGraph() {
 		navigationBar.showDashPane();
+		System.out.println("dash");
 	}
 
 	@FXML
 	public void showRoom() {
 		navigationBar.showRoomPane();
+		System.out.println("room");
 	}
 
 	@FXML
 	public void showPanel() {
 		navigationBar.showPanelPane();
+		System.out.println("panel");
 	}
 
 	@FXML

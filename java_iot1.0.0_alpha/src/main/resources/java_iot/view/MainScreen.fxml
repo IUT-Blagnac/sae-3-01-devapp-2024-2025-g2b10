@@ -380,7 +380,7 @@
             <Separator layoutX="9.0" layoutY="148.0" prefHeight="37.0" prefWidth="868.0" />
          </children>
       </Pane>
-      <Pane fx:id="roomPane" layoutX="244.0" prefHeight="630.0" prefWidth="868.0" />
-      <Pane fx:id="panelPane" layoutX="242.0" prefHeight="630.0" prefWidth="880.0" />
+      <Pane fx:id="roomPane" layoutX="244.0" prefHeight="630.0" prefWidth="868.0" visible="false" />
+      <Pane fx:id="panelPane" layoutX="242.0" prefHeight="630.0" prefWidth="880.0" visible="false" />
    </children>
 </AnchorPane>
