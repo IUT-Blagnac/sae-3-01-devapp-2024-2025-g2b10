@@ -8,7 +8,7 @@ import java.util.Optional;
 import java_iot.controller.AdditionController;
 import java_iot.controller.MainSceneController;
 import java_iot.controller.SettingsController;
-import java_iot.utility.PaneCloner;
+import java_iot.classes.PaneCloner;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

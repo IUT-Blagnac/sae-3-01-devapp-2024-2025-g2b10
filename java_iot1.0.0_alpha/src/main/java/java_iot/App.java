@@ -1,7 +1,11 @@
 package java_iot;
 
 import java.io.IOException;
+import java.util.Map;
 
+import java_iot.model.Data;
+import java_iot.model.Room;
+import java_iot.model.dataLoader;
 import java_iot.view.AdditionView;
 import java_iot.view.AlertView;
 import java_iot.view.MainSceneView;
@@ -11,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 
 public class App extends Application {
 
@@ -134,4 +139,22 @@ public class App extends Application {
     public static void main2(String[] args) {
         Application.launch(args);
     }
+    
+	private Data loadData() {
+
+		dataLoader dataLoader = new dataLoader();
+		Data data = dataLoader.loadJsonData("resources/java_iot/ressources/data_collecting/data.json");
+
+		if (data != null) {
+			System.out.println("Données Globales : " + data.getglobal());
+			System.out.println("Salles : ");
+			for (Map.Entry<String, Room> entry : data.getRooms().entrySet()) {
+				System.out.println(entry.getKey() + ": " + entry.getValue());
+			}
+		} else {
+			System.out.println("Erreur lors du chargement des données.");
+		}
+		return data;
+
+	}
 }

@@ -1,4 +1,4 @@
-package java_iot.utility;
+package java_iot.classes;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;

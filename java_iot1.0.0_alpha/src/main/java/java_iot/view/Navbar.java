@@ -4,11 +4,11 @@ import java_iot.controller.MainSceneController;
 import javafx.scene.layout.Pane;
 
 /**
- * Navbar is a view class that coordinates the lateral navigation bar displayed pane and
+ * <p>Navbar is a view class that coordinates the lateral navigation bar displayed pane and
  * the navigation between UI elements.
- * Navbar is a singleton to avoid any duplication of object that could cause a desync
+ * <p>Navbar is a singleton to avoid any duplication of object that could cause a desync
  * during the navigation.
- * Navbar should ONLY be called by java_iot.view.MainSceneController.java (it is only visible to the view package anyways)
+ * <p>Navbar should ONLY be called by {@link java_iot.view.MainSceneView} (it is only visible to the view package anyways)
  * 
  * @author ESTIENNE Alban-Moussa
  */
