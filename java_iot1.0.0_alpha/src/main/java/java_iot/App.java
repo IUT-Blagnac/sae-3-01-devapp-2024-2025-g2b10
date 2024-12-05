@@ -3,9 +3,9 @@ package java_iot;
 import java.io.IOException;
 import java.util.Map;
 
-import java_iot.model.Data;
-import java_iot.model.Room;
-import java_iot.model.dataLoader;
+import java_iot.classes.Data;
+import java_iot.classes.Room;
+import java_iot.classes.dataLoader;
 import java_iot.view.AdditionView;
 import java_iot.view.AlertView;
 import java_iot.view.MainSceneView;

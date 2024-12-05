@@ -189,8 +189,9 @@ def save_to_file():
 #
 # For compatibility reasons, signal.signal(SIGALRM) will not be used, as it prevents the program from running in Windows OS
 
-def saving_interval(sig, frame):
 
+def saving_interval():
+    
     print_debug("Entering saving process...")
 
     global data
@@ -210,15 +211,21 @@ def saving_interval(sig, frame):
         signal.alarm(step * 60)
     else:
         t = threading.Timer(step * 60, saving_interval)
+        t.daemon = True
         t.start()
 
     print_debug("New loop initialized")
 
+def saving_interval_linux(sig_frame):
+    saving_interval()
+
+
 if "linux" in RUNNING_OS:
-    signal.signal(signal.SIGALRM, saving_interval)
+    signal.signal(signal.SIGALRM, saving_interval_linux)
     signal.alarm(step * 60)
 else:
     t = threading.Timer(step * 60, saving_interval)
+    t.daemon = True
     t.start()
 
 
