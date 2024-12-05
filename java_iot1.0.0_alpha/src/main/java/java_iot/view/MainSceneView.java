@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -98,6 +99,11 @@ public class MainSceneView implements Initializable {
 	@FXML
 	protected Label connectionStateLabel;
 
+	@FXML
+	protected ChoiceBox roomChoiceBox;
+	@FXML
+	protected ChoiceBox panelChoiceBox;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		msc = MainSceneController.getInstance();
@@ -107,6 +113,8 @@ public class MainSceneView implements Initializable {
 		navigationBar = Navbar.getInstance(msc);
 		navigationBar.setSettingPane(settingPane);
 		navigationBar.setDashPane(dashPane);
+		navigationBar.setRoomPane(roomPane);
+		navigationBar.setPanelPane(panelPane);
 		navigationBar.showDashPane();
 
 		keptValueContainer.getChildren().clear();
@@ -125,7 +133,6 @@ public class MainSceneView implements Initializable {
 	@FXML
 	public void toggleSettings() {
 		navigationBar.showSettingPane();
-		System.out.println("set");
 	}
 
 	@FXML
@@ -136,19 +143,16 @@ public class MainSceneView implements Initializable {
 	@FXML
 	public void toggleGraph() {
 		navigationBar.showDashPane();
-		System.out.println("dash");
 	}
 
 	@FXML
 	public void showRoom() {
 		navigationBar.showRoomPane();
-		System.out.println("room");
 	}
 
 	@FXML
 	public void showPanel() {
 		navigationBar.showPanelPane();
-		System.out.println("panel");
 	}
 
 	@FXML

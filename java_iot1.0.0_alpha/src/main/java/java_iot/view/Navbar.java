@@ -39,7 +39,6 @@ class Navbar {
 		roomPane = null;
 		panelPane = null;
 		msc = _msc;
-
 	}
 
 	/**
