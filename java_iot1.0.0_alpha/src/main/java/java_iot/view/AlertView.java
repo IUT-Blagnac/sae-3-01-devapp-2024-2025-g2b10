@@ -43,7 +43,7 @@ public class AlertView implements Initializable {
 
         // Pour chaque alerte, crée un Pane et l'ajoute à la vue
         for (Alert alert : ac.getAlerts()) {
-            Pane alertPane = createAlertPane(alert);
+            alertPane = createAlertPane(alert);
             containerBox.getChildren().add(alertPane);
         }
     }
