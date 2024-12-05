@@ -3,6 +3,11 @@ package java_iot.controller;
 import java_iot.App;
 import java_iot.view.MainSceneView;
 
+/**
+ * MainSceneController is the controller linked {@link java_iot.view.MainSceneView} to the diverse controllers it 
+ * utilizes to run different panes.
+ * @author ESTIENNE Alban-Moussa
+ */
 public class MainSceneController {
 
     private App app;
@@ -10,7 +15,6 @@ public class MainSceneController {
     private static MainSceneController instance;
 
     private MainSceneController() {
-
     }
 
     public void setMainSceneView(MainSceneView _msv) {
@@ -21,6 +25,15 @@ public class MainSceneController {
         app = _app;
     }
 
+    public void requestNewAlert(boolean mono) {
+        app.showAlertPopup(mono);
+    }
+
+    /**
+     * Requests a new Addition pane to the {@link java_iot.App}.
+     * @param mono : Whether or not the Pane should have a value field.
+     * @param callerButton : Who called for a new window.
+     */
     public void requestNewAddition(boolean mono, String callerButton) {
         app.showAdditionMenu(mono, callerButton);
     }

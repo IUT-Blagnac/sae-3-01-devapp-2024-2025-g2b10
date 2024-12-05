@@ -24,6 +24,7 @@ import org.ini4j.Profile.Section;
 import org.ini4j.Wini;
 
 import java_iot.App;
+import javafx.beans.Observable;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,14 +33,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 
 /**
- * Settings is a model class that allows R/W access to the config.ini file
- * Located in resources/ressources/data_collecting/config.ini
- * Settings should NOT be called by a controller.
- * Settings provide the data necessary for SettingsView to read
- * SettingsView notifies Settings of any update on the Settings interface
+ * <p>Settings is a model class that allows R/W access to the config.ini file, typically the 
+   reading of a specified or all settings, and the updating, deletion and creating of a requested
+   settings.
+ * <p>This class handles all the necessary verifications to ensure a proper configuration file, and 
+   provides an adequate answer for the controller to relay.
+   Located in resources/ressources/data_collecting/config.ini
+ * <p>Settings should NOT be called by a view.
+ * <p>Settings provide the data necessary for SettingsController to pass down.
+ * <p>SettingsController notifies Settings of any update on the Settings interface
  * 
  * @author Alban-Moussa ESTIENNE
- * @see java/java_iot/view/SettingsView
+ * @see java_iot.view.SettingsController
  */
 public class Settings {
 
@@ -64,13 +69,22 @@ public class Settings {
 	private final String[] ALL_SOLAREDGE_VALUES = { "lastUpdateTime", "lastUpdateTime", "lifeTimeData", "lastYearData",
 			"lastMonthData", "lastDayData", "currentPower", "measuredBy" };
 
-	private final String[] TOPICS_NAMES_ORDERED = { "AM107", "Triphaso", "Solaredge" };
+	private final String[] TOPICS_NAMES_ORDERED = {"AM107", "Triphaso", "Solaredge", "Rooms"};
+
+	private final String[] ALL_ROOMS = {"A011", "Amphi1", "Amphi2", "Amphi3", "B004", "B005", "B006", "B007", "B008", "B009", "B010", "B101", 
+										"B102", "B103", "B104", "B105", "B106", "B107", "B108", "B109", "B110", "B111", "B112", "B113", 
+										"B115", "B201", "B202", "B203", "B212", "B212b", "B219", "B234", "C004", "C006", "D001", "E001", "E002", 
+										"E003", "E004", "E005", "E006", "E007", "E008", "E101", "E102", "E103", "E104", "E105", "E106", "E206", 
+										"E207", "E208", "E209", "E210", "E211", "Labo", "hall-amphi", "hall-entrée-principale", 
+	"Salle anechoique", "Salle-conseil", "Atelier recherche", "Local-velo", "Foyer-personnels"};
 	// Some final colours codes
 
-	private final String[][] ALL_VALUES = { ALL_TRIPHASO_VALUES, ALL_AM107_VALUES, ALL_SOLAREDGE_VALUES };
+	private final String[][] ALL_VALUES = {ALL_AM107_VALUES, ALL_TRIPHASO_VALUES, ALL_SOLAREDGE_VALUES};
+	private final String[][] ALL_ROOMS_VALUES = {ALL_ROOMS};
 
 	private final String OK_COLOR_HEX = "#4d8e41";
 	private final String ERROR_COLOR_HEX = "#902d2d";
+	@SuppressWarnings("unused")
 	private final String WARNING_COLOR_HEX = "#ab743a";
 
 	private Map<String, Integer> alerts;
@@ -113,14 +127,45 @@ public class Settings {
 		return this.observable_frequency;
 	}
 
-	public String[][] getAllAvailableSettings() {
-		return this.ALL_VALUES;
+	 public String getTopicNameFromIndex(int index){
+		return TOPICS_NAMES_ORDERED[index];
 	}
 
-	public String getSectionNameFromId(int numberIndex) {
-		try {
-			String configString = Files
-					.readString(Paths.get(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+	public String[] getTopicNameFromIndex(){
+		return TOPICS_NAMES_ORDERED;
+	}
+
+	 /**
+	  * <p>Returns a list of all the associated values with a provided field.
+	  * <p>This method isn't as efficient as I had wished it to be, as I found
+	    no other ways to distinguish rooms from sensors datas.
+	  * @param field : The field name of the data.
+	  * @return String[][] : All the possible options inside.
+	  */
+	 public String[][] getAllAvailableSettings(String field){
+		if (field.equals("listened_rooms")){
+			return this.ALL_ROOMS_VALUES;
+		}else{
+			return this.ALL_VALUES;
+		}
+	 }
+
+	/**
+	 * <p>Reads the raw ini file and withdraw the categories by string regex.
+	 * <p>Provide the requested category based on its position in the configuration file.
+	 * <p>The only purpose of this class is to prevent having to pass down full string of category names which
+	   can cause issues when adding or modifying existing categories. The advantage of using indexes is that it
+	   is versatile for further additions.
+
+	 * <p><b>Footnote : The regexes and the match finders were 90% ChatGPT as I cannot comprehend how a regex work.
+	 * @param index : The ID of the button linked to the position of the category.
+	 * @return fieldName : The field name associated with the index provided.
+	 * 
+	 * @author ChatGPT 4o Mini, ESTIENNE Alban-Moussa
+	 */
+	 public String getSectionNameFromId(int numberIndex){
+		try{
+			String configString = Files.readString(Paths.get(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
 
 			/*
 			 * Ok so you must probably wonder what the hell this is
@@ -149,8 +194,53 @@ public class Settings {
 		}
 	}
 
-	public String getTopicNameFromIndex(int index) {
-		return TOPICS_NAMES_ORDERED[index];
+	/**
+	 * <p>Reads the raw ini file and withdraw the fields by string regex.
+	 * <p>Provides the request field based on its <b>position</b> in the sub-sequent <b>provided category</b>
+	   of the ini file
+	 * <p>The only purpose of this class is to prevent having to pass down full string of field names which
+	   can cause issues when adding or modifying existing fields. The advantage of using indexes is that it
+	   is versatile for further additions.
+
+	 * <p><b>Footnote : The regexes and the match finders were 90% ChatGPT as I cannot comprehend how a regex work.
+	 * @param category : The category where to find the index.
+	 * @param index : The ID of the button linked to the position of the field.
+	 * @return fieldName : The field name associated with the index provided.
+	 * 
+	 * @author ChatGPT 4o Mini, ESTIENNE Alban-Moussa
+	 */
+	public String getFieldFromIndex(String category, int index){
+		try{
+			String config = Files.readString(Paths.get(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+
+			Pattern categoryPattern = Pattern.compile("\\[([A-Za-z0-9\\s]+)\\]"); 
+			Matcher categoryMatcher = categoryPattern.matcher(config);
+
+			List<String> fields = new ArrayList<>();
+
+			while (categoryMatcher.find()) {
+				String categoryName = categoryMatcher.group(1);
+				if (categoryName.equals(category)) {
+					int startIndex = categoryMatcher.end();
+					String categoryData = config.substring(startIndex);
+
+					Pattern fieldPattern = Pattern.compile("^(?!\\[)([^=\\n]+)(?=\\s*=)", Pattern.MULTILINE);
+					Matcher fieldMatcher = fieldPattern.matcher(categoryData);
+
+					while (fieldMatcher.find()) {
+						fields.add(fieldMatcher.group(1).trim());
+					}
+					if (fields.size() >= index + 1) {
+						return fields.get(index);
+					} else {
+						return "";
+					}
+				}
+			}
+			return "";
+		}catch (Exception e){
+			return "";
+		}
 	}
 
 	/**
@@ -161,7 +251,7 @@ public class Settings {
 	 * @param list : List of topic togglebuttons to be read
 	 * @author Alban-Moussa ESTIENNE
 	 */
-	public void saveTopicSettings(List<ToggleButton> list) {
+	public void saveToggleButtonTopicSettings(List<ToggleButton> list){
 		String constructedString = "";
 		for (ToggleButton tb : list) {
 			if (tb.isSelected()) {
@@ -186,9 +276,8 @@ public class Settings {
 	}
 
 	/**
-	 * Clears all the containers on request
-	 * 
-	 * @return
+	 * Clears all the containers on request.
+	 * This is more of a debugging option and shouldn't be used in a functional way.
 	 */
 	public void clearAll() {
 		this.observable_alerts.clear();
@@ -263,18 +352,47 @@ public class Settings {
 		}
 	}
 
-	public boolean changeSettingField(String section, String data, String val) {
-		try {
-			int frequency = Integer.parseInt(val);
+	@SuppressWarnings("unused")
+	public boolean changeSettingField(String section, String data, String val, boolean addition){
+		try{
 			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
-			ini.put(section, data, val);
+			if (!addition){
+				int frequency = Integer.parseInt(val);
+				ini.put(section, data, val);
+			}else{
+				System.out.println("REQUEST RECEIVED.");
+				String[] checker = val.split(":");
+				// Alerts are formatted like : name:value. If the splitter provides 2 fields, it's an alert.
+				if (checker.length == 2){
+					int checkInt = Integer.parseInt(checker[1]);
+				}
+				String selection = ini.get(section, data);
+				
+				// Checks if the field already exists, if it does, replace it, if not, add it
+				if (selection.contains(checker[0])){
+					System.out.println("REROUTING PROCESS TO : REPLACE");
+					System.out.println("REPLACING "+ checker[0] + " FIELD WITH VALUE : "+ checker[1]);
+					selection = selection.replaceAll(checker[0]+":\\d+", val);
+				}else{
+					// Prevents the addition of the , if this is the first value
+					if (!selection.isBlank()){
+						selection += ", ";
+					}
+					selection += val;
+				}
+				ini.put(section, data, selection);
+			}
 			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+			loadSetting("Data treatment", true);
 			return true;
-		} catch (NumberFormatException e) {
+		}catch (NumberFormatException e){
+			System.err.println("REJECTED REQUEST WITH REASON : MALFORMED NUMBER");
 			return false;
-		} catch (IOException e) {
+		}catch (IOException e){
+			System.err.println("REJECTED REQUEST WITH REASON : UNAVAILABLE RESOURCE");
 			return false;
-		} catch (URISyntaxException e) {
+		}catch (URISyntaxException e){
+			System.err.println("REJECTED REQUEST WITH REASON : UNREADABLE RESOURCE");
 			return false;
 		}
 	}
@@ -311,8 +429,21 @@ public class Settings {
 	 * @param settingListString : The string to neutralize
 	 * @return String : The same string to be used with string.split()
 	 */
-	public String neutralize(String settingListString) {
-		return settingListString.replaceAll(",\\s+", ",");
+	public String neutralize(String settingListString){
+		return settingListString.replaceAll("\\s+","");
+	}
+
+	/**
+	 * Removes a setting in the provided list on request.
+	 * @param ol : The list where to remove it. 
+	 * @param key : The name of the field to remove.
+	 */
+	public void removeSettings(Observable ol, String key){
+        if (ol instanceof ObservableList) {
+            ((ObservableList) ol).remove(key);
+        } else if (ol instanceof ObservableMap) {
+            ((ObservableMap) ol).remove(key);
+        }
 	}
 
 	/**
@@ -374,26 +505,42 @@ public class Settings {
 					String listenedRooms = cInfo.get("listened_rooms").trim();
 					fieldSettings.put("listened_rooms", listenedRooms);
 
-					if (!loadSettingsIntoMemory) {
+					System.err.println("PERMISSION TO LOAD INTO MEMORY HAS BEEN SET TO " + loadSettingsIntoMemory);
+
+					if (!loadSettingsIntoMemory){
 						return fieldSettings;
 					}
+
+					System.err.println("CODE LOADED INTO MEMORY");
 
 					String rawAlerts = neutralize(fieldSettings.get("alerts"));
 					String rawFrequency = neutralize(fieldSettings.get("step"));
 					String rawDtk = neutralize(fieldSettings.get("data_to_keep"));
 					String rawListenedRooms = neutralize(fieldSettings.get("listened_rooms"));
-
+			
+					System.out.println(rawAlerts);
 					String[] rawAlertsTable = rawAlerts.split(",");
 
-					clearAll();
+					
 
-					for (String s : rawAlertsTable) {
+					for (String s : rawAlertsTable){
 						String seperated[] = s.split(":");
-						observable_alerts.put(seperated[0], Integer.valueOf(seperated[1]));
+						if (!s.isBlank()) observable_alerts.putIfAbsent(seperated[0], Integer.valueOf(seperated[1]));
 					}
 
-					observable_dtk.addAll(Arrays.asList(rawDtk.split(",")));
-					observables_rooms.addAll(Arrays.asList(rawListenedRooms.split(",")));
+					for (String s : rawDtk.split(",")){
+						s = s.trim();
+						if (!observable_dtk.contains(s)){
+							if (!s.isBlank()) observable_dtk.add(s);
+						}
+					}
+					for (String s : rawListenedRooms.split(",")){
+						s = s.trim();
+						System.out.println("LOADING : " + s);
+						if (!observables_rooms.contains(s)){
+							if (!s.isBlank()) observables_rooms.add(s);
+						}
+					}
 					observable_frequency.set(Integer.valueOf(rawFrequency));
 
 					break;

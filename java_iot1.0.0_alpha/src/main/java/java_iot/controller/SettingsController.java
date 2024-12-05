@@ -5,11 +5,19 @@ import java.util.List;
 
 import java_iot.model.Settings;
 import java_iot.view.SettingsView;
+import javafx.beans.Observable;
 import javafx.collections.ListChangeListener;
 import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 
+/**
+ * <p>SettingsController is a <b>Singleton class</b> that link {@link java_iot.view.SettingsView} and {@link java_iot.model.Settings}
+ * <p>This class is only responsible for the transmission of requests by View and the transmission of updates to View.
+ * @author ESTIENNE Alban-Moussa
+ */
 public class SettingsController {
 
     private SettingsView sv;
@@ -17,6 +25,10 @@ public class SettingsController {
     private MainSceneController msc;
     private static SettingsController instance;
     
+    /**
+     * Singleton private controller.
+     * This class initializes the listeners of settings arrays.
+     */
     private SettingsController(){
         this.msc = MainSceneController.getInstance();
         this.se = new Settings();
@@ -49,14 +61,18 @@ public class SettingsController {
 
 		se.getRoomsObservable().addListener((ListChangeListener<String>) c ->{
 			while (c.next()){
-				for (String key : c.getAddedSubList()){
-					if (c.wasAdded()){
+                if (c.wasAdded()){
+				    for (String key : c.getAddedSubList()){
 						sv.updateContainer(2, se.getRoomsObservable(), key);
-					}else if (c.wasRemoved()){
-						se.removeDataTreatmentElement("listened_rooms", key);
-						sv.removeWithId(2, key);
 					}
 				}
+                if (c.wasRemoved()){
+                    for (String key : c.getRemoved()){
+                        se.removeDataTreatmentElement("listened_rooms", key);
+                        System.out.println("SENDING SIGNAL TO REMOVE : " + key);
+                        sv.removeWithId(2, key);
+                    }
+                }
 			}
         });
 
@@ -65,6 +81,10 @@ public class SettingsController {
         });
     }
 
+    /**
+     * Provides the current instance of SettingsController, and creates one if none has been set.
+     * @return SettingsController : The singleton instance.
+     */
     public static SettingsController getInstance(){
         if (instance == null){
             instance = new SettingsController();
@@ -81,24 +101,75 @@ public class SettingsController {
         return se.getSectionNameFromId(id);
     }
 
-    public String[][] requestAllAvailableFields(){
-        return se.getAllAvailableSettings();
+    /**
+     * Request all available settings associated with a field.
+     * @param field : The field to withdraw settings list from.
+     * @return String[][] : The settings list.
+     */
+    public String[][] requestAllAvailableFields(String field){
+        return se.getAllAvailableSettings(field);
     }
 
+    /**
+     * Sets the {@link java_iot.view.SettingsView} of the controller.
+     * This has been seperated from the constructor in order to prevent infinite loops of
+     * classes referencing each others.
+     * @param _sv : The SettingsView
+     */
     public void setSettingsView(SettingsView _sv){
         this.sv = _sv;
     }
 
+    /**
+     * Requests a list of rewriting of the connection settings.
+     * @param informationFieldList : The list containing all the fields.
+     */
     public void requestConnectionSettingInFile(List<TextField> informationFieldList){
         se.writeConnectionSettingInFile(informationFieldList);
     }
 
+    /**
+     * Request a change of the topics section based on the update of a button state
+     * @param list : The list of togglebutton to write states from.
+     */
     public void requestSaveTopicSettings(List<ToggleButton> list){
-        se.saveTopicSettings(list);
+        se.saveToggleButtonTopicSettings(list);
     }
 
+    /**
+     * Requests a specific topic name based on its position in the config file.
+     * @param index : THe position of the field.
+     * @return
+     */
     public String requestTopicNameFromIndex(int index){
         return se.getTopicNameFromIndex(index);
+    }
+
+    /**
+     * Requests all topics name.
+     * @return String[] : An array containing all the topics name.
+     */
+    public String[] requestTopicNameFromIndex(){
+        return se.getTopicNameFromIndex();
+    }
+
+    /**
+     * Requests a specific field from a category and its index.
+     * @param category : The category name.
+     * @param index : The position of the field name.
+     * @return
+     */
+    public String requestFieldNameFromIndex(String category, int index){
+        return se.getFieldFromIndex(category, index);
+    }
+
+    /**
+     * Requests a deletion of a specific settings inside a list.
+     * @param ol : The observable list containing the key
+     * @param key : The key to remove.
+     */
+    public void requestDeletionOfSettings(Observable ol, String key){
+        se.removeSettings(ol, key);
     }
 
     /**
@@ -118,17 +189,16 @@ public class SettingsController {
      * @param text : The new value to input.
      * @return boolean : If the change was successful or not.
      */
-    public boolean requestSettingChange(String section, String name, String text){
-        return se.changeSettingField(section, name, text);
+    public boolean requestSettingChange(String section, String name, String text, boolean addition){
+        return se.changeSettingField(section, name, text, addition);
     }
     
+    /**
+     * Requests a connection test to the MQTT server based on the information 
+     * provided in the configuration file
+     * @return String : The message formatted : returncode/colourcode/message of the response.
+     */
     public String requestConnectionTest(){
         return se.testConnection();
     }
-    public void clearContainers(){
-        
-    }
-
-    
-
 }

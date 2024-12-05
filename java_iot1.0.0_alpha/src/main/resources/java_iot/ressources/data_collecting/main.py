@@ -83,7 +83,7 @@ if (c.lower() == "y"):
 # JSON Buffer Reader #
 ######################
 
-input_data = open("data.json", "r")
+input_data = open("java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\data.json", "r")
 
 def print_debug(string):
     if debugMode is True:
@@ -125,7 +125,7 @@ def config_loader():
     global logged_dataType
 
     config = configparser.ConfigParser()
-    config.read("config.ini")
+    config.read("java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\config.ini")
 
     server = config.get("Connection Infos", "host")
     port = int(config.get("Connection Infos", "port"))
@@ -136,7 +136,6 @@ def config_loader():
     step = int(config.get("Data treatment", "step"))
     
     topic_list = topic.split(",")
-    topic_list.pop(0) # First one is an empty str.
     
     alerts = config.get("Data treatment", "alerts")
     dataTypes = config.get("Data treatment", "data_to_keep")
@@ -145,15 +144,15 @@ def config_loader():
     for alert in alerts.split(","):
         if alert != "":
             info = alert.split(":")
-            alert_threshold[info[0]] = int(info[1])
+            alert_threshold[info[0].strip()] = int(info[1])
 
     for data in dataTypes.split(","):
         if alert != "":
-            logged_dataType.append(data)
+            logged_dataType.append(data.strip())
 
     for room in rooms_to_listen.split(","):
         if room != "":
-            listened_rooms.append(room)
+            listened_rooms.append(room.strip())
 
     print_debug("LOADING BROKER SCRIPT WITH PARAMETERS : ")
     print_debug(f"Host URL : {server}")
@@ -176,7 +175,7 @@ def save_to_file():
 
     global fixed_data
 
-    with open("data.json", "w") as savefile:
+    with open("java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\data.json", "w") as savefile:
         json.dump(fixed_data, savefile)
 
     print_debug("Successfully exported data to file.")
@@ -190,8 +189,9 @@ def save_to_file():
 #
 # For compatibility reasons, signal.signal(SIGALRM) will not be used, as it prevents the program from running in Windows OS
 
-def saving_interval(sig, frame):
 
+def saving_interval():
+    
     print_debug("Entering saving process...")
 
     global data
@@ -211,15 +211,21 @@ def saving_interval(sig, frame):
         signal.alarm(step * 60)
     else:
         t = threading.Timer(step * 60, saving_interval)
+        t.daemon = True
         t.start()
 
     print_debug("New loop initialized")
 
+def saving_interval_linux(sig_frame):
+    saving_interval()
+
+
 if "linux" in RUNNING_OS:
-    signal.signal(signal.SIGALRM, saving_interval)
+    signal.signal(signal.SIGALRM, saving_interval_linux)
     signal.alarm(step * 60)
 else:
     t = threading.Timer(step * 60, saving_interval)
+    t.daemon = True
     t.start()
 
 

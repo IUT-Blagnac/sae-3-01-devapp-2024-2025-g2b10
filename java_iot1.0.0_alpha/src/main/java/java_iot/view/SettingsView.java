@@ -1,36 +1,25 @@
 package java_iot.view;
 
-import java.beans.EventHandler;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import java_iot.Main;
 import java_iot.controller.AdditionController;
 import java_iot.controller.MainSceneController;
 import java_iot.controller.SettingsController;
-import java_iot.model.PaneCloner;
-import java_iot.model.Settings;
-import javafx.application.Platform;
+import java_iot.classes.PaneCloner;
 import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
-import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Alert.AlertType;
@@ -39,65 +28,60 @@ import javafx.scene.layout.VBox;
 
 /**
  * SettingsView is working in conjunction with java_iot.model.Settings and
- * handles the
- * graphical part of the settings interface.
- * SettingsView stores a reference to the main scene controller.
- * SettingsView is a singleton as it should prevent duplication in data reading
- * and writing
- * SettingsView should ONLY be called within the view package, as Navbar needs
- * to call a data loading
- * process to load the according settings without any further requests.
- * 
+ * handles the graphical part of the settings interface. SettingsView stores a
+ * reference to the main scene controller. SettingsView is a singleton as it
+ * should prevent duplication in data reading and writing SettingsView should
+ * ONLY be called within the view package, as Navbar needs to call a data
+ * loading process to load the according settings without any further requests.
+ *
  * @see java_iot.model.Settings
  * @author ESTIENNE Alban-Moussa
  */
 public class SettingsView {
 
-	private MainSceneController msc;
-	private MainSceneView msv;
-	private AdditionController ac;
-	private SettingsController sc;
-	private static SettingsView instance;
-	private Pane connectionInfoPane;
-	private Pane topicsPane;
-	private Pane treatmentPane;
+    private MainSceneController msc;
+    private MainSceneView msv;
+    private AdditionController ac;
+    private SettingsController sc;
+    private static SettingsView instance;
 
-	private List<Button> settingButtonList;
-	private List<ToggleButton> toggleButtonList;
-	private List<TextField> informationFieldList;
-	private List<VBox> containersList;
+    private Pane connectionInfoPane;
+    private Pane currentlyOpenedPane;
+    private Pane topicsPane;
+    private Pane treatmentPane;
 
-	/**
-	 * Private constructor for the SettingsView singleton.
-	 * Stores a single instance of _msc that will be UNCHANGEABLE unless
-	 * force-overwritten.
-	 * 
-	 * @author ESTIENNE Alban-Moussa
-	 */
-	private SettingsView(MainSceneController _msc) {
+    private List<Button> settingButtonList;
+    private List<ToggleButton> toggleButtonList;
+    private List<TextField> informationFieldList;
+    private List<VBox> containersList;
 
-		settingButtonList = new ArrayList<>();
-		toggleButtonList = new ArrayList<>();
-		informationFieldList = new ArrayList<>();
-		containersList = new ArrayList<>();
+    /**
+     * Private constructor for the SettingsView singleton. Stores a single
+     * instance of _msc that will be UNCHANGEABLE unless force-overwritten.
+     *
+     * @author ESTIENNE Alban-Moussa
+     */
+    private SettingsView(MainSceneController _msc) {
 
-		msc = _msc;
+        settingButtonList = new ArrayList<>();
+        toggleButtonList = new ArrayList<>();
+        informationFieldList = new ArrayList<>();
+        containersList = new ArrayList<>();
 
-		msv = msc.getMainSceneView();
-		ac = AdditionController.getInstance();
-		sc = SettingsController.getInstance();
+        msc = _msc;
 
-		connectionInfoPane = msv.connectionPane;
-		topicsPane = msv.topicPane;
-		treatmentPane = msv.treatmentPane;
+        msv = msc.getMainSceneView();
+        ac = AdditionController.getInstance();
+        sc = SettingsController.getInstance();
 
-		/*
-		 * Ok, so before you start to scream that this code is horrendous, let me
-		 * explain
-		 * Settings is supposed to be an extention of MainScene, the pane containing
-		 * Settings
-		 * is itself a "child" of MainScene, its properties cannot be accessed from
-		 * Settings.
+        connectionInfoPane = msv.connectionPane;
+        topicsPane = msv.topicPane;
+        treatmentPane = msv.treatmentPane;
+
+        /*
+		 * Ok, so before you start to scream that this code is horrendous, let me explain
+		 * Settings is supposed to be an extention of MainScene, the pane containing Settings
+		 * is itself a "child" of MainScene, its properties cannot be accessed from Settings.
 		 * Their attributes are protected, so only the View package can see it.
 		 * Since these attributes were never meant to be their in the first place, and I
 		 * didn't want to write thousands of getters/setters, putting them in protected
@@ -134,8 +118,8 @@ public class SettingsView {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (!newValue) {
-					boolean valid = sc.requestSettingChange("Data treatment", "step", msv.frequencyField.getText());
-					if (!valid) {
+					boolean valid = sc.requestSettingChange("Data treatment", "step", msv.frequencyField.getText(), false);
+					if (!valid){
 						msv.frequencyField.setText("1");
 					}
 				}
@@ -170,16 +154,32 @@ public class SettingsView {
 	 * @see #toggleConfirmation()
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	public void updateContainer(int containerIndex, ObservableMap ob, String key, Integer value) {
+	public void updateContainer(int containerIndex, ObservableMap<String, Integer> ob, String key, Integer value){
 		VBox container = containersList.get(containerIndex);
 		Pane clonedPane = PaneCloner.cloneSettingPane(msv.biComponentSettingPane);
 		clonedPane.setId(key);
 		container.getChildren().add(clonedPane);
 		ObservableList<Node> elementList = clonedPane.getChildren();
+        TextField keptField = (TextField) elementList.get(1);
 		Node loadedElement = (Label) elementList.get(0);
 		((Label) loadedElement).setText(key);
 		loadedElement = (TextField) elementList.get(1);
 		((TextField) loadedElement).setText(value.toString());
+
+		ChangeListener<Boolean> frequencyFocusListener = new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (!newValue) {
+					boolean valid = sc.requestSettingChange("Data treatment", "alerts", key + ":" + keptField.getText(), true);
+					if (!valid){
+						msv.frequencyField.setText("");
+					}
+				}
+			}
+		};
+
+		((TextField) loadedElement).focusedProperty().addListener(frequencyFocusListener);
+
 		loadedElement = (Button) elementList.get(2);
 		((Button) loadedElement).setOnAction(event -> toggleConfirmation(event, ob, key));
 	}
@@ -202,7 +202,7 @@ public class SettingsView {
 	 * @see #toggleConfirmation()
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	public void updateContainer(int containersIndex, ObservableList ol, String key) {
+	public void updateContainer(int containersIndex, ObservableList<String> ol, String key){
 		VBox container = containersList.get(containersIndex);
 		Pane clonedPane = PaneCloner.cloneSettingPane(msv.monoComponentSettingPane);
 		clonedPane.setId(key);
@@ -219,34 +219,34 @@ public class SettingsView {
 		containers.getChildren().removeIf(n -> n.getId() == key);
 	}
 
-	/**
-	 * Returns the instance of the SettingsView, creates one if none exists.
-	 * 
-	 * @param MainSceneView _msc : The Main Scene Controller
-	 * @author ESTIENNE Alban-Moussa
-	 */
-	public static SettingsView getInstance(MainSceneController _msc) {
-		if (instance == null) {
-			instance = new SettingsView(_msc);
-		}
-		return instance;
-	}
 
-	/**
-	 * Switches the button style.
-	 * This is used on the settings menu button so that the user knows
-	 * in which section he is. (Inverse the colours)
-	 * 
-	 * @param Button : The Button to be switched
-	 * @author ESTIENNE Alban-Moussa
-	 */
-	protected void changeButtonStyle(Button button) {
-		settingButtonList.forEach((n) -> n.getStyleClass().clear());
-		settingButtonList.forEach((n) -> n.getStyleClass().add(0, "unselected"));
-		button.getStyleClass().set(0, "selected");
-	}
+    /**
+     * Returns the instance of the SettingsView, creates one if none exists.
+     *
+     * @param MainSceneView _msc : The Main Scene Controller
+     * @author ESTIENNE Alban-Moussa
+     */
+    public static SettingsView getInstance(MainSceneController _msc) {
+        if (instance == null) {
+            instance = new SettingsView(_msc);
+        }
+        return instance;
+    }
 
-	/*
+    /**
+     * Switches the button style. This is used on the settings menu button so
+     * that the user knows in which section he is. (Inverse the colours)
+     *
+     * @param Button : The Button to be switched
+     * @author ESTIENNE Alban-Moussa
+     */
+    protected void changeButtonStyle(Button button) {
+        settingButtonList.forEach((n) -> n.getStyleClass().clear());
+        settingButtonList.forEach((n) -> n.getStyleClass().add(0, "unselected"));
+        button.getStyleClass().set(0, "selected");
+    }
+
+    /*
 	 * Switches the toggleButton style to match their value
 	 * 
 	 * @param ToggleButton button : The button to switch
@@ -257,17 +257,17 @@ public class SettingsView {
 	 * to write a bunch of if/then to make it work, adding a button
 	 * will just result in storing it in the array and plugging this function
 	 * into the button (scroll down for example)
-	 */
-	private void switchButton(ToggleButton button) {
-		button.getStyleClass().clear();
-		String status = button.isSelected() == true ? "on" : "off";
-		button.getStyleClass().add(status);
-		button.setText(status.toUpperCase());
+     */
+    private void switchButton(ToggleButton button) {
+        button.getStyleClass().clear();
+        String status = button.isSelected() == true ? "on" : "off";
+        button.getStyleClass().add(status);
+        button.setText(status.toUpperCase());
 
-		sc.requestSaveTopicSettings(toggleButtonList);
-	}
+        sc.requestSaveTopicSettings(toggleButtonList);
+    }
 
-	/**
+    /*
 	 * Toggles the connection page.
 	 * It doesn't look pretty, i'm sorry, but since the interface is
 	 * going to change very little, i just assumed it would be impactless
@@ -276,114 +276,123 @@ public class SettingsView {
 	 * if it looks too unpractical in the future i'll change it
 	 * 
 	 * @author ESTIENNE Alban-Moussa
-	 */
-	protected void showConnectionPage() {
-		connectionInfoPane.setVisible(true);
-		topicsPane.setVisible(false);
-		treatmentPane.setVisible(false);
+     */
+    protected void showConnectionPage() {
+        if (currentlyOpenedPane == connectionInfoPane) {
+            return;
+        }
 
-		changeButtonStyle(settingButtonList.get(0));
-		HashMap<String, String> fieldDatas = sc.requestSettings("Connection Infos", false);
-		msv.adressField.setText(fieldDatas.get("host"));
-		msv.portField.setText(fieldDatas.get("port"));
-		msv.kaField.setText(fieldDatas.get("keepalive"));
-	}
+        currentlyOpenedPane = connectionInfoPane;
+        connectionInfoPane.setVisible(true);
+        topicsPane.setVisible(false);
+        treatmentPane.setVisible(false);
 
-	/**
-	 * Same as {@link #showConnectionPage()}
-	 */
-	protected void showTopicPage() {
-		connectionInfoPane.setVisible(false);
-		topicsPane.setVisible(true);
-		treatmentPane.setVisible(false);
+        changeButtonStyle(settingButtonList.get(0));
+        HashMap<String, String> fieldDatas = sc.requestSettings("Connection Infos", false);
+        msv.adressField.setText(fieldDatas.get("host"));
+        msv.portField.setText(fieldDatas.get("port"));
+        msv.kaField.setText(fieldDatas.get("keepalive"));
+    }
 
-		changeButtonStyle(settingButtonList.get(1));
-		HashMap<String, String> fieldDatas = sc.requestSettings("Topics", false);
+    /**
+     * Same as {@link #showConnectionPage()}
+     */
+    protected void showTopicPage() {
+        if (currentlyOpenedPane == topicsPane) {
+            return;
+        }
 
-		if (fieldDatas.get("AM107/by-room/#").equals("0")) {
-			msv.am107Button.getStyleClass().clear();
-			msv.am107Button.getStyleClass().add("off");
-			msv.am107Button.setText("OFF");
-			msv.am107Button.setSelected(false);
-		}
+        currentlyOpenedPane = topicsPane;
+        connectionInfoPane.setVisible(false);
+        topicsPane.setVisible(true);
+        treatmentPane.setVisible(false);
 
-		if (fieldDatas.get("Triphaso/by-room/#").equals("0")) {
-			msv.triphasoButton.getStyleClass().clear();
-			msv.triphasoButton.getStyleClass().add("off");
-			msv.triphasoButton.setText("OFF");
-			msv.triphasoButton.setSelected(false);
-		}
+        changeButtonStyle(settingButtonList.get(1));
+        HashMap<String, String> fieldDatas = sc.requestSettings("Topics", false);
 
-		if (fieldDatas.get("solaredge/blagnac/#").equals("0")) {
-			msv.solarDataButton.getStyleClass().clear();
-			msv.solarDataButton.getStyleClass().add("off");
-			msv.solarDataButton.setText("OFF");
-			msv.solarDataButton.setSelected(false);
-		}
+        if (fieldDatas.get("AM107/by-room/#").equals("0")) {
+            msv.am107Button.getStyleClass().clear();
+            msv.am107Button.getStyleClass().add("off");
+            msv.am107Button.setText("OFF");
+            msv.am107Button.setSelected(false);
+        }
 
-	}
+        if (fieldDatas.get("Triphaso/by-room/#").equals("0")) {
+            msv.triphasoButton.getStyleClass().clear();
+            msv.triphasoButton.getStyleClass().add("off");
+            msv.triphasoButton.setText("OFF");
+            msv.triphasoButton.setSelected(false);
+        }
 
-	public void changeFrequencyText(String s) {
-		msv.frequencyField.setText(s);
-	}
+        if (fieldDatas.get("solaredge/blagnac/#").equals("0")) {
+            msv.solarDataButton.getStyleClass().clear();
+            msv.solarDataButton.getStyleClass().add("off");
+            msv.solarDataButton.setText("OFF");
+            msv.solarDataButton.setSelected(false);
+        }
 
-	protected void showTreatmentPage() {
-		sc.setSettingsView(instance);
+    }
 
-		connectionInfoPane.setVisible(false);
-		topicsPane.setVisible(false);
-		treatmentPane.setVisible(true);
+    public void changeFrequencyText(String s) {
+        msv.frequencyField.setText(s);
+    }
 
-		changeButtonStyle(settingButtonList.get(2));
-		sc.clearContainers();
+    protected void showTreatmentPage() {
+        if (currentlyOpenedPane == treatmentPane) {
+            return;
+        }
 
-		sc.requestSettings("Data treatment", true);
+        currentlyOpenedPane = treatmentPane;
+        sc.setSettingsView(instance);
 
-	}
+        connectionInfoPane.setVisible(false);
+        topicsPane.setVisible(false);
+        treatmentPane.setVisible(true);
 
-	/**
-	 * Opens the dialogue to add an element to the Data Treatment .ini file section.
-	 * 
-	 * @author ESTIENNE Alban-Moussa
-	 */
-	public void openAdditionDialogue(boolean mono, String buttonCaller) {
-		ac.requestNewWindow(mono, buttonCaller);
-	}
+        changeButtonStyle(settingButtonList.get(2));
+        sc.requestSettings("Data treatment", true);
 
-	private void toggleConfirmation(ActionEvent e, Observable ol, String key) {
-		Alert a = new Alert(AlertType.CONFIRMATION);
-		a.setContentText("Etes-vous certain de vouloir supprimer l'attribut " + key.toUpperCase() + "?");
-		Optional<ButtonType> option = a.showAndWait();
+    }
 
-		if (option.get().equals(ButtonType.OK)) {
-			if (ol instanceof ObservableList) {
-				((ObservableList) ol).remove(key);
-				System.out.println("Removing " + key);
-			} else if (ol instanceof ObservableMap) {
-				((ObservableMap) ol).remove(key);
-			}
-		}
+    /**
+     * Opens the dialogue to add an element to the Data Treatment .ini file
+     * section.
+     *
+     * @author ESTIENNE Alban-Moussa
+     */
+    public void openAdditionDialogue(boolean mono, String buttonCaller) {
+        ac.requestNewWindow(mono, buttonCaller);
+    }
 
-		e.consume();
-	}
+    private void toggleConfirmation(ActionEvent e, Observable ol, String key) {
+        Alert a = new Alert(AlertType.CONFIRMATION);
+        a.setContentText("Etes-vous certain de vouloir supprimer l'attribut " + key.toUpperCase() + "?");
+        Optional<ButtonType> option = a.showAndWait();
 
-	protected void switchAM107() {
-		switchButton(msv.am107Button);
-	}
+        if (option.get().equals(ButtonType.OK)) {
+            sc.requestDeletionOfSettings(ol, key);
+        }
 
-	protected void switchTriphaso() {
-		switchButton(msv.triphasoButton);
-	}
+        e.consume();
+    }
 
-	protected void switchSolar() {
-		switchButton(msv.solarDataButton);
-	}
+    protected void switchAM107() {
+        switchButton(msv.am107Button);
+    }
 
-	protected void startConnectionTest() {
-		String status = sc.requestConnectionTest();
-		String[] splitedStatus = status.split("/");
-		msv.connectionStateLabel.setStyle("-fx-text-fill: " + splitedStatus[1] + ";");
-		msv.connectionStateLabel.setText(splitedStatus[2]);
-	}
+    protected void switchTriphaso() {
+        switchButton(msv.triphasoButton);
+    }
+
+    protected void switchSolar() {
+        switchButton(msv.solarDataButton);
+    }
+
+    protected void startConnectionTest() {
+        String status = sc.requestConnectionTest();
+        String[] splitedStatus = status.split("/");
+        msv.connectionStateLabel.setStyle("-fx-text-fill: " + splitedStatus[1] + ";");
+        msv.connectionStateLabel.setText(splitedStatus[2]);
+    }
 
 }

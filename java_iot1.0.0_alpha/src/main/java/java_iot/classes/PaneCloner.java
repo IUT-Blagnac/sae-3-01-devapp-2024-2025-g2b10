@@ -1,8 +1,7 @@
-package java_iot.model;
+package java_iot.classes;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
