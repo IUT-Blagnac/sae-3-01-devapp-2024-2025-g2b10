@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -100,9 +101,9 @@ public class MainSceneView implements Initializable {
 	protected Label connectionStateLabel;
 
 	@FXML
-	protected ChoiceBox roomChoiceBox;
+	protected ComboBox<String> roomComboBox;
 	@FXML
-	protected ChoiceBox panelChoiceBox;
+	protected ComboBox<String> panelComboBox;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -120,6 +121,11 @@ public class MainSceneView implements Initializable {
 		keptValueContainer.getChildren().clear();
 		alertContainer.getChildren().clear();
 		listenedRoomContainer.getChildren().clear();
+
+		String[][] roomData = settingsController.getAllAvailableFields("listened_rooms");
+        String[] rooms = roomData[0];  // Assuming the first array contains room names
+
+		roomComboBox.getItems().addAll(rooms);
 
 	}
 
