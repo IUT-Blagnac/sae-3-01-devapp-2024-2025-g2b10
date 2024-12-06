@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import java_iot.controller.MainSceneController;
+import java_iot.controller.SettingsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +23,7 @@ public class MainSceneView implements Initializable {
 	private Navbar navigationBar;
 	private SettingsView settings;
 	private MainSceneController msc;
+	private SettingsController settingsController;
 
 	@FXML
 	public Button settingButton;
@@ -110,6 +112,7 @@ public class MainSceneView implements Initializable {
 		msc = MainSceneController.getInstance();
 		msc.setMainSceneView(this);
 		settings = SettingsView.getInstance(msc);
+		settingsController = SettingsController.getInstance();
 
 		navigationBar = Navbar.getInstance(msc);
 		navigationBar.setSettingPane(settingPane);
@@ -122,10 +125,10 @@ public class MainSceneView implements Initializable {
 		alertContainer.getChildren().clear();
 		listenedRoomContainer.getChildren().clear();
 
-		String[][] roomData = settingsController.getAllAvailableFields("listened_rooms");
+		String[][] roomData = settingsController.requestAllAvailableFields("listened_rooms");
         String[] rooms = roomData[0];  // Assuming the first array contains room names
-
 		roomComboBox.getItems().addAll(rooms);
+		panelComboBox.getItems().addAll(rooms);
 
 	}
 
