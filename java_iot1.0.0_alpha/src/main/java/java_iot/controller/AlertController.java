@@ -1,7 +1,6 @@
 package java_iot.controller;
 
 import java_iot.App;
-import java_iot.classes.Data;
 import java_iot.view.AlertView;
 import javafx.scene.control.Alert;
 
@@ -11,8 +10,6 @@ public class AlertController {
     private AlertView av;
     private MainSceneController msc;
     private static AlertController instance;
-
-    private Data donnees;
 
     public AlertController() {
         this.msc = MainSceneController.getInstance();

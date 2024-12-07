@@ -15,7 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class dataLoader {
 
-    public Data loadJsonData(String jsonFilePath) {
+    public static Data loadJsonData(String jsonFilePath) {
         try {
             InputStream inputStream = getClass().getResourceAsStream("/java_iot/ressources/data_collecting/data.json");
 

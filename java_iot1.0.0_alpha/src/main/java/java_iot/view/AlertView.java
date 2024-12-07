@@ -11,8 +11,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+
 /**
  * Oublie pas la javadoc Romy ;)
+ *
  * @author CHAUVIERE Romy
  */
 public class AlertView implements Initializable {
@@ -45,7 +47,7 @@ public class AlertView implements Initializable {
         containerBox.getChildren().clear(); // Réinitialise la vue
 
         // Pour chaque alerte, crée un Pane et l'ajoute à la vue
-        for (Alert alert : ac.getAlerts()) {
+        for ( ) {
             alertPane = createAlertPane(alert);
             containerBox.getChildren().add(alertPane);
         }

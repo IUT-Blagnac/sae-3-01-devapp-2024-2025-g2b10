@@ -1,11 +1,15 @@
 package java_iot.controller;
 
 import java_iot.App;
+import java_iot.classes.Data;
+import java_iot.classes.dataLoader;
 import java_iot.view.MainSceneView;
 
 /**
- * MainSceneController is the controller linked {@link java_iot.view.MainSceneView} to the diverse controllers it 
- * utilizes to run different panes.
+ * MainSceneController is the controller linked
+ * {@link java_iot.view.MainSceneView} to the diverse controllers it utilizes to
+ * run different panes.
+ *
  * @author ESTIENNE Alban-Moussa
  */
 public class MainSceneController {
@@ -14,7 +18,19 @@ public class MainSceneController {
     private MainSceneView msv;
     private static MainSceneController instance;
 
+    private Data donnees;
+    private int frequency;
+
     private MainSceneController() {
+        donnees = dataLoader.loadJsonData("");
+    }
+
+    public Data getDonnees() {
+        return donnees;
+    }
+
+    public int getFrequency() {
+        return frequency;
     }
 
     public void setMainSceneView(MainSceneView _msv) {
@@ -31,6 +47,7 @@ public class MainSceneController {
 
     /**
      * Requests a new Addition pane to the {@link java_iot.App}.
+     *
      * @param mono : Whether or not the Pane should have a value field.
      * @param callerButton : Who called for a new window.
      */
