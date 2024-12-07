@@ -65,7 +65,6 @@ public class Graphique {
 
         container.getChildren().removeIf(node -> node instanceof BarChart);
 
-
         // Ensure the roomPane isn't fully cleared
         if (roomPane.getChildren().size() > 1) {
             // Remove only the chart if it already exists
@@ -75,12 +74,17 @@ public class Graphique {
         // Example JSON data for a room
         String roomDataJson = """
                 {
-                    "temperature": 21.5,
-                    "humidity": 45.3,
-                    "co2": 600,
-                    "tvoc": 300
-                }
-                """;
+                   "temperature": 18.9,
+                   "humidity": 53.5,
+                   "activity": 0,
+                   "co2": 1700,
+                   "tvoc": 120,
+                   "illumination": 1,
+                   "infrared": 1,
+                   "infrared_and_visible": 1,
+                   "pressure": 993.3
+                 }
+                               """;
 
         // Parse JSON (use your preferred library, e.g., Jackson or Gson)
         ObjectMapper mapper = new ObjectMapper();
@@ -116,6 +120,58 @@ public class Graphique {
     }
 
     public void showPanel() {
-
+        Pane panelPane = msc.getMainSceneView().panelPane;
+        VBox container = (VBox) panelPane.getChildren().get(0);
+    
+        // Remove any existing BarChart from the panelPane
+        container.getChildren().removeIf(node -> node instanceof BarChart);
+    
+        // Example static solar panel data
+        String panelDataJson = """
+                {
+                    "lastUpdateTime": "2024-12-07 18:41:22",
+                    "lifeTimeData": {"energy": 3469161},
+                    "lastYearData": {"energy": 2988131},
+                    "lastMonthData": {"energy": 53725},
+                    "lastDayData": {"energy": 4987},
+                    "currentPower": {"power": 0},
+                    "measuredBy": "INVERTER"
+                }
+        """;
+    
+        // Parse the JSON to SolarPanelData POJO
+        ObjectMapper mapper = new ObjectMapper();
+        SolarPanelData panelData;
+        try {
+            // Deserialize only the relevant fields
+            panelData = mapper.readValue(panelDataJson, SolarPanelData.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("here");
+            return;
+        }
+    
+        // Create BarChart for Solar Panel Data
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Metrics");
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Energy / Power");
+    
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("Solar Panel Data");
+    
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Energy Metrics");
+    
+        // Add data to the chart
+        series.getData().add(new XYChart.Data<>("Lifetime Energy", panelData.getEnergy()));
+        series.getData().add(new XYChart.Data<>("Last Year Energy", panelData.getLastYearEnergy()));
+        series.getData().add(new XYChart.Data<>("Last Month Energy", panelData.getLastMonthEnergy()));
+        series.getData().add(new XYChart.Data<>("Last Day Energy", panelData.getLastDayEnergy()));
+        series.getData().add(new XYChart.Data<>("Current Power", panelData.getCurrentPower()));
+    
+        barChart.getData().add(series);
+    
+        container.getChildren().add(barChart); // Add the chart to the VBox
     }
 }

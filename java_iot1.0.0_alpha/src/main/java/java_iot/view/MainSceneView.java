@@ -104,8 +104,6 @@ public class MainSceneView implements Initializable {
 
 	@FXML
 	protected ComboBox<String> roomComboBox;
-	@FXML
-	protected ComboBox<String> panelComboBox;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -129,8 +127,6 @@ public class MainSceneView implements Initializable {
         String[] rooms = roomData[0];  // Assuming the first array contains room names
 		roomComboBox.getItems().addAll(rooms);
 		roomComboBox.setOnAction(event -> handleRoomSelection());
-		panelComboBox.getItems().addAll(rooms);
-		panelComboBox.setOnAction(event -> handleRoomSelection());
 
 	}
 
