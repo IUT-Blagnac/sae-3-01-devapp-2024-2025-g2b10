@@ -1,18 +1,16 @@
 package java_iot.controller;
 
-import java_iot.App;
-import java_iot.view.AlertView;
-import javafx.scene.control.Alert;
+import java.util.Map;
+
+import java_iot.classes.Data;
+import java_iot.classes.Sensor;
 
 public class AlertController {
 
-    private App app;
-    private AlertView av;
-    private MainSceneController msc;
+    private Data data; // Données globales
     private static AlertController instance;
 
-    public AlertController() {
-        this.msc = MainSceneController.getInstance();
+    private AlertController() {
     }
 
     public static AlertController getInstance() {
@@ -22,21 +20,22 @@ public class AlertController {
         return instance;
     }
 
-    public void setAlertView(AlertView _av) {
-        this.av = _av;
-    }
-
-    public void requestNewWindow(boolean mono) {
-        msc.requestNewAlert(mono);
+    public void setData(Data data) {
+        this.data = data;
     }
 
     /**
-     * Ajoute une nouvelle alerte à la liste et met à jour la vue.
+     * Vérifie les capteurs en alerte.
      *
-     * @param alert L'alerte à ajouter.
+     * @return Map des capteurs en alerte.
      */
-    public void addAlert(Alert alert) {
-        av.updateView(); // Mettre à jour la vue
+    public Map<String, Sensor> getAlertingSensors() {
+        if (data == null) {
+            System.err.println("Les données ne sont pas initialisées !");
+            return null; // Retourne une liste vide
+        }
+        System.out.println(data.getAlertingSensors());
+        return data.getAlertingSensors();
     }
 
 }

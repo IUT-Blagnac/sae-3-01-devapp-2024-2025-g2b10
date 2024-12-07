@@ -1,8 +1,10 @@
 package java_iot.controller;
 
+import java.util.Map;
+
 import java_iot.App;
 import java_iot.classes.Data;
-import java_iot.classes.dataLoader;
+import java_iot.classes.Sensor;
 import java_iot.view.MainSceneView;
 
 /**
@@ -22,7 +24,6 @@ public class MainSceneController {
     private int frequency;
 
     private MainSceneController() {
-        donnees = dataLoader.loadJsonData("");
     }
 
     public Data getDonnees() {
@@ -41,8 +42,18 @@ public class MainSceneController {
         app = _app;
     }
 
-    public void requestNewAlert(boolean mono) {
-        app.showAlertPopup(mono);
+    /**
+     * Demande à afficher un pop-up des alertes.
+     */
+    public void requestAlertPopup() {
+        AlertController alertController = AlertController.getInstance();
+        Map<String, Sensor> alertingSensors = alertController.getAlertingSensors();
+
+        if (!alertingSensors.isEmpty()) {
+            app.showAlertPopup(alertingSensors);
+        } else {
+            System.out.println("Aucune alerte détectée.");
+        }
     }
 
     /**
