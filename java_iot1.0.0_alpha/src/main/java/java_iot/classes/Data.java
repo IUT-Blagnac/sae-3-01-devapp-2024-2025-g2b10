@@ -1,8 +1,10 @@
 package java_iot.classes;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Data {
+
     private Global global;
     private Map<String, Room> rooms;
 
@@ -27,11 +29,30 @@ public class Data {
         this.rooms = rooms;
     }
 
+    /**
+     * Récupère tous les capteurs en alerte (status = true) dans toutes les
+     * pièces.
+     *
+     * @return Une map où la clé est le nom de la salle et la valeur est le
+     * capteur en alerte.
+     */
+    public Map<String, Sensor> getAlertingSensors() {
+        Map<String, Sensor> alertingSensors = new HashMap<>();
+        for (Room room : rooms.values()) {
+            for (Sensor sensor : room.getSensors()) {
+                if (Boolean.TRUE.equals(sensor.getStatus())) { // Vérifie si le capteur est en alerte
+                    alertingSensors.put(room.getName(), sensor);
+                }
+            }
+        }
+        return alertingSensors;
+    }
+
     @Override
     public String toString() {
-        return "{" +
-                "global=" + global +
-                ", rooms=" + rooms +
-                '}';
+        return "{"
+                + "global=" + global
+                + ", rooms=" + rooms
+                + '}';
     }
 }

@@ -1,6 +1,7 @@
 package java_iot.classes;
 
 public class Sensor {
+
     private String name;
     private Double value;
     private Boolean status;
@@ -11,7 +12,6 @@ public class Sensor {
         this.value = value;
         this.status = status;
         this.time = time;
-
     }
 
     public String getName() {
@@ -48,10 +48,10 @@ public class Sensor {
 
     @Override
     public String toString() {
-        return "{" +
-                "name='" + name +
-                ", value=" + value +
-                ", status=" + status + ", time :" + time +
-                '}';
+        return "{"
+                + "name='" + name
+                + ", value=" + value
+                + ", status=" + status + ", time :" + time
+                + '}';
     }
 }
