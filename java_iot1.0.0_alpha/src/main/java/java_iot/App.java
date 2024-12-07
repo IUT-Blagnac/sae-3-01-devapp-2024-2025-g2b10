@@ -126,10 +126,11 @@ public class App extends Application {
         try {
             // Charger le fichier FXML pour la vue des alertes
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("view/AlertTest.fxml"));
+            loader.setLocation(App.class.getResource("view/AlertPopup.fxml"));
 
             alertStage = new Stage();
-            alertStage.initModality(Modality.WINDOW_MODAL);
+            alertStage.setResizable(false);
+            alertStage.setTitle("Alertes");
             alertStage.initOwner(this.primaryStage);  // La fenêtre principale comme propriétaire
 
             Pane vueListe = loader.load();
