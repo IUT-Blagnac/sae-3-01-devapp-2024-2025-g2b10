@@ -128,9 +128,18 @@ public class MainSceneView implements Initializable {
 		String[][] roomData = settingsController.requestAllAvailableFields("listened_rooms");
         String[] rooms = roomData[0];  // Assuming the first array contains room names
 		roomComboBox.getItems().addAll(rooms);
+		roomComboBox.setOnAction(event -> handleRoomSelection());
 		panelComboBox.getItems().addAll(rooms);
+		panelComboBox.setOnAction(event -> handleRoomSelection());
 
 	}
+
+    private void handleRoomSelection() {
+        String selectedRoom = roomComboBox.getValue();
+        if (selectedRoom != null && !selectedRoom.isEmpty()) {
+            Graphique.getInstance(msc).showRoom(selectedRoom); // Pass the selected room
+        }
+    }
 
 	public MainSceneController getController() {
 		return msc;

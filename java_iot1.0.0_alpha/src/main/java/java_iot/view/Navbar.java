@@ -123,7 +123,6 @@ class Navbar {
 			panelPane.setVisible(false);
 			roomPane.setVisible(true);
 			settingPane.setVisible(false);
-			Graphique.getInstance(msc).showRoom();
 		}
 		return validity;
 	}
