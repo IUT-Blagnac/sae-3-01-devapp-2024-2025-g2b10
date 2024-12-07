@@ -1,0 +1,55 @@
+= Documentation Technique - Abraca-dabra-cadabra
+:toc:
+:toc-title: Sommaire
+
+:Entreprise: Abraca-dabra-cadabra
+:Equipe:  
+
+Date: 20/11/2024
+
+Créé par : _MARTINEZ Quentin_ | _CHAUVIERE Romy_ | _ESTIENNE Alban-Moussa_ | _PAPA-PATSOUMOUDOU Matthias_ | _GIARD--PELLAT Jules_ 
+
+Créé pour : _Esther Pendaries_
+
+image::../../images/IUT.png[IUT Blagnac]
+
+---
+
+== I. Introduction
+[.text-justify]
+Ce document présente la structure de l'architecture de l'application utilisant les données de capteurs atmosphériques et solaires afin de les afficher sous forme de diagrammes et graphiques, tout en permettant un paramétrage rapide et facile des différentes données à récolter.
+
+== II. Présentation de l'application
+[.text-justify]
+Développement de l'existant, ainsi que des fonctionnalités de chaque membre du groupe.
+
+== III. Architecture
+[.text-justify]
+.L'application se divise en plusieurs section : + 
+ * Le _src_ qui contiendra toutes les classes en java +
+ * Le _resources_ qui contiendra toutes les ressources nécessaires au _src_ pour son bon fonctionncement, cela inclut : +
+  - Le ressources/data_collecting qui inclut tout ce qu'utilise la collecte de données en python. Donc : +
+    - Le config.ini qui définit ce que le fichier python doit récolter (La liste des topics, les types de données, les salles...) +
+    - Le data.json qui contient les données récoltés.+
+  - Les images, CSS, autres éléments de style mais également les .fxml pour les views.
+
+image::../../images/mvcdiagram.png[Diagramme de l'architecture MVC]
+
+== IV. Use Case Global:
+[.text-justify]
+Cette application est destiné aux administrateurs et a pour but de pouvoir surveiller les données des salles afin de s'assurer de leur sécurité (E.g : Un incendie) (TODO)
+
+== V. Présentation diagrammes
+[.text-justify]
+Effectuer les Use Case et les Diagrammes de classes pour chaque fonctionnalité développée.
+
+=== 1. Use Case :
+[.text-justify]
+
+=== 2. Diagramme de classes :
+[.text-justify]
+
+
+== V. Eléments de codes significatifs
+[.text-justify]
+Faire les commentaires de chaque fonctionnalité.
