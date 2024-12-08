@@ -67,34 +67,34 @@ public class Graphique {
     public void showRoom(String roomName) throws URISyntaxException {
         Pane roomPane = msc.getMainSceneView().roomPane; // Assume roomPane exists and is initialized
         VBox container = (VBox) roomPane.getChildren().get(0);
-
-        // Remove any existing BarChart instances in the container
-        container.getChildren().removeIf(node -> node instanceof BarChart);
-
+    
+        // Remove any existing charts in the container
+        container.getChildren().removeIf(node -> node instanceof BarChart); // Or other chart types
+    
         // Fetch room data as a Map
         Map<String, Double> roomData = fetchRoomData(roomName);
         if (roomData == null || roomData.isEmpty()) {
-            System.out.println(roomData.toString());
             System.err.println("No data available for room: " + roomName);
             return;
         }
-
+    
         // Create a Bar Chart
         BarChart<String, Number> barChart = createBarChart(
                 "Room Metrics for: " + roomName, "Metrics", "Values");
-
+    
         // Create a series for room metrics
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Room Metrics");
-
+    
         // Add data to the series
         roomData.forEach((key, value) -> series.getData().add(new XYChart.Data<>(key, value)));
-
+    
         barChart.getData().add(series);
-
+    
         // Add the chart to the container
         container.getChildren().add(barChart);
     }
+    
 
     private Map<String, Double> fetchRoomData(String roomName) throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
