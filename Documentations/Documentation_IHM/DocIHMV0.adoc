@@ -82,6 +82,8 @@ appropriés sans requêtes supplémentaires.
 
 Cette classe est techniquement une extention de la `MainSceneView`, puisque `SettingsView` ne gère qu'une Pane inclut dans `MainSceneView`. C'est la raison pour laquel certaines variables sont en protected dans `MainSceneView` 
 
+image::../../images/Settings_DS.png[Diagramme de Séquence des Settings]
+
 ==== Architecture : Addition
 
 Le MVC de `Addition` est un peu particulier car `Addition` utilise les données de `Settings` en passant par `SettingsController` afin d'écrire les modifications. Cela est justifié par le fait que `Addition` est techniquement une extention de `Settings`, car cette classe est appellée lorsque le bouton "Plus" dans `SettingsView` est cliqué.
@@ -101,10 +103,17 @@ Cette classe gère uniquement la lecture et la transmission des entrées de l'ut
 
 Cette classe *NE RÉFÉRENCE QUE* `java_iot.controller.AdditionController` et `java_iot.App`, car ces références sont nécessaires pour assurer son bon fonctionnement.
 
+image::../../images/DS_Addition.png[Diagramme de Séquence des Additions]
+
 === 2. Diagramme de classes :
 [.text-justify]
 
 
-== V. Eléments de codes significatifs
+== V. Comment installer
 [.text-justify]
-Faire les commentaires de chaque fonctionnalité.
+.Pour le python : 
+- Lancer une console CMD sur Windows ou un terminal bash sur Linux
+- Taper : `python -m ensurepip --upgrade`. Si cela ne marche pas, remplassez `python` par le chemin du .exe de python. 
+- Taper : `pip install paho-mqtt`. Cela télécharge la librairie de connexion au Broker.
+- Lancer le script Python situé dans `src/main/resources/java_iot/ressources/data_collecting/main.py` au moyen de l'application ou directement avec un éxécutable Python.
+- Les données récupérées du Broker s'affichent en temps réelle dans la console si le mode débug est activé. Le script ne se connecte qu'aux topics demandés et ne conserve que les données demandées.

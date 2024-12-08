@@ -270,9 +270,6 @@ public class SettingsView {
 	 * @author ESTIENNE Alban-Moussa
      */
     protected void showConnectionPage() {
-        if (currentlyOpenedPane == connectionInfoPane) {
-            return;
-        }
 
         currentlyOpenedPane = connectionInfoPane;
         connectionInfoPane.setVisible(true);
@@ -290,9 +287,6 @@ public class SettingsView {
      * Same as {@link #showConnectionPage()}
      */
     protected void showTopicPage() {
-        if (currentlyOpenedPane == topicsPane) {
-            return;
-        }
 
         currentlyOpenedPane = topicsPane;
         connectionInfoPane.setVisible(false);
@@ -330,9 +324,6 @@ public class SettingsView {
     }
 
     protected void showTreatmentPage() {
-        if (currentlyOpenedPane == treatmentPane) {
-            return;
-        }
 
         currentlyOpenedPane = treatmentPane;
         sc.setSettingsView(instance);
@@ -353,7 +344,7 @@ public class SettingsView {
      * @author ESTIENNE Alban-Moussa
      */
     public void openAdditionDialogue(boolean mono, String buttonCaller) {
-        ac.requestNewWindow(mono, buttonCaller);
+        sc.requestNewWindow(mono, buttonCaller);
     }
 
     private void toggleConfirmation(ActionEvent e, Observable ol, String key) {
