@@ -131,22 +131,26 @@ public class SettingsView {
 		msv.kaField.focusedProperty().addListener(focusListener);
 
 		msv.frequencyField.focusedProperty().addListener(frequencyFocusListener);
-		
+
 	}
 
 	/**
-	 * <p>Generate a new pane based on the value and list being updated.
-	 * <p>This method follows some strict rules that are defined inside the
-	   very conception of the interface. Rules are :
+	 * <p>
+	 * Generate a new pane based on the value and list being updated.
+	 * <p>
+	 * This method follows some strict rules that are defined inside the
+	 * very conception of the interface. Rules are :
 	 * <ul>
-	 * <li> <b>Element 0</b> is a Label and contains the <b>name</b> of the attribute
-	 * <li> <b>Element 1</b> is a TextField and contains the <b>value</b> of the attribute
-	 * <li> <b>Element 2</b> is a Button that allows interaction for <b>removal</b>.
+	 * <li><b>Element 0</b> is a Label and contains the <b>name</b> of the attribute
+	 * <li><b>Element 1</b> is a TextField and contains the <b>value</b> of the
+	 * attribute
+	 * <li><b>Element 2</b> is a Button that allows interaction for <b>removal</b>.
 	 * </ul>
+	 * 
 	 * @param container : The VBox containing the elements
-	 * @param ob : The ObservableList to remove values from
-	 * @param key : The name of the attribute
-	 * @param value : The value of the attribute
+	 * @param ob        : The ObservableList to remove values from
+	 * @param key       : The name of the attribute
+	 * @param value     : The value of the attribute
 	 * @see #toggleConfirmation()
 	 * @author ESTIENNE Alban-Moussa
 	 */
@@ -181,17 +185,20 @@ public class SettingsView {
 	}
 
 	/**
-	 * <p>Generate a new pane based on the value and list being updated.
-	 * <p>This method follows some strict rules that are defined inside the
-	   very conception of the interface. Rules are :
+	 * <p>
+	 * Generate a new pane based on the value and list being updated.
+	 * <p>
+	 * This method follows some strict rules that are defined inside the
+	 * very conception of the interface. Rules are :
 	 * <ul>
-	 * <li> <b>Element 0</b> is a Label and contains the <b>name</b> of the attribute
-	 * <li> <b>Element 1</b> is a Button that allows interaction for <b>removal</b>.
+	 * <li><b>Element 0</b> is a Label and contains the <b>name</b> of the attribute
+	 * <li><b>Element 1</b> is a Button that allows interaction for <b>removal</b>.
 	 * </ul>
+	 * 
 	 * @param container : The VBox containing the elements
-	 * @param ob : The ObservableList to remove values from
-	 * @param key : The name of the attribute
-	 * @param value : The value of the attribute
+	 * @param ob        : The ObservableList to remove values from
+	 * @param key       : The name of the attribute
+	 * @param value     : The value of the attribute
 	 * @see #toggleConfirmation()
 	 * @author ESTIENNE Alban-Moussa
 	 */
@@ -207,7 +214,7 @@ public class SettingsView {
 		((Button) loadedElement).setOnAction(event -> toggleConfirmation(event, ol, key));
 	}
 
-	public void removeWithId(int containersIndex, String key){
+	public void removeWithId(int containersIndex, String key) {
 		VBox containers = containersList.get(containersIndex);
 		containers.getChildren().removeIf(n -> n.getId() == key);
 	}
@@ -243,10 +250,11 @@ public class SettingsView {
 	 * Switches the toggleButton style to match their value
 	 * 
 	 * @param ToggleButton button : The button to switch
+	 * 
 	 * @author ESTIENNE Alban-Moussa
 	 * 
 	 * Footnote : This one should be more efficient as you will not need
-	 * to write a bunch of if/then to make it work, adding a button 
+	 * to write a bunch of if/then to make it work, adding a button
 	 * will just result in storing it in the array and plugging this function
 	 * into the button (scroll down for example)
      */
@@ -261,11 +269,11 @@ public class SettingsView {
 
     /*
 	 * Toggles the connection page.
-	 * It doesn't look pretty, i'm sorry, but since the interface is 
+	 * It doesn't look pretty, i'm sorry, but since the interface is
 	 * going to change very little, i just assumed it would be impactless
 	 * One better way to do it would be to store all the tabs into a table
 	 * and manually set all to visible false except the wanted pane.
-	 * if it looks too unpractical in the future i'll change it 
+	 * if it looks too unpractical in the future i'll change it
 	 * 
 	 * @author ESTIENNE Alban-Moussa
      */

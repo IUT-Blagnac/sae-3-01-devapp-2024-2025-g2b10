@@ -3,6 +3,7 @@ package java_iot.view;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -12,6 +13,10 @@ import java_iot.classes.Room;
 import java_iot.classes.Sensor;
 import java_iot.classes.dataLoader;
 import java_iot.controller.MainSceneController;
+import java_iot.controller.SettingsController;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +24,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
@@ -34,10 +41,13 @@ public class MainSceneView implements Initializable {
 	private Navbar navigationBar;
 	private SettingsView settings;
 	private MainSceneController msc;
+	private SettingsController settingsController;
+	
 
 	@FXML
 	public Button settingButton;
-
+	@FXML
+	protected ComboBox<String> roomComboBox;
 	@FXML
 	public Button dashboardButton;
 	@FXML
@@ -49,7 +59,11 @@ public class MainSceneView implements Initializable {
 	@FXML
 	protected Pane settingPane;
 	@FXML
-	protected Pane graphPane;
+	protected Pane dashPane;
+	@FXML
+	protected Pane roomPane;
+	@FXML
+	protected Pane panelPane;
 	@FXML
 	protected Pane connectionPane;
 	@FXML
@@ -107,7 +121,6 @@ public class MainSceneView implements Initializable {
 	protected Pane monoComponentSettingPane;
 	@FXML
 	protected Label connectionStateLabel;
-
 	@FXML
 	private TableView<Data_sensors> tableV;
 
@@ -131,11 +144,14 @@ public class MainSceneView implements Initializable {
 		msc = MainSceneController.getInstance();
 		msc.setMainSceneView(this);
 		settings = SettingsView.getInstance(msc);
+		settingsController = SettingsController.getInstance();
 
 		navigationBar = Navbar.getInstance(msc);
 		navigationBar.setSettingPane(settingPane);
-		navigationBar.setGraphPane(graphPane);
-		navigationBar.showGraphPane();
+		navigationBar.setDashPane(dashPane);
+		navigationBar.setRoomPane(roomPane);
+		navigationBar.setPanelPane(panelPane);
+		navigationBar.showDashPane();
 
 		keptValueContainer.getChildren().clear();
 		alertContainer.getChildren().clear();
@@ -148,11 +164,30 @@ public class MainSceneView implements Initializable {
 		time.setCellValueFactory(new PropertyValueFactory<>("time"));
 		System.out.println("Initialisation du contrôleur et des colonnes du TableView.");
 
+		
+		String[][] roomData = settingsController.requestAllAvailableFields("listened_rooms");
+        String[] rooms = roomData[0];  // Assuming the first array contains room names
+		roomComboBox.getItems().addAll(rooms);
+		roomComboBox.setOnAction(event -> handleRoomSelection());
+
+		Rooms.setCellValueFactory(new PropertyValueFactory<>("roomName"));
+		CO2.setCellValueFactory(new PropertyValueFactory<>("co2"));
+		Humidity.setCellValueFactory(new PropertyValueFactory<>("humidity"));
+		Temperature.setCellValueFactory(new PropertyValueFactory<>("temperature"));
+		System.out.println("Initialisation du contrôleur et des colonnes du TableView.");
+
 	}
 
 	public MainSceneController getController() {
 		return msc;
 	}
+
+	private void handleRoomSelection() {
+        String selectedRoom = roomComboBox.getValue();
+        if (selectedRoom != null && !selectedRoom.isEmpty()) {
+            Graphique.getInstance(msc).showRoom(selectedRoom); // Pass the selected room
+        }
+    }
 
 	/*
 	 * FXML FUNCTIONS
@@ -169,7 +204,17 @@ public class MainSceneView implements Initializable {
 
 	@FXML
 	public void toggleGraph() {
-		navigationBar.showGraphPane();
+		navigationBar.showDashPane();
+	}
+
+	@FXML
+	public void showRoom() {
+		navigationBar.showRoomPane();
+	}
+
+	@FXML
+	public void showPanel() {
+		navigationBar.showPanelPane();
 	}
 
 	@FXML

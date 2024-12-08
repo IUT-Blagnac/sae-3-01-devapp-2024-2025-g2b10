@@ -49,27 +49,29 @@ import javafx.scene.control.ToggleButton;
 public class Settings {
 
 	// ALL_TOPIC_LIST refers to the list of subscribable topics.
-	private final String[] ALL_TOPIC_LIST = {"AM107/by-room/#", "Triphaso/by-room/#", "solaredge/blagnac/#"};
+	private final String[] ALL_TOPIC_LIST = { "AM107/by-room/#", "Triphaso/by-room/#", "solaredge/blagnac/#" };
 	// NAME_TO_TOPIC converts the button ID to its corresponding topic name.
-	private final Map<String, Integer> NAME_TO_TOPIC = Map.of("am107Button", 0, "triphasoButton", 1, "solarDataButton", 2);
+	private final Map<String, Integer> NAME_TO_TOPIC = Map.of("am107Button", 0, "triphasoButton", 1, "solarDataButton",
+			2);
 	// ALL VALUES AVAILABLE
-	private final String[] ALL_TRIPHASO_VALUES = {"Irms", "Vrms", "phase_angle", "negative_active_power_W", "negative_reactive_power_VAR", 
-	"positive_active_power_W","positive_reactive_power_VAR","sum_negative_active_energy_Wh","sum_negative_reactive_energy_VARh", 
-	"sum_positive_active_energy_Wh","sum_positive_reactive_energy_VARh","positive_active_power_W","positive_reactive_power_VAR",
-	"sum_negative_active_energy_Wh","sum_negative_reactive_energy_VARh", "sum_positive_active_energy_Wh", "sum_positive_reactive_energy_VARh"};
+	private final String[] ALL_TRIPHASO_VALUES = { "Irms", "Vrms", "phase_angle", "negative_active_power_W",
+			"negative_reactive_power_VAR",
+			"positive_active_power_W", "positive_reactive_power_VAR", "sum_negative_active_energy_Wh",
+			"sum_negative_reactive_energy_VARh",
+			"sum_positive_active_energy_Wh", "sum_positive_reactive_energy_VARh", "positive_active_power_W",
+			"positive_reactive_power_VAR",
+			"sum_negative_active_energy_Wh", "sum_negative_reactive_energy_VARh", "sum_positive_active_energy_Wh",
+			"sum_positive_reactive_energy_VARh" };
 
-	private final String[] ALL_AM107_VALUES = {"temperature","humidity","activity","co2","tvoc","illumination","infrared", "infrared_and_visible", "pressure"};
+	private final String[] ALL_AM107_VALUES = { "temperature", "humidity", "activity", "co2", "tvoc", "illumination",
+			"infrared", "infrared_and_visible", "pressure" };
 
-	private final String[] ALL_SOLAREDGE_VALUES = {"lastUpdateTime","lastUpdateTime","lifeTimeData","lastYearData","lastMonthData","lastDayData","currentPower","measuredBy"};
+	private final String[] ALL_SOLAREDGE_VALUES = { "lastUpdateTime", "lastUpdateTime", "lifeTimeData", "lastYearData",
+			"lastMonthData", "lastDayData", "currentPower", "measuredBy" };
 
 	private final String[] TOPICS_NAMES_ORDERED = {"AM107", "Triphaso", "Solaredge", "Rooms"};
 
-	private final String[] ALL_ROOMS = {"A011", "Amphi1", "Amphi2", "Amphi3", "B004", "B005", "B006", "B007", "B008", "B009", "B010", "B101", 
-										"B102", "B103", "B104", "B105", "B106", "B107", "B108", "B109", "B110", "B111", "B112", "B113", 
-										"B115", "B201", "B202", "B203", "B212", "B212b", "B219", "B234", "C004", "C006", "D001", "E001", "E002", 
-										"E003", "E004", "E005", "E006", "E007", "E008", "E101", "E102", "E103", "E104", "E105", "E106", "E206", 
-										"E207", "E208", "E209", "E210", "E211", "Labo", "hall-amphi", "hall-entrée-principale", 
-	"Salle anechoique", "Salle-conseil", "Atelier recherche", "Local-velo", "Foyer-personnels"};
+	private final String[] ALL_ROOMS = {"B201","C001","B109","B002","Salle-conseil","B105","Foyer-etudiants-entrée","B111","B234","E006","B113","E209","E003","B217","B112","C002","E001","C102","E007","B203","E208","amphi1","E210","B103","E207","E101","E100","C006","hall-amphi","E102","E103","B110","hall-entrée-principale","B106","B001","E004","E106","Foyer-personnels","B202","Local-velo","C004"};
 	// Some final colours codes
 
 	private final String[][] ALL_VALUES = {ALL_AM107_VALUES, ALL_TRIPHASO_VALUES, ALL_SOLAREDGE_VALUES};
@@ -89,12 +91,11 @@ public class Settings {
 	private ObservableList<String> observables_rooms;
 	private SimpleIntegerProperty observable_frequency;
 
-
-	public Settings(){
+	public Settings() {
 		this.alerts = new HashMap<>();
 		this.dtk = new ArrayList<>();
 		this.listenedRooms = new ArrayList<>();
-		
+
 		this.observable_alerts = FXCollections.observableMap(alerts);
 		this.observable_dtk = FXCollections.observableArrayList(dtk);
 		this.observables_rooms = FXCollections.observableArrayList(listenedRooms);
@@ -105,21 +106,21 @@ public class Settings {
 	 * SETTERS AND GETTERS
 	 */
 
-	 public ObservableMap<String, Integer> getAlertsObservable(){
+	public ObservableMap<String, Integer> getAlertsObservable() {
 		return this.observable_alerts;
-	 }
+	}
 
-	 public ObservableList<String> getDtkObservable(){
+	public ObservableList<String> getDtkObservable() {
 		return this.observable_dtk;
-	 }
+	}
 
-	 public ObservableList<String> getRoomsObservable(){
+	public ObservableList<String> getRoomsObservable() {
 		return this.observables_rooms;
-	 }
-	 
-	 public SimpleIntegerProperty getFrequencyObservable(){
+	}
+
+	public SimpleIntegerProperty getFrequencyObservable() {
 		return this.observable_frequency;
-	 }
+	}
 
 	 public String getTopicNameFromIndex(int index){
 		return TOPICS_NAMES_ORDERED[index];
@@ -164,8 +165,10 @@ public class Settings {
 			/*
 			 * Ok so you must probably wonder what the hell this is
 			 * Well let me explain
-			 * Since ini4j is wonderful and only gives a SET of sections, I CANNOT use an index to specify which
-			 * section. So I need to manually go in the String of the file, filter anything in brackets, and
+			 * Since ini4j is wonderful and only gives a SET of sections, I CANNOT use an
+			 * index to specify which
+			 * section. So I need to manually go in the String of the file, filter anything
+			 * in brackets, and
 			 * THEN AND ONLY THEN can I see the order of the sections.
 			 * Thanks.
 			 */
@@ -181,7 +184,7 @@ public class Settings {
 			}
 
 			return sections.get(numberIndex);
-		}catch (Exception e){
+		} catch (Exception e) {
 			return "";
 		}
 	}
@@ -236,31 +239,33 @@ public class Settings {
 	}
 
 	/**
-	 * Saves the enabled topics in the .ini file 
-	 * Convert binary ON/OFF states of button into a string list of topic to be subscribed to
+	 * Saves the enabled topics in the .ini file
+	 * Convert binary ON/OFF states of button into a string list of topic to be
+	 * subscribed to
 	 * 
 	 * @param list : List of topic togglebuttons to be read
 	 * @author Alban-Moussa ESTIENNE
 	 */
 	public void saveToggleButtonTopicSettings(List<ToggleButton> list){
 		String constructedString = "";
-		for (ToggleButton tb : list){
-			if (tb.isSelected()){
+		for (ToggleButton tb : list) {
+			if (tb.isSelected()) {
 				constructedString += ALL_TOPIC_LIST[NAME_TO_TOPIC.get(tb.getId())];
 				constructedString += ",";
 			}
 		}
 
 		// Gets rid of the last ,
-		// Looks overly complicated but really it just crops the last char or nothing if the string is empty
+		// Looks overly complicated but really it just crops the last char or nothing if
+		// the string is empty
 		constructedString = constructedString.substring(0, Math.max(0, constructedString.length() - 1));
-		try{
+		try {
 			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
 			ini.put("Topics", "topics", constructedString);
 			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
-		} catch (URISyntaxException e){
+		} catch (URISyntaxException e) {
 			e.printStackTrace();
-		} catch (IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -269,26 +274,32 @@ public class Settings {
 	 * Clears all the containers on request.
 	 * This is more of a debugging option and shouldn't be used in a functional way.
 	 */
-	public void clearAll(){
+	public void clearAll() {
 		this.observable_alerts.clear();
 		this.observable_dtk.clear();
 		this.observables_rooms.clear();
 	}
 
 	/**
-	 * <p>Test the connection to the MQTT server based on the provided information on the .ini file
-	 * <p>Returns a formatted string seperated by "/" with : 
+	 * <p>
+	 * Test the connection to the MQTT server based on the provided information on
+	 * the .ini file
+	 * <p>
+	 * Returns a formatted string seperated by "/" with :
 	 * <ul>
 	 * <li>The first character being the answer, 0 is all correct, 1 is an error.
-	 * <li>The second string being the colour code to display, allows for customizable messages in colour
+	 * <li>The second string being the colour code to display, allows for
+	 * customizable messages in colour
 	 * <li>The last is the string content of the message.
 	 * </ul>
-	 * <p> The first parameter should only be used for debugging purposes.
+	 * <p>
+	 * The first parameter should only be used for debugging purposes.
+	 * 
 	 * @return String : The status of the connection
 	 * @author ESTIENNE Alban-Moussa
 	 */
-	public String testConnection(){
-		try{
+	public String testConnection() {
+		try {
 			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
 			String server = ini.get("Connection Infos", "host");
 			String port = ini.get("Connection Infos", "port");
@@ -299,35 +310,38 @@ public class Settings {
 			IMqttClient publisher = new MqttClient(finalUrl, publisherId);
 			publisher.connect();
 			publisher.disconnect();
-			return "0/"+ OK_COLOR_HEX +"/Connexion Réussie";
-		}catch (IOException e){
+			return "0/" + OK_COLOR_HEX + "/Connexion Réussie";
+		} catch (IOException e) {
 			return "1/" + ERROR_COLOR_HEX + "/Fichier de configuration introuvable";
-		}catch (MqttException e){
+		} catch (MqttException e) {
 			return "1/" + ERROR_COLOR_HEX + "/La connexion au serveur MQTT a échoué : " + e.toString();
 		}
 	}
 
 	/**
 	 * Write parameters in file based on the input of the TextField.
+	 * 
 	 * @todo : Check input value and notifies user if data is wrong.
 	 * @param fieldData : The list of TextField to retrieve text from
 	 * @return boolean : The response of the writing attempt.
 	 */
-	public boolean writeConnectionSettingInFile(List<TextField> fieldData){
-		try{
+	public boolean writeConnectionSettingInFile(List<TextField> fieldData) {
+		try {
 			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
-			// Ok so I found no better way to iterate through the variable all while modifying.
-			// Since iniIterable is readOnly, i don't know. Maybe i'm sacrificing RAM for simplicity
+			// Ok so I found no better way to iterate through the variable all while
+			// modifying.
+			// Since iniIterable is readOnly, i don't know. Maybe i'm sacrificing RAM for
+			// simplicity
 			Wini iniIterable = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
 			Iterator<String> iterator = iniIterable.get("Connection Infos").keySet().iterator();
-			for (TextField tF : fieldData){
+			for (TextField tF : fieldData) {
 				String value = tF.getText();
 				String dataSection = iterator.next();
 				ini.put("Connection Infos", dataSection, value);
 			}
 			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
 			return true;
-		}catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e);
 			return false;
 		}
@@ -380,25 +394,26 @@ public class Settings {
 
 	/**
 	 * Grabs the .ini line corresponding to the "Data Treament" section.
+	 * 
 	 * @param row
 	 * @param element
 	 */
-	public void removeDataTreatmentElement(String row, String element){
+	public void removeDataTreatmentElement(String row, String element) {
 		System.out.println(element);
 		System.out.println(row);
-		try{
+		try {
 			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
 			String line = ini.get("Data treatment", row);
 			List<String> attributes = Arrays.stream(line.split(", "))
-								.filter(word -> !word.contains(element))
-								.collect(Collectors.toList());
+					.filter(word -> !word.contains(element))
+					.collect(Collectors.toList());
 			line = String.join(", ", attributes);
 			line = line.replace(", ,", ",");
 			line = line.replaceAll("^,|,$", "").trim();
 			System.out.println(line);
 			ini.put("Data treatment", row, line);
 			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
-		}catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
@@ -427,27 +442,32 @@ public class Settings {
 	}
 
 	/**
-	 * <p>Loads the settings based on the requested parameter field
-	 * <p>OPTION Connection Infos will provide the host, port and keepalive values
-	 * <p>OPTION Topics will provide the topic list
-	 * <p>OPTION Data treatment will provide the :
+	 * <p>
+	 * Loads the settings based on the requested parameter field
+	 * <p>
+	 * OPTION Connection Infos will provide the host, port and keepalive values
+	 * <p>
+	 * OPTION Topics will provide the topic list
+	 * <p>
+	 * OPTION Data treatment will provide the :
 	 * <ul>
-	 * <li>  frequency at which datas are written
-	 * <li>  list of alerts
-	 * <li>  list of kept data
-	 * <li>  list of listened rooms
+	 * <li>frequency at which datas are written
+	 * <li>list of alerts
+	 * <li>list of kept data
+	 * <li>list of listened rooms
 	 * </ul>
+	 * 
 	 * @param page_setting_name : The name of the field to retrieve
 	 * @return A HashMap<String, String> of the setting name and its value.
 	 * @author Alban-Moussa ESTIENNE
 	 */
-	public HashMap<String, String> loadSetting(String page_setting_name, boolean loadSettingsIntoMemory){	
-		try{
+	public HashMap<String, String> loadSetting(String page_setting_name, boolean loadSettingsIntoMemory) {
+		try {
 			// Loads the ini file from the ressources folder
 			Ini ini = new Ini(App.class.getResource("ressources/data_collecting/config.ini"));
 			HashMap<String, String> fieldSettings = new HashMap<>();
-			
-			switch (page_setting_name){
+
+			switch (page_setting_name) {
 				case "Connection Infos":
 					Section cInfo = ini.get(page_setting_name);
 					fieldSettings.put("host", cInfo.get("host"));
@@ -460,11 +480,11 @@ public class Settings {
 					String[] seperatedTopicList = topicList.split(",");
 					// Essentially what this does is putting a 1 to all toggled topics
 					// And a 0 to any topics that aren't inside this list.
-					for (String s : seperatedTopicList){
+					for (String s : seperatedTopicList) {
 						fieldSettings.put(s, "1");
 					}
-					for (String s : ALL_TOPIC_LIST){
-						if (fieldSettings.get(s) == null){
+					for (String s : ALL_TOPIC_LIST) {
+						if (fieldSettings.get(s) == null) {
 							fieldSettings.put(s, "0");
 						}
 					}
@@ -522,8 +542,8 @@ public class Settings {
 
 			}
 			return fieldSettings;
-			
-		}catch (IOException e){
+
+		} catch (IOException e) {
 			System.out.println(e);
 			return null;
 		}

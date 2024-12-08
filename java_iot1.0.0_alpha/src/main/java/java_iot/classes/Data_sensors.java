@@ -19,6 +19,21 @@ public class Data_sensors {
         this.time = time;
     }
 
+    public Data_sensors(String roomName, Double co2, Double humidity, Double temperature) {
+        this.roomName = roomName;
+        this.co2 = co2;
+        this.humidity = humidity;
+        this.temperature = temperature;
+        this.time = time;
+    }
+
+    public Data_sensors(String roomName, Double value, Boolean status, String time) {
+        this.roomName = roomName;
+        this.value = value;
+        this.status = status;
+        this.time = time;
+    }
+
     // Getters
     public String getRoomName() {
         return roomName;
@@ -34,10 +49,6 @@ public class Data_sensors {
 
     public Double getTemperature() {
         return temperature;
-    }
-
-    public String getTime() {
-        return time;
     }
 
 }

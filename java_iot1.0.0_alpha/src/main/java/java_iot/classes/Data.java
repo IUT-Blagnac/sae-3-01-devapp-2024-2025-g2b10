@@ -7,6 +7,10 @@ import java.util.Map;
  * 
  * @author PAPA-PATSOUMOUDOU Matthias
 */
+/* Classe représentant les données de capteurs
+ * 
+ * @author PAPA-PATSOUMOUDOU Matthias
+*/
 public class Data {
     private Global global;
     private Map<String, Room> rooms;

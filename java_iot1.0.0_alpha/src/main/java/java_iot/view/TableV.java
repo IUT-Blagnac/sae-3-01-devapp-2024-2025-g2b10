@@ -59,9 +59,9 @@ public class TableV {
             Double co2 = getSensorValue(room, "co2");
             Double humidity = getSensorValue(room, "humidity");
             Double temperature = getSensorValue(room, "temperature");
-            // String time = getSensorValue(room, "time");
+
             // Ajouter une ligne à la table
-            // values.add(new Data_sensors(roomName, co2, humidity, temperature));
+            values.add(new Data_sensors(roomName, co2, humidity, temperature));
         }
 
         // Mettre à jour le TableView avec les nouvelles données
