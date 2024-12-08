@@ -3,8 +3,33 @@ import java.util.regex.Pattern;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The {@code RoomDataExtractor} class provides utilities for extracting specific 
+ * metrics from a JSON string, including temperature, humidity, and CO2 levels.
+ * 
+ * <p>It uses regular expressions to parse the JSON and retrieve numeric values associated 
+ * with specific keys.</p>
+ * 
+ * @version 1.0
+ * @since 2023
+ * @author 
+ *     Jules Giard--Pellat
+ */
 public class RoomDataExtractor {
 
+
+
+    /**
+     * Extracts a specific metric value from a JSON string based on the provided key.
+     * 
+     * <p>The method uses a regular expression to search for the key and its corresponding 
+     * numeric value. If the key is not found, it logs an error and returns a default value 
+     * of 0.0.</p>
+     * 
+     * @param jsonString the JSON string containing the metrics.
+     * @param key the key for the metric to extract.
+     * @return the extracted metric value as a double, or 0.0 if the key is not found.
+     */
     public static double extractValue(String jsonString, String key) {
         String regex = "\"" + key + "\":\\[(\\d+\\.\\d+)";
         Pattern pattern = Pattern.compile(regex);
@@ -18,6 +43,16 @@ public class RoomDataExtractor {
         }
     }
 
+        /**
+     * Extracts common room metrics (temperature, humidity, and CO2 levels) from a JSON string.
+     * 
+     * <p>This method aggregates the extracted values for predefined keys and stores them in 
+     * a {@code Map} where the keys are the metric names and the values are their respective 
+     * numeric values.</p>
+     * 
+     * @param jsonString the JSON string containing the room's metrics.
+     * @return a {@code Map} containing the extracted metrics and their values.
+     */
     public static Map<String, Double> extractRoomMetrics(String jsonString) {
         Map<String, Double> metrics = new HashMap<>();
         metrics.put("temperature", extractValue(jsonString, "temperature"));

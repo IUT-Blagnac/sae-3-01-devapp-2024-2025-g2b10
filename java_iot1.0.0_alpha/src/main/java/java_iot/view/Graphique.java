@@ -39,7 +39,7 @@ import java.util.regex.Pattern;
  * @since 2023
  * @authors 
  *     Quentin Martinez
- *     Jules Giard-Pellat
+ *     Jules Giard--Pellat
  */
 public class Graphique {
     private static Graphique instance;
