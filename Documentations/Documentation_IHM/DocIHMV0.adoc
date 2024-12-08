@@ -121,6 +121,9 @@ La classe 'AlertView' est appelée dans l'application lorsqu'une alerte est dét
 
 Elle a pour but de récupérer les données et les afficher dans une liste d'alertes.
 
+===== C. Diagramme de séquence
+
+image::../../images/DS_Alertes.png[Diagramme de Séquence des Alertes]
 
 
 === 2. Diagramme de classes :
