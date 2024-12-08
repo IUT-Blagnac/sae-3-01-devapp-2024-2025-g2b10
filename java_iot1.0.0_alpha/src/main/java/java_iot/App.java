@@ -39,7 +39,7 @@ public class App extends Application {
         primaryStage.setMinHeight(630);
         primaryStage.setResizable(false);
 
-        //scene.getStylesheets().add(lireeApp.class.getResource("style.css").toExternalForm());
+        // scene.getStylesheets().add(lireeApp.class.getResource("style.css").toExternalForm());
         loadMainScreen();
 
         Scene scene = new Scene(rootPane);

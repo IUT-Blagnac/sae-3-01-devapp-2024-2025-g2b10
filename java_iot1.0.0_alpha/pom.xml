@@ -77,6 +77,32 @@
                 </configuration>
             </plugin>
             <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-resources-plugin</artifactId>
+    <version>3.2.0</version>
+    <executions>
+        <execution>
+            <phase>process-resources</phase>
+            <goals>
+                <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                <resources>
+                    <resource>
+                        <directory>java_iot1.0.0_alpha/src/main/resources/java_iot/ressources/data_collecting</directory>
+                        <includes>
+                            <include>data.json</include>
+                            <include>main.py</include>
+                        </includes>
+                    </resource>
+                </resources>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>${maven.shade.plugin.version}</version>

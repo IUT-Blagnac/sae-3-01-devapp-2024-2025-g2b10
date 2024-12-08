@@ -3,6 +3,7 @@ package java_iot.view;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -13,6 +14,9 @@ import java_iot.classes.Sensor;
 import java_iot.classes.dataLoader;
 import java_iot.controller.MainSceneController;
 import java_iot.controller.SettingsController;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -117,7 +121,6 @@ public class MainSceneView implements Initializable {
 	protected Pane monoComponentSettingPane;
 	@FXML
 	protected Label connectionStateLabel;
-
 	@FXML
 	private TableView<Data_sensors> tableV;
 
@@ -166,6 +169,12 @@ public class MainSceneView implements Initializable {
         String[] rooms = roomData[0];  // Assuming the first array contains room names
 		roomComboBox.getItems().addAll(rooms);
 		roomComboBox.setOnAction(event -> handleRoomSelection());
+
+		Rooms.setCellValueFactory(new PropertyValueFactory<>("roomName"));
+		CO2.setCellValueFactory(new PropertyValueFactory<>("co2"));
+		Humidity.setCellValueFactory(new PropertyValueFactory<>("humidity"));
+		Temperature.setCellValueFactory(new PropertyValueFactory<>("temperature"));
+		System.out.println("Initialisation du contrôleur et des colonnes du TableView.");
 
 	}
 

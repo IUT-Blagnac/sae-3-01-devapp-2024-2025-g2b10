@@ -6,6 +6,10 @@ import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
 import javafx.scene.chart.LineChart;
 
+
+import javafx.application.Platform;
+import javafx.scene.chart.LineChart;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +18,8 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -36,7 +42,6 @@ public class dataLoader {
 
             // Chargement du fichier JSON depuis les ressources.
             InputStream inputStream = getClass().getResourceAsStream("/java_iot/ressources/data_collecting/data.json");
-
             if (inputStream == null) {
                 System.out.println("Fichier JSON introuvable.");
             } else {
@@ -86,6 +91,7 @@ public class dataLoader {
         try {
             // Si l'objet est un Map, on traite les données salle par salle.
             if (value instanceof Map) {
+                @SuppressWarnings("unchecked")
                 Map<String, Object> roomData = (Map<String, Object>) value;
                 for (Map.Entry<String, Object> Group_Sensor : roomData.entrySet()) {
                     if (Group_Sensor.getValue() instanceof Map) {
@@ -131,7 +137,6 @@ public class dataLoader {
 
     public void runPythonScript(String scriptPath, String jsonFilePath) {
 
-        // Peremt d' exécuter le script Python dans un thread
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
         executorService.submit(() -> {
