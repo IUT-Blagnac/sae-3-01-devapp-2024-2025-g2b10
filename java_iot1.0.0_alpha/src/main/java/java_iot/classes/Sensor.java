@@ -1,7 +1,11 @@
+
 package java_iot.classes;
 
-public class Sensor {
+/* Classe représentant un capteur
+ * @author PAPA-PATSOUMOUDOU Matthias
+ */
 
+public class Sensor {
     private String name;
     private Double value;
     private Boolean status;
@@ -12,8 +16,10 @@ public class Sensor {
         this.value = value;
         this.status = status;
         this.time = time;
+
     }
 
+    /* Getters */
     public String getName() {
         return name;
     }
@@ -30,6 +36,7 @@ public class Sensor {
         return time;
     }
 
+    /* Setters */
     public void setName(String name) {
         this.name = name;
     }
@@ -48,10 +55,10 @@ public class Sensor {
 
     @Override
     public String toString() {
-        return "{"
-                + "name='" + name
-                + ", value=" + value
-                + ", status=" + status + ", time :" + time
-                + '}';
+        return "{" +
+                "name='" + name +
+                ", value=" + value +
+                ", status=" + status + ", time :" + time +
+                '}';
     }
 }
