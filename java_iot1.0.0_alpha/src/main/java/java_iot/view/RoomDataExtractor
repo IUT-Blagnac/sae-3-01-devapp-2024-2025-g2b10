@@ -1,0 +1,30 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Map;
+
+public class RoomDataExtractor {
+
+    public static double extractValue(String jsonString, String key) {
+        String regex = "\"" + key + "\":\\[(\\d+\\.\\d+)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(jsonString);
+
+        if (matcher.find()) {
+            return Double.parseDouble(matcher.group(1)); // Extract and convert to double
+        } else {
+            System.err.println("Value for key '" + key + "' not found");
+            return 0.0; // Default value
+        }
+    }
+
+    public static Map<String, Double> extractRoomMetrics(String jsonString) {
+        Map<String, Double> metrics = new HashMap<>();
+        metrics.put("temperature", extractValue(jsonString, "temperature"));
+        metrics.put("humidity", extractValue(jsonString, "humidity"));
+        metrics.put("co2", extractValue(jsonString, "co2"));
+        return metrics;
+    }
+
+
+}

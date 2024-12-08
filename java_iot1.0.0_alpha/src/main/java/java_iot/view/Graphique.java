@@ -20,6 +20,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Graphique {
     private static Graphique instance;
@@ -112,40 +114,26 @@ public class Graphique {
     
     public Map<String, Double> fetchRoomData(String roomName) throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(App.class.getResource("ressources/data_collecting/data.json").toURI()); // Use forward slashes
-    
+        File file = new File(App.class.getResource("ressources/data_collecting/data.json").toURI()); // Adjust path as needed
+
         try {
             JsonNode rootNode = objectMapper.readTree(file);
             JsonNode roomNode = rootNode.get(roomName);
-    
+
             if (roomNode != null) {
-                Map<String, Double> roomData = new HashMap<>();
-    
-                roomNode.fields().forEachRemaining(entry -> {
-                    String key = entry.getKey();
-                    JsonNode valueNode = entry.getValue();
-    
-                    // Skip the "time" field as it isn't needed for the graph
-                    if ("time".equals(key)) {
-                        return;  // Skip the "time" field
-                    }
-    
-                    // Check for array values (temperature, humidity, co2)
-                    if (valueNode.isArray() && valueNode.size() > 0) {
-                        JsonNode firstElement = valueNode.get(0);
-    
-                        // Handle the numeric value (first element in the array)
-                        if (firstElement.isDouble()) {
-                            roomData.put(key, firstElement.asDouble()); // Store as Double
-                        }
-                        // If there's a second element (e.g., a boolean flag), you can handle it here (optional)
-                    }
-    
-                    // Debugging: Output the data
-                    System.out.println("Key: " + key + ", Value: " + valueNode.toString());
-                });
-    
-                return roomData;
+                // Convert the roomNode to a JSON string
+                String roomJson = roomNode.toString();
+
+                // Extract metrics using regex
+                Map<String, Double> roomMetrics = new HashMap<>();
+                roomMetrics.put("temperature", extractMetric(roomJson, "temperature"));
+                roomMetrics.put("humidity", extractMetric(roomJson, "humidity"));
+                roomMetrics.put("co2", extractMetric(roomJson, "co2"));
+
+                // Debug output
+                roomMetrics.forEach((key, value) -> System.out.println(key + ": " + value));
+
+                return roomMetrics;
             } else {
                 System.err.println("Room not found: " + roomName);
                 return null;
@@ -272,4 +260,23 @@ public class Graphique {
         return barChart;
     }
 
+
+
+    private double extractMetric(String jsonString, String key) {
+        String regex = "\"" + key + "\":\\[(\\d+\\.?\\d*)"; // Match both integers and doubles
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(jsonString);
+    
+        if (matcher.find()) {
+            String value = matcher.group(1);
+            try {
+                return Double.parseDouble(value); // Convert to double (works for both int and double)
+            } catch (NumberFormatException e) {
+                System.err.println("Failed to parse value for key '" + key + "': " + value);
+            }
+        } else {
+            System.err.println("Metric '" + key + "' not found in the provided JSON.");
+        }
+        return 0.0; // Default value if metric is missing
+    }
 }
