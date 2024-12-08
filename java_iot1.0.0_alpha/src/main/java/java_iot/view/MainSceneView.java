@@ -34,7 +34,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class MainSceneView implements Initializable {
-public class MainSceneView implements Initializable {
 
 	private Navbar navigationBar;
 	private SettingsView settings;
