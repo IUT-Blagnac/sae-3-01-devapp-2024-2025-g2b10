@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
@@ -86,7 +88,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="initializeButton" alignment="BOTTOM_RIGHT" graphicTextGap="77.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="251.0" styleClass="navbar-button" text="Initialiser" textFill="#b9b9b9">
+                        <Button fx:id="initializeButton" alignment="BOTTOM_RIGHT" graphicTextGap="77.0" mnemonicParsing="false" onAction="#InitialisationButton" prefHeight="51.0" prefWidth="251.0" styleClass="navbar-button" text="Initialiser" textFill="#b9b9b9">
                            <font>
                               <Font name="DejaVu Sans ExtraLight" size="20.0" />
                            </font>
@@ -120,6 +122,14 @@
                                     <Image url="@../ressources/images/placeholder.png" />
                                  </image>
                               </ImageView>
+                              <TableView fx:id="tableV" layoutX="479.0" layoutY="86.0" prefHeight="279.0" prefWidth="352.0">
+                                <columns>
+                                  <TableColumn fx:id="Rooms" prefWidth="92.0" text="Rooms" />
+                                  <TableColumn fx:id="CO2" prefWidth="79.0" text="CO2" />
+                                    <TableColumn fx:id="Humidity" prefWidth="94.0" text="Humidity" />
+                                    <TableColumn fx:id="Temperature" prefWidth="86.0" text="Temperature" />
+                                </columns>
+                              </TableView>
                            </children>
                         </AnchorPane>
                     </content>

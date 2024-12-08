@@ -73,12 +73,12 @@ keepalive: int = 0
 topic: str = ""
 step: int = 1
 debugMode: bool = False
-
+"""
 print("Run in debug mode? (Y/N)")
 c = input()
 if (c.lower() == "y"):
     debugMode = True
-
+"""
 ######################
 # JSON Buffer Reader #
 ######################
@@ -86,7 +86,6 @@ if (c.lower() == "y"):
 input_data = open("java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\data.json", "r")
 
 def print_debug(string):
-    if debugMode is True:
         print(string)
 
 ##############################
