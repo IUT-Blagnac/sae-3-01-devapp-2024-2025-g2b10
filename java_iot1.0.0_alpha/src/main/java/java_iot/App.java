@@ -1,6 +1,7 @@
 package java_iot;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Map;
 
 import java_iot.classes.Data;
@@ -49,16 +50,34 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        // Crée un objet de type dataLoader
         dataLoader loader = new dataLoader();
-        Data data = loader.loadJsonData("/java_iot/ressources/data_collecting/data.json");
-        loadData(); // Charger les données
 
-        AlertController alertController = AlertController.getInstance();
-        alertController.setData(data);
+        // Convertit le chemin du fichier JSON en URL
+        String jsonFilePath = "/java_iot/ressources/data_collecting/data.json";
+        URL jsonFileURL = getClass().getResource(jsonFilePath);
 
-        // Si des capteurs sont en alerte, afficher le pop-up
-        if (!alertController.getAlertingSensors().isEmpty()) {
-            showAlertPopup(alertController.getAlertingSensors());
+        // Vérifie si l'URL est valide
+        if (jsonFileURL == null) {
+            System.out.println("Fichier JSON introuvable !");
+        } else {
+            // Charge les données depuis le JSON
+            Data data = loader.loadJsonData(jsonFileURL);
+
+            // Charge les données
+            loadData();
+
+            // Récupére l'instance de l'AlertController
+            AlertController alertController = AlertController.getInstance();
+
+            // Définir les données dans l'AlertController
+            alertController.setData(data);
+
+            // Si des capteurs sont en alerte, afficher le pop-up
+            if (!alertController.getAlertingSensors().isEmpty()) {
+                // Afficher une alerte pop-up pour les capteurs en alerte
+                showAlertPopup(alertController.getAlertingSensors());
+            }
         }
 
     }
@@ -131,7 +150,7 @@ public class App extends Application {
             alertStage = new Stage();
             alertStage.setResizable(false);
             alertStage.setTitle("Alertes");
-            alertStage.initOwner(this.primaryStage);  // La fenêtre principale comme propriétaire
+            alertStage.initOwner(this.primaryStage); // La fenêtre principale comme propriétaire
 
             Pane vueListe = loader.load();
             Scene scene = new Scene(vueListe);
@@ -157,10 +176,21 @@ public class App extends Application {
     }
 
     private Data loadData() {
-
+        // Création d'un objet de type dataLoader
         dataLoader dataLoader = new dataLoader();
-        Data data = dataLoader.loadJsonData("resources/java_iot/ressources/data_collecting/data.json");
+        // Chemin du fichier JSON à charger
+        String jsonFilePath = "/java_iot/ressources/data_collecting/data.json";
+        URL jsonFileURL = getClass().getResource(jsonFilePath);
 
+        // Vérifie si le JSON est accessible ou égale à null
+        if (jsonFileURL == null) {
+            System.out.println("Fichier JSON introuvable !");
+            return null;
+        }
+        // Charge les données depuis le fichier JSON
+        Data data = dataLoader.loadJsonData(jsonFileURL);
+
+        // Affiche les données chargées ou un message d'erreur
         if (data != null) {
             System.out.println("Données Globales : " + data.getglobal());
             System.out.println("Salles : ");
@@ -170,7 +200,7 @@ public class App extends Application {
         } else {
             System.out.println("Erreur lors du chargement des données.");
         }
-        return data;
 
+        return data;
     }
 }

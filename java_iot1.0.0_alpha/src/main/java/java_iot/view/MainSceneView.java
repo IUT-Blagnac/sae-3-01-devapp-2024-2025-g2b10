@@ -2,30 +2,16 @@ package java_iot.view;
 
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
-import java_iot.classes.Data;
 import java_iot.classes.Data_sensors;
-import java_iot.classes.Room;
-import java_iot.classes.Sensor;
-import java_iot.classes.dataLoader;
+import java_iot.controller.DataController;
 import java_iot.controller.MainSceneController;
 import java_iot.controller.SettingsController;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -43,7 +29,6 @@ public class MainSceneView implements Initializable {
 	private SettingsView settings;
 	private MainSceneController msc;
 	private SettingsController settingsController;
-	
 
 	@FXML
 	public Button settingButton;
@@ -140,6 +125,8 @@ public class MainSceneView implements Initializable {
 	@FXML
 	private TableColumn<Data_sensors, String> time;
 
+	private DataController dataController;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		msc = MainSceneController.getInstance();
@@ -158,6 +145,8 @@ public class MainSceneView implements Initializable {
 		alertContainer.getChildren().clear();
 		listenedRoomContainer.getChildren().clear();
 
+		dataController = new DataController(tableV);
+
 		Rooms.setCellValueFactory(new PropertyValueFactory<>("roomName"));
 		CO2.setCellValueFactory(new PropertyValueFactory<>("co2"));
 		Humidity.setCellValueFactory(new PropertyValueFactory<>("humidity"));
@@ -165,9 +154,8 @@ public class MainSceneView implements Initializable {
 		time.setCellValueFactory(new PropertyValueFactory<>("time"));
 		System.out.println("Initialisation du contrôleur et des colonnes du TableView.");
 
-		
 		String[][] roomData = settingsController.requestAllAvailableFields("listened_rooms");
-		String[] rooms = roomData[0];  // Assuming the first array contains room names
+		String[] rooms = roomData[0]; // Assuming the first array contains room names
 		roomComboBox.getItems().addAll(rooms);
 		roomComboBox.setOnAction(event -> {
 			try {
@@ -182,6 +170,7 @@ public class MainSceneView implements Initializable {
 		CO2.setCellValueFactory(new PropertyValueFactory<>("co2"));
 		Humidity.setCellValueFactory(new PropertyValueFactory<>("humidity"));
 		Temperature.setCellValueFactory(new PropertyValueFactory<>("temperature"));
+		time.setCellValueFactory(new PropertyValueFactory<>("time"));
 		System.out.println("Initialisation du contrôleur et des colonnes du TableView.");
 
 	}
@@ -191,11 +180,11 @@ public class MainSceneView implements Initializable {
 	}
 
 	private void handleRoomSelection() throws URISyntaxException {
-        String selectedRoom = roomComboBox.getValue();
-        if (selectedRoom != null && !selectedRoom.isEmpty()) {
-            Graphique.getInstance(msc).showRoom(selectedRoom); // Pass the selected room
-        }
-    }
+		String selectedRoom = roomComboBox.getValue();
+		if (selectedRoom != null && !selectedRoom.isEmpty()) {
+			Graphique.getInstance(msc).showRoom(selectedRoom); // Pass the selected room
+		}
+	}
 
 	/*
 	 * FXML FUNCTIONS
@@ -274,89 +263,22 @@ public class MainSceneView implements Initializable {
 	}
 
 	/**
-	 * Methode qui met à jour la TableView avec les données extraites d'un objet
-	 * Data.
-	 * Cette méthode parcourt les salles et leurs capteurs et extrait les valeurs
-	 * (CO2, humidité, ...)
-	 * 
-	 * 
-	 * @param data contenant les informations sur les salles et leurs capteurs.
+	 * Gère l'événement de clic sur le bouton d'initialisation.
+	 * Vérifie l'existence du script Python et du fichier JSON, exécute le script
+	 * Python,
+	 * charge les données JSON générées, puis met à jour la TableView.
+	 *
+	 * @param event L'événement déclenché par le clic sur le bouton.
 	 */
-
-	public void updateTableView(Data data) {
-		ObservableList<Data_sensors> dataList = FXCollections.observableArrayList();
-
-		// Parcourir les données et ajouter chaque capteur à la liste
-		for (Map.Entry<String, Room> roomEntry : data.getRooms().entrySet()) {
-			String roomName = roomEntry.getKey();
-			Room room = roomEntry.getValue();
-
-			// Ajouter les valeurs des capteurs dans Data_sensors
-			Double co2 = null, humidity = null, temperature = null;
-			String time = null;
-
-			for (Sensor sensor : room.getSensors()) {
-				if (sensor.getName().equals("co2")) {
-					co2 = sensor.getValue();
-
-				} else if (sensor.getName().equals("humidity")) {
-					humidity = sensor.getValue();
-
-				} else if (sensor.getName().equals("temperature")) {
-					temperature = sensor.getValue();
-					time = sensor.getTime();
-				}
-			}
-
-			// Créer un objet Data_sensors et l'ajouter à la liste
-			if (co2 != null || humidity != null || temperature != null || time != null) {
-				dataList.add(new Data_sensors(roomName, co2, humidity, temperature, time));
-
-			}
-		}
-
-		// Remplir la TableView avec les données
-		tableV.setItems(dataList);
-		System.out.println("Mise à jour de la TableView avec " + dataList.size() + " entrées.");
-	}
-
-	/**
-	 * Méthode qui exécute le script Python pour générer les nouvelles données.
-	 * 
-	 * @param event L'événement déclenché par l'appui sur le bouton.
-	 */
-
 	@FXML
 	public void InitialisationButton(ActionEvent event) {
+		// URL du script Python et du fichier JSON
+		URL scriptPyPath = getClass().getResource("/java_iot/ressources/data_collecting/main.py");
+		URL jsonFilesPath = getClass().getResource("/java_iot/ressources/data_collecting/data.json");
 
-		// Chemin du script Python et du fichier JSON
-		String scriptPyPath = "java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\main.py";
-		String jsonFilesPath = "java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\data.json";
-
-		// Vérifie si les fichiers existent
-		boolean scriptExistes = Files.exists(Paths.get(scriptPyPath));
-		boolean jsonExistes = Files.exists(Paths.get(jsonFilesPath));
-
-		if (scriptExistes && jsonExistes) {
-			// Exécution du script Python et chargement des données JSON
-			dataLoader loader = new dataLoader();
-			loader.runPythonScript(scriptPyPath, jsonFilesPath);
-			Data data = loader.loadJsonData(jsonFilesPath);
-			if (data != null) {
-				Platform.runLater(() -> {
-					// Mise à jour de la TableView avec les données chargées
-					updateTableView(data);
-				});
-			}
-		} else {
-			// Affiche les erreurs si les fichiers sont introuvables
-			if (!scriptExistes) {
-				System.err.println("Script Python introuvable : " + scriptPyPath);
-			}
-			if (!jsonExistes) {
-				System.err.println("Fichier JSON introuvable : " + jsonFilesPath);
-			}
-		}
+		// Appel à la méthode du DataController pour exécuter le script et mettre à jour
+		// la TableView
+		dataController.runPythonScriptAndData(scriptPyPath, jsonFilesPath);
 	}
 
 }
