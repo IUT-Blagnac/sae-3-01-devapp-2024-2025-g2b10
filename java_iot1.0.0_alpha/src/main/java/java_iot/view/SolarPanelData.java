@@ -27,6 +27,4 @@ public class SolarPanelData {
     public Double getCurrentPower() { return currentPower; }
     public void setCurrentPower(Double currentPower) { this.currentPower = currentPower; }
 
-    public String getMeasuredBy() { return measuredBy; }
-    public void setMeasuredBy(String measuredBy) { this.measuredBy = measuredBy; }
 }

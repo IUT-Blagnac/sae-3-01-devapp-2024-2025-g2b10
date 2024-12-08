@@ -134,10 +134,10 @@ public class Graphique {
                     "lastYearData": {"energy": 2988131},
                     "lastMonthData": {"energy": 53725},
                     "lastDayData": {"energy": 4987},
-                    "currentPower": {"power": 0},
-                    "measuredBy": "INVERTER"
+                    "currentPower": {"power": 0}
                 }
         """;
+
     
         // Parse the JSON to SolarPanelData POJO
         ObjectMapper mapper = new ObjectMapper();
