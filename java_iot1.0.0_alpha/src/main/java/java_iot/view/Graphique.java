@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import java.util.logging.Logger;
 
 public class Graphique {
     private static Graphique instance;
@@ -64,12 +65,22 @@ public class Graphique {
         // Je te laisse ça vide Quentin
     }
 
+    public double stringToDouble(String str) {
+        try {
+            return Double.parseDouble(str); // Try parsing the string into a double
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid input: " + str); // Handle invalid input
+            return 0.0; // Return a default value if parsing fails
+        }
+    }
+    
+
     public void showRoom(String roomName) throws URISyntaxException {
         Pane roomPane = msc.getMainSceneView().roomPane; // Assume roomPane exists and is initialized
         VBox container = (VBox) roomPane.getChildren().get(0);
     
         // Remove any existing charts in the container
-        container.getChildren().removeIf(node -> node instanceof BarChart); // Or other chart types
+        container.getChildren().removeIf(node -> node instanceof BarChart);
     
         // Fetch room data as a Map
         Map<String, Double> roomData = fetchRoomData(roomName);
@@ -95,23 +106,45 @@ public class Graphique {
         container.getChildren().add(barChart);
     }
     
+    
 
-    private Map<String, Double> fetchRoomData(String roomName) throws URISyntaxException {
+
+    
+    public Map<String, Double> fetchRoomData(String roomName) throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(App.class.getResource("ressources\\data_collecting\\data.json").toURI());
+        File file = new File(App.class.getResource("ressources/data_collecting/data.json").toURI()); // Use forward slashes
+    
         try {
             JsonNode rootNode = objectMapper.readTree(file);
             JsonNode roomNode = rootNode.get(roomName);
+    
             if (roomNode != null) {
                 Map<String, Double> roomData = new HashMap<>();
+    
                 roomNode.fields().forEachRemaining(entry -> {
-                    
-                        roomData.put(entry.getKey(), entry.getValue().asDouble());
-                    
-                    System.out.println("here");
-                    System.out.println(entry.getKey().toString());
-                    System.out.println(entry.getValue().toString());
+                    String key = entry.getKey();
+                    JsonNode valueNode = entry.getValue();
+    
+                    // Skip the "time" field as it isn't needed for the graph
+                    if ("time".equals(key)) {
+                        return;  // Skip the "time" field
+                    }
+    
+                    // Check for array values (temperature, humidity, co2)
+                    if (valueNode.isArray() && valueNode.size() > 0) {
+                        JsonNode firstElement = valueNode.get(0);
+    
+                        // Handle the numeric value (first element in the array)
+                        if (firstElement.isDouble()) {
+                            roomData.put(key, firstElement.asDouble()); // Store as Double
+                        }
+                        // If there's a second element (e.g., a boolean flag), you can handle it here (optional)
+                    }
+    
+                    // Debugging: Output the data
+                    System.out.println("Key: " + key + ", Value: " + valueNode.toString());
                 });
+    
                 return roomData;
             } else {
                 System.err.println("Room not found: " + roomName);
@@ -122,6 +155,7 @@ public class Graphique {
             return null;
         }
     }
+    
 
     private Map<String, Object> fetchGlobalData() throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
