@@ -23,6 +23,24 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ * The {@code Graphique} class provides functionalities for displaying and managing 
+ * graphical data representations in a JavaFX application. It includes methods to 
+ * show dashboards, display room-specific data, and visualize global panel metrics 
+ * using bar charts. 
+ * 
+ * <p>It uses JSON data from a predefined resource file to extract and display metrics 
+ * such as temperature, humidity, CO2 levels, and solar panel performance data.</p>
+ * 
+ * <p>This class implements a singleton design pattern to ensure only one instance is created.</p>
+ * 
+ * @version 1.0
+ * @since 2023
+ * @authors 
+ *     Quentin Martinez
+ *     Jules Giard-Pellat
+ */
 public class Graphique {
     private static Graphique instance;
     private MainSceneController msc;
@@ -33,18 +51,18 @@ public class Graphique {
     }
 
     /**
-     * simple getter
+     * Retrieves the current JSON data stored in the object.
      * 
-     * @return the data
+     * @return the JSON data as a string.
      */
     public String getData() {
         return datajson;
     }
 
     /**
-     * simple setter
+     * Sets the JSON data for this object.
      * 
-     * @param pfdatajson
+     * @param pfdatajson the JSON data as a string.
      */
     public void setData(String pfdatajson) {
         this.datajson = pfdatajson;
@@ -55,6 +73,7 @@ public class Graphique {
      * 
      * @param MainSceneView pfmsc : the Main Scene Controller
      * @author GIARD--PELLAT Jules
+     * @return the singleton instance of {@code Graphique}.
      */
     public static Graphique getInstance(MainSceneController pfmsc) {
         if (instance == null) {
@@ -67,6 +86,12 @@ public class Graphique {
         // Je te laisse ça vide Quentin
     }
 
+    /**
+     * Converts a string to a double.
+     * 
+     * @param str the string to convert.
+     * @return the double value of the string, or 0.0 if the conversion fails.
+     */
     public double stringToDouble(String str) {
         try {
             return Double.parseDouble(str); // Try parsing the string into a double
@@ -76,7 +101,12 @@ public class Graphique {
         }
     }
     
-
+    /**
+     * Displays metrics for a specific room in a bar chart.
+     * 
+     * @param roomName the name of the room for which data is to be displayed.
+     * @throws URISyntaxException if there is an issue with the data file's URI.
+     */
     public void showRoom(String roomName) throws URISyntaxException {
         Pane roomPane = msc.getMainSceneView().roomPane; // Assume roomPane exists and is initialized
         VBox container = (VBox) roomPane.getChildren().get(0);
@@ -111,7 +141,13 @@ public class Graphique {
     
 
 
-    
+    /**
+     * Fetches the metrics data for a specified room from the JSON resource.
+     * 
+     * @param roomName the name of the room to fetch data for.
+     * @return a map containing the room's metrics and their respective values.
+     * @throws URISyntaxException if there is an issue with the data file's URI.
+     */
     public Map<String, Double> fetchRoomData(String roomName) throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(App.class.getResource("ressources/data_collecting/data.json").toURI()); // Adjust path as needed
@@ -144,7 +180,16 @@ public class Graphique {
         }
     }
     
-
+    /**
+     * Fetches global metrics data from the JSON resource.
+     * 
+     * <p>The method parses the "Global" node in the JSON and extracts relevant 
+     * metrics, such as current power, lifetime energy, and energy consumption data.</p>
+     * 
+     * @return a map containing the global metrics with their respective values. 
+     *         Nested JSON nodes are returned as {@code JsonNode} objects.
+     * @throws URISyntaxException if there is an issue with the data file's URI.
+     */
     private Map<String, Object> fetchGlobalData() throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(App.class.getResource("ressources\\data_collecting\\data.json").toURI());
@@ -183,7 +228,11 @@ public class Graphique {
         }
     }
     
-
+    /**
+     * Displays global solar panel metrics on a bar chart.
+     * 
+     * @throws URISyntaxException if there is an issue with the data file's URI.
+     */
     public void showPanel() throws URISyntaxException {
         Pane panelPane = msc.getMainSceneView().panelPane;  // Assume panelPane exists and is initialized
     
@@ -247,7 +296,14 @@ public class Graphique {
     
     
     
-
+    /**
+     * Creates a bar chart with the specified title and axis labels.
+     * 
+     * @param title the title of the bar chart.
+     * @param xAxisLabel the label for the X-axis.
+     * @param yAxisLabel the label for the Y-axis.
+     * @return the created bar chart.
+     */
     private BarChart<String, Number> createBarChart(String title, String xAxisLabel, String yAxisLabel) {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel(xAxisLabel);
@@ -261,7 +317,13 @@ public class Graphique {
     }
 
 
-
+    /**
+     * Extracts a specific metric value from a JSON string based on a provided key.
+     * 
+     * @param jsonString the JSON string containing the metric.
+     * @param key the key for the metric to extract.
+     * @return the extracted metric value as a double, or 0.0 if not found or invalid.
+     */
     private double extractMetric(String jsonString, String key) {
         String regex = "\"" + key + "\":\\[(\\d+\\.?\\d*)"; // Match both integers and doubles
         Pattern pattern = Pattern.compile(regex);
