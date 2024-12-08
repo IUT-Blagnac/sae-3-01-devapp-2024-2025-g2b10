@@ -123,60 +123,101 @@ public class Graphique {
         }
     }
 
-    public void showPanel() {
-        Pane panelPane = msc.getMainSceneView().panelPane;
-        VBox container = (VBox) panelPane.getChildren().get(0);
-
-        // Remove any existing BarChart from the panelPane
-        container.getChildren().removeIf(node -> node instanceof BarChart);
-
-        // Example static solar panel data
-        String panelDataJson = """
-                        {
-                            "lastUpdateTime": "2024-12-07 18:41:22",
-                            "lifeTimeData": {"energy": 3469161},
-                            "lastYearData": {"energy": 2988131},
-                            "lastMonthData": {"energy": 53725},
-                            "lastDayData": {"energy": 4987},
-                            "currentPower": {"power": 0}
-                        }
-                """;
-
-        // Parse the JSON to SolarPanelData POJO
-        ObjectMapper mapper = new ObjectMapper();
-        SolarPanelData panelData;
+    private Map<String, Object> fetchGlobalData() throws URISyntaxException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        File file = new File(App.class.getResource("ressources\\data_collecting\\data.json").toURI());
         try {
-            // Deserialize only the relevant fields
-            panelData = mapper.readValue(panelDataJson, SolarPanelData.class);
+            JsonNode rootNode = objectMapper.readTree(file);
+            JsonNode globalNode = rootNode.get("Global"); // Access the "Global" node
+            if (globalNode != null) {
+                Map<String, Object> globalData = new HashMap<>();
+                globalNode.fields().forEachRemaining(entry -> {
+                    JsonNode value = entry.getValue();
+                    // Add different types of values (e.g., objects, primitives)
+                    if (value.isObject()) {
+                        globalData.put(entry.getKey(), value); // Add as a JsonNode for nested objects
+                    } else if (value.isTextual()) {
+                        globalData.put(entry.getKey(), value.asText());
+                    } else if (value.isDouble() || value.isFloat()) {
+                        globalData.put(entry.getKey(), value.asDouble());
+                    } else if (value.isInt() || value.isLong()) {
+                        globalData.put(entry.getKey(), value.asLong());
+                    } else {
+                        globalData.put(entry.getKey(), value.toString()); 
+                    }
+    
+                    // Debugging
+                    System.out.println("Key: " + entry.getKey());
+                    System.out.println("Value: " + value.toString());
+                });
+                return globalData;
+            } else {
+                System.err.println("Global data not found.");
+                return null;
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("here");
+            return null;
+        }
+    }
+    
+
+    public void showPanel() throws URISyntaxException {
+        Pane panelPane = msc.getMainSceneView().panelPane;  // Assume panelPane exists and is initialized
+    
+        // Remove any existing BarChart from the panelPane
+        panelPane.getChildren().removeIf(node -> node instanceof BarChart);
+    
+        // Fetch global data for the panel
+        Map<String, Object> globalData = fetchGlobalData();
+        if (globalData == null || globalData.isEmpty()) {
+            System.err.println("No global data available for the panel");
             return;
         }
-
-        // Create BarChart for Solar Panel Data
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Metrics");
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Energy / Power");
-
-        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
-        barChart.setTitle("Solar Panel Data");
-
+    
+        // Create a Bar Chart for Solar Panel Data
+        BarChart<String, Number> barChart = createBarChart("Solar Panel Data", "Metrics", "Energy / Power");
+    
+        // Create a series for solar panel metrics
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Energy Metrics");
-
-        // Add data to the chart
-        series.getData().add(new XYChart.Data<>("Lifetime Energy", panelData.getEnergy()));
-        series.getData().add(new XYChart.Data<>("Last Year Energy", panelData.getLastYearEnergy()));
-        series.getData().add(new XYChart.Data<>("Last Month Energy", panelData.getLastMonthEnergy()));
-        series.getData().add(new XYChart.Data<>("Last Day Energy", panelData.getLastDayEnergy()));
-        series.getData().add(new XYChart.Data<>("Current Power", panelData.getCurrentPower()));
-
+    
+        // Assuming the relevant data is under the global data, specifically for energy metrics
+        if (globalData.containsKey("Panel")) {
+            Map<String, Double> panelData = (Map<String, Double>) globalData.get("Panel");
+    
+            // Add only the currentPower to the series for now
+            if (panelData.containsKey("currentPower")) {
+                series.getData().add(new XYChart.Data<>("Current Power", panelData.get("currentPower")));
+                System.out.println(panelData.get("currentPower"));
+                System.out.println("heeeeere");
+            }
+            System.out.println("heeeeeeeeeeeeeeeere");
+    
+            // You can add the other data later by uncommenting the following lines:
+            /*
+            if (panelData.containsKey("lifeTimeData")) {
+                series.getData().add(new XYChart.Data<>("Lifetime Energy", panelData.get("lifeTimeData")));
+            }
+            if (panelData.containsKey("lastYearData")) {
+                series.getData().add(new XYChart.Data<>("Last Year Energy", panelData.get("lastYearData")));
+            }
+            if (panelData.containsKey("lastMonthData")) {
+                series.getData().add(new XYChart.Data<>("Last Month Energy", panelData.get("lastMonthData")));
+            }
+            if (panelData.containsKey("lastDayData")) {
+                series.getData().add(new XYChart.Data<>("Last Day Energy", panelData.get("lastDayData")));
+            }
+            */
+        }
+    
         barChart.getData().add(series);
-
-        container.getChildren().add(barChart); // Add the chart to the VBox
+    
+        // Add the chart to the panelPane
+        panelPane.getChildren().add(barChart);
     }
+    
+    
 
     private BarChart<String, Number> createBarChart(String title, String xAxisLabel, String yAxisLabel) {
         CategoryAxis xAxis = new CategoryAxis();

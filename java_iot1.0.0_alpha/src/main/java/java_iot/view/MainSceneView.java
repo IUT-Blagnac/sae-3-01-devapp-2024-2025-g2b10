@@ -221,7 +221,7 @@ public class MainSceneView implements Initializable {
 	}
 
 	@FXML
-	public void showPanel() {
+	public void showPanel() throws URISyntaxException {
 		navigationBar.showPanelPane();
 	}
 
