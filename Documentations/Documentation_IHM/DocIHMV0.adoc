@@ -105,6 +105,24 @@ Cette classe *NE RÉFÉRENCE QUE* `java_iot.controller.AdditionController` et `j
 
 image::../../images/DS_Addition.png[Diagramme de Séquence des Additions]
 
+==== Alertes architecture
+
+===== A. AlertController
+
+La classe 'AlertController' fait le lien entre la classe 'Data' et la classe 'AlertView', permettrant d'afficher les données récupérées sur le topic MQTT par la classe 'Data'.
+
+Cette classe a pour seul et unique but de récupérer les salles/les capteurs et la valeur concernée afin de pouvoir le donner au view qui l'affichera dans une fenêtre à part.
+
+'AlertController' est un singleton afin de s'assurer que le signal d'alerte envoyé à AlertView ne peut pas venir de plusieurs instances, faussant potentiellement l'affichage.
+
+===== A. AlertView
+
+La classe 'AlertView' est appelée dans l'application lorsqu'une alerte est détectée dans les données chargées par le programme.
+
+Elle a pour but de récupérer les données et les afficher dans une liste d'alertes.
+
+
+
 === 2. Diagramme de classes :
 [.text-justify]
 
