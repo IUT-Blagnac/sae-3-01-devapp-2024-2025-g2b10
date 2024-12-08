@@ -182,40 +182,47 @@ public class Graphique {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Energy Metrics");
     
-        // Assuming the relevant data is under the global data, specifically for energy metrics
-        if (globalData.containsKey("Panel")) {
-            Map<String, Double> panelData = (Map<String, Double>) globalData.get("Panel");
-    
-            // Add only the currentPower to the series for now
-            if (panelData.containsKey("currentPower")) {
-                series.getData().add(new XYChart.Data<>("Current Power", panelData.get("currentPower")));
-                System.out.println(panelData.get("currentPower"));
-                System.out.println("heeeeere");
+        // Add only currentPower to the series
+        if (globalData.containsKey("currentPower")) {
+            JsonNode currentPowerNode = (JsonNode) globalData.get("currentPower");
+            if (currentPowerNode != null && currentPowerNode.has("power")) {
+                series.getData().add(new XYChart.Data<>("Current Power", currentPowerNode.get("power").asDouble()));
             }
-            System.out.println("heeeeeeeeeeeeeeeere");
-    
-            // You can add the other data later by uncommenting the following lines:
-            /*
-            if (panelData.containsKey("lifeTimeData")) {
-                series.getData().add(new XYChart.Data<>("Lifetime Energy", panelData.get("lifeTimeData")));
-            }
-            if (panelData.containsKey("lastYearData")) {
-                series.getData().add(new XYChart.Data<>("Last Year Energy", panelData.get("lastYearData")));
-            }
-            if (panelData.containsKey("lastMonthData")) {
-                series.getData().add(new XYChart.Data<>("Last Month Energy", panelData.get("lastMonthData")));
-            }
-            if (panelData.containsKey("lastDayData")) {
-                series.getData().add(new XYChart.Data<>("Last Day Energy", panelData.get("lastDayData")));
-            }
-            */
         }
+    
+
+        if (globalData.containsKey("lifeTimeData")) {
+            JsonNode lifeTimeDataNode = (JsonNode) globalData.get("lifeTimeData");
+            if (lifeTimeDataNode != null && lifeTimeDataNode.has("energy")) {
+                series.getData().add(new XYChart.Data<>("Lifetime Energy", lifeTimeDataNode.get("energy").asDouble()));
+            }
+        }
+        if (globalData.containsKey("lastYearData")) {
+            JsonNode lastYearDataNode = (JsonNode) globalData.get("lastYearData");
+            if (lastYearDataNode != null && lastYearDataNode.has("energy")) {
+                series.getData().add(new XYChart.Data<>("Last Year Energy", lastYearDataNode.get("energy").asDouble()));
+            }
+        }
+        if (globalData.containsKey("lastMonthData")) {
+            JsonNode lastMonthDataNode = (JsonNode) globalData.get("lastMonthData");
+            if (lastMonthDataNode != null && lastMonthDataNode.has("energy")) {
+                series.getData().add(new XYChart.Data<>("Last Month Energy", lastMonthDataNode.get("energy").asDouble()));
+            }
+        }
+        if (globalData.containsKey("lastDayData")) {
+            JsonNode lastDayDataNode = (JsonNode) globalData.get("lastDayData");
+            if (lastDayDataNode != null && lastDayDataNode.has("energy")) {
+                series.getData().add(new XYChart.Data<>("Last Day Energy", lastDayDataNode.get("energy").asDouble()));
+            }
+        }
+        
     
         barChart.getData().add(series);
     
         // Add the chart to the panelPane
         panelPane.getChildren().add(barChart);
     }
+    
     
     
 
