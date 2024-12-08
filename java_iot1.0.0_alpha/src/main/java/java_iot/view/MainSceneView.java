@@ -1,34 +1,17 @@
 package java_iot.view;
 
-import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
-import java_iot.classes.Data;
 import java_iot.classes.Data_sensors;
-import java_iot.classes.Room;
-import java_iot.classes.Sensor;
-import java_iot.classes.dataLoader;
 import java_iot.controller.DataController;
 import java_iot.controller.MainSceneController;
 import java_iot.controller.SettingsController;
-import java_iot.controller.dataController;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
