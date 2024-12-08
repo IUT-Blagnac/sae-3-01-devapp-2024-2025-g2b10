@@ -23,9 +23,7 @@ public class AlertView implements Initializable {
     private AlertController ac;
 
     @FXML
-    private VBox alertContainer; // Conteneur pour afficher les alertes dynamiquement
-    @FXML
-    private VBox alertList; // Conteneur pour afficher les alertes dynamiquement
+    private VBox alertList; // Container to show the alerts dynamically
 
     /**
      * Sets the app that called this window in other to request a closure.
@@ -40,19 +38,22 @@ public class AlertView implements Initializable {
     }
 
     /**
-     * Met à jour la liste des alertes dans le conteneur.
+     * Updates the list of alerts in the container
      *
-     * @param alertingSensors Map des capteurs en alerte.
+     * @param alertingSensors Map of the sensors in alert
      */
-    public void updateAlerts(Map<String, Sensor> alertingSensors) {
+    public void updateAlerts() {
         if (alertList == null) {
             System.err.println("alertList n'est pas initialisé !");
             return;
         }
 
+        Map<String, Sensor> alertingSensors = ac.getAlertingSensors();
+
         alertList.getChildren().clear();
 
         if (alertingSensors.isEmpty()) {
+            //If there is no alert
             alertList.getChildren().add(new Label("Aucune alerte détectée."));
         } else {
             for (Map.Entry<String, Sensor> entry : alertingSensors.entrySet()) {
@@ -62,24 +63,22 @@ public class AlertView implements Initializable {
 
                 String alertText = "Salle : " + roomName + "\nDonnée : " + sensor.getName() + "\nValeur : " + alertValue;
 
-                // Charger l'image d'alerte
-                Image alertImage = new Image("java_iot\\ressources\\images\\warningicon.png"); // Remplacez par le chemin réel
+                Image alertImage = new Image("java_iot\\ressources\\images\\warningicon.png");
                 ImageView alertImageView = new ImageView(alertImage);
-                alertImageView.setFitHeight(40);  // Taille de l'icône
+                alertImageView.setFitHeight(40);
                 alertImageView.setFitWidth(40);
 
-                // Créer un HBox pour combiner l'image et le texte
-                HBox hbox = new HBox(20); // Espacement entre l'image et le texte
-                hbox.setAlignment(Pos.CENTER_LEFT); // Centrer le contenu verticalement
+                // HBox for the image and message of alert
+                HBox hbox = new HBox(20);
+                hbox.setAlignment(Pos.CENTER_LEFT);
 
-                // Créer le Label et lui appliquer un style rouge
+                // Adding the text to the label
                 Label alertLabel = new Label(alertText);
                 alertLabel.setStyle("-fx-text-fill: #e32222; -fx-font-weight: bold; -fx-font-size: 14px;");
 
-                // Ajouter l'image et le texte dans le HBox
+                // Adding the image and label to the HBox
                 hbox.getChildren().addAll(alertImageView, alertLabel);
 
-                // Bouton avec HBox
                 Button alertButton = new Button();
                 alertButton.setPrefWidth(400.0);
                 alertButton.setPrefHeight(100.0);
@@ -94,10 +93,10 @@ public class AlertView implements Initializable {
                         + "-fx-padding: 20;"
                 );
 
-                // Ajouter le HBox comme contenu du bouton
+                // Add the HBox as a content of alertButton
                 alertButton.setGraphic(hbox);
 
-                // Ajouter le bouton au conteneur des alertes
+                // Add the alertButton to the alertList
                 alertList.getChildren().add(alertButton);
             }
         }

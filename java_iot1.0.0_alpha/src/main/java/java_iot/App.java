@@ -141,7 +141,7 @@ public class App extends Application {
             ctrl.setApp(this);
 
             // Mettre à jour les alertes dans la vue
-            ctrl.updateAlerts(alertingSensors);
+            ctrl.updateAlerts();
 
             alertStage.setScene(scene);
             alertStage.show();
