@@ -9,10 +9,10 @@
 
     <properties>
         <iut.ihm.mainClass>java_iot.Main</iut.ihm.mainClass>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>23</maven.compiler.source>
+        <maven.compiler.target>23</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <javafx.version>21</javafx.version>
+        <javafx.version>23</javafx.version>
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
         <maven.shade.plugin.version>3.4.1</maven.shade.plugin.version>
     </properties>
@@ -71,6 +71,32 @@
                     <mainClass>${iut.ihm.mainClass}</mainClass>
                 </configuration>
             </plugin>
+            <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-resources-plugin</artifactId>
+    <version>3.2.0</version>
+    <executions>
+        <execution>
+            <phase>process-resources</phase>
+            <goals>
+                <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                <resources>
+                    <resource>
+                        <directory>java_iot1.0.0_alpha/src/main/resources/java_iot/ressources/data_collecting</directory>
+                        <includes>
+                            <include>data.json</include>
+                            <include>main.py</include>
+                        </includes>
+                    </resource>
+                </resources>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
