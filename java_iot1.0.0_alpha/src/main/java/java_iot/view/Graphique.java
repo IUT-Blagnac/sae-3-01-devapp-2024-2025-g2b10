@@ -1,5 +1,6 @@
 package java_iot.view;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -10,6 +11,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import javafx.scene.layout.Pane;
@@ -106,20 +109,29 @@ public class Graphique {
     }
     
     private String fetchRoomData(String roomName) {
-            //to be replaced with an actual json getter
-        return """
-                {
-                   "temperature": 18.9,
-                   "humidity": 53.5,
-                   "activity": 0,
-                   "co2": 1700,
-                   "tvoc": 120,
-                   "illumination": 1,
-                   "infrared": 1,
-                   "infrared_and_visible": 1,
-                   "pressure": 993.3
-                }
-               """;
+        ObjectMapper objectMapper = new ObjectMapper();
+        // File file = new File("../../../resources/java_iot/ressources/data_collecting/data.json");
+        File file = new File("java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\data.json");
+        try {
+            // Parse the JSON file into a JsonNode
+            System.out.println("b4");
+            JsonNode rootNode = objectMapper.readTree(file);
+            System.out.println("here");
+            // Access the specific room node
+            JsonNode roomNode = rootNode.get(roomName);
+
+            if (roomNode != null) {
+                // Convert the room-specific data back to a JSON string
+                // return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(roomNode);
+                return null;
+            } else {
+                System.err.println("Room not found in data.json: " + roomName);
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
     
 
