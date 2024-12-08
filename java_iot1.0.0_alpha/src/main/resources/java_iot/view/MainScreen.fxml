@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
@@ -86,7 +88,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="initializeButton" alignment="BOTTOM_RIGHT" graphicTextGap="77.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="251.0" styleClass="navbar-button" text="Initialiser" textFill="#b9b9b9">
+                        <Button fx:id="initializeButton" alignment="BOTTOM_RIGHT" graphicTextGap="77.0" mnemonicParsing="false" onAction="#InitialisationButton" prefHeight="51.0" prefWidth="251.0" styleClass="navbar-button" text="Initialiser" textFill="#b9b9b9">
                            <font>
                               <Font name="DejaVu Sans ExtraLight" size="20.0" />
                            </font>
@@ -115,11 +117,20 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="551.0" prefWidth="832.0" style="-fx-background-color: Transparent;">
                            <children>
-                              <ImageView fitHeight="553.0" fitWidth="568.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="522.0" fitWidth="407.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../ressources/images/placeholder.png" />
                                  </image>
                               </ImageView>
+                              <TableView fx:id="tableV" layoutX="407.0" layoutY="14.0" prefHeight="261.0" prefWidth="425.0">
+                                <columns>
+                                  <TableColumn fx:id="Rooms" prefWidth="75.0" text="Rooms" />
+                                  <TableColumn fx:id="CO2" prefWidth="75.0" text="CO2" />
+                                    <TableColumn fx:id="Humidity" prefWidth="75.0" text="Humidity" />
+                                    <TableColumn fx:id="Temperature" prefWidth="85.0" text="Temperature" />
+                                    <TableColumn fx:id="time" prefWidth="114.0" text="Time" />
+                                </columns>
+                              </TableView>
                            </children>
                         </AnchorPane>
                     </content>

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import java_iot.model.Settings;
+import java_iot.view.AdditionView;
 import java_iot.view.SettingsView;
 import javafx.beans.Observable;
 import javafx.collections.ListChangeListener;
@@ -22,6 +23,7 @@ public class SettingsController {
 
     private SettingsView sv;
     private Settings se;
+    private AdditionController ac;
     private MainSceneController msc;
     private static SettingsController instance;
     
@@ -191,6 +193,15 @@ public class SettingsController {
      */
     public boolean requestSettingChange(String section, String name, String text, boolean addition){
         return se.changeSettingField(section, name, text, addition);
+    }
+
+    /**
+     * Requests a new AdditionWindow to the {@link java_iot.App}.
+     * @param mono : If the Pane should contain a value field.
+     * @param callerButton : Who called for a new window.
+     */
+    public void requestNewWindow(boolean mono, String callerButton){
+        AdditionController.getInstance().requestNewWindow(mono, callerButton);
     }
     
     /**

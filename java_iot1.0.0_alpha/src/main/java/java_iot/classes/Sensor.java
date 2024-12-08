@@ -1,4 +1,9 @@
+
 package java_iot.classes;
+
+/* Classe représentant un capteur
+ * @author PAPA-PATSOUMOUDOU Matthias
+ */
 
 public class Sensor {
     private String name;
@@ -14,6 +19,7 @@ public class Sensor {
 
     }
 
+    /* Getters */
     public String getName() {
         return name;
     }
@@ -30,6 +36,7 @@ public class Sensor {
         return time;
     }
 
+    /* Setters */
     public void setName(String name) {
         this.name = name;
     }
