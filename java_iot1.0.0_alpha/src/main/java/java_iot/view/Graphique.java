@@ -25,15 +25,17 @@ import java.util.regex.Pattern;
 
 
 /**
- * The {@code Graphique} class provides functionalities for displaying and managing 
- * graphical data representations in a JavaFX application. It includes methods to 
- * show dashboards, display room-specific data, and visualize global panel metrics 
- * using bar charts. 
+ * La classe {@code Graphique} fournit des fonctionnalités pour afficher et gérer 
+ * des représentations graphiques de données dans une application JavaFX. 
+ * Elle inclut des méthodes pour afficher des tableaux de bord, des données spécifiques 
+ * à une pièce, et des métriques globales de panneaux solaires sous forme de graphiques à barres.
  * 
- * <p>It uses JSON data from a predefined resource file to extract and display metrics 
- * such as temperature, humidity, CO2 levels, and solar panel performance data.</p>
+ * <p>Elle utilise des données JSON provenant d'un fichier de ressources pour extraire et 
+ * afficher des métriques telles que la température, l'humidité, les niveaux de CO2, 
+ * et les performances des panneaux solaires.</p>
  * 
- * <p>This class implements a singleton design pattern to ensure only one instance is created.</p>
+ * <p>Cette classe implémente un design pattern Singleton pour garantir qu'une seule 
+ * instance soit créée.</p>
  * 
  * @version 1.0
  * @since 2023
@@ -50,30 +52,30 @@ public class Graphique {
         msc = pfmsc;
     }
 
+
     /**
-     * Retrieves the current JSON data stored in the object.
+     * Récupère les données JSON actuellement stockées dans l'objet.
      * 
-     * @return the JSON data as a string.
+     * @return les données JSON sous forme de chaîne de caractères.
      */
     public String getData() {
         return datajson;
     }
 
     /**
-     * Sets the JSON data for this object.
+     * Définit les données JSON pour cet objet.
      * 
-     * @param pfdatajson the JSON data as a string.
+     * @param pfdatajson les données JSON sous forme de chaîne de caractères.
      */
     public void setData(String pfdatajson) {
         this.datajson = pfdatajson;
     }
 
     /**
-     * Returns the existing instance of the SettingsView or creates one.
+     * Retourne l'instance existante de {@code Graphique} ou en crée une nouvelle si elle n'existe pas.
      * 
-     * @param MainSceneView pfmsc : the Main Scene Controller
-     * @author GIARD--PELLAT Jules
-     * @return the singleton instance of {@code Graphique}.
+     * @param pfmsc le contrôleur de la scène principale à associer à cette instance.
+     * @return l'instance unique de {@code Graphique}.
      */
     public static Graphique getInstance(MainSceneController pfmsc) {
         if (instance == null) {
@@ -86,11 +88,12 @@ public class Graphique {
         // Je te laisse ça vide Quentin
     }
 
+  
     /**
-     * Converts a string to a double.
+     * Convertit une chaîne en un nombre à virgule flottante (double).
      * 
-     * @param str the string to convert.
-     * @return the double value of the string, or 0.0 if the conversion fails.
+     * @param str la chaîne à convertir.
+     * @return la valeur double de la chaîne, ou 0.0 si la conversion échoue.
      */
     public double stringToDouble(String str) {
         try {
@@ -102,10 +105,10 @@ public class Graphique {
     }
     
     /**
-     * Displays metrics for a specific room in a bar chart.
+     * Affiche les métriques pour une pièce spécifique dans un graphique à barres.
      * 
-     * @param roomName the name of the room for which data is to be displayed.
-     * @throws URISyntaxException if there is an issue with the data file's URI.
+     * @param roomName le nom de la pièce pour laquelle les données doivent être affichées.
+     * @throws URISyntaxException si un problème survient avec l'URI du fichier de données.
      */
     public void showRoom(String roomName) throws URISyntaxException {
         Pane roomPane = msc.getMainSceneView().roomPane; // Assume roomPane exists and is initialized
@@ -123,11 +126,11 @@ public class Graphique {
     
         // Create a Bar Chart
         BarChart<String, Number> barChart = createBarChart(
-                "Room Metrics for: " + roomName, "Metrics", "Values");
+                "Capteurs de la salle: " + roomName, "Capteurs", "Valeurs");
     
         // Create a series for room metrics
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Room Metrics");
+        series.setName("Capteurs de la salle");
     
         // Add data to the series
         roomData.forEach((key, value) -> series.getData().add(new XYChart.Data<>(key, value)));
@@ -142,11 +145,11 @@ public class Graphique {
 
 
     /**
-     * Fetches the metrics data for a specified room from the JSON resource.
+     * Récupère les données métriques d'une pièce spécifiée à partir de la ressource JSON.
      * 
-     * @param roomName the name of the room to fetch data for.
-     * @return a map containing the room's metrics and their respective values.
-     * @throws URISyntaxException if there is an issue with the data file's URI.
+     * @param roomName le nom de la pièce pour laquelle récupérer les données.
+     * @return une carte contenant les métriques de la pièce et leurs valeurs respectives.
+     * @throws URISyntaxException si un problème survient avec l'URI du fichier de données.
      */
     public Map<String, Double> fetchRoomData(String roomName) throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -181,14 +184,14 @@ public class Graphique {
     }
     
     /**
-     * Fetches global metrics data from the JSON resource.
+     * Récupère les données globales métriques à partir de la ressource JSON.
      * 
-     * <p>The method parses the "Global" node in the JSON and extracts relevant 
-     * metrics, such as current power, lifetime energy, and energy consumption data.</p>
+     * <p>Cette méthode analyse le nœud "Global" dans le JSON et extrait les métriques pertinentes, 
+     * telles que la puissance actuelle, l'énergie de vie et les données de consommation d'énergie.</p>
      * 
-     * @return a map containing the global metrics with their respective values. 
-     *         Nested JSON nodes are returned as {@code JsonNode} objects.
-     * @throws URISyntaxException if there is an issue with the data file's URI.
+     * @return une carte contenant les métriques globales avec leurs valeurs. 
+     *         Les nœuds JSON imbriqués sont retournés sous forme d'objets {@code JsonNode}.
+     * @throws URISyntaxException si un problème survient avec l'URI du fichier de données.
      */
     private Map<String, Object> fetchGlobalData() throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -200,7 +203,7 @@ public class Graphique {
                 Map<String, Object> globalData = new HashMap<>();
                 globalNode.fields().forEachRemaining(entry -> {
                     JsonNode value = entry.getValue();
-                    // Add different types of values (e.g., objects, primitives)
+                    // Add different types of valeurs (e.g., objects, primitives)
                     if (value.isObject()) {
                         globalData.put(entry.getKey(), value); // Add as a JsonNode for nested objects
                     } else if (value.isTextual()) {
@@ -229,9 +232,9 @@ public class Graphique {
     }
     
     /**
-     * Displays global solar panel metrics on a bar chart.
+     * Affiche les métriques globales des panneaux solaires sous forme de graphique à barres.
      * 
-     * @throws URISyntaxException if there is an issue with the data file's URI.
+     * @throws URISyntaxException si un problème survient avec l'URI du fichier de données.
      */
     public void showPanel() throws URISyntaxException {
         Pane panelPane = msc.getMainSceneView().panelPane;  // Assume panelPane exists and is initialized
@@ -247,11 +250,11 @@ public class Graphique {
         }
     
         // Create a Bar Chart for Solar Panel Data
-        BarChart<String, Number> barChart = createBarChart("Solar Panel Data", "Metrics", "Energy / Power");
+        BarChart<String, Number> barChart = createBarChart("Valeur des panneaux solaires", "Catégories", "énergie");
     
         // Create a series for solar panel metrics
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Energy Metrics");
+        series.setName("Capteurs solaires");
     
         // Add only currentPower to the series
         if (globalData.containsKey("currentPower")) {
@@ -297,12 +300,12 @@ public class Graphique {
     
     
     /**
-     * Creates a bar chart with the specified title and axis labels.
+     * Crée un graphique à barres avec le titre et les étiquettes d'axe spécifiés.
      * 
-     * @param title the title of the bar chart.
-     * @param xAxisLabel the label for the X-axis.
-     * @param yAxisLabel the label for the Y-axis.
-     * @return the created bar chart.
+     * @param title le titre du graphique à barres.
+     * @param xAxisLabel l'étiquette pour l'axe des X.
+     * @param yAxisLabel l'étiquette pour l'axe des Y.
+     * @return le graphique à barres créé.
      */
     private BarChart<String, Number> createBarChart(String title, String xAxisLabel, String yAxisLabel) {
         CategoryAxis xAxis = new CategoryAxis();
@@ -318,11 +321,11 @@ public class Graphique {
 
 
     /**
-     * Extracts a specific metric value from a JSON string based on a provided key.
+     * Extrait une valeur spécifique d'une métrique d'une chaîne JSON en fonction de la clé fournie.
      * 
-     * @param jsonString the JSON string containing the metric.
-     * @param key the key for the metric to extract.
-     * @return the extracted metric value as a double, or 0.0 if not found or invalid.
+     * @param jsonString la chaîne JSON contenant la métrique.
+     * @param key la clé pour la métrique à extraire.
+     * @return la valeur extraite sous forme de double, ou 0.0 si la clé n'est pas trouvée ou invalide.
      */
     private double extractMetric(String jsonString, String key) {
         String regex = "\"" + key + "\":\\[(\\d+\\.?\\d*)"; // Match both integers and doubles
