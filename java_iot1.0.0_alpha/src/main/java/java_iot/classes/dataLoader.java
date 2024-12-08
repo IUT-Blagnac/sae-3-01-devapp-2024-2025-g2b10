@@ -48,7 +48,7 @@ public class dataLoader {
             Type type = new TypeToken<Map<String, Object>>() {
             }.getType();
             Map<String, Object> data = gson.fromJson(new InputStreamReader(inputStream), type);
-
+            System.out.println("Contenu du fichier JSON : " + data);
             // Extraction des données globales
             Global global = null;
             if (data.containsKey("Global")) {
@@ -84,28 +84,31 @@ public class dataLoader {
     public List<Sensor> extractSensors(Object value) {
         List<Sensor> sensors = new ArrayList<>();
         try {
-
             // Si l'objet est un Map, on traite les données salle par salle.
             if (value instanceof Map) {
                 Map<String, Object> roomData = (Map<String, Object>) value;
                 for (Map.Entry<String, Object> Group_Sensor : roomData.entrySet()) {
                     if (Group_Sensor.getValue() instanceof Map) {
-
                         Map<String, Object> Data_sensor = (Map<String, Object>) Group_Sensor.getValue();
                         for (Map.Entry<String, Object> Sensors : Data_sensor.entrySet()) {
-                            String key = Sensors.getKey();// Type de capteur
+                            String key = Sensors.getKey(); // Type de capteur
                             Object val = Sensors.getValue();
 
                             if (val instanceof List) {
-
                                 List<Object> Details_sensor = (List<Object>) val;
-                                // Extraction des détails du capteur : valeur, statut, et temps.
+                                // Extraction des détails du capteur : valeur, statut, et temps
                                 if (Details_sensor.size() == 2) {
-                                    Double values = (Double) Details_sensor.get(0);
-                                    Boolean status = (Boolean) Details_sensor.get(1);
-                                    String time = (String) Data_sensor.get("time");
+                                    Double values = (Double) Details_sensor.get(0); // Valeur réelle du capteur
+                                    Boolean status = (Boolean) Details_sensor.get(1); // Statut du capteur (vrai ou
+                                                                                      // faux)
+                                    String time = (String) Data_sensor.get("time"); // Temps du capteur
+
+                                    // Création de l'objet Sensor avec ces informations
                                     Sensor sensor = new Sensor(key, values, status, time);
                                     sensors.add(sensor);
+
+                                    // Affichage du capteur extrait
+                                    System.out.println("Capteur extrait : " + sensor);
                                 }
                             }
                         }
