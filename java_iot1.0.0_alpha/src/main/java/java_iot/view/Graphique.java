@@ -117,13 +117,22 @@ public class Graphique {
             System.out.println("b4");
             JsonNode rootNode = objectMapper.readTree(file);
             System.out.println("here");
+    
             // Access the specific room node
             JsonNode roomNode = rootNode.get(roomName);
-
+    
             if (roomNode != null) {
-                // Convert the room-specific data back to a JSON string
-                // return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(roomNode);
-                return null;
+                // Access the temperature field
+                JsonNode temperatureNode = roomNode.get("temperature"); // Replace "temperature" with the actual field name
+                if (temperatureNode != null && temperatureNode.isDouble()) {
+                    double temperatureValue = temperatureNode.asDouble();
+                    return String.format("Temperature: %.2f", temperatureValue); // Format as string with two decimal places
+                } else if (temperatureNode != null && temperatureNode.isTextual()) {
+                    return "Temperature: " + temperatureNode.asText(); // If the field is already a string
+                } else {
+                    System.err.println("Temperature field is missing or not a valid double.");
+                    return null;
+                }
             } else {
                 System.err.println("Room not found in data.json: " + roomName);
                 return null;

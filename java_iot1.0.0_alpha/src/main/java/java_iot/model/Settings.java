@@ -71,12 +71,7 @@ public class Settings {
 
 	private final String[] TOPICS_NAMES_ORDERED = {"AM107", "Triphaso", "Solaredge", "Rooms"};
 
-	private final String[] ALL_ROOMS = {"A011", "Amphi1", "Amphi2", "Amphi3", "B004", "B005", "B006", "B007", "B008", "B009", "B010", "B101", 
-										"B102", "B103", "B104", "B105", "B106", "B107", "B108", "B109", "B110", "B111", "B112", "B113", 
-										"B115", "B201", "B202", "B203", "B212", "B212b", "B219", "B234", "C004", "C006", "D001", "E001", "E002", 
-										"E003", "E004", "E005", "E006", "E007", "E008", "E101", "E102", "E103", "E104", "E105", "E106", "E206", 
-										"E207", "E208", "E209", "E210", "E211", "Labo", "hall-amphi", "hall-entrée-principale", 
-	"Salle anechoique", "Salle-conseil", "Atelier recherche", "Local-velo", "Foyer-personnels"};
+	private final String[] ALL_ROOMS = {"B201","C001","B109","B002","Salle-conseil","B105","Foyer-etudiants-entrée","B111","B234","E006","B113","E209","E003","B217","B112","C002","E001","C102","E007","B203","E208","amphi1","E210","B103","E207","E101","E100","C006","hall-amphi","E102","E103","B110","hall-entrée-principale","B106","B001","E004","E106","Foyer-personnels","B202","Local-velo","C004"};
 	// Some final colours codes
 
 	private final String[][] ALL_VALUES = {ALL_AM107_VALUES, ALL_TRIPHASO_VALUES, ALL_SOLAREDGE_VALUES};
