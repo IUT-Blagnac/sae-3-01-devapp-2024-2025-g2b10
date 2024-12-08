@@ -117,3 +117,34 @@ image::../../images/DS_Addition.png[Diagramme de Séquence des Additions]
 - Taper : `pip install paho-mqtt`. Cela télécharge la librairie de connexion au Broker.
 - Lancer le script Python situé dans `src/main/resources/java_iot/ressources/data_collecting/main.py` au moyen de l'application ou directement avec un éxécutable Python.
 - Les données récupérées du Broker s'affichent en temps réelle dans la console si le mode débug est activé. Le script ne se connecte qu'aux topics demandés et ne conserve que les données demandées.
+
+
+=== 1. Installer Maven
+
+==== Étape 1 : Télécharger Maven
+1. Rendez-vous sur le site officiel de Maven : https://maven.apache.org/download.cgi[].
+2. Téléchargez la dernière version binaire.
+3. Extrayez le fichier compressé dans un répertoire de votre choix, par exemple `C:\Program Files\Apache\Maven`.
+
+==== Étape 2 : Configurer les variables d'environnement
+1. Ajoutez `MAVEN_HOME` dans vos variables d'environnement système :
+   * Chemin : Répertoire où Maven est installé (ex. : `C:\Program Files\Apache\Maven`).
+2. Ajoutez `MAVEN_HOME\bin` au `PATH` pour rendre Maven accessible depuis la ligne de commande.
+3. Vérifiez l'installation en ouvrant un terminal et en tapant :
+----
+mvn -v
+----
+   Cela doit afficher la version de Maven ainsi que la configuration Java.
+
+=== 2. Installer Visual Studio Code et extensions
+
+==== Étape 1 : Installer VS Code
+1. Téléchargez Visual Studio Code depuis https://code.visualstudio.com/[].
+2. Installez-le sur votre machine.
+
+==== Étape 2 : Installer les extensions nécessaires
+1. Ouvrez Visual Studio Code.
+2. Accédez à l'onglet Extensions (icône de carrés empilés ou raccourci `Ctrl+Shift+X`).
+3. Recherchez et installez les extensions suivantes :
+   * *Extension Pack for Java* (inclut des outils comme Language Support for Java et Debugger for Java).
+   * *Maven for Java* (pour gérer des projets Maven dans VS Code).
