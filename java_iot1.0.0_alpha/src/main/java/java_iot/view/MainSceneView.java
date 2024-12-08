@@ -1,5 +1,6 @@
 package java_iot.view;
 
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -166,9 +167,16 @@ public class MainSceneView implements Initializable {
 
 		
 		String[][] roomData = settingsController.requestAllAvailableFields("listened_rooms");
-        String[] rooms = roomData[0];  // Assuming the first array contains room names
+		String[] rooms = roomData[0];  // Assuming the first array contains room names
 		roomComboBox.getItems().addAll(rooms);
-		roomComboBox.setOnAction(event -> handleRoomSelection());
+		roomComboBox.setOnAction(event -> {
+			try {
+				handleRoomSelection();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 
 		Rooms.setCellValueFactory(new PropertyValueFactory<>("roomName"));
 		CO2.setCellValueFactory(new PropertyValueFactory<>("co2"));
@@ -182,7 +190,7 @@ public class MainSceneView implements Initializable {
 		return msc;
 	}
 
-	private void handleRoomSelection() {
+	private void handleRoomSelection() throws URISyntaxException {
         String selectedRoom = roomComboBox.getValue();
         if (selectedRoom != null && !selectedRoom.isEmpty()) {
             Graphique.getInstance(msc).showRoom(selectedRoom); // Pass the selected room
