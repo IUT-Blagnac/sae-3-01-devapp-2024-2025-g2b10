@@ -59,20 +59,55 @@ public class Graphique {
         // Je te laisse ça vide Quentin
     }
 
+
     public void showRoom(String roomName) {
         Pane roomPane = msc.getMainSceneView().roomPane; // Assume roomPane exists and is initialized
         VBox container = (VBox) roomPane.getChildren().get(0);
-
+    
+        // Remove any existing BarChart instances in the container
         container.getChildren().removeIf(node -> node instanceof BarChart);
-
-        // Ensure the roomPane isn't fully cleared
-        if (roomPane.getChildren().size() > 1) {
-            // Remove only the chart if it already exists
-            roomPane.getChildren().removeIf(node -> node instanceof BarChart);
+    
+        // Fetch room data (replace this with your dynamic data retrieval logic)
+        String roomDataJson = fetchRoomData(roomName);
+        if (roomDataJson == null) {
+            System.err.println("No data available for room: " + roomName);
+            return;
         }
-
-        // Example JSON data for a room
-        String roomDataJson = """
+    
+        // Parse JSON into a map
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Double> data;
+        try {
+            data = mapper.readValue(roomDataJson, new TypeReference<>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+    
+        // Create a Bar Chart
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Metrics");
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Values");
+    
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("Room Metrics for: " + roomName);
+    
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Room Metrics");
+    
+        // Add data to the series
+        data.forEach((key, value) -> series.getData().add(new XYChart.Data<>(key, value)));
+    
+        barChart.getData().add(series);
+    
+        // Add the chart to the container
+        container.getChildren().add(barChart);
+    }
+    
+    private String fetchRoomData(String roomName) {
+            //to be replaced with an actual json getter
+        return """
                 {
                    "temperature": 18.9,
                    "humidity": 53.5,
@@ -83,41 +118,10 @@ public class Graphique {
                    "infrared": 1,
                    "infrared_and_visible": 1,
                    "pressure": 993.3
-                 }
-                               """;
-
-        // Parse JSON (use your preferred library, e.g., Jackson or Gson)
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, Double> data;
-        try {
-            data = mapper.readValue(roomDataJson, new TypeReference<>() {
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        // Create a Bar Chart
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Metrics");
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Values");
-
-        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
-        barChart.setTitle("Visualisation de la salle");
-
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Room Metrics");
-
-        // Add data to the series
-        data.forEach((key, value) -> series.getData().add(new XYChart.Data<>(key, value)));
-
-        barChart.getData().add(series);
-
-        // Add the chart to the room pane
-        container.getChildren().add(barChart);
-
+                }
+               """;
     }
+    
 
     public void showPanel() {
         Pane panelPane = msc.getMainSceneView().panelPane;
