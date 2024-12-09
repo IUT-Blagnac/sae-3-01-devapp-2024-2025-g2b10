@@ -1,0 +1,36 @@
+= Documentation Utilisateur - Abraca-dabra-cadabra
+:toc:
+:toc-title: Sommaire
+
+:Entreprise: Abraca-dabra-cadabra
+:Equipe:  
+
+Date: 20/11/2024
+
+Créé par : _MARTINEZ Quentin_ | _CHAUVIERE Romy_ | _ESTIENNE Alban-Moussa_ | _PAPA-PATSOUMOUDOU Matthias_ | _GIARD--PELLAT Jules_ 
+
+Créé pour : _Esther Pendaries_
+
+image::../../images/IUT.png[IUT Blagnac]
+
+---
+
+== I. Introduction
+[.text-justify]
+Ce document a été produit dans le contexte de la création d'un site web e-commerce pour l'entreprise _"Abraca-dabra-cadabra"_, du point de vue de l'utilisateur.
+
+== II. Présentation générale
+[.text-justify]
+Présentation et explication du rôle de l'application.
+
+== III. Installation utilisation
+[.text-justify]
+Explication pour installer et utiliser l'application.
+
+== IV. Fonctionnement
+[.text-justify]
+Détail des fonctionnalités de l'application d'un point de vue utilisateur.
+
+== V. Résultats produits
+[.text-justify]
+Démonstration des résultats produits, avec les jeux d'essai commentés.

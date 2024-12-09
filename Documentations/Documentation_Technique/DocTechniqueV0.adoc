@@ -1,0 +1,125 @@
+= Documentation Technique - Abraca-dabra-cadabra
+:toc:
+:toc-title: Sommaire
+
+:Entreprise: Abraca-dabra-cadabra
+:Equipe:  
+
+Date: 20/11/2024
+
+Créé par : _MARTINEZ Quentin_ | _CHAUVIERE Romy_ | _ESTIENNE Alban-Moussa_ | _PAPA-PATSOUMOUDOU Matthias_ | _GIARD--PELLAT Jules_ 
+
+Créé pour : _Esther Pendaries_
+
+image::../../images/IUT.png[IUT Blagnac]
+
+---
+
+== I. Introduction
+[.text-justify]
+Ce document a été produit dans le contexte de la création d'un site web e-commerce pour l'entreprise _"Abraca-dabra-cadabra"_, d'un point de vue technique.
+
+== II. Présentation de l'application
+[.text-justify]
+Développement de l'existant, ainsi que des fonctionnalités de chaque membre du groupe.
+
+Pour ce projet, il n'y a pas d'existant. Nous allons développer de A à Z une site web d'e-commerce en PHP/HTML/CSS.
+
+Chaque membre de l'équipe se verra attribuer plusieurs de ces tâches : 
+
+=== Création du site web
+
+- Créer la charte graphique : Romy
+- Créer la page d'accueil : Quentin
+
+=== Fonctionnalités
+
+==== Client
+
+- Créer un compte / Se connecter : Quentin, Romy, Alban
+- Consulter les produits :
+- Rechercher un produit
+- Trier les produits :
+- Consulter une catégorie :
+- Consulter le détail d'un produit :
+- Gérer le panier : 
+- Passer une commande :
+- Visualiser la commande :
+- Mettre un avis client sur un produit :
+- Gérer les points de fidélité :
+
+==== Administrateur
+
+- Gérer les produits :
+- Gérer les catégories :
+- Gérer les comptes clients : 
+
+== III. Architecture
+[.text-justify]
+Faire une structuration de l'application.
+
+Le site web sera hébergé sur un serveur Apache (PHP) et lié à une base de données phpMyAdmin (MySQL). Le site demandera des informations à la base de données et pourra en insérer elle aussi.
+
+Le client accèdera au site via son URL : 
+
+http://193.54.227.208/~R2024SAE3004/SAE/index.php
+
+image::../../images/schema_architecture_dynamique.jpg[Schéma d'architecture dynamique]
+_Figure 1. Schéma d'architecture dynamique_
+
+=== Diagramme de classe métiers de la base de données
+
+image::../../images/DCM.png[Diagramme de classes métiers]
+_Figure 2. Diagramme de classes métiers de la base de données_
+
+== IV. Présentation diagrammes
+[.text-justify]
+
+=== 1. Use case global 
+
+image::../../images/UC.png[Diagramme des Cas d'Utilisation]
+_Figure 3. Diagramme des Cas d'Utilisation_
+
+=== 2. Diagramme de séquence système
+
+[.text-justify]
+
+=== 1. Cas d'utilisation : Inscription (Client)
+[.text-justify]
+
+image::../../images/DSS_1.png[Diagramme de séquence système]
+_Figure 4. Diagramme de séquence système_
+
+=== 2. Cas d'utilisation : Comparaison des produits (Invité)
+[.text-justify]
+
+image::../../images/DSS_2.png[Diagramme de séquence système]
+_Figure 5. Diagramme de séquence système_
+
+=== 3. Cas d'utilisation : Consultation du panier (Client)
+[.text-justify]
+
+image::../../images/DSS_3.png[Diagramme de séquence système]
+_Figure 6. Diagramme de séquence système_
+
+=== 4. Cas d'utilisation : Consultation et ajout au panier (Invité)
+[.text-justify]
+
+image::../../images/DSS_4.png[Diagramme de séquence système]
+_Figure 7. Diagramme de séquence système_
+
+=== 5. Cas d'utilisation : Ajout d'un mode de paiement (Client)
+[.text-justify]
+
+image::../../images/DSS_5.png[Diagramme de séquence système]
+_Figure 8. Diagramme de séquence système_
+
+=== 6. Cas d'utilisation : Gestion BD (Admin) 
+[.text-justify]
+
+image::../../images/DSS_6.png[Diagramme de séquence système]
+_Figure 9. Diagramme de séquence système_
+
+== V. Eléments de codes significatifs
+[.text-justify]
+Faire les commentaires de chaque fonctionnalité.

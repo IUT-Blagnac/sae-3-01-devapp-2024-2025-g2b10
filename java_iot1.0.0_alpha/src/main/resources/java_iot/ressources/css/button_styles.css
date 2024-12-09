@@ -1,0 +1,94 @@
+.on {
+    -fx-background-color: Transparent; 
+    -fx-border-color: #2d8a11; 
+    -fx-border-radius: 30; 
+    -fx-border-width: 3; 
+    -fx-text-fill: #2d8a11;
+}
+
+.off {
+    -fx-background-color: Transparent;
+    -fx-border-color: #8a1111; 
+    -fx-border-radius: 30; 
+    -fx-border-width: 3; 
+    -fx-text-fill: #8a1111;
+}
+
+.selected {
+    -fx-background-color: #ffffff; 
+    -fx-text-fill: #000000;
+    -fx-alignment: center;
+    -fx-border-radius: 5;
+}
+
+.unselected {
+    -fx-background-color: #1a1a1a; 
+    -fx-text-fill: #dadada;
+    -fx-alignment: center;
+    -fx-border-radius: 5;
+}
+
+.unselected:hover {
+    -fx-text-fill: #ffffff;
+}
+
+.navbar-button:hover{
+    -fx-text-fill: #ffffff;
+}
+
+.navbar-button{
+    -fx-text-fill: #b9b9b9;
+    -fx-background-color: Transparent;
+}
+
+/* Style global pour la TableView */
+.table-view {
+    -fx-background-color: linear-gradient(#ffffff 100%);
+    -fx-background-radius: 8px; /* Arrondi des bords du fond */
+    -fx-border-color: #328878;
+    -fx-border-radius: 7px; /* Arrondi des bords de la bordure */
+    -fx-border-width: 1px;
+}
+
+/* Style pour l'en-tête de la TableView */
+.table-view .column-header-background {
+    -fx-background-color: #1a1a1a;
+    -fx-background-radius: 7px; 
+    -fx-border-radius: 7px; 
+    -fx-border-width: 1px;
+    -fx-border-color: transparent transparent #1a1a1a transparent; 
+    -fx-text-fill: white;
+    -fx-font-size: 14px; 
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+
+/* Colonnes avec bords arrondis */
+.table-view .column-header {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: #035074;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-radius: 7px; /* Bords arrondis */
+    
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px; 
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+/* Style spécifique au texte dans les colonnes */
+.table-view .column-header-background .label {
+    -fx-text-fill: #ffffff;
+}
+
+/* Lignes de la table */
+.table-row-cell {
+    -fx-background-color: transparent;
+}
+
+/* Contenu des cellules */
+.table-view .table-cell {
+    -fx-text-fill: #1a1a1a;
+    -fx-background-radius: 5px; /* Légèrement arrondi pour les cellules */
+}

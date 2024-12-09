@@ -1,4 +1,7 @@
-= SAÉ 3.01 2023-2024
+image::https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg["Open in Visual Studio Code", link="https://classroom.github.com/online_ide?assignment_repo_id=16928608&assignment_repo_type=AssignmentRepo"]
+
+= SAÉ 3.01 2024-2025
+
 :icons: font
 :models: models
 :experimental:
@@ -33,65 +36,138 @@ endif::[]
 
 // Tags
 image:{baseURL}/actions/workflows/blank.yml/badge.svg[Bidon] 
-image:{baseURL}/actions/workflows/build.yml/badge.svg[Build] 
-image:{baseURL}/actions/workflows/tests.yml/badge.svg[Tests] 
 image:https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg[License: MPL-2.0, link="https://opensource.org/licenses/MPL-2.0"]
 //---------------------------------------------------------------
 
-TIP: Pensez à mettre à jour les infos dans ce fichier pour que les badges pointent sur les résultats effectifs de vos intégrations continue ou sur la bonne licence logicielle.
-
-WARNING: Ce dépôt présente le projet à développer dans le cadre de la SAÉ 3.01 du BUT1 Informatique de l'IUT de Blagnac.
-
-Ce fichier `README.adoc` (dont vous lisez sûrement le rendu HTML automatiquement effectué par GitHUb), fait partie du dépôt initial cloné à partir du lien GitHub classroom qui vous a été donné en cours (https://classroom.github.com/a/fePVlfpN).
-Vous trouverez le dépôt "template" qui a servi de base ici : https://github.com/IUT-Blagnac/sae3-01-template. En complément du cours Moodle de la SAE 3.01 (cf. <<liensUtiles>>), ce dépôt template vous permet d'accéder à des exemples d'https://github.com/IUT-Blagnac/sae3-01-template/issues[issues], de https://github.com/IUT-Blagnac/sae3-01-template/releases[releases], ou d'autres artefacts à venir.
+Ce fichier `README.adoc`, permettra de présenter notre projet de SAE 3.01
+Ainsi que les différents livrables et réalisations que nous avons effectués.
 
 toc::[]
 
-== Equipe
+== Sprint courant
+
+- https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/milestone/1[Sprint 6]
+
+== Equipe et rôle
 
 Projet est réalisé par::
 
-- https://github.com/janeDoe[Jane Doe]
-- https://github.com/johnSmith[John Smith]
-...
+- https://github.com/Cracotte-Mu-Da[GIARD--PELLAT Jules] : *Développeur*
+- https://github.com/Romy514[CHAUVIERE Romy] *Développeuse*
+- https://github.com/AlbiMousse[ESTIENNE Alban-Moussa] *Product Owner et Scrum Master*
+- https://github.com/Quentin158[MARTINEZ Quentin] *Développeur*
+- https://github.com/Matthias426[PAPA-PATSOUMOUDOU Matthias] *Développeur*
 
-Tuteur/tutrice enseignant(e) de l'équipe:: mailto:jean-michel.bruel@univ-tlse2.fr[JMB]
+Tuteur/tutrice enseignant(e) de l'équipe:: 
 
-== Contexte général
+- mailto:jean-michel.bruel@univ-tlse2.fr[Jean-Michel Bruel] +
+- mailto:esther.pendaries@univ-tlse2.fr[Esther Pendaries] + 
+- mailto:laurent.nonne@univ-tlse2.fr[Laurent Nonne] + 
+- mailto:nabil.hanine@free.fr[Nabil Hanine] + 
+- mailto:andre.peninou@univ-tlse2.fr[André Peninou] + 
 
-TIP: Cette partie de votre `README.adoc` peut être supprimée ou mise ailleurs.
+== Sujet du projet
 
-=== Dépôt initial
+Ce projet consiste en la création d'un site e-commerce spécialisé dans la vente de produits magiques et mystiques, conçu pour offrir une expérience immersive aux amateurs de magie. Nommée "Abraca-dabra-cadabra," le site propose une large gamme de produits classés en diverses catégories, allant des baguettes magiques et potions aux grimoires, tenues, et ingrédients rares. L'objectif est de créer un environnement où les utilisateurs peuvent facilement naviguer entre les produits, bénéficier d'informations détaillées, et effectuer des achats en toute simplicité.
 
-Ce dépôt initial a été créé pour que tous les groupes de 2ème année aient les mêmes informations de départ.
+== Livrables
 
-Vous y trouverez des fichiers qui peuvent être supprimés s'ils ne vous sont pas utiles :
+[cols="2,2,2",options=header]
+|===
+| Date    | Nom         |  Lien                       
+| Sem.45  | Documentation conception      |  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Documentations_Conception/DocConception.adoc[Documentation Conception] 
+|  | Collecte et analyse des données (IoT)      |   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/master/IoT[IoT]      
+| Sem.46  | Ordre du jour #1      |  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%231.pdf[Ordre du jour #1]     
+|  | Compte Rendu #1|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%231.pdf[Compte Rendu #1]   
+| Sem.47  | Ordre du jour #2      |  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%232.pdf[Ordre du jour #2]     
+|  | Compte Rendu #2|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%232.pdf[Compte Rendu #2]  
+|  | IHM v0|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/master/IHM[IHM v0] 
+| Sem.48  | Ordre du jour #3      |     https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%233.pdf[Ordre du jour #3] 
+|  | Compte Rendu #3|  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%233.pdf[Compte Rendu #3] 
+|  | IHM v1|  
+|  | PHP v0|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/009385c2517c71c242498bb6f847dc2bbbcaadfd/PHP[PHP v0]
+| Sem.49  | Ordre du jour #4      |     https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%234.pdf[Ordre du jour #4] 
+|  | Compte Rendu #4|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%234.pdf[Compte Rendu #4] 
+|  | IHM v2|  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/9ce4c98b813b1c42e13d9a0b26fd51eabc55efaf/java_iot1.0.0_alpha[Application JavaFX]
+|  | PHP v1|   [PHP v1]
+|===
 
-- `.gitignore` => un fichier minimaliste des éléments à ne pas pousser en général sur vos dépôts (utiliser la commande `git add -f` pour forcer l'ajout d'un fichier Jar qui ne bougera plus, pour archive par exemple).
-- `.github` => le répertoire qui contient des éléments de gestion de projet :
-** `workflows` => le repertoire qui contient les actions à lancer à chaque push sur votre repo. 
-*** `blank.yml` => un exemple bidon mais dont vous pourrez vérifier l’exécution correcte (1er tag)
-** `ISSUE_TEMPLATE` => le repertoire qui contient quelques templates pour vos issues.
-*** `us.yml` => Exemple de template pour les User Stories
-*** `bug.yml` => Exemple de template pour les issues de bug report
+=== Evaluation communication EP
 
-TIP: Adaptez ces fichiers à votre projet et à votre organisation. Et inspirez-vous en pour en ajouter.
+==== retour semaine 48
 
-[[liensUtiles]]
-=== Liens utiles
-
-- Le https://webetud.iut-blagnac.fr/course/view.php?id=841[cours Moodle] sur la SAE
-- Le dépôt https://github.com/IUT-Blagnac/sae3-01-template[template] qui sert de base à tous les dépôts étudiants.
-- Le lien https://classroom.github.com/a/OUF7gxEa[classroom] si besoin.
-
-TIP: Pensez à utiliser les salons Discord dédiés pour poser vos questions.
+ODJ : Précisez qui est resp de chaque rubrique. CR : Manque synthese rdv client, manque analyse difficultés-réussites, manque resp prochaine réunion.
+note : 1,9/3
 
 == Réalisations 
 
-TIP: Mettez ici toutes les informations nécessaire à l'utilisation de votre dépôt (comment on installe votre application, où sont les docs, etc.)
+Nous mettons à disposition plusieurs documents pour vous aider à comprendre à utiliser notre projet. Ces documents incluent :
+
+=== 📘 Documentation de conception
+Ce document est destiné aux développeurs et contributeurs techniques. Il décrit la conception du système et inclut des diagrammes UML détaillés ainsi que les cas d'utilisations principaux
+
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Documentations_Conception/DocConception.adoc[Documentation Conception]
+
+=== 🛠️ Documentation technique
+Ce document est destiné aux développeurs et contributeurs techniques. 
+Il contient des informations détaillées sur l'architecture, le code, et les technologies utilisées dans ce projet.
+
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Documentation_Technique/DocTechniqueV0.adoc[Documentation Technique]
+
+=== 🧑‍💻 Documentation utilisateur
+Ce document s'adresse aux utilisateurs finaux. Il explique comment utiliser le projet et ses fonctionnalités.
+
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Documentation_Utilisateur/DocUtilisateurV0.adoc[Documentation Utilisateur]
+
+=== ✅ Cahier de tests
+Ce document détaille les cas de tests pour valider les fonctionnalités du projet en fonction des rôles définis (visiteur, client, administrateur). Chaque cas de test comprend les préconditions, les actions à réaliser et les résultats attendus.
+
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Cahier_Tests/CahierTestsV0.adoc[Cahier de tests]
 
 == Gestion de projet & Qualité
 
+Pour faciliter le suivi du projet, nous avons mis en place des outils de gestion disponibles sur GitHub:
+
+=== 🚀 Release
+La dernière version stable de l'application est disponible via le lien ci-dessous.
+Téléchargez-la pour accéder aux dernières fonctionnalités
+
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/releases/tag/v0.1.0[DevWeb v0.1.0]
+
+=== 🗒️ Board GitHub
+Notre board vous permettra de suivre l'état d'avancement des tâches. Il est organisé en trois colonnes :
+
+- **A réaliser** : Liste des tâches à réaliser +
+- **En cours** : Tâches en cours de réalisation + 
+- **Terminé** : Tâches terminées +
+
+- Lien : https://github.com/orgs/IUT-Blagnac/projects/261[Board]
+
+=== 🎯 Milestones
+Les milestones représentent chaque sprint du projet, accompagnés de leurs objectifs, délais ainsi que de leur avancement représenté en pourcentage.
+
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/milestones[Milestones]
+
+=== Evaluation bi-hebdomadaire
+
+ifdef::env-github[]
+image:https://docs.google.com/spreadsheets/d/e/2PACX-1vSACcYeKaH_ims3faegSLAFJ9s5_Kd9Fbyi4ODEb8BTN5OnUXWenVGhlVPo84yQDhTkTj3f9nXiluh1/pubchart?oid=1704009585&format=image[link=https://docs.google.com/spreadsheets/d/e/2PACX-1vSACcYeKaH_ims3faegSLAFJ9s5_Kd9Fbyi4ODEb8BTN5OnUXWenVGhlVPo84yQDhTkTj3f9nXiluh1/pubchart?oid=1704009585&format=image]
+endif::[]
+
+ifndef::env-github[]
+++++
+<iframe width="786" height="430" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSACcYeKaH_ims3faegSLAFJ9s5_Kd9Fbyi4ODEb8BTN5OnUXWenVGhlVPo84yQDhTkTj3f9nXiluh1/pubchart?oid=1704009585&format=interactive"></iframe>
+++++
+endif::[]
+
+=== retour sprint 1 / Initialisation du dépôt
+Il manque les rôles de chacun. Je ne trouve ni backlog de sprint, ni backlog produit !!  J'ai la doc de conception (qui ne précise pas le contexte du projet !) mais pas de liens vers les autres documentations qui devraient être initialisées ! Je n'ai pas de cahier de tests; pas de release ou de date de release !
+
+=== Retour semaine 48
+
+Backlog : j'ai des US mais pas de backlog produit avec evaluation de la complexité: il manque les finalités (afin de ) dans les US et critères acceptabilité. Backlog de sprint : ok milestone de sprint indiqué mais confus j'ai un projet mais on ne sait pas dans quel sprint on est !  Les US ne sont pas demandées en IOT. Tasks : Il faut les assigner et les rattacher à une US, je dois voir les tâches en cours de traitement dans le board du projet. Tests ok mais mettre à jour les résultats ! DOCS : coneption ok, pour user et tech à avancer on est à mi projet !! release ok 
+
+=== Attendus
 Chaque sprint (semaine) vous devrez livrer une nouvelle version de votre application (release).
 Utilisez pour cela les fonctionnalités de GitHub pour les https://docs.github.com/en/repositories/releasing-projects-on-github[Releases].
 
@@ -104,15 +180,3 @@ De plus ce fichier `README.adoc` devra être à jour des informations suivantes 
 - Tests unitaires et plans de test
 - Indicateurs de qualité du code (dette technique)
 - ... tout autre élément que vous jugerez utiles pour démontrer la qualité de votre application
-
-Voici un exemple d'évaluation :
-
-ifdef::env-github[]
-image:https://docs.google.com/spreadsheets/d/e/2PACX-1vTc3HJJ9iSI4aa2I9a567wX1AUEmgGrQsPl7tHGSAJ_Z-lzWXwYhlhcVIhh5vCJxoxHXYKjSLetP6NS/pubchart?oid=1850914734&amp;format=image[link=https://docs.google.com/spreadsheets/d/e/2PACX-1vTc3HJJ9iSI4aa2I9a567wX1AUEmgGrQsPl7tHGSAJ_Z-lzWXwYhlhcVIhh5vCJxoxHXYKjSLetP6NS/pubchart?oid=1850914734&amp;format=image]
-endif::[]
-
-ifndef::env-github[]
-++++
-<iframe width="786" height="430" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTc3HJJ9iSI4aa2I9a567wX1AUEmgGrQsPl7tHGSAJ_Z-lzWXwYhlhcVIhh5vCJxoxHXYKjSLetP6NS/pubchart?oid=1850914734&amp;format=image"></iframe>
-++++
-endif::[]
