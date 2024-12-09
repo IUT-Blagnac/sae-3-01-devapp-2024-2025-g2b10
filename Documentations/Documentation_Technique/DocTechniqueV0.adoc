@@ -67,10 +67,10 @@ http://193.54.227.208/~R2024SAE3004/SAE/index.php
 image::../../images/schema_architecture_dynamique.jpg[Schéma d'architecture dynamique]
 _Figure 1. Schéma d'architecture dynamique_
 
-=== Diagramme de classe métiers
+=== Diagramme de classe métiers de la base de données
 
 image::../../images/DCM.png[Diagramme de classes métiers]
-_Figure 2. Diagramme de classes métiers_
+_Figure 2. Diagramme de classes métiers de la base de données_
 
 == IV. Présentation diagrammes
 [.text-justify]
