@@ -1,7 +1,7 @@
-/* This targets the bars and changes their width */
 .chart-bar {
-    -fx-bar-width: 10px; /* Adjust this value to make the bars thinner */
+    -fx-bar-width: 5px; /* Make bars thinner */
 }
+
 .category-axis .axis {
     -fx-tick-label-gap: 5px; /* Adjust label spacing */
 }

@@ -125,9 +125,9 @@ public class Graphique {
      *                            données.
      */
     public void showRoom(String roomName) throws URISyntaxException {
-        Pane temproomPane = msc.getMainSceneView().tempPane; 
-        Pane humroomPane = msc.getMainSceneView().humPane; 
-        Pane co2roomPane = msc.getMainSceneView().co2Pane; 
+        Pane temproomPane = msc.getMainSceneView().tempPane;
+        Pane humroomPane = msc.getMainSceneView().humPane;
+        Pane co2roomPane = msc.getMainSceneView().co2Pane;
     
         // Remove any existing charts
         temproomPane.getChildren().removeIf(node -> node instanceof BarChart);
@@ -156,7 +156,6 @@ public class Graphique {
             tempSeries.getData().add(new XYChart.Data<>("Température", roomData.get("temperature")));
             tempChart.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
             tempChart.getData().add(tempSeries);
-            System.out.println("Temperature Series: " + tempSeries.getData());
         }
     
         if (roomData.containsKey("humidity")) {
@@ -165,7 +164,6 @@ public class Graphique {
             humSeries.getData().add(new XYChart.Data<>("Humidité", roomData.get("humidity")));
             humChart.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
             humChart.getData().add(humSeries);
-            System.out.println("Humidity Series: " + humSeries.getData());
         }
     
         if (roomData.containsKey("co2")) {
@@ -174,23 +172,13 @@ public class Graphique {
             co2Series.getData().add(new XYChart.Data<>("CO2", roomData.get("co2")));
             co2Chart.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
             co2Chart.getData().add(co2Series);
-            System.out.println("CO2 Series: " + co2Series.getData());
         }
-
-
-
-
-
-
-
-
-        
-        // Add charts to panes
-        temproomPane.getChildren().add(tempChart);
-        humroomPane.getChildren().add(humChart);
-        co2roomPane.getChildren().add(co2Chart);
-    }
     
+        // Center and add charts to panes
+        centerChart(tempChart, temproomPane);
+        centerChart(humChart, humroomPane);
+        centerChart(co2Chart, co2roomPane);
+    }
 
     /**
      * Récupère les données métriques d'une pièce spécifiée à partir de la ressource
@@ -303,29 +291,29 @@ public class Graphique {
         Label day = msc.getMainSceneView().panelDay;
         Label month = msc.getMainSceneView().panelMonth;
         Label year = msc.getMainSceneView().panelYear;
-    
+
         // Remove existing visual elements
         container.getChildren().clear();
-    
+
         // Fetch global data for the panel
         Map<String, Object> globalData = fetchGlobalData();
         if (globalData == null || globalData.isEmpty()) {
             System.err.println("No global data available for the panel");
             return;
         }
-    
+
         // Create a gauge for current power
         Gauge gauge = GaugeBuilder.create()
-            .title("Current Power")
-            .unit("kWh")
-            .maxValue(5000) // Set max value based on expected power range
-            .animated(true)
-            .majorTickSpace(1000) // Space between major ticks
-            .minorTickSpace(500)
-            .angleRange(180)
-            .startAngle(270)
-            .build();
-    
+                .title("Current Power")
+                .unit("kWh")
+                .maxValue(5000) // Set max value based on expected power range
+                .animated(true)
+                .majorTickSpace(1000) // Space between major ticks
+                .minorTickSpace(500)
+                .angleRange(180)
+                .startAngle(270)
+                .build();
+
         // Set the value of the gauge if available
         if (globalData.containsKey("currentPower")) {
             JsonNode currentPowerNode = (JsonNode) globalData.get("currentPower");
@@ -334,7 +322,7 @@ public class Graphique {
                 gauge.setValue(powerValue);
             }
         }
-    
+
         // Display energy metrics in labels
         if (globalData.containsKey("lastYearData")) {
             JsonNode lastYearDataNode = (JsonNode) globalData.get("lastYearData");
@@ -354,12 +342,12 @@ public class Graphique {
                 day.setText("Énergie de la journée : " + lastDayDataNode.get("energy").asText() + " kWh");
             }
         }
-    
+
         double paneWidth = container.getWidth();
-        double paneHeight = container.getHeight()+150;
+        double paneHeight = container.getHeight() + 150;
         double gaugeWidth = gauge.prefWidth(-1); // Get the preferred width of the gauge
         double gaugeHeight = gauge.prefHeight(-1); // Get the preferred height of the gauge
-        
+
         // Set layout positions for centering
         gauge.setLayoutX((paneWidth - gaugeWidth) / 2);
         gauge.setLayoutY((paneHeight - gaugeHeight) / 2);
@@ -379,26 +367,29 @@ public class Graphique {
     private BarChart<String, Number> createBarChart(String title, String xAxisLabel, String yAxisLabel) {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel(xAxisLabel);
-    
+        // xAxis.setStyle("-fx-padding: 0 5 0 5;"); // Reduce the padding around the
+        // bars
+
         // Adjust the category gap to make bars thinner
-        //xAxis.setCategoryGap(5); // Default is 10, reducing this will make bars thinner
-    
+        // xAxis.setCategoryGap(5); // Default is 10, reducing this will make bars
+        // thinner
+
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel(yAxisLabel);
-    
+
         BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
         barChart.setTitle(title);
-    
+        barChart.setPrefSize(10, 500); // Adjust the chart's preferred size
+
         // Apply CSS for any other custom styling
         try {
             barChart.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         } catch (NullPointerException e) {
             System.err.println("CSS file not found: /styles.css");
         }
-    
+
         return barChart;
     }
-    
 
     /**
      * Extrait une valeur spécifique d'une métrique d'une chaîne JSON en fonction de
@@ -426,4 +417,13 @@ public class Graphique {
         }
         return 0.0; // Default value if metric is missing
     }
+
+/**
+ * Centers the chart within its parent pane.
+ */
+private void centerChart(BarChart<String, Number> chart, Pane pane) {
+    pane.getChildren().add(chart); // Ensure the chart is added only once
+    chart.layoutXProperty().bind(pane.widthProperty().subtract(chart.widthProperty()).divide(2));
+    chart.layoutYProperty().bind(pane.heightProperty().subtract(chart.heightProperty()).divide(2));
+}
 }
