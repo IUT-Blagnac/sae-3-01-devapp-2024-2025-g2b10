@@ -1,7 +1,10 @@
 package java_iot.view;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
@@ -153,7 +156,7 @@ public class Graphique {
      */
     public Map<String, Double> fetchRoomData(String roomName) throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(App.class.getResource("ressources/data_collecting/data.json").toURI()); // Adjust path as needed
+        File file = new File(new File("data_collecting/data.json").toURI()); // Adjust path as needed
 
         try {
             JsonNode rootNode = objectMapper.readTree(file);
@@ -195,9 +198,8 @@ public class Graphique {
      */
     private Map<String, Object> fetchGlobalData() throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(App.class.getResource("ressources\\data_collecting\\data.json").toURI());
         try {
-            JsonNode rootNode = objectMapper.readTree(file);
+            JsonNode rootNode = objectMapper.readTree(new FileInputStream("data_collecting/data.json"));
             JsonNode globalNode = rootNode.get("Global"); // Access the "Global" node
             if (globalNode != null) {
                 Map<String, Object> globalData = new HashMap<>();
@@ -225,6 +227,9 @@ public class Graphique {
                 System.err.println("Global data not found.");
                 return null;
             }
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
             return null;

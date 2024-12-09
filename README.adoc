@@ -44,6 +44,10 @@ Ainsi que les différents livrables et réalisations que nous avons effectués.
 
 toc::[]
 
+== Sprint courant
+
+- https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/milestone/1[Sprint 6]
+
 == Equipe et rôle
 
 Projet est réalisé par::
@@ -82,9 +86,9 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 |  | Compte Rendu #3|  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%233.pdf[Compte Rendu #3] 
 |  | IHM v1|  
 |  | PHP v0|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/009385c2517c71c242498bb6f847dc2bbbcaadfd/PHP[PHP v0]
-| Sem.48  | Ordre du jour #4      |     [Ordre du jour #4] 
-|  | Compte Rendu #4|   [Compte Rendu #4] 
-|  | IHM v2|  
+| Sem.49  | Ordre du jour #4      |     https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%234.pdf[Ordre du jour #4] 
+|  | Compte Rendu #4|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%234.pdf[Compte Rendu #4] 
+|  | IHM v2|  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/9ce4c98b813b1c42e13d9a0b26fd51eabc55efaf/java_iot1.0.0_alpha[Application JavaFX]
 |  | PHP v1|   [PHP v1]
 |===
 
