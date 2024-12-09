@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import java_iot.controller.MainSceneController;
+import javafx.application.Platform;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -23,6 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import eu.hansolo.medusa.Gauge;
 import eu.hansolo.medusa.GaugeBuilder;
+import javafx.application.Platform;
 
 /**
  * La classe {@code Graphique} fournit des fonctionnalités pour afficher et
@@ -122,36 +124,79 @@ public class Graphique {
      * @throws URISyntaxException si un problème survient avec l'URI du fichier de
      *                            données.
      */
-    public void showRoom(String roomName) throws URISyntaxException {
-        Pane roomPane = msc.getMainSceneView().roomPane; // Assume roomPane exists and is initialized
-        VBox container = (VBox) roomPane.getChildren().get(0);
+public void showRoom(String roomName) throws URISyntaxException {
+    Pane temproomPane = msc.getMainSceneView().tempPane; 
+    Pane humroomPane = msc.getMainSceneView().humPane; 
+    Pane co2roomPane = msc.getMainSceneView().co2Pane; 
 
-        // Remove any existing charts in the container
-        container.getChildren().removeIf(node -> node instanceof BarChart);
+    // Remove any existing charts in the panes
+    temproomPane.getChildren().removeIf(node -> node instanceof BarChart);
+    humroomPane.getChildren().removeIf(node -> node instanceof BarChart);
+    co2roomPane.getChildren().removeIf(node -> node instanceof BarChart);
 
-        // Fetch room data as a Map
-        Map<String, Double> roomData = fetchRoomData(roomName);
-        if (roomData == null || roomData.isEmpty()) {
-            System.err.println("No data available for room: " + roomName);
-            return;
-        }
-
-        // Create a Bar Chart
-        BarChart<String, Number> barChart = createBarChart(
-                "Capteurs de la salle: " + roomName, "Capteurs", "Valeurs");
-
-        // Create a series for room metrics
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Capteurs de la salle");
-
-        // Add data to the series
-        roomData.forEach((key, value) -> series.getData().add(new XYChart.Data<>(key, value)));
-
-        barChart.getData().add(series);
-
-        // Add the chart to the container
-        container.getChildren().add(barChart);
+    // Fetch room data as a Map
+    Map<String, Double> roomData = fetchRoomData(roomName);
+    if (roomData == null || roomData.isEmpty()) {
+        System.err.println("No data available for room: " + roomName);
+        return;
     }
+
+    // Create and configure bar charts for each metric
+    BarChart<String, Number> tempChart = createBarChart(
+            "Température de la salle: " + roomName, "Capteurs", "Valeurs");
+    BarChart<String, Number> humChart = createBarChart(
+            "Humidité de la salle: " + roomName, "Capteurs", "Valeurs");
+    BarChart<String, Number> co2Chart = createBarChart(
+            "CO2 de la salle: " + roomName, "Capteurs", "Valeurs");
+
+    // Add specific data to the respective charts
+    if (roomData.containsKey("temperature")) {
+        XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
+        tempSeries.setName("Température");
+        tempSeries.getData().add(new XYChart.Data<>("Température", roomData.get("temperature")));
+        tempChart.getData().add(tempSeries);
+
+        // Apply custom style for temperature after rendering
+        Platform.runLater(() -> {
+            if (tempSeries.getNode() != null) {
+                tempSeries.getNode().setStyle("-fx-bar-fill: blue;");
+            }
+        });
+    }
+
+    if (roomData.containsKey("humidity")) {
+        XYChart.Series<String, Number> humSeries = new XYChart.Series<>();
+        humSeries.setName("Humidité");
+        humSeries.getData().add(new XYChart.Data<>("Humidité", roomData.get("humidity")));
+        humChart.getData().add(humSeries);
+
+        // Apply custom style for humidity after rendering
+        Platform.runLater(() -> {
+            if (humSeries.getNode() != null) {
+                humSeries.getNode().setStyle("-fx-bar-fill: green;");
+            }
+        });
+    }
+
+    if (roomData.containsKey("co2")) {
+        XYChart.Series<String, Number> co2Series = new XYChart.Series<>();
+        co2Series.setName("CO2");
+        co2Series.getData().add(new XYChart.Data<>("CO2", roomData.get("co2")));
+        co2Chart.getData().add(co2Series);
+
+        // Apply custom style for CO2 after rendering
+        Platform.runLater(() -> {
+            if (co2Series.getNode() != null) {
+                co2Series.getNode().setStyle("-fx-bar-fill: red;");
+            }
+        });
+    }
+
+    // Add the configured charts to the respective panes
+    temproomPane.getChildren().add(tempChart);
+    humroomPane.getChildren().add(humChart);
+    co2roomPane.getChildren().add(co2Chart);
+}
 
     /**
      * Récupère les données métriques d'une pièce spécifiée à partir de la ressource
@@ -340,12 +385,19 @@ public class Graphique {
     private BarChart<String, Number> createBarChart(String title, String xAxisLabel, String yAxisLabel) {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel(xAxisLabel);
-
+    
+        // Set category gap for thinner bars
+        //xAxis.setCategoryGap(10); // Adjust as needed for spacing
+    
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel(yAxisLabel);
-
+    
         BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
         barChart.setTitle(title);
+    
+        // Apply custom bar width using CSS
+        barChart.setStyle("-fx-bar-width: 10;"); // Adjust bar width
+    
         return barChart;
     }
 

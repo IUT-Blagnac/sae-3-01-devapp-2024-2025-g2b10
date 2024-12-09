@@ -136,7 +136,16 @@ public class MainSceneView implements Initializable {
 
 	@FXML
 	protected Pane graphDisplayPane;
+
+	@FXML
+	protected Pane tempPane;
 	
+	@FXML
+	protected Pane humPane;
+
+	@FXML
+	protected Pane co2Pane;
+
 	private DataController dataController;
 
 	@Override
