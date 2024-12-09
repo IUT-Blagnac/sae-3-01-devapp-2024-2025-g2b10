@@ -64,7 +64,7 @@ Le client accèdera au site via son URL :
 
 http://193.54.227.208/~R2024SAE3004/SAE/index.php
 
-image::../../images/schéma_architecture_dynamique.jpgg[Schéma d'architecture dynamique]
+image::../../images/schema_architecture_dynamique.jpg[Schéma d'architecture dynamique]
 _Figure 1. Schéma d'architecture dynamique_
 
 === Diagramme de classe métiers
