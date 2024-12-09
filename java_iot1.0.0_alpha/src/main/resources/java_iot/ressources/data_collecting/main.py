@@ -262,7 +262,9 @@ def on_message(client, userdata, msg):
         # Check "Triphaso" for explanation. Same as this.
 
         room_name = file[1]["room"]
-        device_name = file[1]["deviceName"]
+        if room_name not in data:
+            data[room_name] = {}
+        device_name = file[1]["deviceName"]+"_"+str(len(data[file[1]["room"]]))
 
         for key in file[0].keys():
             alert = False
@@ -277,8 +279,8 @@ def on_message(client, userdata, msg):
                     if key in alert_threshold:
                         if int(file[0][key]) > alert_threshold[key]:
                             alert = True
-                    data[file[1]["room"]][file[1]["deviceName"]+"_"+len(data[file[1]["room"]])][key] = [file[0][key], alert]
-                    data[file[1]["room"]][file[1]["deviceName"]]["time"] = str(datetime.datetime.now())
+                    data[file[1]["room"]][device_name][key] = [file[0][key], alert]
+                    data[file[1]["room"]][device_name]["time"] = str(datetime.datetime.now())
         
 
     elif "Triphaso" in msg.topic:
@@ -286,7 +288,9 @@ def on_message(client, userdata, msg):
         # Retrieves the room_name and device_name
 
         room_name = file[1]["Room"]
-        device_name = file[1]["deviceName"]
+        if room_name not in data:
+            data[room_name] = {}
+        device_name = file[1]["deviceName"]+"_"+str(len(data[file[1]["Room"]]))
 
         # For every data the PUBLISH has received      
 
@@ -308,9 +312,9 @@ def on_message(client, userdata, msg):
                             alert = True
                     #Input the data in the dictionary
                     this_data = [file[0][key], alert]
-                    data[file[1]["Room"]][file[1]["deviceName"]+"_"+len(data[file[1]["room"]])][key] = this_data
+                    data[file[1]["Room"]][device_name][key] = this_data
                     # After everything, log the date and hour
-                    data[file[1]["Room"]][file[1]["deviceName"]]["time"] = str(datetime.datetime.now())
+                    data[file[1]["Room"]][device_name]["time"] = str(datetime.datetime.now())
 
     elif "solaredge" in msg.topic:
         if "Global" not in data:
@@ -318,7 +322,7 @@ def on_message(client, userdata, msg):
         
         if listened_rooms == [] or "Global" in listened_rooms:
             if file["lastUpdateTime"] not in data["Global"]:
-                data["Global"]["lastUpdateTime"] = {}
+                data["Global"][file["lastUpdateTime"]] = {}
             for dataType in file:
                 if dataType in logged_dataType:
                     data["Global"][file["lastUpdateTime"]][dataType] = file[dataType]
