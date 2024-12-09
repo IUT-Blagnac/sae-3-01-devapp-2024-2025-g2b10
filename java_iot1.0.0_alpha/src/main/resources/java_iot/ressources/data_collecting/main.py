@@ -277,7 +277,7 @@ def on_message(client, userdata, msg):
                     if key in alert_threshold:
                         if int(file[0][key]) > alert_threshold[key]:
                             alert = True
-                    data[file[1]["room"]][file[1]["deviceName"]][key] = [file[0][key], alert]
+                    data[file[1]["room"]][file[1]["deviceName"]+"_"+len(data[file[1]["room"]])][key] = [file[0][key], alert]
                     data[file[1]["room"]][file[1]["deviceName"]]["time"] = str(datetime.datetime.now())
         
 
@@ -308,7 +308,7 @@ def on_message(client, userdata, msg):
                             alert = True
                     #Input the data in the dictionary
                     this_data = [file[0][key], alert]
-                    data[file[1]["Room"]][file[1]["deviceName"]][key] = this_data
+                    data[file[1]["Room"]][file[1]["deviceName"]+"_"+len(data[file[1]["room"]])][key] = this_data
                     # After everything, log the date and hour
                     data[file[1]["Room"]][file[1]["deviceName"]]["time"] = str(datetime.datetime.now())
 
@@ -317,9 +317,11 @@ def on_message(client, userdata, msg):
             data["Global"] = {}
         
         if listened_rooms == [] or "Global" in listened_rooms:
+            if file["lastUpdateTime"] not in data["Global"]:
+                data["Global"]["lastUpdateTime"] = {}
             for dataType in file:
                 if dataType in logged_dataType:
-                    data["Global"][dataType] = file[dataType]
+                    data["Global"][file["lastUpdateTime"]][dataType] = file[dataType]
         
 
     pprint.pprint(data)
