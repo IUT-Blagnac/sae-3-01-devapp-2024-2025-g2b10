@@ -125,6 +125,18 @@ public class MainSceneView implements Initializable {
 	@FXML
 	private TableColumn<Data_sensors, String> time;
 
+	@FXML
+	protected Label panelDay;
+
+	@FXML
+	protected Label panelMonth;
+
+	@FXML
+	protected Label panelYear;
+
+	@FXML
+	protected Pane graphDisplayPane;
+	
 	private DataController dataController;
 
 	@Override

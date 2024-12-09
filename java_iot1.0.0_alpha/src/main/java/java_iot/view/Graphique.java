@@ -4,47 +4,54 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-import java_iot.App;
 import java_iot.controller.MainSceneController;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import eu.hansolo.medusa.Gauge;
+import eu.hansolo.medusa.GaugeBuilder;
 
 /**
- * La classe {@code Graphique} fournit des fonctionnalités pour afficher et gérer 
- * des représentations graphiques de données dans une application JavaFX. 
- * Elle inclut des méthodes pour afficher des tableaux de bord, des données spécifiques 
- * à une pièce, et des métriques globales de panneaux solaires sous forme de graphiques à barres.
+ * La classe {@code Graphique} fournit des fonctionnalités pour afficher et
+ * gérer
+ * des représentations graphiques de données dans une application JavaFX.
+ * Elle inclut des méthodes pour afficher des tableaux de bord, des données
+ * spécifiques
+ * à une pièce, et des métriques globales de panneaux solaires sous forme de
+ * graphiques à barres.
  * 
- * <p>Elle utilise des données JSON provenant d'un fichier de ressources pour extraire et 
- * afficher des métriques telles que la température, l'humidité, les niveaux de CO2, 
- * et les performances des panneaux solaires.</p>
+ * <p>
+ * Elle utilise des données JSON provenant d'un fichier de ressources pour
+ * extraire et
+ * afficher des métriques telles que la température, l'humidité, les niveaux de
+ * CO2,
+ * et les performances des panneaux solaires.
+ * </p>
  * 
- * <p>Cette classe implémente un design pattern Singleton pour garantir qu'une seule 
- * instance soit créée.</p>
+ * <p>
+ * Cette classe implémente un design pattern Singleton pour garantir qu'une
+ * seule
+ * instance soit créée.
+ * </p>
  * 
  * @version 1.0
  * @since 2023
- * @authors 
- *     Quentin Martinez
- *     Jules Giard--Pellat
+ * @authors
+ *          Quentin Martinez
+ *          Jules Giard--Pellat
  */
 public class Graphique {
     private static Graphique instance;
@@ -54,7 +61,6 @@ public class Graphique {
     private Graphique(MainSceneController pfmsc) {
         msc = pfmsc;
     }
-
 
     /**
      * Récupère les données JSON actuellement stockées dans l'objet.
@@ -75,9 +81,11 @@ public class Graphique {
     }
 
     /**
-     * Retourne l'instance existante de {@code Graphique} ou en crée une nouvelle si elle n'existe pas.
+     * Retourne l'instance existante de {@code Graphique} ou en crée une nouvelle si
+     * elle n'existe pas.
      * 
-     * @param pfmsc le contrôleur de la scène principale à associer à cette instance.
+     * @param pfmsc le contrôleur de la scène principale à associer à cette
+     *              instance.
      * @return l'instance unique de {@code Graphique}.
      */
     public static Graphique getInstance(MainSceneController pfmsc) {
@@ -91,7 +99,6 @@ public class Graphique {
         // Je te laisse ça vide Quentin
     }
 
-  
     /**
      * Convertit une chaîne en un nombre à virgule flottante (double).
      * 
@@ -106,53 +113,55 @@ public class Graphique {
             return 0.0; // Return a default value if parsing fails
         }
     }
-    
+
     /**
      * Affiche les métriques pour une pièce spécifique dans un graphique à barres.
      * 
-     * @param roomName le nom de la pièce pour laquelle les données doivent être affichées.
-     * @throws URISyntaxException si un problème survient avec l'URI du fichier de données.
+     * @param roomName le nom de la pièce pour laquelle les données doivent être
+     *                 affichées.
+     * @throws URISyntaxException si un problème survient avec l'URI du fichier de
+     *                            données.
      */
     public void showRoom(String roomName) throws URISyntaxException {
         Pane roomPane = msc.getMainSceneView().roomPane; // Assume roomPane exists and is initialized
         VBox container = (VBox) roomPane.getChildren().get(0);
-    
+
         // Remove any existing charts in the container
         container.getChildren().removeIf(node -> node instanceof BarChart);
-    
+
         // Fetch room data as a Map
         Map<String, Double> roomData = fetchRoomData(roomName);
         if (roomData == null || roomData.isEmpty()) {
             System.err.println("No data available for room: " + roomName);
             return;
         }
-    
+
         // Create a Bar Chart
         BarChart<String, Number> barChart = createBarChart(
                 "Capteurs de la salle: " + roomName, "Capteurs", "Valeurs");
-    
+
         // Create a series for room metrics
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Capteurs de la salle");
-    
+
         // Add data to the series
         roomData.forEach((key, value) -> series.getData().add(new XYChart.Data<>(key, value)));
-    
+
         barChart.getData().add(series);
-    
+
         // Add the chart to the container
         container.getChildren().add(barChart);
     }
-    
-    
-
 
     /**
-     * Récupère les données métriques d'une pièce spécifiée à partir de la ressource JSON.
+     * Récupère les données métriques d'une pièce spécifiée à partir de la ressource
+     * JSON.
      * 
      * @param roomName le nom de la pièce pour laquelle récupérer les données.
-     * @return une carte contenant les métriques de la pièce et leurs valeurs respectives.
-     * @throws URISyntaxException si un problème survient avec l'URI du fichier de données.
+     * @return une carte contenant les métriques de la pièce et leurs valeurs
+     *         respectives.
+     * @throws URISyntaxException si un problème survient avec l'URI du fichier de
+     *                            données.
      */
     public Map<String, Double> fetchRoomData(String roomName) throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -185,21 +194,28 @@ public class Graphique {
             return null;
         }
     }
-    
+
     /**
      * Récupère les données globales métriques à partir de la ressource JSON.
      * 
-     * <p>Cette méthode analyse le nœud "Global" dans le JSON et extrait les métriques pertinentes, 
-     * telles que la puissance actuelle, l'énergie de vie et les données de consommation d'énergie.</p>
+     * <p>
+     * Cette méthode analyse le nœud "Global" dans le JSON et extrait les métriques
+     * pertinentes,
+     * telles que la puissance actuelle, l'énergie de vie et les données de
+     * consommation d'énergie.
+     * </p>
      * 
-     * @return une carte contenant les métriques globales avec leurs valeurs. 
-     *         Les nœuds JSON imbriqués sont retournés sous forme d'objets {@code JsonNode}.
-     * @throws URISyntaxException si un problème survient avec l'URI du fichier de données.
+     * @return une carte contenant les métriques globales avec leurs valeurs.
+     *         Les nœuds JSON imbriqués sont retournés sous forme d'objets
+     *         {@code JsonNode}.
+     * @throws URISyntaxException si un problème survient avec l'URI du fichier de
+     *                            données.
      */
     private Map<String, Object> fetchGlobalData() throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
+        File file = new File(new File("data_collecting/data.json").toURI());
         try {
-            JsonNode rootNode = objectMapper.readTree(new FileInputStream("data_collecting/data.json"));
+            JsonNode rootNode = objectMapper.readTree(new FileInputStream(file));
             JsonNode globalNode = rootNode.get("Global"); // Access the "Global" node
             if (globalNode != null) {
                 Map<String, Object> globalData = new HashMap<>();
@@ -215,9 +231,9 @@ public class Graphique {
                     } else if (value.isInt() || value.isLong()) {
                         globalData.put(entry.getKey(), value.asLong());
                     } else {
-                        globalData.put(entry.getKey(), value.toString()); 
+                        globalData.put(entry.getKey(), value.toString());
                     }
-    
+
                     // Debugging
                     System.out.println("Key: " + entry.getKey());
                     System.out.println("Value: " + value.toString());
@@ -227,7 +243,7 @@ public class Graphique {
                 System.err.println("Global data not found.");
                 return null;
             }
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
         } catch (IOException e) {
@@ -235,17 +251,22 @@ public class Graphique {
             return null;
         }
     }
-    
+
     /**
-     * Affiche les métriques globales des panneaux solaires sous forme de graphique à barres.
+     * Affiche les métriques globales des panneaux solaires sous forme de graphique
+     * à barres.
      * 
-     * @throws URISyntaxException si un problème survient avec l'URI du fichier de données.
+     * @throws URISyntaxException si un problème survient avec l'URI du fichier de
+     *                            données.
      */
     public void showPanel() throws URISyntaxException {
-        Pane panelPane = msc.getMainSceneView().panelPane;  // Assume panelPane exists and is initialized
+        Pane container = msc.getMainSceneView().graphDisplayPane; // Assume graphDisplayPane exists and is initialized
+        Label day = msc.getMainSceneView().panelDay;
+        Label month = msc.getMainSceneView().panelMonth;
+        Label year = msc.getMainSceneView().panelYear;
     
-        // Remove any existing BarChart from the panelPane
-        panelPane.getChildren().removeIf(node -> node instanceof BarChart);
+        // Remove existing visual elements
+        container.getChildren().clear();
     
         // Fetch global data for the panel
         Map<String, Object> globalData = fetchGlobalData();
@@ -254,60 +275,64 @@ public class Graphique {
             return;
         }
     
-        // Create a Bar Chart for Solar Panel Data
-        BarChart<String, Number> barChart = createBarChart("Valeur des panneaux solaires", "Catégories", "énergie");
+        // Create a gauge for current power
+        Gauge gauge = GaugeBuilder.create()
+            .title("Current Power")
+            .unit("kWh")
+            .maxValue(5000) // Set max value based on expected power range
+            .animated(true)
+            .majorTickSpace(1000) // Space between major ticks
+            .minorTickSpace(500)
+            .angleRange(180)
+            .startAngle(270)
+            .build();
     
-        // Create a series for solar panel metrics
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Capteurs solaires");
-    
-        // Add only currentPower to the series
+        // Set the value of the gauge if available
         if (globalData.containsKey("currentPower")) {
             JsonNode currentPowerNode = (JsonNode) globalData.get("currentPower");
             if (currentPowerNode != null && currentPowerNode.has("power")) {
-                series.getData().add(new XYChart.Data<>("Current Power", currentPowerNode.get("power").asDouble()));
+                double powerValue = currentPowerNode.get("power").asDouble();
+                gauge.setValue(powerValue);
             }
         }
     
-
-        if (globalData.containsKey("lifeTimeData")) {
-            JsonNode lifeTimeDataNode = (JsonNode) globalData.get("lifeTimeData");
-            if (lifeTimeDataNode != null && lifeTimeDataNode.has("energy")) {
-                series.getData().add(new XYChart.Data<>("Lifetime Energy", lifeTimeDataNode.get("energy").asDouble()));
-            }
-        }
+        // Display energy metrics in labels
         if (globalData.containsKey("lastYearData")) {
             JsonNode lastYearDataNode = (JsonNode) globalData.get("lastYearData");
             if (lastYearDataNode != null && lastYearDataNode.has("energy")) {
-                series.getData().add(new XYChart.Data<>("Last Year Energy", lastYearDataNode.get("energy").asDouble()));
+                year.setText("Énergie de l'année dernière : " + lastYearDataNode.get("energy").asText() + " kWh");
             }
         }
         if (globalData.containsKey("lastMonthData")) {
             JsonNode lastMonthDataNode = (JsonNode) globalData.get("lastMonthData");
             if (lastMonthDataNode != null && lastMonthDataNode.has("energy")) {
-                series.getData().add(new XYChart.Data<>("Last Month Energy", lastMonthDataNode.get("energy").asDouble()));
+                month.setText("Énergie du mois dernier : " + lastMonthDataNode.get("energy").asText() + " kWh");
             }
         }
         if (globalData.containsKey("lastDayData")) {
             JsonNode lastDayDataNode = (JsonNode) globalData.get("lastDayData");
             if (lastDayDataNode != null && lastDayDataNode.has("energy")) {
-                series.getData().add(new XYChart.Data<>("Last Day Energy", lastDayDataNode.get("energy").asDouble()));
+                day.setText("Énergie de la journée : " + lastDayDataNode.get("energy").asText() + " kWh");
             }
         }
+    
+        double paneWidth = container.getWidth();
+        double paneHeight = container.getHeight()+150;
+        double gaugeWidth = gauge.prefWidth(-1); // Get the preferred width of the gauge
+        double gaugeHeight = gauge.prefHeight(-1); // Get the preferred height of the gauge
         
-    
-        barChart.getData().add(series);
-    
-        // Add the chart to the panelPane
-        panelPane.getChildren().add(barChart);
+        // Set layout positions for centering
+        gauge.setLayoutX((paneWidth - gaugeWidth) / 2);
+        gauge.setLayoutY((paneHeight - gaugeHeight) / 2);
+
+        // Add the gauge to the container
+        container.getChildren().add(gauge);
     }
-    
-    
-    
+
     /**
      * Crée un graphique à barres avec le titre et les étiquettes d'axe spécifiés.
      * 
-     * @param title le titre du graphique à barres.
+     * @param title      le titre du graphique à barres.
      * @param xAxisLabel l'étiquette pour l'axe des X.
      * @param yAxisLabel l'étiquette pour l'axe des Y.
      * @return le graphique à barres créé.
@@ -324,19 +349,20 @@ public class Graphique {
         return barChart;
     }
 
-
     /**
-     * Extrait une valeur spécifique d'une métrique d'une chaîne JSON en fonction de la clé fournie.
+     * Extrait une valeur spécifique d'une métrique d'une chaîne JSON en fonction de
+     * la clé fournie.
      * 
      * @param jsonString la chaîne JSON contenant la métrique.
-     * @param key la clé pour la métrique à extraire.
-     * @return la valeur extraite sous forme de double, ou 0.0 si la clé n'est pas trouvée ou invalide.
+     * @param key        la clé pour la métrique à extraire.
+     * @return la valeur extraite sous forme de double, ou 0.0 si la clé n'est pas
+     *         trouvée ou invalide.
      */
     private double extractMetric(String jsonString, String key) {
         String regex = "\"" + key + "\":\\[(\\d+\\.?\\d*)"; // Match both integers and doubles
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(jsonString);
-    
+
         if (matcher.find()) {
             String value = matcher.group(1);
             try {
