@@ -64,7 +64,7 @@ Le client accèdera au site via son URL :
 
 http://193.54.227.208/~R2024SAE3004/SAE/index.php
 
-images/schéma_architecture_dynamique.jpg[Schéma d'architecture dynamique]
+https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/a2ea0bd444f5cf19945a8445b127b8bde7935269/images/sch%C3%A9ma_architecture_dynamique.jpg[Schéma d'architecture dynamique]
 
 === Diagramme de classe métiers
 
