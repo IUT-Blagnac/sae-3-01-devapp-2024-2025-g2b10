@@ -44,6 +44,10 @@ Ainsi que les différents livrables et réalisations que nous avons effectués.
 
 toc::[]
 
+== Sprint courant
+
+- https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/milestone/6[Sprint 6]
+
 == Equipe et rôle
 
 Projet est réalisé par::
