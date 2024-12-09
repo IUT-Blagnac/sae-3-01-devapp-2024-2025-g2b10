@@ -107,9 +107,9 @@
                   <Separator layoutX="12.0" layoutY="300.0" prefHeight="43.0" prefWidth="211.0" />
                </children>
             </Pane>
-            <Pane fx:id="dashPane" prefHeight="630.0" prefWidth="711.0" style="-fx-background-color: ffffff;" visible="false" HBox.hgrow="ALWAYS">
+            <Pane fx:id="dashPane" prefHeight="630.0" prefWidth="711.0" style="-fx-background-color: ffffff;" HBox.hgrow="ALWAYS">
                <children>
-                  <Label layoutX="14.0" layoutY="6.0" prefHeight="43.0" prefWidth="171.0" text="Dashboard" textFill="#000000e4">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="6.0" prefHeight="43.0" prefWidth="868.0" text="Dashboard" textFill="#000000e4">
                      <font>
                         <Font size="29.0" />
                      </font>
@@ -392,12 +392,17 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="630.0" prefWidth="868.0">
                <children>
+                  <Label text="Salles">
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                  </Label>
                   <Label alignment="TOP_CENTER" text="Sélectionnez la salle" />
                   <ComboBox fx:id="roomComboBox" prefWidth="150.0" />
                </children>
             </VBox>
          </children></Pane>
-      <Pane fx:id="panelPane" layoutX="242.0" prefHeight="630.0" prefWidth="880.0">
+      <Pane fx:id="panelPane" layoutX="242.0" prefHeight="630.0" prefWidth="880.0" visible="false">
          <children>
             <VBox prefHeight="630.0" prefWidth="880.0">
                <children>

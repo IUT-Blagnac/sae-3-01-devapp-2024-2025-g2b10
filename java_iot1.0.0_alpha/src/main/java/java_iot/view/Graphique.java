@@ -213,8 +213,9 @@ public class Graphique {
      */
     private Map<String, Object> fetchGlobalData() throws URISyntaxException {
         ObjectMapper objectMapper = new ObjectMapper();
+        File file = new File(new File("data_collecting/data.json").toURI());
         try {
-            JsonNode rootNode = objectMapper.readTree(new FileInputStream("data_collecting/data.json"));
+            JsonNode rootNode = objectMapper.readTree(new FileInputStream(file));
             JsonNode globalNode = rootNode.get("Global"); // Access the "Global" node
             if (globalNode != null) {
                 Map<String, Object> globalData = new HashMap<>();
@@ -281,7 +282,9 @@ public class Graphique {
             .maxValue(5000) // Set max value based on expected power range
             .animated(true)
             .majorTickSpace(1000) // Space between major ticks
-            .minorTickSpace(100)
+            .minorTickSpace(500)
+            .angleRange(180)
+            .startAngle(270)
             .build();
     
         // Set the value of the gauge if available
@@ -313,6 +316,15 @@ public class Graphique {
             }
         }
     
+        double paneWidth = container.getWidth();
+        double paneHeight = container.getHeight()+150;
+        double gaugeWidth = gauge.prefWidth(-1); // Get the preferred width of the gauge
+        double gaugeHeight = gauge.prefHeight(-1); // Get the preferred height of the gauge
+        
+        // Set layout positions for centering
+        gauge.setLayoutX((paneWidth - gaugeWidth) / 2);
+        gauge.setLayoutY((paneHeight - gaugeHeight) / 2);
+
         // Add the gauge to the container
         container.getChildren().add(gauge);
     }
