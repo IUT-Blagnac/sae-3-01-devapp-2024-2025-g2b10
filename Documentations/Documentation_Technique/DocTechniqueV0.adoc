@@ -64,12 +64,13 @@ Le client accèdera au site via son URL :
 
 http://193.54.227.208/~R2024SAE3004/SAE/index.php
 
-https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/a2ea0bd444f5cf19945a8445b127b8bde7935269/images/sch%C3%A9ma_architecture_dynamique.jpg[Schéma d'architecture dynamique]
+image::../../images/DCM.png[Schéma d'architecture dynamique]
+_Figure 1. Schéma d'architecture dynamique_
 
 === Diagramme de classe métiers
 
 image::../../images/DCM.png[Diagramme de classes métiers]
-_Figure 1. Diagramme de classes métiers_
+_Figure 2. Diagramme de classes métiers_
 
 == IV. Présentation diagrammes
 [.text-justify]
@@ -77,7 +78,7 @@ _Figure 1. Diagramme de classes métiers_
 === 1. Use case global 
 
 image::../../images/UC.png[Diagramme des Cas d'Utilisation]
-_Figure 1. Diagramme des Cas d'Utilisation_
+_Figure 3. Diagramme des Cas d'Utilisation_
 
 === 2. Diagramme de séquence système
 
@@ -87,37 +88,37 @@ _Figure 1. Diagramme des Cas d'Utilisation_
 [.text-justify]
 
 image::../../images/DSS_1.png[Diagramme de séquence système]
-_Figure 3. Diagramme de séquence système_
+_Figure 4. Diagramme de séquence système_
 
 === 2. Cas d'utilisation : Comparaison des produits (Invité)
 [.text-justify]
 
 image::../../images/DSS_2.png[Diagramme de séquence système]
-_Figure 4. Diagramme de séquence système_
+_Figure 5. Diagramme de séquence système_
 
 === 3. Cas d'utilisation : Consultation du panier (Client)
 [.text-justify]
 
 image::../../images/DSS_3.png[Diagramme de séquence système]
-_Figure 5. Diagramme de séquence système_
+_Figure 6. Diagramme de séquence système_
 
 === 4. Cas d'utilisation : Consultation et ajout au panier (Invité)
 [.text-justify]
 
 image::../../images/DSS_4.png[Diagramme de séquence système]
-_Figure 6. Diagramme de séquence système_
+_Figure 7. Diagramme de séquence système_
 
 === 5. Cas d'utilisation : Ajout d'un mode de paiement (Client)
 [.text-justify]
 
 image::../../images/DSS_5.png[Diagramme de séquence système]
-_Figure 7. Diagramme de séquence système_
+_Figure 8. Diagramme de séquence système_
 
 === 6. Cas d'utilisation : Gestion BD (Admin) 
 [.text-justify]
 
 image::../../images/DSS_6.png[Diagramme de séquence système]
-_Figure 8. Diagramme de séquence système_
+_Figure 9. Diagramme de séquence système_
 
 == V. Eléments de codes significatifs
 [.text-justify]
