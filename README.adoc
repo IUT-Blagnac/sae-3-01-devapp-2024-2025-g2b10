@@ -83,7 +83,7 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 |  | IHM v1|  
 |  | PHP v0|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/009385c2517c71c242498bb6f847dc2bbbcaadfd/PHP[PHP v0]
 | Sem.48  | Ordre du jour #4      |     https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%234.pdf[Ordre du jour #4] 
-|  | Compte Rendu #4|   [Compte Rendu #4] 
+|  | Compte Rendu #4|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%234.pdf[Compte Rendu #4] 
 |  | IHM v2|  
 |  | PHP v1|   [PHP v1]
 |===
