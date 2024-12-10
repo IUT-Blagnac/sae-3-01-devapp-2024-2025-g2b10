@@ -29,12 +29,13 @@ public class AlertController {
         return instance;
     }
 
-    public void setAlertView(AlertView _av){
+    public void setAlertView(AlertView _av) {
         av = _av;
     }
 
-    public void setLoop(){
-        if (av == null) return;
+    public void setLoop() {
+        if (av == null)
+            return;
         av.updateAlerts();
 
     }

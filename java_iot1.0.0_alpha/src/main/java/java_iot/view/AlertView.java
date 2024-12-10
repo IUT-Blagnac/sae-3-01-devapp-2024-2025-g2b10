@@ -54,7 +54,7 @@ public class AlertView implements Initializable {
         alertList.getChildren().clear();
 
         if (alertingSensors.isEmpty()) {
-            //If there is no alert
+            // If there is no alert
             alertList.getChildren().add(new Label("Aucune alerte détectée."));
         } else {
             for (Map.Entry<String, Sensor> entry : alertingSensors.entrySet()) {
@@ -62,7 +62,8 @@ public class AlertView implements Initializable {
                 String roomName = entry.getKey();
                 Double alertValue = sensor.getValue();
 
-                String alertText = "Salle : " + roomName + "\nDonnée : " + sensor.getName() + "\nValeur : " + alertValue;
+                String alertText = "Salle : " + roomName + "\nDonnée : " + sensor.getName() + "\nValeur : "
+                        + alertValue;
 
                 Image alertImage = new Image(App.class.getResourceAsStream("ressources/images/warningicon.png"));
                 ImageView alertImageView = new ImageView(alertImage);
@@ -87,12 +88,11 @@ public class AlertView implements Initializable {
                 alertButton.setAlignment(Pos.CENTER);
                 alertButton.setStyle(
                         "-fx-background-color: #f8d7da; "
-                        + "-fx-border-color: #f5c6cb; "
-                        + "-fx-border-radius: 8; "
-                        + "-fx-background-radius: 8; "
-                        + "-fx-font-size: 14px; "
-                        + "-fx-padding: 20;"
-                );
+                                + "-fx-border-color: #f5c6cb; "
+                                + "-fx-border-radius: 8; "
+                                + "-fx-background-radius: 8; "
+                                + "-fx-font-size: 14px; "
+                                + "-fx-padding: 20;");
 
                 // Add the HBox as a content of alertButton
                 alertButton.setGraphic(hbox);
