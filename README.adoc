@@ -102,6 +102,10 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 ODJ : Précisez qui est resp de chaque rubrique. CR : Manque synthese rdv client, manque analyse difficultés-réussites, manque resp prochaine réunion.
 note : 1,9/3
 
+==== retour semaine 49
+ODJ : pensez à indiquer le temps consacré à chaque thème. CR : Bien pensez à mettre à l'ODJ le retour rdv client.
+note : 2,8/3
+
 == Réalisations 
 
 Nous mettons à disposition plusieurs documents pour vous aider à comprendre à utiliser notre projet. Ces documents incluent :
