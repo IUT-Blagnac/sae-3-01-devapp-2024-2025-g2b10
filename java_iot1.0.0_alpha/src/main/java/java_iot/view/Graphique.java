@@ -58,6 +58,7 @@ public class Graphique {
 
     /**
      * Simple Constructor who takes the contorller as a parameter
+     * 
      * @param pfmsc
      */
     private Graphique(MainSceneController pfmsc) {
@@ -331,8 +332,8 @@ public class Graphique {
         // Dynamically calculate the center position
         double paneWidth = container.getWidth();
         double paneHeight = container.getHeight();
-        double gaugeWidth = gauge.prefWidth(-1); // Get the preferred width of the gauge
-        double gaugeHeight = gauge.prefHeight(-1); // Get the preferred height of the gauge
+        double gaugeWidth = gauge.prefWidth(-1);
+        double gaugeHeight = gauge.prefHeight(-1);
 
         // Set layout positions for centering
         gauge.setLayoutX((paneWidth - gaugeWidth) / 2);
@@ -350,12 +351,6 @@ public class Graphique {
     private BarChart<String, Number> createBarChart(String title, String xAxisLabel, String yAxisLabel) {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel(xAxisLabel);
-        // xAxis.setStyle("-fx-padding: 0 5 0 5;"); // Reduce the padding around the
-        // bars
-
-        // Adjust the category gap to make bars thinner
-        // xAxis.setCategoryGap(5); // Default is 10, reducing this will make bars
-        // thinner
 
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel(yAxisLabel);
