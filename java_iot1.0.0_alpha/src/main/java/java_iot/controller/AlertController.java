@@ -17,15 +17,16 @@ public class AlertController {
     private Thread looper;
     private int frequence;
 
-    private AlertController() {
+private AlertController() {
         frequence = -1;
-        looper.setDaemon(true);
+
         looper = new Thread(new Runnable() {
             @Override
             public void run() {
                 actualizeLoops();
             }
-        });  
+        });
+        looper.setDaemon(true);
     }
 
     /**
