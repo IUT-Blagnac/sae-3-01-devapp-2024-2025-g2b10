@@ -6,7 +6,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -302,74 +307,117 @@ private LineChart<Number, Number> createLineChart(String title) {
      *                            données.
      */
     public void showPanel() throws URISyntaxException {
-        Pane container = msc.getMainSceneView().graphDisplayPane; // Assume graphDisplayPane exists and is initialized
-        Label day = msc.getMainSceneView().panelDay;
-        Label month = msc.getMainSceneView().panelMonth;
-        Label year = msc.getMainSceneView().panelYear;
+    Pane container = msc.getMainSceneView().graphDisplayPane;  // Assuming graphDisplayPane exists and is initialized
+    Label day = msc.getMainSceneView().panelDay;
+    Label month = msc.getMainSceneView().panelMonth;
+    Label year = msc.getMainSceneView().panelYear;
+    Label current = msc.getMainSceneView().panelCurrent;
 
-        // Remove existing visual elements
-        container.getChildren().clear();
+    // Clear existing visual elements
+    container.getChildren().clear();
 
-        // Fetch global data for the panel
-        Map<String, Object> globalData = fetchGlobalData();
-        if (globalData == null || globalData.isEmpty()) {
-            System.err.println("No global data available for the panel");
-            return;
-        }
-
-        // Create a gauge for current power
-        Gauge gauge = GaugeBuilder.create()
-                .title("Current Power")
-                .unit("kWh")
-                .maxValue(5000) // Set max value based on expected power range
-                .animated(true)
-                .majorTickSpace(1000) // Space between major ticks
-                .minorTickSpace(500)
-                .angleRange(180)
-                .startAngle(270)
-                .build();
-
-        // Set the value of the gauge if available
-        if (globalData.containsKey("currentPower")) {
-            JsonNode currentPowerNode = (JsonNode) globalData.get("currentPower");
-            if (currentPowerNode != null && currentPowerNode.has("power")) {
-                double powerValue = currentPowerNode.get("power").asDouble();
-                gauge.setValue(powerValue);
-            }
-        }
-
-        // Display energy metrics in labels
-        if (globalData.containsKey("lastYearData")) {
-            JsonNode lastYearDataNode = (JsonNode) globalData.get("lastYearData");
-            if (lastYearDataNode != null && lastYearDataNode.has("energy")) {
-                year.setText("Énergie de l'année dernière : " + lastYearDataNode.get("energy").asText() + " kWh");
-            }
-        }
-        if (globalData.containsKey("lastMonthData")) {
-            JsonNode lastMonthDataNode = (JsonNode) globalData.get("lastMonthData");
-            if (lastMonthDataNode != null && lastMonthDataNode.has("energy")) {
-                month.setText("Énergie du mois dernier : " + lastMonthDataNode.get("energy").asText() + " kWh");
-            }
-        }
-        if (globalData.containsKey("lastDayData")) {
-            JsonNode lastDayDataNode = (JsonNode) globalData.get("lastDayData");
-            if (lastDayDataNode != null && lastDayDataNode.has("energy")) {
-                day.setText("Énergie de la journée : " + lastDayDataNode.get("energy").asText() + " kWh");
-            }
-        }
-
-        double paneWidth = container.getWidth();
-        double paneHeight = container.getHeight() + 150;
-        double gaugeWidth = gauge.prefWidth(-1); // Get the preferred width of the gauge
-        double gaugeHeight = gauge.prefHeight(-1); // Get the preferred height of the gauge
-
-        // Set layout positions for centering
-        gauge.setLayoutX((paneWidth - gaugeWidth) / 2);
-        gauge.setLayoutY((paneHeight - gaugeHeight) / 2);
-
-        // Add the gauge to the container
-        container.getChildren().add(gauge);
+    // Fetch global data for the panel
+    Map<String, Object> globalData = fetchGlobalData();
+    if (globalData == null || globalData.isEmpty()) {
+        System.err.println("No global data available for the panel");
+        return;
     }
+
+    // Identify the most recent timestamp and its corresponding data
+    String latestTimestamp = null;
+    JsonNode latestData = null;
+    for (Map.Entry<String, Object> entry : globalData.entrySet()) {
+        // Check if the key is a valid timestamp (e.g., "2024-12-10 13:38:05")
+        if (entry.getKey().matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
+            // If it's the first timestamp or a newer timestamp, update the latest timestamp and data
+            if (latestTimestamp == null || entry.getKey().compareTo(latestTimestamp) > 0) {
+                latestTimestamp = entry.getKey();
+                latestData = (JsonNode) entry.getValue();
+            }
+        }
+    }
+
+    if (latestTimestamp == null || latestData == null) {
+        System.err.println("No valid timestamp found in global data");
+        return;
+    }
+
+    // Extract energy data from the most recent entry (latestData)
+    JsonNode lastYearDataNode = latestData.get("lastYearData");
+    JsonNode lastMonthDataNode = latestData.get("lastMonthData");
+    JsonNode lastDayDataNode = latestData.get("lastDayData");
+    JsonNode CurrentDataNode = latestData.get("currentPower");
+
+    // Set the energy values in the labels
+    if (lastYearDataNode != null && lastYearDataNode.has("energy")) {
+        year.setText("Année dernière : " + lastYearDataNode.get("energy").asText() + " kWh");
+    }
+    if (lastMonthDataNode != null && lastMonthDataNode.has("energy")) {
+        month.setText("Mois dernier : " + lastMonthDataNode.get("energy").asText() + " kWh");
+    }
+    if (lastDayDataNode != null && lastDayDataNode.has("energy")) {
+        day.setText("Journée : " + lastDayDataNode.get("energy").asText() + " kWh");
+    }
+    if (CurrentDataNode != null && CurrentDataNode.has("power")) {
+        current.setText("Actuel : " + CurrentDataNode.get("power").asText() + " kWh");
+    }
+
+    // Create the LineChart for currentPower
+    LineChart<Number, Number> powerChart = createPowerLineChart("Current Power Over Time");
+
+    // Extract currentPower time-series data from the "Global" section
+    List<Long> timestamps = new ArrayList<>();
+    List<Double> powerData = new ArrayList<>();
+
+    // Loop through the globalData to extract timestamps and power values for the LineChart
+    for (Map.Entry<String, Object> entry : globalData.entrySet()) {
+        if (entry.getKey().matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
+            JsonNode timeNode = (JsonNode) entry.getValue();
+            if (timeNode != null && timeNode.has("currentPower")) {
+                JsonNode currentPowerNode = timeNode.get("currentPower");
+                if (currentPowerNode != null && currentPowerNode.has("power")) {
+                    double power = currentPowerNode.get("power").asDouble();
+                    long timestamp = parseTimestamp(entry.getKey());  // Convert the timestamp string to milliseconds
+                    
+                    // Add the timestamp and power to their respective lists
+                    timestamps.add(timestamp);
+                    powerData.add(power);
+                }
+            }
+        }
+    }
+
+
+
+    // Add the data to the power chart
+    if (!timestamps.isEmpty() && !powerData.isEmpty()) {
+        XYChart.Series<Number, Number> powerSeries = new XYChart.Series<>();
+        powerSeries.setName("Current Power");
+
+        for (int i = 0; i < timestamps.size(); i++) {
+            long time = timestamps.get(i);
+            double power = powerData.get(i);
+            powerSeries.getData().add(new XYChart.Data<>(time, power));
+        }
+
+        powerChart.getData().add(powerSeries);
+    }
+
+    // Add the power chart to the container
+    container.getChildren().add(powerChart);
+}
+
+private long parseTimestamp(String timestampStr) {
+    // Parse the timestamp string (e.g., "2024-12-10 13:38:05") into milliseconds
+    try {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = dateFormat.parse(timestampStr);
+        return date.getTime();
+    } catch (ParseException e) {
+        e.printStackTrace();
+        return 0L;  // Return 0 if parsing fails
+    }
+}
 
     /**
      * Crée un graphique à barres avec le titre et les étiquettes d'axe spécifiés.
@@ -440,6 +488,36 @@ private void centerChart(LineChart<Number, Number> chart, Pane pane) {
     pane.getChildren().add(chart); // Ensure the chart is added only once
     chart.layoutXProperty().bind(pane.widthProperty().subtract(chart.widthProperty()).divide(2));
     chart.layoutYProperty().bind(pane.heightProperty().subtract(chart.heightProperty()).divide(2));
+}
+
+private LineChart<Number, Number> createPowerLineChart(String title) {
+    NumberAxis xAxis = new NumberAxis();
+    xAxis.setLabel("Time");
+
+    // Format the X-axis labels (timestamps in milliseconds)
+    xAxis.setTickLabelFormatter(new javafx.util.StringConverter<Number>() {
+        private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        @Override
+        public String toString(Number object) {
+            // Convert milliseconds to a readable date format
+            return dateFormat.format(new Date(object.longValue()));
+        }
+
+        @Override
+        public Number fromString(String string) {
+            return null; // We don't need to support this for this use case
+        }
+    });
+
+    NumberAxis yAxis = new NumberAxis();
+    yAxis.setLabel("Power (kW)");
+
+    // Create the LineChart
+    LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+    lineChart.setTitle(title);
+
+    return lineChart;
 }
 
 private LineChart<Number, Number> createLineChart(String title, List<Long> times) {
