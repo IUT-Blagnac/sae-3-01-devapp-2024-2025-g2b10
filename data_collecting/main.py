@@ -83,7 +83,7 @@ if (c.lower() == "y"):
 # JSON Buffer Reader #
 ######################
 
-input_data = open("java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\data.json", "r")
+input_data = open("data_collecting/data.json", "r")
 
 def print_debug(string):
         print(string)
@@ -262,23 +262,22 @@ def on_message(client, userdata, msg):
         # Check "Triphaso" for explanation. Same as this.
 
         room_name = file[1]["room"]
-        device_name = file[1]["deviceName"]
+        if room_name not in data:
+            data[room_name] = {}
+        device_name = file[1]["deviceName"]+"_"+str(len(data[room_name]))
 
         for key in file[0].keys():
             alert = False
             
             if logged_dataType == [] or key in logged_dataType:
                 if listened_rooms == [] or file[1]["room"] in listened_rooms:
-                    if room_name not in data:
-                        data[room_name] = {}
-
                     if device_name not in data[room_name]:
                         data[room_name][device_name] = {}
                     if key in alert_threshold:
                         if int(file[0][key]) > alert_threshold[key]:
                             alert = True
-                    data[file[1]["room"]][file[1]["deviceName"]][key] = [file[0][key], alert]
-                    data[file[1]["room"]][file[1]["deviceName"]]["time"] = str(datetime.datetime.now())
+                    data[file[1]["room"]][device_name][key] = [file[0][key], alert]
+                    data[file[1]["room"]][device_name]["time"] = str(datetime.datetime.now())
         
 
     elif "Triphaso" in msg.topic:
@@ -286,7 +285,9 @@ def on_message(client, userdata, msg):
         # Retrieves the room_name and device_name
 
         room_name = file[1]["Room"]
-        device_name = file[1]["deviceName"]
+        if room_name not in data:
+            data[room_name] = {}
+        device_name = file[1]["deviceName"] + "_" + str(len(data[room_name]))
 
         # For every data the PUBLISH has received      
 
@@ -308,18 +309,20 @@ def on_message(client, userdata, msg):
                             alert = True
                     #Input the data in the dictionary
                     this_data = [file[0][key], alert]
-                    data[file[1]["Room"]][file[1]["deviceName"]][key] = this_data
+                    data[file[1]["Room"]][device_name][key] = this_data
                     # After everything, log the date and hour
-                    data[file[1]["Room"]][file[1]["deviceName"]]["time"] = str(datetime.datetime.now())
+                    data[file[1]["Room"]][device_name]["time"] = str(datetime.datetime.now())
 
     elif "solaredge" in msg.topic:
         if "Global" not in data:
             data["Global"] = {}
         
         if listened_rooms == [] or "Global" in listened_rooms:
+            if file["lastUpdateTime"] not in data["Global"]:
+                data["Global"][file["lastUpdateTime"]] = {}
             for dataType in file:
                 if dataType in logged_dataType:
-                    data["Global"][dataType] = file[dataType]
+                    data["Global"][file["lastUpdateTime"]][dataType] = file[dataType]
         
 
     pprint.pprint(data)

@@ -9,8 +9,10 @@ public class AlertController {
 
     private Data data; // Data of the sensors
     private static AlertController instance;
+    private static AlertView av;
 
     private AlertController() {
+
     }
 
     /**
@@ -24,6 +26,14 @@ public class AlertController {
             instance = new AlertController();
         }
         return instance;
+    }
+
+    public void setAlertView(AlertView _av){
+        av = _av;
+    }
+
+    public void setLoop(){
+        av.updateAlerts();
     }
 
     /*

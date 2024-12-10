@@ -29,6 +29,7 @@ public class MainSceneView implements Initializable {
 	private SettingsView settings;
 	private MainSceneController msc;
 	private SettingsController settingsController;
+	private AlertController ac;
 
 	@FXML
 	public Button settingButton;
@@ -152,8 +153,10 @@ public class MainSceneView implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		msc = MainSceneController.getInstance();
 		msc.setMainSceneView(this);
+
 		settings = SettingsView.getInstance(msc);
 		settingsController = SettingsController.getInstance();
+		ac = AlertController.getInstance();
 
 		navigationBar = Navbar.getInstance(msc);
 		navigationBar.setSettingPane(settingPane);
@@ -293,13 +296,20 @@ public class MainSceneView implements Initializable {
 	 */
 	@FXML
 	public void InitialisationButton(ActionEvent event) {
-		// URL du script Python et du fichier JSON
-		URL scriptPyPath = getClass().getResource("/java_iot/ressources/data_collecting/main.py");
-		URL jsonFilesPath = getClass().getResource("/java_iot/ressources/data_collecting/data.json");
+		try {
 
-		// Appel à la méthode du DataController pour exécuter le script et mettre à jour
-		// la TableView
-		dataController.runPythonScriptAndData(scriptPyPath, jsonFilesPath);
+			String scriptPyPath = "data_collecting/main.py";
+			String jsonFilePath = "data_collecting/data.json";
+
+
+			URL scriptURL = new File(scriptPyPath).toURI().toURL();
+			URL jsonURL = new File(jsonFilePath).toURI().toURL();
+
+			dataController.runPythonScriptAndData(scriptURL, jsonURL);
+		} catch (Exception e) {
+			System.err.println("Erreur lors de l'initialisation : " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 }
