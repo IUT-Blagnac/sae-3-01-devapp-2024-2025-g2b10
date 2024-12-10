@@ -161,7 +161,6 @@ class Navbar {
 			panelPane.setVisible(false);
 			roomPane.setVisible(false);
 			settingPane.setVisible(false);
-			Graphique.getInstance(msc).showDash();
 		}
 		return validity;
 	}

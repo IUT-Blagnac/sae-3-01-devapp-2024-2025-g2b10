@@ -6,6 +6,7 @@ import java_iot.App;
 import java_iot.classes.Data;
 import java_iot.classes.Sensor;
 import java_iot.view.MainSceneView;
+import javafx.scene.control.Alert;
 
 /**
  * MainSceneController is the controller linked
@@ -19,6 +20,7 @@ public class MainSceneController {
     private App app;
     private MainSceneView msv;
     private static MainSceneController instance;
+    private static AlertController ac;
 
     private Data donnees;
     private int frequency;
@@ -42,18 +44,10 @@ public class MainSceneController {
         app = _app;
     }
 
-    /**
-     * Demande à afficher un pop-up des alertes.
-     */
-    public void requestAlertPopup() {
-        AlertController alertController = AlertController.getInstance();
-        Map<String, Sensor> alertingSensors = alertController.getAlertingSensors();
 
-        if (!alertingSensors.isEmpty()) {
-            app.showAlertPopup(alertingSensors);
-        } else {
-            System.out.println("Aucune alerte détectée.");
-        }
+    public void requestAlertLoop(){
+        AlertController ac = AlertController.getInstance();
+        ac.setLoop();
     }
 
     /**

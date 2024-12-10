@@ -131,6 +131,16 @@ public class Settings {
 		return TOPICS_NAMES_ORDERED;
 	}
 
+	public String getSetting(String section, String field){
+		try {
+			Wini ini = new Wini(new FileInputStream("data_collecting/config.ini"));
+			return ini.get(section, field);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	 /**
 	  * <p>Returns a list of all the associated values with a provided field.
 	  * <p>This method isn't as efficient as I had wished it to be, as I found

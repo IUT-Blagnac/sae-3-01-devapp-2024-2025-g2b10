@@ -5,14 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.sql.Time;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import java_iot.controller.MainSceneController;
-import javafx.application.Platform;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -22,14 +18,10 @@ import javafx.scene.control.Label;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import eu.hansolo.medusa.Gauge;
 import eu.hansolo.medusa.GaugeBuilder;
-import javafx.application.Platform;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 
 /**
  * La classe {@code Graphique} fournit des fonctionnalités pour afficher et
@@ -63,28 +55,14 @@ import javafx.scene.chart.NumberAxis;
 public class Graphique {
     private static Graphique instance;
     private MainSceneController msc;
-    private String datajson;
 
+    /**
+     * Simple Constructor who takes the contorller as a parameter
+     * 
+     * @param pfmsc
+     */
     private Graphique(MainSceneController pfmsc) {
         msc = pfmsc;
-    }
-
-    /**
-     * Récupère les données JSON actuellement stockées dans l'objet.
-     * 
-     * @return les données JSON sous forme de chaîne de caractères.
-     */
-    public String getData() {
-        return datajson;
-    }
-
-    /**
-     * Définit les données JSON pour cet objet.
-     * 
-     * @param pfdatajson les données JSON sous forme de chaîne de caractères.
-     */
-    public void setData(String pfdatajson) {
-        this.datajson = pfdatajson;
     }
 
     /**
@@ -100,10 +78,6 @@ public class Graphique {
             instance = new Graphique(pfmsc);
         }
         return instance;
-    }
-
-    public void showDash() {
-        // Je te laisse ça vide Quentin
     }
 
     /**
@@ -129,71 +103,56 @@ public class Graphique {
      * @throws URISyntaxException si un problème survient avec l'URI du fichier de
      *                            données.
      */
-// Remplacez BarChart par LineChart dans la méthode showRoom
-public void showRoom(String roomName) throws URISyntaxException {
-    Pane temproomPane = msc.getMainSceneView().tempPane;
-    Pane humroomPane = msc.getMainSceneView().humPane;
-    Pane co2roomPane = msc.getMainSceneView().co2Pane;
+    // Remplacez BarChart par LineChart dans la méthode showRoom
+    public void showRoom(String roomName) throws URISyntaxException {
+        Pane temproomPane = msc.getMainSceneView().tempPane;
+        Pane humroomPane = msc.getMainSceneView().humPane;
+        Pane co2roomPane = msc.getMainSceneView().co2Pane;
 
-    // Supprimer tous les anciens graphiques
-    temproomPane.getChildren().removeIf(node -> node instanceof LineChart);
-    humroomPane.getChildren().removeIf(node -> node instanceof LineChart);
-    co2roomPane.getChildren().removeIf(node -> node instanceof LineChart);
+        // Clear previous bar charts
+        temproomPane.getChildren().clear();
+        humroomPane.getChildren().clear();
+        co2roomPane.getChildren().clear();
 
-    // Récupérer les données de la salle
-    Map<String, Double> roomData = fetchRoomData(roomName);
-    if (roomData == null || roomData.isEmpty()) {
-        System.err.println("No data available for room: " + roomName);
-        return;
+        // Fetch room data
+        Map<String, Double> roomData = fetchRoomData(roomName);
+        if (roomData == null || roomData.isEmpty()) {
+            System.err.println("No data available for room: " + roomName);
+            return;
+        }
+
+        // Create bar charts for temperature, humidity, and CO2
+        BarChart<String, Number> tempChart = createBarChart("Température", "Mesures", "Température (°C)");
+        BarChart<String, Number> humChart = createBarChart("Humidité", "Mesures", "Humidité (%)");
+        BarChart<String, Number> co2Chart = createBarChart("CO2", "Mesures", "CO2 (ppm)");
+
+        // Populate data for each bar chart
+        if (roomData.containsKey("temperature")) {
+            XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
+            tempSeries.setName("Température");
+            tempSeries.getData().add(new XYChart.Data<>("Température", roomData.get("temperature")));
+            tempChart.getData().add(tempSeries);
+        }
+
+        if (roomData.containsKey("humidity")) {
+            XYChart.Series<String, Number> humSeries = new XYChart.Series<>();
+            humSeries.setName("Humidité");
+            humSeries.getData().add(new XYChart.Data<>("Humidité", roomData.get("humidity")));
+            humChart.getData().add(humSeries);
+        }
+
+        if (roomData.containsKey("co2")) {
+            XYChart.Series<String, Number> co2Series = new XYChart.Series<>();
+            co2Series.setName("CO2");
+            co2Series.getData().add(new XYChart.Data<>("CO2", roomData.get("co2")));
+            co2Chart.getData().add(co2Series);
+        }
+
+        // Add charts to the panes
+        temproomPane.getChildren().add(tempChart);
+        humroomPane.getChildren().add(humChart);
+        co2roomPane.getChildren().add(co2Chart);
     }
-
-    // Créer des LineCharts pour température, humidité et CO2
-    LineChart<Number, Number> tempChart = createLineChart("Température de la salle: " + roomName);
-    LineChart<Number, Number> humChart = createLineChart("Humidité de la salle: " + roomName);
-    LineChart<Number, Number> co2Chart = createLineChart("CO2 de la salle: " + roomName);
-
-    // Ajouter des données aux graphiques
-    if (roomData.containsKey("temperature")) {
-        XYChart.Series<Number, Number> tempSeries = new XYChart.Series<>();
-        tempSeries.setName("Température");
-        tempSeries.getData().add(new XYChart.Data<>(1, roomData.get("temperature")));
-        tempChart.getData().add(tempSeries);
-    }
-
-    if (roomData.containsKey("humidity")) {
-        XYChart.Series<Number, Number> humSeries = new XYChart.Series<>();
-        humSeries.setName("Humidité");
-        humSeries.getData().add(new XYChart.Data<>(1, roomData.get("humidity")));
-        humChart.getData().add(humSeries);
-    }
-
-    if (roomData.containsKey("co2")) {
-        XYChart.Series<Number, Number> co2Series = new XYChart.Series<>();
-        co2Series.setName("CO2");
-        co2Series.getData().add(new XYChart.Data<>(1, roomData.get("co2")));
-        co2Chart.getData().add(co2Series);
-    }
-
-    // Centrer et ajouter les graphiques aux panneaux
-    centerChart(tempChart, temproomPane);
-    centerChart(humChart, humroomPane);
-    centerChart(co2Chart, co2roomPane);
-}
-
-// Méthode pour créer un LineChart
-private LineChart<Number, Number> createLineChart(String title) {
-    NumberAxis xAxis = new NumberAxis();
-    xAxis.setLabel("Temps");
-
-    NumberAxis yAxis = new NumberAxis();
-    yAxis.setLabel("Valeurs");
-
-    LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-    lineChart.setTitle(title);
-    return lineChart;
-}
-
-  
 
     /**
      * Récupère les données métriques d'une pièce spécifiée à partir de la ressource
@@ -302,73 +261,83 @@ private LineChart<Number, Number> createLineChart(String title) {
      *                            données.
      */
     public void showPanel() throws URISyntaxException {
-        Pane container = msc.getMainSceneView().graphDisplayPane; // Assume graphDisplayPane exists and is initialized
+        Pane container = msc.getMainSceneView().graphDisplayPane; // Pane for displaying the gauge
         Label day = msc.getMainSceneView().panelDay;
         Label month = msc.getMainSceneView().panelMonth;
         Label year = msc.getMainSceneView().panelYear;
 
-        // Remove existing visual elements
+        // Clear previous elements
         container.getChildren().clear();
 
-        // Fetch global data for the panel
+        // Fetch global data
         Map<String, Object> globalData = fetchGlobalData();
         if (globalData == null || globalData.isEmpty()) {
             System.err.println("No global data available for the panel");
             return;
         }
 
-        // Create a gauge for current power
+        // Identify the most recent timestamp
+        String latestTimestamp = null;
+        JsonNode latestData = null;
+        for (Map.Entry<String, Object> entry : globalData.entrySet()) {
+            if (entry.getKey().matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
+                if (latestTimestamp == null || entry.getKey().compareTo(latestTimestamp) > 0) {
+                    latestTimestamp = entry.getKey();
+                    latestData = (JsonNode) entry.getValue();
+                }
+            }
+        }
+
+        if (latestTimestamp == null || latestData == null) {
+            System.err.println("No valid timestamp found in global data");
+            return;
+        }
+
+        // Extract energy data
+        JsonNode lastYearDataNode = latestData.get("lastYearData");
+        JsonNode lastMonthDataNode = latestData.get("lastMonthData");
+        JsonNode lastDayDataNode = latestData.get("lastDayData");
+        JsonNode currentPowerNode = latestData.get("currentPower");
+
+        if (lastYearDataNode != null && lastYearDataNode.has("energy")) {
+            year.setText("Énergie de l'année dernière : " + lastYearDataNode.get("energy").asText() + " kWh");
+        }
+        if (lastMonthDataNode != null && lastMonthDataNode.has("energy")) {
+            month.setText("Énergie du mois dernier : " + lastMonthDataNode.get("energy").asText() + " kWh");
+        }
+        if (lastDayDataNode != null && lastDayDataNode.has("energy")) {
+            day.setText("Énergie de la journée : " + lastDayDataNode.get("energy").asText() + " kWh");
+        }
+
+        // Create a Gauge for current power
         Gauge gauge = GaugeBuilder.create()
                 .title("Current Power")
-                .unit("kWh")
-                .maxValue(5000) // Set max value based on expected power range
+                .unit("kW")
+                .maxValue(200)
+                .minValue(0)
+                .majorTickSpace(25)
+                .minorTickSpace(2.5)
                 .animated(true)
-                .majorTickSpace(1000) // Space between major ticks
-                .minorTickSpace(500)
-                .angleRange(180)
-                .startAngle(270)
                 .build();
 
-        // Set the value of the gauge if available
-        if (globalData.containsKey("currentPower")) {
-            JsonNode currentPowerNode = (JsonNode) globalData.get("currentPower");
-            if (currentPowerNode != null && currentPowerNode.has("power")) {
-                double powerValue = currentPowerNode.get("power").asDouble();
-                gauge.setValue(powerValue);
-            }
+        // Set the gauge value
+        if (currentPowerNode != null && currentPowerNode.has("power")) {
+            double power = currentPowerNode.get("power").asDouble();
+            gauge.setValue(power);
         }
 
-        // Display energy metrics in labels
-        if (globalData.containsKey("lastYearData")) {
-            JsonNode lastYearDataNode = (JsonNode) globalData.get("lastYearData");
-            if (lastYearDataNode != null && lastYearDataNode.has("energy")) {
-                year.setText("Énergie de l'année dernière : " + lastYearDataNode.get("energy").asText() + " kWh");
-            }
-        }
-        if (globalData.containsKey("lastMonthData")) {
-            JsonNode lastMonthDataNode = (JsonNode) globalData.get("lastMonthData");
-            if (lastMonthDataNode != null && lastMonthDataNode.has("energy")) {
-                month.setText("Énergie du mois dernier : " + lastMonthDataNode.get("energy").asText() + " kWh");
-            }
-        }
-        if (globalData.containsKey("lastDayData")) {
-            JsonNode lastDayDataNode = (JsonNode) globalData.get("lastDayData");
-            if (lastDayDataNode != null && lastDayDataNode.has("energy")) {
-                day.setText("Énergie de la journée : " + lastDayDataNode.get("energy").asText() + " kWh");
-            }
-        }
+        // Add the gauge to the container
+        container.getChildren().add(gauge);
 
+        // Dynamically calculate the center position
         double paneWidth = container.getWidth();
-        double paneHeight = container.getHeight() + 150;
-        double gaugeWidth = gauge.prefWidth(-1); // Get the preferred width of the gauge
-        double gaugeHeight = gauge.prefHeight(-1); // Get the preferred height of the gauge
+        double paneHeight = container.getHeight();
+        double gaugeWidth = gauge.prefWidth(-1);
+        double gaugeHeight = gauge.prefHeight(-1);
 
         // Set layout positions for centering
         gauge.setLayoutX((paneWidth - gaugeWidth) / 2);
         gauge.setLayoutY((paneHeight - gaugeHeight) / 2);
-
-        // Add the gauge to the container
-        container.getChildren().add(gauge);
     }
 
     /**
@@ -382,12 +351,6 @@ private LineChart<Number, Number> createLineChart(String title) {
     private BarChart<String, Number> createBarChart(String title, String xAxisLabel, String yAxisLabel) {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel(xAxisLabel);
-        // xAxis.setStyle("-fx-padding: 0 5 0 5;"); // Reduce the padding around the
-        // bars
-
-        // Adjust the category gap to make bars thinner
-        // xAxis.setCategoryGap(5); // Default is 10, reducing this will make bars
-        // thinner
 
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel(yAxisLabel);
@@ -395,13 +358,6 @@ private LineChart<Number, Number> createLineChart(String title) {
         BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
         barChart.setTitle(title);
         barChart.setPrefSize(10, 500); // Adjust the chart's preferred size
-
-        // Apply CSS for any other custom styling
-        try {
-            barChart.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-        } catch (NullPointerException e) {
-            System.err.println("CSS file not found: /styles.css");
-        }
 
         return barChart;
     }
@@ -432,39 +388,4 @@ private LineChart<Number, Number> createLineChart(String title) {
         }
         return 0.0; // Default value if metric is missing
     }
-
-/**
- * Centers the chart within its parent pane.
- */
-private void centerChart(LineChart<Number, Number> chart, Pane pane) {
-    pane.getChildren().add(chart); // Ensure the chart is added only once
-    chart.layoutXProperty().bind(pane.widthProperty().subtract(chart.widthProperty()).divide(2));
-    chart.layoutYProperty().bind(pane.heightProperty().subtract(chart.heightProperty()).divide(2));
-}
-
-private LineChart<Number, Number> createLineChart(String title, List<Long> times) {
-    NumberAxis xAxis = new NumberAxis();
-    xAxis.setLabel("Temps");
-
-    // Calculate the range based on the timestamps
-    long minTime = Collections.min(times);  // Get the minimum time (start time)
-    long maxTime = Collections.max(times);  // Get the maximum time (end time)
-    
-    xAxis.setLowerBound(minTime);  // Set the lower bound of the time range
-    xAxis.setUpperBound(maxTime);  // Set the upper bound of the time range
-
-    // Optional: Set tick spacing based on the total range
-    long range = maxTime - minTime;
-    xAxis.setTickUnit(range / 10);  // Set the tick unit to divide the range into 10 parts (approx.)
-
-    NumberAxis yAxis = new NumberAxis();
-    yAxis.setLabel("Valeurs");
-
-    LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-    lineChart.setTitle(title);
-
-    return lineChart;
-}
-
-
 }

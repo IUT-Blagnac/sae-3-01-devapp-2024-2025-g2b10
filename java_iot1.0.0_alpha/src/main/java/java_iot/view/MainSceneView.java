@@ -149,6 +149,9 @@ public class MainSceneView implements Initializable {
 	@FXML
 	protected Pane co2Pane;
 
+	@FXML 
+	protected Label panelCurrent;
+
 	private DataController dataController;
 
 	@Override
@@ -308,6 +311,7 @@ public class MainSceneView implements Initializable {
 			URL jsonURL = new File(jsonFilePath).toURI().toURL();
 
 			dataController.runPythonScriptAndData(scriptURL, jsonURL);
+			msc.requestAlertLoop();
 		} catch (Exception e) {
 			System.err.println("Erreur lors de l'initialisation : " + e.getMessage());
 			e.printStackTrace();

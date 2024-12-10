@@ -22,6 +22,7 @@
 
 from struct import pack
 import sys, subprocess
+import os
 import signal
 import json as json
 import pprint
@@ -83,7 +84,7 @@ if (c.lower() == "y"):
 # JSON Buffer Reader #
 ######################
 
-input_data = open("data_collecting/data.json", "r")
+input_data = open(os.path.relpath("data_collecting/data.json"), "r")
 
 def print_debug(string):
         print(string)
@@ -124,7 +125,7 @@ def config_loader():
     global logged_dataType
 
     config = configparser.ConfigParser()
-    config.read("java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\config.ini")
+    config.read(os.path.relpath("data_collecting/config.ini"))
 
     server = config.get("Connection Infos", "host")
     port = int(config.get("Connection Infos", "port"))
@@ -174,7 +175,7 @@ def save_to_file():
 
     global fixed_data
 
-    with open("java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\data.json", "w") as savefile:
+    with open(os.path.relpath("data_collecting/data.json"), "w") as savefile:
         json.dump(fixed_data, savefile)
 
     print_debug("Successfully exported data to file.")
@@ -254,6 +255,8 @@ def on_subscribe(client, userdata, mid, reason_code_list, properties):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
+
+    global fixed_data
     
     file = json.loads(msg.payload)
 
@@ -262,15 +265,22 @@ def on_message(client, userdata, msg):
         # Check "Triphaso" for explanation. Same as this.
 
         room_name = file[1]["room"]
+        amount = 0
         if room_name not in data:
             data[room_name] = {}
-        device_name = file[1]["deviceName"]+"_"+str(len(data[room_name]))
+        if room_name in fixed_data:
+            amount = len(fixed_data[file[1]["room"]])
+        
+        device_name = file[1]["deviceName"]+"_"+str(amount)
 
         for key in file[0].keys():
             alert = False
             
             if logged_dataType == [] or key in logged_dataType:
                 if listened_rooms == [] or file[1]["room"] in listened_rooms:
+                    if room_name not in data:
+                        data[room_name] = {}
+
                     if device_name not in data[room_name]:
                         data[room_name][device_name] = {}
                     if key in alert_threshold:
@@ -285,9 +295,12 @@ def on_message(client, userdata, msg):
         # Retrieves the room_name and device_name
 
         room_name = file[1]["Room"]
+        amount = 0
         if room_name not in data:
             data[room_name] = {}
-        device_name = file[1]["deviceName"] + "_" + str(len(data[room_name]))
+        if room_name in fixed_data:
+            amount = len(fixed_data[file[1]["Room"]])
+        device_name = file[1]["deviceName"]+"_"+str(amount)
 
         # For every data the PUBLISH has received      
 
@@ -314,15 +327,16 @@ def on_message(client, userdata, msg):
                     data[file[1]["Room"]][device_name]["time"] = str(datetime.datetime.now())
 
     elif "solaredge" in msg.topic:
+        time = str(datetime.datetime.now())
         if "Global" not in data:
             data["Global"] = {}
         
         if listened_rooms == [] or "Global" in listened_rooms:
-            if file["lastUpdateTime"] not in data["Global"]:
-                data["Global"][file["lastUpdateTime"]] = {}
+            if time not in data["Global"]:
+                data["Global"][time] = {}
             for dataType in file:
                 if dataType in logged_dataType:
-                    data["Global"][file["lastUpdateTime"]][dataType] = file[dataType]
+                    data["Global"][time][dataType] = file[dataType]
         
 
     pprint.pprint(data)

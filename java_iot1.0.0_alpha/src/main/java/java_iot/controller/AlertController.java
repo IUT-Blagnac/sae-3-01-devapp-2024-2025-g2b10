@@ -1,6 +1,9 @@
 package java_iot.controller;
 
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import java_iot.classes.Data;
 import java_iot.classes.Sensor;
@@ -11,9 +14,19 @@ public class AlertController {
     private Data data; // Data of the sensors
     private static AlertController instance;
     private static AlertView av;
+    private Thread looper;
+    private int frequence;
 
     private AlertController() {
+        frequence = -1;
 
+        looper = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                actualizeLoops();
+            }
+        });
+        looper.setDaemon(true);
     }
 
     /**
@@ -33,11 +46,25 @@ public class AlertController {
         av = _av;
     }
 
-    public void setLoop() {
-        if (av == null)
-            return;
-        av.updateAlerts();
+    private void actualizeLoops() {
+        while (true) {
+            try {
+                System.out.println("Entering loop");
+                TimeUnit.MINUTES.sleep(frequence);
+                av.updateAlerts();
+            } catch (InterruptedException e) {
+                looper.interrupt();
+            }
+        }
+    }
 
+    public void setLoop() {
+        if (av == null) {
+            return;
+        }
+        if (frequence == -1)
+            frequence = Integer.parseInt(SettingsController.getInstance().requestSetting("Data treatment", "step"));
+        looper.start();
     }
 
     /*
@@ -57,7 +84,6 @@ public class AlertController {
             System.err.println("Les données ne sont pas initialisées !");
             return null; // No data
         }
-        System.out.println(data.getAlertingSensors());
         return data.getAlertingSensors();
     }
 
