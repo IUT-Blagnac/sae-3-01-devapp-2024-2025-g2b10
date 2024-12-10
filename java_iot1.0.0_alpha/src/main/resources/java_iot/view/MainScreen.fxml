@@ -426,7 +426,6 @@
                         <Label fx:id="panelDay" style="-fx-border-color: black; -fx-border-width: 2; -fx-border-style: solid; -fx-padding: 5px; -fx-border-radius: 10px;" text="Day" />
                         <Label fx:id="panelMonth" style=" -fx-border-color:black; -fx-border-width: 2; -fx-border-style: solid; -fx-padding: 5px; -fx-border-radius: 10px;" text="Month" />
                         <Label fx:id="panelYear" style=" -fx-border-color:black; -fx-border-width: 2; -fx-border-style: solid; -fx-padding: 5px; -fx-border-radius: 10px;" text="Year" />
-                        <Label fx:id="panelCurrent" style="-fx-border-color: black; -fx-border-width: 2; -fx-border-style: solid; -fx-padding: 5px; -fx-border-radius: 10px;" text="Current" />
                      </children>
                   </HBox>
                   <Pane fx:id="graphDisplayPane" prefHeight="200.0" prefWidth="200.0" />
