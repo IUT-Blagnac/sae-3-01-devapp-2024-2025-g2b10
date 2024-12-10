@@ -17,7 +17,7 @@ public class AlertController {
     private Thread looper;
     private int frequence;
 
-private AlertController() {
+    private AlertController() {
         frequence = -1;
 
         looper = new Thread(new Runnable() {
@@ -42,27 +42,28 @@ private AlertController() {
         return instance;
     }
 
-    public void setAlertView(AlertView _av){
+    public void setAlertView(AlertView _av) {
         av = _av;
     }
 
-    private void actualizeLoops(){
-        while (true){
-            try{
+    private void actualizeLoops() {
+        while (true) {
+            try {
                 System.out.println("Entering loop");
                 TimeUnit.MINUTES.sleep(frequence);
                 av.updateAlerts();
-            }catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 looper.interrupt();
             }
         }
     }
 
     public void setLoop() {
-        if (av == null){
+        if (av == null) {
             return;
         }
-        if (frequence == -1) frequence = Integer.parseInt(SettingsController.getInstance().requestSetting("Data treatment", "step"));
+        if (frequence == -1)
+            frequence = Integer.parseInt(SettingsController.getInstance().requestSetting("Data treatment", "step"));
         looper.start();
     }
 
