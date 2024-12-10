@@ -261,6 +261,8 @@ public class Graphique {
      */
     public void showPanel() throws URISyntaxException {
         Pane container = msc.getMainSceneView().graphDisplayPane; // Pane for displaying the gauge
+
+        // Labels for the last datas collected
         Label day = msc.getMainSceneView().panelDay;
         Label month = msc.getMainSceneView().panelMonth;
         Label year = msc.getMainSceneView().panelYear;
@@ -298,7 +300,7 @@ public class Graphique {
         JsonNode lastDayDataNode = latestData.get("lastDayData");
         JsonNode currentPowerNode = latestData.get("currentPower");
 
-        //
+        // If possible sets the text in the labels to the corresponding values
         if (lastYearDataNode != null && lastYearDataNode.has("energy")) {
             year.setText("Énergie de l'année dernière : " + lastYearDataNode.get("energy").asText() + " kWh");
         }
@@ -376,7 +378,7 @@ public class Graphique {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(jsonString);
 
-        if (matcher.find()) {
+        if (matcher.find()) { // classic regEx thing
             String value = matcher.group(1);
             try {
                 return Double.parseDouble(value); // Convert to double (works for both int and double)
