@@ -149,6 +149,9 @@ public class MainSceneView implements Initializable {
 	@FXML
 	protected Pane co2Pane;
 
+	@FXML 
+	protected Label panelCurrent;
+
 	private DataController dataController;
 
 	@Override
