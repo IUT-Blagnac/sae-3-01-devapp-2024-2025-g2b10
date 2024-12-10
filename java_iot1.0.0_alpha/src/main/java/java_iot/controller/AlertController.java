@@ -14,10 +14,18 @@ public class AlertController {
     private Data data; // Data of the sensors
     private static AlertController instance;
     private static AlertView av;
-    private ScheduledExecutorService scheduler;
+    private Thread looper;
+    private int frequence;
 
     private AlertController() {
-
+        frequence = -1;
+        looper.setDaemon(true);
+        looper = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                actualizeLoops();
+            }
+        });  
     }
 
     /**
@@ -37,21 +45,26 @@ public class AlertController {
         av = _av;
     }
 
+    private void actualizeLoops(){
+        while (true){
+            try{
+                System.out.println("Entering loop");
+                TimeUnit.MINUTES.sleep(frequence);
+                av.updateAlerts();
+            }catch (InterruptedException e){
+                looper.interrupt();
+            }
+        }
+    }
+
     public void setLoop() {
         if (av == null){
-            System.out.print("fzedetyyjhtgrfd");
             return;
         }
-
-        scheduler = Executors.newSingleThreadScheduledExecutor();
-
-        // Exécute `av.updateAlerts()` toutes les 5 secondes
-        scheduler.scheduleAtFixedRate(() -> {
-            av.updateAlerts();
-            System.out.println("caca");
-        }, 0, 10, TimeUnit.SECONDS);
+        if (frequence == -1) frequence = Integer.parseInt(SettingsController.getInstance().requestSetting("Data treatment", "step"));
+        looper.start();
     }
-//Integer.parseInt(SettingsController.getInstance().requestSetting("Data treatment", "step"))
+
     /*
      * Sets the data used to display the alerts
      */

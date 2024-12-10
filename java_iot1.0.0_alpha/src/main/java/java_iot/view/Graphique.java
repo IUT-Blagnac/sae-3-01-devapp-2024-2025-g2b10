@@ -34,7 +34,6 @@ import eu.hansolo.medusa.Gauge;
 import eu.hansolo.medusa.GaugeBuilder;
 import javafx.application.Platform;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 
 /**
  * La classe {@code Graphique} fournit des fonctionnalités pour afficher et
