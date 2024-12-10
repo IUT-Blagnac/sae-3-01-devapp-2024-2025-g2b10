@@ -83,7 +83,7 @@ if (c.lower() == "y"):
 # JSON Buffer Reader #
 ######################
 
-input_data = open("java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\data.json", "r")
+input_data = open("./data.json", "r")
 
 def print_debug(string):
         print(string)
@@ -124,7 +124,7 @@ def config_loader():
     global logged_dataType
 
     config = configparser.ConfigParser()
-    config.read("java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\config.ini")
+    config.read("./config.ini")
 
     server = config.get("Connection Infos", "host")
     port = int(config.get("Connection Infos", "port"))
@@ -174,7 +174,7 @@ def save_to_file():
 
     global fixed_data
 
-    with open("java_iot1.0.0_alpha\\src\\main\\resources\\java_iot\\ressources\\data_collecting\\data.json", "w") as savefile:
+    with open("./data.json", "w") as savefile:
         json.dump(fixed_data, savefile)
 
     print_debug("Successfully exported data to file.")
@@ -317,15 +317,16 @@ def on_message(client, userdata, msg):
                     data[file[1]["Room"]][device_name]["time"] = str(datetime.datetime.now())
 
     elif "solaredge" in msg.topic:
+        time = str(datetime.datetime.now())
         if "Global" not in data:
             data["Global"] = {}
         
         if listened_rooms == [] or "Global" in listened_rooms:
-            if file["lastUpdateTime"] not in data["Global"]:
-                data["Global"][file["lastUpdateTime"]] = {}
+            if time not in data["Global"]:
+                data["Global"][time] = {}
             for dataType in file:
                 if dataType in logged_dataType:
-                    data["Global"][file["lastUpdateTime"]][dataType] = file[dataType]
+                    data["Global"][time][dataType] = file[dataType]
         
 
     pprint.pprint(data)
