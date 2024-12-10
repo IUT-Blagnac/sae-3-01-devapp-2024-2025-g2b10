@@ -5,19 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import java_iot.controller.MainSceneController;
-import javafx.application.Platform;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -27,13 +18,10 @@ import javafx.scene.control.Label;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import eu.hansolo.medusa.Gauge;
 import eu.hansolo.medusa.GaugeBuilder;
-import javafx.application.Platform;
-import javafx.scene.chart.LineChart;
 
 /**
  * La classe {@code Graphique} fournit des fonctionnalités pour afficher et
@@ -67,28 +55,13 @@ import javafx.scene.chart.LineChart;
 public class Graphique {
     private static Graphique instance;
     private MainSceneController msc;
-    private String datajson;
 
+    /**
+     * Simple Constructor who takes the contorller as a parameter
+     * @param pfmsc
+     */
     private Graphique(MainSceneController pfmsc) {
         msc = pfmsc;
-    }
-
-    /**
-     * Récupère les données JSON actuellement stockées dans l'objet.
-     * 
-     * @return les données JSON sous forme de chaîne de caractères.
-     */
-    public String getData() {
-        return datajson;
-    }
-
-    /**
-     * Définit les données JSON pour cet objet.
-     * 
-     * @param pfdatajson les données JSON sous forme de chaîne de caractères.
-     */
-    public void setData(String pfdatajson) {
-        this.datajson = pfdatajson;
     }
 
     /**
@@ -104,10 +77,6 @@ public class Graphique {
             instance = new Graphique(pfmsc);
         }
         return instance;
-    }
-
-    public void showDash() {
-        // Je te laisse ça vide Quentin
     }
 
     /**
@@ -345,7 +314,7 @@ public class Graphique {
                 .unit("kW")
                 .maxValue(200)
                 .minValue(0)
-                .majorTickSpace(25   )
+                .majorTickSpace(25)
                 .minorTickSpace(2.5)
                 .animated(true)
                 .build();
@@ -359,27 +328,15 @@ public class Graphique {
         // Add the gauge to the container
         container.getChildren().add(gauge);
 
-// Dynamically calculate the center position
-double paneWidth = container.getWidth();
-double paneHeight = container.getHeight();
-double gaugeWidth = gauge.prefWidth(-1); // Get the preferred width of the gauge
-double gaugeHeight = gauge.prefHeight(-1); // Get the preferred height of the gauge
+        // Dynamically calculate the center position
+        double paneWidth = container.getWidth();
+        double paneHeight = container.getHeight();
+        double gaugeWidth = gauge.prefWidth(-1); // Get the preferred width of the gauge
+        double gaugeHeight = gauge.prefHeight(-1); // Get the preferred height of the gauge
 
-// Set layout positions for centering
-gauge.setLayoutX((paneWidth - gaugeWidth) / 2);
-gauge.setLayoutY((paneHeight - gaugeHeight) / 2);
-    }
-
-    private long parseTimestamp(String timestampStr) {
-        // Parse the timestamp string (e.g., "2024-12-10 13:38:05") into milliseconds
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date date = dateFormat.parse(timestampStr);
-            return date.getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return 0L; // Return 0 if parsing fails
-        }
+        // Set layout positions for centering
+        gauge.setLayoutX((paneWidth - gaugeWidth) / 2);
+        gauge.setLayoutY((paneHeight - gaugeHeight) / 2);
     }
 
     /**
@@ -406,13 +363,6 @@ gauge.setLayoutY((paneHeight - gaugeHeight) / 2);
         BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
         barChart.setTitle(title);
         barChart.setPrefSize(10, 500); // Adjust the chart's preferred size
-
-        // Apply CSS for any other custom styling
-        try {
-            barChart.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-        } catch (NullPointerException e) {
-            System.err.println("CSS file not found: /styles.css");
-        }
 
         return barChart;
     }
@@ -443,68 +393,4 @@ gauge.setLayoutY((paneHeight - gaugeHeight) / 2);
         }
         return 0.0; // Default value if metric is missing
     }
-
-    /**
-     * Centers the chart within its parent pane.
-     */
-    private void centerChart(LineChart<Number, Number> chart, Pane pane) {
-        pane.getChildren().add(chart); // Ensure the chart is added only once
-        chart.layoutXProperty().bind(pane.widthProperty().subtract(chart.widthProperty()).divide(2));
-        chart.layoutYProperty().bind(pane.heightProperty().subtract(chart.heightProperty()).divide(2));
-    }
-
-    private LineChart<Number, Number> createPowerLineChart(String title) {
-        NumberAxis xAxis = new NumberAxis();
-        xAxis.setLabel("Time");
-
-        // Format the X-axis labels (timestamps in milliseconds)
-        xAxis.setTickLabelFormatter(new javafx.util.StringConverter<Number>() {
-            private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-            @Override
-            public String toString(Number object) {
-                // Convert milliseconds to a readable date format
-                return dateFormat.format(new Date(object.longValue()));
-            }
-
-            @Override
-            public Number fromString(String string) {
-                return null; // We don't need to support this for this use case
-            }
-        });
-
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Power (kW)");
-
-        // Create the LineChart
-        LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-        lineChart.setTitle(title);
-
-        return lineChart;
-    }
-
-    private LineChart<Number, Number> createLineChart(String title, List<Long> times) {
-        NumberAxis xAxis = new NumberAxis();
-        xAxis.setLabel("Temps");
-
-        // Calculate the range based on the timestamps
-        long minTime = Collections.min(times); // Get the minimum time (start time)
-        long maxTime = Collections.max(times); // Get the maximum time (end time)
-
-        xAxis.setLowerBound(minTime); // Set the lower bound of the time range
-        xAxis.setUpperBound(maxTime); // Set the upper bound of the time range
-
-        // Optional: Set tick spacing based on the total range
-        long range = maxTime - minTime;
-        xAxis.setTickUnit(range / 10); // Set the tick unit to divide the range into 10 parts (approx.)
-
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Valeurs");
-
-        LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-        lineChart.setTitle(title);
-
-        return lineChart;
-    }
-
 }
