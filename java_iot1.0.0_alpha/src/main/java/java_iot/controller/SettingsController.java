@@ -196,6 +196,16 @@ public class SettingsController {
     }
 
     /**
+     * Submit a request for the controller to pass down to the model section to get a specific setting.
+     * @param section : The section of the .INI file where the field is located.
+     * @param field : The field name of the parameter
+     * @return boolean : If the change was successful or not.
+     */
+    public String requestSetting(String section, String name){
+        return se.getSetting(section, name);
+    }
+
+    /**
      * Requests a new AdditionWindow to the {@link java_iot.App}.
      * @param mono : If the Pane should contain a value field.
      * @param callerButton : Who called for a new window.

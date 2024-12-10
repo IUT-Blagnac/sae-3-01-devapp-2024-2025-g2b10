@@ -308,6 +308,7 @@ public class MainSceneView implements Initializable {
 			URL jsonURL = new File(jsonFilePath).toURI().toURL();
 
 			dataController.runPythonScriptAndData(scriptURL, jsonURL);
+			msc.requestAlertLoop();
 		} catch (Exception e) {
 			System.err.println("Erreur lors de l'initialisation : " + e.getMessage());
 			e.printStackTrace();

@@ -1,6 +1,9 @@
 package java_iot.controller;
 
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import java_iot.classes.Data;
 import java_iot.classes.Sensor;
@@ -11,6 +14,7 @@ public class AlertController {
     private Data data; // Data of the sensors
     private static AlertController instance;
     private static AlertView av;
+    private ScheduledExecutorService scheduler;
 
     private AlertController() {
 
@@ -33,12 +37,21 @@ public class AlertController {
         av = _av;
     }
 
-    public void setLoop(){
-        if (av == null) return;
-        av.updateAlerts();
+    public void setLoop() {
+        if (av == null){
+            System.out.print("fzedetyyjhtgrfd");
+            return;
+        }
 
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+
+        // Exécute `av.updateAlerts()` toutes les 5 secondes
+        scheduler.scheduleAtFixedRate(() -> {
+            av.updateAlerts();
+            System.out.println("caca");
+        }, 0, 10, TimeUnit.SECONDS);
     }
-
+//Integer.parseInt(SettingsController.getInstance().requestSetting("Data treatment", "step"))
     /*
      * Sets the data used to display the alerts
      */
@@ -56,7 +69,6 @@ public class AlertController {
             System.err.println("Les données ne sont pas initialisées !");
             return null; // No data
         }
-        System.out.println(data.getAlertingSensors());
         return data.getAlertingSensors();
     }
 
