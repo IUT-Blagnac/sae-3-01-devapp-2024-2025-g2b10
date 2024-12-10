@@ -103,7 +103,6 @@ public class Graphique {
      * @throws URISyntaxException si un problème survient avec l'URI du fichier de
      *                            données.
      */
-    // Remplacez BarChart par LineChart dans la méthode showRoom
     public void showRoom(String roomName) throws URISyntaxException {
         Pane temproomPane = msc.getMainSceneView().tempPane;
         Pane humroomPane = msc.getMainSceneView().humPane;
@@ -299,6 +298,7 @@ public class Graphique {
         JsonNode lastDayDataNode = latestData.get("lastDayData");
         JsonNode currentPowerNode = latestData.get("currentPower");
 
+        //
         if (lastYearDataNode != null && lastYearDataNode.has("energy")) {
             year.setText("Énergie de l'année dernière : " + lastYearDataNode.get("energy").asText() + " kWh");
         }
