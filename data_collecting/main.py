@@ -22,6 +22,7 @@
 
 from struct import pack
 import sys, subprocess
+import os
 import signal
 import json as json
 import pprint
@@ -83,7 +84,7 @@ if (c.lower() == "y"):
 # JSON Buffer Reader #
 ######################
 
-input_data = open("./data.json", "r")
+input_data = open(os.path.relpath("data_collecting/data.json"), "r")
 
 def print_debug(string):
         print(string)
@@ -124,7 +125,7 @@ def config_loader():
     global logged_dataType
 
     config = configparser.ConfigParser()
-    config.read("./config.ini")
+    config.read(os.path.relpath("data_collecting/config.ini"))
 
     server = config.get("Connection Infos", "host")
     port = int(config.get("Connection Infos", "port"))
@@ -174,7 +175,7 @@ def save_to_file():
 
     global fixed_data
 
-    with open("./data.json", "w") as savefile:
+    with open(os.path.relpath("data_collecting/data.json"), "w") as savefile:
         json.dump(fixed_data, savefile)
 
     print_debug("Successfully exported data to file.")
