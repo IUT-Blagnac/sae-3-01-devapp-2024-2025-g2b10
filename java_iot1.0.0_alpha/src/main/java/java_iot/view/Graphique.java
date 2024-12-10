@@ -5,7 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.Time;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import java_iot.controller.MainSceneController;
@@ -25,6 +28,8 @@ import java.util.regex.Pattern;
 import eu.hansolo.medusa.Gauge;
 import eu.hansolo.medusa.GaugeBuilder;
 import javafx.application.Platform;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 
 /**
  * La classe {@code Graphique} fournit des fonctionnalités pour afficher et
@@ -124,61 +129,71 @@ public class Graphique {
      * @throws URISyntaxException si un problème survient avec l'URI du fichier de
      *                            données.
      */
-    public void showRoom(String roomName) throws URISyntaxException {
-        Pane temproomPane = msc.getMainSceneView().tempPane;
-        Pane humroomPane = msc.getMainSceneView().humPane;
-        Pane co2roomPane = msc.getMainSceneView().co2Pane;
-    
-        // Remove any existing charts
-        temproomPane.getChildren().removeIf(node -> node instanceof BarChart);
-        humroomPane.getChildren().removeIf(node -> node instanceof BarChart);
-        co2roomPane.getChildren().removeIf(node -> node instanceof BarChart);
-    
-        // Fetch room data
-        Map<String, Double> roomData = fetchRoomData(roomName);
-        if (roomData == null || roomData.isEmpty()) {
-            System.err.println("No data available for room: " + roomName);
-            return;
-        }
-    
-        // Create BarCharts
-        BarChart<String, Number> tempChart = createBarChart(
-                "Température de la salle: " + roomName, "Capteurs", "Valeurs");
-        BarChart<String, Number> humChart = createBarChart(
-                "Humidité de la salle: " + roomName, "Capteurs", "Valeurs");
-        BarChart<String, Number> co2Chart = createBarChart(
-                "CO2 de la salle: " + roomName, "Capteurs", "Valeurs");
-    
-        // Add data to each chart
-        if (roomData.containsKey("temperature")) {
-            XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
-            tempSeries.setName("Température");
-            tempSeries.getData().add(new XYChart.Data<>("Température", roomData.get("temperature")));
-            tempChart.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-            tempChart.getData().add(tempSeries);
-        }
-    
-        if (roomData.containsKey("humidity")) {
-            XYChart.Series<String, Number> humSeries = new XYChart.Series<>();
-            humSeries.setName("Humidité");
-            humSeries.getData().add(new XYChart.Data<>("Humidité", roomData.get("humidity")));
-            humChart.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-            humChart.getData().add(humSeries);
-        }
-    
-        if (roomData.containsKey("co2")) {
-            XYChart.Series<String, Number> co2Series = new XYChart.Series<>();
-            co2Series.setName("CO2");
-            co2Series.getData().add(new XYChart.Data<>("CO2", roomData.get("co2")));
-            co2Chart.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-            co2Chart.getData().add(co2Series);
-        }
-    
-        // Center and add charts to panes
-        centerChart(tempChart, temproomPane);
-        centerChart(humChart, humroomPane);
-        centerChart(co2Chart, co2roomPane);
+// Remplacez BarChart par LineChart dans la méthode showRoom
+public void showRoom(String roomName) throws URISyntaxException {
+    Pane temproomPane = msc.getMainSceneView().tempPane;
+    Pane humroomPane = msc.getMainSceneView().humPane;
+    Pane co2roomPane = msc.getMainSceneView().co2Pane;
+
+    // Supprimer tous les anciens graphiques
+    temproomPane.getChildren().removeIf(node -> node instanceof LineChart);
+    humroomPane.getChildren().removeIf(node -> node instanceof LineChart);
+    co2roomPane.getChildren().removeIf(node -> node instanceof LineChart);
+
+    // Récupérer les données de la salle
+    Map<String, Double> roomData = fetchRoomData(roomName);
+    if (roomData == null || roomData.isEmpty()) {
+        System.err.println("No data available for room: " + roomName);
+        return;
     }
+
+    // Créer des LineCharts pour température, humidité et CO2
+    LineChart<Number, Number> tempChart = createLineChart("Température de la salle: " + roomName);
+    LineChart<Number, Number> humChart = createLineChart("Humidité de la salle: " + roomName);
+    LineChart<Number, Number> co2Chart = createLineChart("CO2 de la salle: " + roomName);
+
+    // Ajouter des données aux graphiques
+    if (roomData.containsKey("temperature")) {
+        XYChart.Series<Number, Number> tempSeries = new XYChart.Series<>();
+        tempSeries.setName("Température");
+        tempSeries.getData().add(new XYChart.Data<>(1, roomData.get("temperature")));
+        tempChart.getData().add(tempSeries);
+    }
+
+    if (roomData.containsKey("humidity")) {
+        XYChart.Series<Number, Number> humSeries = new XYChart.Series<>();
+        humSeries.setName("Humidité");
+        humSeries.getData().add(new XYChart.Data<>(1, roomData.get("humidity")));
+        humChart.getData().add(humSeries);
+    }
+
+    if (roomData.containsKey("co2")) {
+        XYChart.Series<Number, Number> co2Series = new XYChart.Series<>();
+        co2Series.setName("CO2");
+        co2Series.getData().add(new XYChart.Data<>(1, roomData.get("co2")));
+        co2Chart.getData().add(co2Series);
+    }
+
+    // Centrer et ajouter les graphiques aux panneaux
+    centerChart(tempChart, temproomPane);
+    centerChart(humChart, humroomPane);
+    centerChart(co2Chart, co2roomPane);
+}
+
+// Méthode pour créer un LineChart
+private LineChart<Number, Number> createLineChart(String title) {
+    NumberAxis xAxis = new NumberAxis();
+    xAxis.setLabel("Temps");
+
+    NumberAxis yAxis = new NumberAxis();
+    yAxis.setLabel("Valeurs");
+
+    LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+    lineChart.setTitle(title);
+    return lineChart;
+}
+
+  
 
     /**
      * Récupère les données métriques d'une pièce spécifiée à partir de la ressource
@@ -421,9 +436,35 @@ public class Graphique {
 /**
  * Centers the chart within its parent pane.
  */
-private void centerChart(BarChart<String, Number> chart, Pane pane) {
+private void centerChart(LineChart<Number, Number> chart, Pane pane) {
     pane.getChildren().add(chart); // Ensure the chart is added only once
     chart.layoutXProperty().bind(pane.widthProperty().subtract(chart.widthProperty()).divide(2));
     chart.layoutYProperty().bind(pane.heightProperty().subtract(chart.heightProperty()).divide(2));
 }
+
+private LineChart<Number, Number> createLineChart(String title, List<Long> times) {
+    NumberAxis xAxis = new NumberAxis();
+    xAxis.setLabel("Temps");
+
+    // Calculate the range based on the timestamps
+    long minTime = Collections.min(times);  // Get the minimum time (start time)
+    long maxTime = Collections.max(times);  // Get the maximum time (end time)
+    
+    xAxis.setLowerBound(minTime);  // Set the lower bound of the time range
+    xAxis.setUpperBound(maxTime);  // Set the upper bound of the time range
+
+    // Optional: Set tick spacing based on the total range
+    long range = maxTime - minTime;
+    xAxis.setTickUnit(range / 10);  // Set the tick unit to divide the range into 10 parts (approx.)
+
+    NumberAxis yAxis = new NumberAxis();
+    yAxis.setLabel("Valeurs");
+
+    LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+    lineChart.setTitle(title);
+
+    return lineChart;
+}
+
+
 }
