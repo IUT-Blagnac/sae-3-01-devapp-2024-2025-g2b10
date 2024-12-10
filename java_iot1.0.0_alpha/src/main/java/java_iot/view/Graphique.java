@@ -381,7 +381,7 @@ public class Graphique {
         if (matcher.find()) { // classic regEx thing
             String value = matcher.group(1);
             try {
-                return Double.parseDouble(value); // Convert to double (works for both int and double)
+                return stringToDouble(value); // Convert to double (works for both int and double)
             } catch (NumberFormatException e) {
                 System.err.println("Failed to parse value for key '" + key + "': " + value);
             }
