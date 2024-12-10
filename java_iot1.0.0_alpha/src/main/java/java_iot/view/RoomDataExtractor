@@ -1,0 +1,67 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * La classe {@code RoomDataExtractor} fournit des utilitaires pour extraire des 
+ * métriques spécifiques d'une chaîne JSON, notamment la température, l'humidité, 
+ * et les niveaux de CO2.
+ * 
+ * <p>Elle utilise des expressions régulières pour analyser le JSON et récupérer 
+ * les valeurs numériques associées à des clés spécifiques.</p>
+ * 
+ * @version 1.0
+ * @since 2023
+ * @author 
+ *     Jules Giard--Pellat
+ */
+public class RoomDataExtractor {
+
+
+
+    /**
+     * Extrait une valeur métrique spécifique d'une chaîne JSON en fonction de la clé fournie.
+     * 
+     * <p>La méthode utilise une expression régulière pour rechercher la clé et sa valeur 
+     * numérique correspondante. Si la clé n'est pas trouvée, une erreur est enregistrée, 
+     * et une valeur par défaut de 0,0 est retournée.</p>
+     * 
+     * @param jsonString la chaîne JSON contenant les métriques.
+     * @param key la clé correspondant à la métrique à extraire.
+     * @return la valeur extraite sous forme de double, ou 0,0 si la clé n'est pas trouvée.
+     */
+    public static double extractValue(String jsonString, String key) {
+        String regex = "\"" + key + "\":\\[(\\d+\\.\\d+)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(jsonString);
+
+        if (matcher.find()) {
+            return Double.parseDouble(matcher.group(1)); // Extract and convert to double
+        } else {
+            System.err.println("Value for key '" + key + "' not found");
+            return 0.0; // Default value
+        }
+    }
+
+    /**
+     * Extrait les métriques principales d'une pièce (température, humidité et niveaux de CO2) 
+     * à partir d'une chaîne JSON.
+     * 
+     * <p>Cette méthode regroupe les valeurs extraites pour des clés prédéfinies et les stocke 
+     * dans une {@code Map} où les clés sont les noms des métriques et les valeurs sont leurs 
+     * valeurs numériques respectives.</p>
+     * 
+     * @param jsonString la chaîne JSON contenant les métriques de la pièce.
+     * @return une {@code Map} contenant les métriques extraites et leurs valeurs.
+     */
+    public static Map<String, Double> extractRoomMetrics(String jsonString) {
+        Map<String, Double> metrics = new HashMap<>();
+        metrics.put("temperature", extractValue(jsonString, "temperature"));
+        metrics.put("humidity", extractValue(jsonString, "humidity"));
+        metrics.put("co2", extractValue(jsonString, "co2"));
+        return metrics;
+    }
+
+
+}

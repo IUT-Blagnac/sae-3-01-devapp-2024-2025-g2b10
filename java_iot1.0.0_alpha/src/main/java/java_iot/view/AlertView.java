@@ -63,7 +63,7 @@ public class AlertView implements Initializable {
 
                 String alertText = "Salle : " + roomName + "\nDonnée : " + sensor.getName() + "\nValeur : " + alertValue;
 
-                Image alertImage = new Image("java_iot\\ressources\\images\\warningicon.png");
+                Image alertImage = new Image(App.class.getResourceAsStream("ressources/images/warningicon.png"));
                 ImageView alertImageView = new ImageView(alertImage);
                 alertImageView.setFitHeight(40);
                 alertImageView.setFitWidth(40);

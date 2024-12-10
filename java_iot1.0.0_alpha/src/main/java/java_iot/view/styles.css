@@ -1,0 +1,20 @@
+.chart-bar {
+    -fx-bar-width: 5px; /* Make bars thinner */
+}
+
+.category-axis .axis {
+    -fx-tick-label-gap: 5px; /* Adjust label spacing */
+}
+
+
+.series0.chart-bar {
+    -fx-bar-fill: orange; /* Color for the first series (e.g., temperature) */
+}
+/* after that it doesn't work for some reason*/
+.series1.chart-bar { 
+    -fx-bar-fill: green; /* Color for the second series (e.g., humidity) */
+}
+
+.series2.chart-bar {
+    -fx-bar-fill: red; /* Color for the third series (e.g., CO2) */
+}

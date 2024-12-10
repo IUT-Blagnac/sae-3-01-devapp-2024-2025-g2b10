@@ -1,5 +1,7 @@
 package java_iot.view;
 
+import java.net.URISyntaxException;
+
 import java_iot.controller.MainSceneController;
 import javafx.scene.layout.Pane;
 
@@ -132,8 +134,9 @@ class Navbar {
 	 * The check condition is legacy, as it should always provide TRUE
 	 * 
 	 * @author GIARD--PELLAT Jules
+	 * @throws URISyntaxException 
 	 */
-	public boolean showPanelPane() {
+	public boolean showPanelPane() throws URISyntaxException {
 		boolean validity = checkPanes();
 		if (validity) {
 			dashPane.setVisible(false);

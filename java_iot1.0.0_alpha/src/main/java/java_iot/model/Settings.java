@@ -1,6 +1,7 @@
 package java_iot.model;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -160,7 +161,7 @@ public class Settings {
 	 */
 	 public String getSectionNameFromId(int numberIndex){
 		try{
-			String configString = Files.readString(Paths.get(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+			String configString = Files.readString(Paths.get("data_collecting/config.ini"));
 
 			/*
 			 * Ok so you must probably wonder what the hell this is
@@ -206,7 +207,7 @@ public class Settings {
 	 */
 	public String getFieldFromIndex(String category, int index){
 		try{
-			String config = Files.readString(Paths.get(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+			String config = Files.readString(Paths.get("data_collecting/config.ini"));
 
 			Pattern categoryPattern = Pattern.compile("\\[([A-Za-z0-9\\s]+)\\]"); 
 			Matcher categoryMatcher = categoryPattern.matcher(config);
@@ -260,11 +261,9 @@ public class Settings {
 		// the string is empty
 		constructedString = constructedString.substring(0, Math.max(0, constructedString.length() - 1));
 		try {
-			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
+			Wini ini = new Wini(new FileInputStream("data_collecting/config.ini"));
 			ini.put("Topics", "topics", constructedString);
-			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
+			ini.store(new File("data_collecting/config.ini"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -300,7 +299,7 @@ public class Settings {
 	 */
 	public String testConnection() {
 		try {
-			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
+			Wini ini = new Wini(new File("data_collecting/config.ini"));
 			String server = ini.get("Connection Infos", "host");
 			String port = ini.get("Connection Infos", "port");
 			System.out.println(server);
@@ -327,19 +326,19 @@ public class Settings {
 	 */
 	public boolean writeConnectionSettingInFile(List<TextField> fieldData) {
 		try {
-			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
+			Wini ini = new Wini(new File("data_collecting/config.ini"));
 			// Ok so I found no better way to iterate through the variable all while
 			// modifying.
 			// Since iniIterable is readOnly, i don't know. Maybe i'm sacrificing RAM for
 			// simplicity
-			Wini iniIterable = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
+			Wini iniIterable = new Wini(new File("data_collecting/config.ini"));
 			Iterator<String> iterator = iniIterable.get("Connection Infos").keySet().iterator();
 			for (TextField tF : fieldData) {
 				String value = tF.getText();
 				String dataSection = iterator.next();
 				ini.put("Connection Infos", dataSection, value);
 			}
-			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+			ini.store(new File("data_collecting/config.ini"));
 			return true;
 		} catch (Exception e) {
 			System.out.println(e);
@@ -350,7 +349,7 @@ public class Settings {
 	@SuppressWarnings("unused")
 	public boolean changeSettingField(String section, String data, String val, boolean addition){
 		try{
-			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
+			Wini ini = new Wini(new File("data_collecting/config.ini"));
 			if (!addition){
 				int frequency = Integer.parseInt(val);
 				ini.put(section, data, val);
@@ -377,7 +376,7 @@ public class Settings {
 				}
 				ini.put(section, data, selection);
 			}
-			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+			ini.store(new File("data_collecting/config.ini"));
 			loadSetting("Data treatment", true);
 			return true;
 		}catch (NumberFormatException e){
@@ -385,9 +384,6 @@ public class Settings {
 			return false;
 		}catch (IOException e){
 			System.err.println("REJECTED REQUEST WITH REASON : UNAVAILABLE RESOURCE");
-			return false;
-		}catch (URISyntaxException e){
-			System.err.println("REJECTED REQUEST WITH REASON : UNREADABLE RESOURCE");
 			return false;
 		}
 	}
@@ -402,7 +398,7 @@ public class Settings {
 		System.out.println(element);
 		System.out.println(row);
 		try {
-			Wini ini = new Wini(App.class.getResource("ressources/data_collecting/config.ini"));
+			Wini ini = new Wini(new File("data_collecting/config.ini"));
 			String line = ini.get("Data treatment", row);
 			List<String> attributes = Arrays.stream(line.split(", "))
 					.filter(word -> !word.contains(element))
@@ -412,7 +408,7 @@ public class Settings {
 			line = line.replaceAll("^,|,$", "").trim();
 			System.out.println(line);
 			ini.put("Data treatment", row, line);
-			ini.store(new File(App.class.getResource("ressources/data_collecting/config.ini").toURI()));
+			ini.store(new File("data_collecting/config.ini"));
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -464,7 +460,7 @@ public class Settings {
 	public HashMap<String, String> loadSetting(String page_setting_name, boolean loadSettingsIntoMemory) {
 		try {
 			// Loads the ini file from the ressources folder
-			Ini ini = new Ini(App.class.getResource("ressources/data_collecting/config.ini"));
+			Wini ini = new Wini(new File("data_collecting/config.ini"));
 			HashMap<String, String> fieldSettings = new HashMap<>();
 
 			switch (page_setting_name) {

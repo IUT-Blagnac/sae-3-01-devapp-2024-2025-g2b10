@@ -1,30 +1,53 @@
 package java_iot.view;
 
-/**
- * POJO to avoid an error
- */
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SolarPanelData {
-    private Long energy;
-    private Long lastYearEnergy;
-    private Long lastMonthEnergy;
-    private Long lastDayEnergy;
-    private Double currentPower; // Power should be a double
-    private String measuredBy;
+    private double energy;
+    private double lastMonthEnergy;
+    private double lastYearEnergy;
+    private double currentPower;
+    private double lastDayEnergy;
 
     // Getters and Setters
-    public Long getEnergy() { return energy; }
-    public void setEnergy(Long energy) { this.energy = energy; }
+    public double getEnergy() {
+        return energy;
+    }
 
-    public Long getLastYearEnergy() { return lastYearEnergy; }
-    public void setLastYearEnergy(Long lastYearEnergy) { this.lastYearEnergy = lastYearEnergy; }
+    public void setEnergy(double energy) {
+        this.energy = energy;
+    }
 
-    public Long getLastMonthEnergy() { return lastMonthEnergy; }
-    public void setLastMonthEnergy(Long lastMonthEnergy) { this.lastMonthEnergy = lastMonthEnergy; }
+    public double getLastMonthEnergy() {
+        return lastMonthEnergy;
+    }
 
-    public Long getLastDayEnergy() { return lastDayEnergy; }
-    public void setLastDayEnergy(Long lastDayEnergy) { this.lastDayEnergy = lastDayEnergy; }
+    public void setLastMonthEnergy(double lastMonthEnergy) {
+        this.lastMonthEnergy = lastMonthEnergy;
+    }
 
-    public Double getCurrentPower() { return currentPower; }
-    public void setCurrentPower(Double currentPower) { this.currentPower = currentPower; }
+    public double getLastYearEnergy() {
+        return lastYearEnergy;
+    }
 
+    public void setLastYearEnergy(double lastYearEnergy) {
+        this.lastYearEnergy = lastYearEnergy;
+    }
+
+    public double getCurrentPower() {
+        return currentPower;
+    }
+
+    public void setCurrentPower(double currentPower) {
+        this.currentPower = currentPower;
+    }
+
+    public double getLastDayEnergy() {
+        return lastDayEnergy;
+    }
+
+    public void setLastDayEnergy(double lastDayEnergy) {
+        this.lastDayEnergy = lastDayEnergy;
+    }
 }

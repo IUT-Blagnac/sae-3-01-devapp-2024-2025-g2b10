@@ -44,13 +44,17 @@ Ainsi que les différents livrables et réalisations que nous avons effectués.
 
 toc::[]
 
+== Sprint courant
+
+- https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/milestone/1[Sprint 6]
+
 == Equipe et rôle
 
 Projet est réalisé par::
 
 - https://github.com/Cracotte-Mu-Da[GIARD--PELLAT Jules] : *Développeur*
-- https://github.com/Romy514[CHAUVIERE Romy] *Scrum Master*
-- https://github.com/AlbiMousse[ESTIENNE Alban-Moussa] *Product Owner*
+- https://github.com/Romy514[CHAUVIERE Romy] *Développeuse*
+- https://github.com/AlbiMousse[ESTIENNE Alban-Moussa] *Product Owner et Scrum Master*
 - https://github.com/Quentin158[MARTINEZ Quentin] *Développeur*
 - https://github.com/Matthias426[PAPA-PATSOUMOUDOU Matthias] *Développeur*
 
@@ -60,7 +64,7 @@ Tuteur/tutrice enseignant(e) de l'équipe::
 - mailto:esther.pendaries@univ-tlse2.fr[Esther Pendaries] + 
 - mailto:laurent.nonne@univ-tlse2.fr[Laurent Nonne] + 
 - mailto:nabil.hanine@free.fr[Nabil Hanine] + 
-- mailto:andre.peninou@univ-tlse2.fr[André Peninou] + 
+
 
 == Sujet du projet
 
@@ -82,6 +86,13 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 |  | Compte Rendu #3|  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%233.pdf[Compte Rendu #3] 
 |  | IHM v1|  
 |  | PHP v0|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/009385c2517c71c242498bb6f847dc2bbbcaadfd/PHP[PHP v0]
+| Sem.49  | Ordre du jour #4      |     https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%234.pdf[Ordre du jour #4] 
+|  | Compte Rendu #4|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%234.pdf[Compte Rendu #4] 
+|  | IHM v2|  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/9ce4c98b813b1c42e13d9a0b26fd51eabc55efaf/java_iot1.0.0_alpha[Application JavaFX]
+|  | PHP v1|   [PHP v1]
+| Sem.50  | Ordre du jour #5      |   [Ordre du jour #4] 
+|  | Compte Rendu #5|  [Compte Rendu #5] 
+|  | PHP v2|   [PHP v2]
 |===
 
 === Evaluation communication EP
@@ -90,6 +101,10 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 
 ODJ : Précisez qui est resp de chaque rubrique. CR : Manque synthese rdv client, manque analyse difficultés-réussites, manque resp prochaine réunion.
 note : 1,9/3
+
+==== retour semaine 49
+ODJ : pensez à indiquer le temps consacré à chaque thème. CR : Bien pensez à mettre à l'ODJ le retour rdv client.
+note : 2,8/3
 
 == Réalisations 
 
