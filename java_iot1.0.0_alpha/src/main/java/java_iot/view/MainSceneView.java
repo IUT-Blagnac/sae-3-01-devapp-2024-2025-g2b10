@@ -1,10 +1,12 @@
 package java_iot.view;
 
+import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import java_iot.classes.Data_sensors;
+import java_iot.controller.AlertController;
 import java_iot.controller.DataController;
 import java_iot.controller.MainSceneController;
 import java_iot.controller.SettingsController;

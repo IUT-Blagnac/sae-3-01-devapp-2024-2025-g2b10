@@ -4,6 +4,7 @@ import java.util.Map;
 
 import java_iot.classes.Data;
 import java_iot.classes.Sensor;
+import java_iot.view.AlertView;
 
 public class AlertController {
 
@@ -33,7 +34,9 @@ public class AlertController {
     }
 
     public void setLoop(){
+        if (av == null) return;
         av.updateAlerts();
+
     }
 
     /*
