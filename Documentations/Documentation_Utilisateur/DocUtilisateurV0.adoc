@@ -37,9 +37,9 @@ L’objectif principal de l’application est d’offrir une expérience utilisa
 == III. Installation utilisation
 [.text-justify]
 
-Pour accéder au site, il faudra saisir son adresse dans la barre de recherche du navigateur web de votre choix (Microsoft Edge, Mozilla, Chrome, Opera,..) tout en étant connecté à Internet.
+Pour accéder au site, il suffit de saisir l’adresse web dans la barre de recherche de votre navigateur préféré (Microsoft Edge, Mozilla Firefox, Google Chrome, Opera, etc.), en veillant à être connecté à Internet
 
-L'adresse du site web est la suivante :
+L'adresse officielle du site est la suivante :
 
 http://193.54.227.208/~R2024SAE3004/SAE/index.php[Abraca-dabra-cadabra]
 
