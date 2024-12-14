@@ -26,8 +26,11 @@ Il vise à fournir une vision utilsateur en identifiant les besoisn, attentes et
 
 Le site e-commerce "Abraca-dabra-cadabra" est conçu pour offrir aux utilisateurs une plateforme simple et efficace leur permettant d’explorer, sélectionner et acheter une large gamme de produits magiques, allant des accessoires aux équipements pour amateurs et professionnels de la magie.
 Le rôle principal de l'application est de rendre Une navigation accessible et intuitive : 
+
 * Simplifier la découverte des produits et des services depuis tout type d’appareil.
+
 * Une expérience immersive : Plonger l’utilisateur dans l’univers magique d’Abraca-dabra-cadabra à travers des contenus interactifs, des descriptions captivantes et des conseils adaptés.
+
 * Un parcours d’achat optimisé : Faciliter chaque étape, de la recherche à la finalisation de l’achat, grâce à une interface fluide, un paiement sécurisé et des options personnalisées.
 
 == III. Installation utilisation
