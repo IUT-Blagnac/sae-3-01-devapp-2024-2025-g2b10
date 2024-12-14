@@ -18,21 +18,20 @@ image::../../images/LOGO IUT.png[IUT Blagnac, width=150, height=150]
 
 == I. Introduction
 [.text-justify]
-Ce document a été produit dans le contexte de la création d'un site web e-commerce pour l'entreprise _"Abraca-dabra-cadabra"_, du point de vue de l'utilisateur.
-Il vise à fournir une vision utilsateur en identifiant les besoisn, attentes et les fonctionnalités essentielles du site web.
+Ce document a été élaboré dans le cadre de la conception du site web e-commerce de l’entreprise "Abraca-dabra-cadabra". Il a pour objectif de fournir une perspective utilisateur en identifiant les besoins, attentes et fonctionnalités essentielles pour garantir une expérience la plus fluide et intuitive possible.
 
 == II. Présentation générale
 [.text-justify]
 
-Le site e-commerce "Abraca-dabra-cadabra" est conçu pour offrir aux utilisateurs une plateforme simple et efficace leur permettant d’explorer, sélectionner et acheter une large gamme de produits magiques, allant des accessoires aux équipements pour amateurs et professionnels de la magie.
+Le site e-commerce "Abraca-dabra-cadabra" est une plateforme dédiée à l’univers de la magie. Il permet aux utilisateurs de découvrir, sélectionner et acheter facilement une grande variété de produits magiques, des accessoires simples aux équipements professionnels, adaptés aux amateurs comme aux experts de la magie.
 
-Le rôle principal de l'application est de rendre Une navigation accessible et intuitive : 
+L’objectif principal de l’application est d’offrir une expérience utilisateur optimale grâce à :
 
-* Simplifier la découverte des produits et des services depuis tout type d’appareil.
+* Une navigation intuitive et accessible : Permettre aux utilisateurs de trouver rapidement les produits et services depuis n’importe quel appareil, qu’il s’agisse d’un ordinateur ou d’un smartphone.
 
-* Une expérience immersive : Plonger l’utilisateur dans l’univers magique d’Abraca-dabra-cadabra à travers des contenus interactifs, des descriptions captivantes et des conseils adaptés.
+* Une immersion totale dans l’univers magique : Captiver l’utilisateur avec des contenus interactifs, des descriptions riches, et des conseils personnalisés adaptés à ses besoins.
 
-* Un parcours d’achat optimisé : Faciliter chaque étape, de la recherche à la finalisation de l’achat, grâce à une interface fluide, un paiement sécurisé et des options personnalisées.
+* Un parcours d’achat simplifié et sécurisé : Assurer une recherche fluide, un processus de commande rapide, et des options de paiement fiables et personnalisées pour maximiser la satisfaction utilisateur.
 
 
 == III. Installation utilisation
