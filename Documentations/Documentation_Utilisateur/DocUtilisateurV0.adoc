@@ -34,9 +34,15 @@ Le rôle principal de l'application est de rendre Une navigation accessible et i
 
 * Un parcours d’achat optimisé : Faciliter chaque étape, de la recherche à la finalisation de l’achat, grâce à une interface fluide, un paiement sécurisé et des options personnalisées.
 
+
 == III. Installation utilisation
 [.text-justify]
-Explication pour installer et utiliser l'application.
+
+Pour accéder au site, il faudra saisir son adresse dans la barre de recherche du navigateur web de votre choix (Microsoft Edge, Mozilla, Chrome, Opera,..) tout en étant connecté à Internet.
+
+L'adresse du site web est la suivante :
+
+link:http://193.54.227.208/~R2024SAE3004/SAE/index.php
 
 == IV. Fonctionnement
 [.text-justify]
