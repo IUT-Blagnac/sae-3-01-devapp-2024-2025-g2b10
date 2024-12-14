@@ -42,9 +42,13 @@ Navigateur recommandé : Google Chrome, Mozilla Firefox, Microsoft Edge ou Safar
 Adresse du site : http://193.54.227.208/~R2024SAE3004/SAE/[abraca-dabra-cadabra.fr]
 
 Étapes pour accéder au site :
+
 1. Lancez votre navigateur.
+
 2. Saisissez l’adresse suivante dans la barre de recherche (ou cliquez sur le lien) : http://193.54.227.208/~R2024SAE3004/SAE/[abraca-dabra-cadabra.fr]
+
 3. Appuyez sur Entrée pour accéder à la page d’accueil.
+
 
 == IV. Fonctionnement
 [.text-justify]
