@@ -38,8 +38,11 @@ L’objectif principal de l’application est d’offrir une expérience utilisa
 [.text-justify]
 
 Requis : Un appareil connecté à Internet (ordinateur, tablette, smartphone).
+
 Navigateur recommandé : Google Chrome, Mozilla Firefox, Microsoft Edge ou Safari.
+
 Adresse du site : http://193.54.227.208/~R2024SAE3004/SAE/[abraca-dabra-cadabra.fr]
+
 
 Étapes pour accéder au site :
 
