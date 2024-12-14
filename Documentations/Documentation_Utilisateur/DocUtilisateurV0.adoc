@@ -37,15 +37,25 @@ L’objectif principal de l’application est d’offrir une expérience utilisa
 == III. Installation utilisation
 [.text-justify]
 
-Pour accéder au site, il suffit de saisir l’adresse web dans la barre de recherche de votre navigateur préféré (Microsoft Edge, Mozilla Firefox, Google Chrome, Opera, etc.), en veillant à être connecté à Internet
+Requis : Un appareil connecté à Internet (ordinateur, tablette, smartphone).
+Navigateur recommandé : Google Chrome, Mozilla Firefox, Microsoft Edge ou Safari.
+Adresse du site : http://193.54.227.208/~R2024SAE3004/SAE/[abraca-dabra-cadabra.fr]
 
-L'adresse officielle du site est la suivante :
-
-http://193.54.227.208/~R2024SAE3004/SAE/index.php[Abraca-dabra-cadabra]
+Étapes pour accéder au site :
+1. Lancez votre navigateur.
+2. Saisissez l’adresse suivante dans la barre de recherche (ou cliquez sur le lien) : http://193.54.227.208/~R2024SAE3004/SAE/[abraca-dabra-cadabra.fr]
+3. Appuyez sur Entrée pour accéder à la page d’accueil.
 
 == IV. Fonctionnement
 [.text-justify]
-Détail des fonctionnalités de l'application d'un point de vue utilisateur.
+
+=== IV.1. Page d'accueil
+
+En ce qui concerne le fonctionnement du site, à son lancement, on arrive sur la page d'accueil où l'on pourra trouver la barre de recherche, le menu (catégories, panier, compte) et la fonctionnalité 'Explorer' afin de faciliter la navigation pour l'utilisateur.
+
+Si vous avez une idée précise de ce que vous cherchez, 
+
+=== IV.1. Page d'accueil
 
 == V. Résultats produits
 [.text-justify]
