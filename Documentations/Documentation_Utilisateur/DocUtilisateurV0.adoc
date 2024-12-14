@@ -42,7 +42,7 @@ Pour accéder au site, il faudra saisir son adresse dans la barre de recherche d
 
 L'adresse du site web est la suivante :
 
-link:http://193.54.227.208/~R2024SAE3004/SAE/index.php
+http://193.54.227.208/~R2024SAE3004/SAE/index.php[Abraca-dabra-cadabra]
 
 == IV. Fonctionnement
 [.text-justify]
