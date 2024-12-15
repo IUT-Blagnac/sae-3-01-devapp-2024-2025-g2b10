@@ -109,7 +109,6 @@ En cliquant sur un produit, vous serez redirigé vers une page dédiée présent
 == V. Résultats produits
 [.text-justify]
 
-
 === V.1. Page d'accueil
 
 image::../../images/index.png[Figure 1. Page d'accueil]
