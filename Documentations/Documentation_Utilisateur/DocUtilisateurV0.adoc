@@ -53,39 +53,62 @@ Adresse du site : http://193.54.227.208/~R2024SAE3004/SAE/[abraca-dabra-cadabra.
 3. Appuyez sur Entrée pour accéder à la page d’accueil.
 
 
-== IV. Fonctionnement
-[.text-justify]
+= Fonctionnement du site web
 
-=== IV.1. Page d'accueil
+== IV.1. Page d'accueil
+La page d'accueil centralise toutes les fonctionnalités du site web et sert de point de départ pour la navigation. Elle est accessible à tout moment en cliquant sur le logo ou sur l'option "Accueil" dans le menu principal.
 
-La page d'accueil permet de centraliser toutes les fonctionnalités du site web elle est accessible depuis n'importe quelle page en cliquant sur le logo ou sur 'Accueil' dans le menu.
+== IV.2. Barre de recherche
+Une barre de recherche est disponible dans le menu principal sur la page d'accueil. Elle permet aux utilisateurs de trouver facilement des produits en saisissant un mot-clé. Après avoir entré un mot-clé et cliqué sur le bouton "Rechercher", une liste de produits correspondants s'affichera.
 
-=== IV.2. Barre de recherche
+== IV.3. Catégories
+L'option "Catégorie", située dans le menu principal, redirige vers une page listant toutes les catégories de produits disponibles. Chaque catégorie est cliquable et mène à une page affichant les produits associés. Ces produits peuvent ensuite être triés selon différents critères (par exemple, par prix ou popularité). L'utilisateur peut consulter une fiche produit détaillée en cliquant sur un produit spécifique.
 
-Sur la page d'accueil, au niveau du menu, vous pourrez voir une barre de recherche, destinée à faciliter la navigation de l'utilisateur en utilisant le mot clé donné pour lui afficher une page de produits y correspondant lorsque le bouton 'Rechercher' est pressé.
+== IV.4. Panier
 
-=== IV.3. Catégories
+* Sur la page détaillée d'un produit, un bouton "Ajouter au panier" permet d'ajouter l'article au panier.
 
-Toujours au niveau du menu, une option 'Catégorie' est proposée. Le site vous redirigera vers une page affichant toutes les catégories de produits proposés. Les catégories sont cliquables et vous amèneront à une page affichant tous les produits de la catégorie sélectionnée. Vous pourrez ensuite les trier normalement afin d'affiner votre recherche et choisir de consulter la fiche détaillée d'un produit en cliquant dessus.
+* Les articles ajoutés peuvent être consultés via la page "Panier", représentée par une icône de sac de shopping dans le menu principal.
 
-=== IV.4. Panier
+* La page panier permet de gérer les articles avant de finaliser la commande.
 
-Sur la page détail d'un produit vous aurez la possibilité d'ajouter l'article au panier en apuyant sur le bouton 'Ajouter au panier'. Vous retrouverez ensuite cet article dans votre page panier, représentée dans le menu par le sac de shopping.
+== IV.5. Comptes
 
-=== IV.5. Comptes
+* Navigation sans compte : La navigation sur le site est possible sans créer de compte.
 
-Il n'est pas nécessaire d'avoir un compte pour naviguer sur le site, cependant, au moment de passer commande ou de consulter son compte via l'icône 'Compte' du menu, la connexion vous sera demandée. Vous pourrez soit vous identifier avec un compte existant soit en créer un (utilisable immédiatement).
+* Connexion obligatoire pour passer commande : Lors du processus de commande ou lors de l'accès à la section "Compte", il est nécessaire de se connecter.
 
-Vous pourrez ensuite accéder à votre espace client, contenant vos commandes passées, vos coordonnées (e-mail, numéro de téléphone, adresse) et vos points de fidélités.
+** Options de connexion : Vous pouvez vous connecter avec un compte existant ou créer un nouveau compte qui sera utilisable immédiatement.
 
-=== IV.3. Explorer
+* Espace client : Une fois connecté, vous aurez accès à :
 
-La page 'Explorer' présente sur la page d'accueil via le bouton 'Explorer' permet, comme son nom l'indique, au client de découvrir le catalogue de produits proposé par Abraca-dabra-cadabra sans restrictions. Cependant, il est toujours possible de trier par prix, avis, groupe ou catégorie depuis cette page.
+** Vos commandes passées.
 
+** Vos informations personnelles (e-mail, numéro de téléphone, adresse).
+
+** Vos points de fidélité.
+
+== IV.6. Explorer
+Accessible depuis la page d'accueil via le bouton "Explorer", cette fonctionnalité permet de parcourir l'ensemble du catalogue de produits sans restrictions. Cependant, des options de tri (par prix, avis, catégorie, etc.) sont disponibles pour affiner votre recherche.
+
+== IV.7. Fiche produit détaillée
+En cliquant sur un produit, vous serez redirigé vers une page dédiée présentant les informations suivantes :
+
+* Une photo du produit.
+
+* Le nom du produit.
+
+* Les détails et caractéristiques du produit.
+
+* La possibilité de laisser un avis (si vous avez acheté le produit).
+
+* Un champ pour indiquer la quantité souhaitée.
+
+* Un bouton "Ajouter au panier" pour inclure le produit à votre commande.
 
 == V. Résultats produits
 [.text-justify]
-Démonstration des résultats produits, avec les jeux d'essai commentés.
+
 
 === V.1. Page d'accueil
 
