@@ -12,6 +12,6 @@ Créé par : _MARTINEZ Quentin_ | _CHAUVIERE Romy_ | _ESTIENNE Alban-Moussa_ | _
 Créé pour : _Esther Pendaries_
 
 image::../../images/IUT.png[IUT Blagnac]
-image::../../images/LOGO IUT.png[IUT Blagnac, width=150, height=150]
+image::../../images/LOGO IUT.png[IUT Blagnac, width=300, height=150]
 
 ---
