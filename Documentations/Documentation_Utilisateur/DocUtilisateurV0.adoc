@@ -89,20 +89,20 @@ Démonstration des résultats produits, avec les jeux d'essai commentés.
 
 === V.1. Page d'accueil
 
-images/index.png
+image::../../images/index.png[Figure 1. Page d'accueil]
 
 === V.3. Catégories
 
-images/index.png
+image::../../images/index.png[Figure 2. Page des catégories]
 
 === V.4. Panier
 
-images/panier.png
+image::../../images/panier.png[Figure 3. Page panier]
 
 === V.5. Compte
 
-images/compte.png
+image::../../images/compte.png[Figure 4. Espace compte client]
 
 === V.3. Explorer
 
-images/explorer.png
+image::../../images/explorer.png[Figure 5. Page Explorer]
