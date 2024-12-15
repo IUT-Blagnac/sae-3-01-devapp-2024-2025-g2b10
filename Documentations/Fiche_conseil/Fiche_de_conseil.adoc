@@ -1,4 +1,4 @@
-= Documentation Technique - Abraca-dabra-cadabra
+=  Fiche de conseils juridiques et de sécurité - Abraca-dabra-cadabra
 :toc:
 :toc-title: Sommaire
 
@@ -16,4 +16,35 @@ image::../../images/LOGO IUT.png[IUT Blagnac, width=150, height=150]
 
 ---
 
-== I. Introduction
+== 1. Liste des mentions légales 
+
+=== Mentions légales obligatoires :
+
+- **Identité de l'entreprise :**  
+  Nom, prénom et adresse.  
+  - Si vous êtes entrepreneur individuel (y compris micro-entrepreneur), vos nom et prénom doivent être accompagnés de la mention *entrepreneur individuel* ou des initiales correspondantes.
+
+- **Numéro d'immatriculation au RCS :**  
+  RCS (Registre du commerce et des sociétés).
+
+- **Coordonnées de contact :**  
+  Adresse email et numéro de téléphone permettant de joindre votre entreprise.
+
+- **Identité de l'hébergeur :**  
+  Nom et coordonnées de l’hébergeur du site web.
+
+- **Conditions Générales de Vente (CGV) :**  
+  Les CGV encadrent les relations commerciales et doivent préciser notamment les produits/services vendus, les prix, les modalités de paiement et livraison, ainsi que le droit de rétractation et la gestion des litiges. *(À revoir et compléter selon les besoins spécifiques.)*
+
+- **Données personnelles :**  
+  Informer les internautes des traitements de leurs données personnelles (finalité, durée de conservation, droits d'accès, rectification, suppression, etc.).
+
+- **Résiliation du contrat :**  
+  Fournir des informations claires sur les modalités de résiliation.
+
+- **Cookies :**  
+  Expliquer leur usage et permettre aux internautes d’accepter ou de rejeter les cookies facilement.
+
+- **Propriété intellectuelle :**  
+  Indiquer la protection des contenus du site (textes, images, logos, etc.) au titre du droit d’auteur et des droits voisins.
+
