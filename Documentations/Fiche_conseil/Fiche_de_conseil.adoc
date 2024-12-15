@@ -16,10 +16,7 @@ image::../../images/LOGO IUT.png[IUT Blagnac, width=150, height=150]
 
 ---
 
-== Votre fiche conseil 
-
-=== 1. La liste des mentions légales que doit comporter le site WEB et préciser les mentions actuellement manquantes sur le site de votre client. 
-
+=== 1. La liste des mentions légales que doit comporter le site WEB .
 ==== Mentions légales obligatoires :
 
 - **Identité de l'entreprise :**  
