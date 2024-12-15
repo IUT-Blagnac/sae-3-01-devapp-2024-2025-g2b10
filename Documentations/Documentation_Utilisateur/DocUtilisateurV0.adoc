@@ -58,11 +58,30 @@ Adresse du site : http://193.54.227.208/~R2024SAE3004/SAE/[abraca-dabra-cadabra.
 
 === IV.1. Page d'accueil
 
-En ce qui concerne le fonctionnement du site, à son lancement, on arrive sur la page d'accueil où l'on pourra trouver la barre de recherche, le menu (catégories, panier, compte) et la fonctionnalité 'Explorer' afin de faciliter la navigation pour l'utilisateur.
+La page d'accueil permet de centraliser toutes les fonctionnalités du site web elle est accessible depuis n'importe quelle page en cliquant sur le logo ou sur 'Accueil' dans le menu.
 
-Si vous avez une idée précise de ce que vous cherchez, 
+==== IV.2. Barre de recherche
 
-=== IV.1. Page d'accueil
+Sur la page d'accueil, au niveau du menu, vous pourrez voir une barre de recherche, destinée à faciliter la navigation de l'utilisateur en utilisant le mot clé donné pour lui afficher une page de produits y correspondant lorsque le bouton 'Rechercher' est pressé.
+
+==== IV.3. Catégories
+
+Toujours au niveau du menu, une option 'Catégorie' est proposée. Le site vous redirigera vers une page affichant toutes les catégories de produits proposés. Les catégories sont cliquables et vous amèneront à une page affichant tous les produits de la catégorie sélectionnée. Vous pourrez ensuite les trier normalement afin d'affiner votre recherche et choisir de consulter la fiche détaillée d'un produit en cliquant dessus.
+
+==== IV.4. Panier
+
+Sur la page détail d'un produit vous aurez la possibilité d'ajouter l'article au panier en apuyant sur le bouton 'Ajouter au panier'. Vous retrouverez ensuite cet article dans votre page panier, représentée dans le menu par le sac de shopping.
+
+==== IV.5. Comptes
+
+Il n'st pas nécessaire d'avoir un compte pour naviguer sur le site, cependant, au moment de passer commande ou de consulter son compte via l'icône 'Compte' du menu, la connexion vous sera demandée. Vous pourrez soit vous identifier avec un compte existant soit en créer un (utilisable immédiatement).
+
+Vous pourrez ensuite accéder à votre espace client, contenant vos commandes passées, vos coordonnées (e-mail, numéro de téléphone, adresse) et vos points de fidélités.
+
+==== IV.3. Explorer
+
+La page 'Explorer' présente sur la page d'accueil via le bouton 'Explorer' permet, comme son nom l'indique, au client de découvrir le catalogue de produits proposé par Abraca-dabra-cadabra sans restrictions. Cependant, il est toujours possible de trier par prix, avis, groupe ou catégorie depuis cette page.
+
 
 == V. Résultats produits
 [.text-justify]
