@@ -16,35 +16,38 @@ image::../../images/LOGO IUT.png[IUT Blagnac, width=150, height=150]
 
 ---
 
-== 1. Liste des mentions légales 
+== Votre fiche conseil 
 
-=== Mentions légales obligatoires :
+=== 1. La liste des mentions légales que doit comporter le site WEB et préciser les mentions actuellement manquantes sur le site de votre client. 
+
+==== Mentions légales obligatoires :
 
 - **Identité de l'entreprise :**  
   Nom, prénom et adresse.  
-  - Si vous êtes entrepreneur individuel (y compris micro-entrepreneur), vos nom et prénom doivent être accompagnés de la mention *entrepreneur individuel* ou des initiales correspondantes.
+  - Si vous êtes entrepreneur individuel (y compris micro-entrepreneur), vos nom et prénom sont accompagnés de la mention *entrepreneur individuel* ou des initiales correspondantes.  
 
 - **Numéro d'immatriculation au RCS :**  
-  RCS (Registre du commerce et des sociétés).
+  RCS (Registre du commerce et des sociétés).  
 
-- **Coordonnées de contact :**  
-  Adresse email et numéro de téléphone permettant de joindre votre entreprise.
+- **Mail et numéro de téléphone :**  
+  Informations nécessaires pour contacter votre entreprise.  
 
 - **Identité de l'hébergeur :**  
-  Nom et coordonnées de l’hébergeur du site web.
+  Nom et coordonnées de l’hébergeur du site web.  
 
 - **Conditions Générales de Vente (CGV) :**  
-  Les CGV encadrent les relations commerciales et doivent préciser notamment les produits/services vendus, les prix, les modalités de paiement et livraison, ainsi que le droit de rétractation et la gestion des litiges. *(À revoir et compléter selon les besoins spécifiques.)*
+  Les CGV encadrent les relations commerciales. *(À revoir.)*  
 
 - **Données personnelles :**  
-  Informer les internautes des traitements de leurs données personnelles (finalité, durée de conservation, droits d'accès, rectification, suppression, etc.).
+  Informer l'internaute sur la gestion et la protection de ses données personnelles.  
 
 - **Résiliation du contrat :**  
-  Fournir des informations claires sur les modalités de résiliation.
+  Fournir des informations claires sur les modalités de résiliation.  
 
 - **Cookies :**  
-  Expliquer leur usage et permettre aux internautes d’accepter ou de rejeter les cookies facilement.
+  Informations sur leur usage et modalités d’acceptation ou de rejet.  
 
 - **Propriété intellectuelle :**  
-  Indiquer la protection des contenus du site (textes, images, logos, etc.) au titre du droit d’auteur et des droits voisins.
+  Indication sur la protection des contenus (textes, images, logos).  
+
 
