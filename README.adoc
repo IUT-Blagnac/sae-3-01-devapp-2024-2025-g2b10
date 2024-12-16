@@ -52,9 +52,9 @@ toc::[]
 
 Projet est réalisé par::
 
-- https://github.com/Cracotte-Mu-Da[GIARD--PELLAT Jules] : *Développeur*
+- https://github.com/Cracotte-Mu-Da[GIARD--PELLAT Jules] : *Scrum Master*
 - https://github.com/Romy514[CHAUVIERE Romy] *Développeuse*
-- https://github.com/AlbiMousse[ESTIENNE Alban-Moussa] *Product Owner et Scrum Master*
+- https://github.com/AlbiMousse[ESTIENNE Alban-Moussa] *Product Owner*
 - https://github.com/Quentin158[MARTINEZ Quentin] *Développeur*
 - https://github.com/Matthias426[PAPA-PATSOUMOUDOU Matthias] *Développeur*
 
