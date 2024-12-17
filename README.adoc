@@ -89,10 +89,10 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 | Sem.49  | Ordre du jour #4      |     https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%234.pdf[Ordre du jour #4] 
 |  | Compte Rendu #4|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%234.pdf[Compte Rendu #4] 
 |  | IHM v2|  https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/tree/9ce4c98b813b1c42e13d9a0b26fd51eabc55efaf/java_iot1.0.0_alpha[Application JavaFX]
-|  | PHP v1|   [PHP v1]
+|  | PHP v1|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/releases/tag/v0.1.0[PHP v1]
 | Sem.50  | Ordre du jour #5      | https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%235.pdf[Ordre du jour #5] 
 |  | Compte Rendu #5| https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%235.pdf[Compte Rendu #5] 
-|  | PHP v2|   [PHP v2]
+|  | PHP v2|   https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/releases/tag/v0.2.0[PHP v2]
 |===
 
 === Evaluation communication EP
