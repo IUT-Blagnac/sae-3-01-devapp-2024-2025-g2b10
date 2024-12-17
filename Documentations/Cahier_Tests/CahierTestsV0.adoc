@@ -118,7 +118,7 @@ Compléter et si on ne valide pas, ...
 
 |====
 
->|Cas de test 4+|Test-01-04-01
+>|Cas de test 4+|Test-01-05-01
 >|Titre 4+|Ajout d'un article choisi au panier
 >|Objectif 4+| Vérifier qu'un visiteur peut ajouter un produit à son panier
 
@@ -147,7 +147,7 @@ Compléter et si on ne valide pas, ...
 
 |====
 
->|Cas de test 4+|Test-01-05-01
+>|Cas de test 4+|Test-01-07-01
 >|Titre 4+|Création d'un compte
 >|Objectif 4+| Vérifier que les visiteurs peuvent créer un compte
 
