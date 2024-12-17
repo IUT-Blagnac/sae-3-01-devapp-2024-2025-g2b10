@@ -125,7 +125,7 @@ Compléter et si on ne valide pas, ...
 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|Visit_Panier.1 ^|Cliquer sur 'Ajouter au panier' ^|Le produit sur lequel on effectue l'action est ajouté au panier ^|Le produit est actif et le visiteur est sur sa page détail ^| Non OK
+^|Visit_Panier.1 ^|Cliquer sur 'Ajouter au panier' ^|Le produit sur lequel on effectue l'action est ajouté au panier ^|Le produit est actif et le visiteur est sur sa page détail ^| OK
 |====
 
 
