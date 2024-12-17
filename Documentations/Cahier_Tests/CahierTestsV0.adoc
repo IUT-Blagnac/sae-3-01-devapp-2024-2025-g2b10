@@ -58,7 +58,7 @@ Configuration recommandée :
 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|Visit_Prod.1 ^|Accéder à la page d'accueil du site. ^|La liste des produits est affichée avec leurs noms, images, prix et notes. ^|Le site contient des produits actifs. ^|
+^|Visit_Prod.1 ^|Accéder à la page d'accueil du site. ^|La liste des produits est affichée avec leurs noms, images, prix et notes. ^|Le site contient des produits actifs. ^| OK
 
 5+|
 
@@ -78,8 +78,8 @@ Compléter et si on ne valide pas, ...
 5+|
 
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|Visit_Recherche.1 ^|Saisir un mot-clé dans la barre de recherche et valider. ^|Les produits correspondants s'affichent. ^|Des produits correspondent au mot-clé saisi. ^|
-^|Visit_Recherche.2 ^|Saisir un mot-clé inexistant. ^|Message "Aucun produit trouvé". ^|Aucun produit ne correspond au mot-clé saisi. ^|
+^|Visit_Recherche.1 ^|Saisir un mot-clé dans la barre de recherche et valider. ^|Les produits correspondants s'affichent. ^|Des produits correspondent au mot-clé saisi. ^| OK
+^|Visit_Recherche.2 ^|Saisir un mot-clé inexistant. ^|Message "Aucun produit trouvé". ^|Aucun produit ne correspond au mot-clé saisi. ^| Non OK
 
 |====
 
@@ -94,7 +94,9 @@ Compléter et si on ne valide pas, ...
 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|Visit_Tri.1 ^|Sélectionner le tri par "Prix croissant". ^|Les produits s’affichent dans l’ordre des prix croissants. ^|Des produits avec des prix différents existent. ^|
+^|Visit_Tri.1 ^|Sélectionner le tri par "Prix croissant". ^|Les produits s’affichent dans l’ordre des prix croissants. ^|Des produits avec des prix différents existent. ^| OK
+^|Visit_Tri.2 ^|Sélectionner le tri par "Prix décroissant". ^|Les produits s’affichent dans l’ordre des prix décroissants. ^|Des produits avec des prix différents existent. ^| OK
+^|Visit_Tri.3 ^|Sélectionner le tri par "Groupe". ^|Les produits appartenant au groupe s'affichent. ^|Des produits appartenant à ce groupe existent. ^| Non OK
 |====
 
 ==== 1.4 Détails d'un produits :
@@ -108,7 +110,7 @@ Compléter et si on ne valide pas, ...
 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|Visit_Detail.1 ^|Cliquer sur un produit. ^|La page de détail s’affiche avec description, prix, avis, etc. ^|Le produit est actif. ^|
+^|Visit_Detail.1 ^|Cliquer sur un produit. ^|La page de détail s’affiche avec description, prix, avis, etc. ^|Le produit est actif. ^| Non OK
 |====
 
 ==== 1.5 Création d'un compte :
@@ -121,9 +123,22 @@ Compléter et si on ne valide pas, ...
 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|Visit_Compte.1 ^|Cliquer sur "Créer un compte" et remplir les champs obligatoires. ^|Un compte est créé et l’utilisateur est connecté. ^|Les données saisies sont valides. ^|
+^|Visit_Compte.1 ^|Cliquer sur "Créer un compte" et remplir les champs obligatoires. ^|Un compte est créé et l’utilisateur est connecté. ^|Les données saisies sont valides. ^|OK
 |====
 
+==== 1.6 Consulter une catégorie :
+
+|====
+
+>|Cas de test 4+|Test-01-06-01
+>|Titre 4+|Voir les catégories
+>|Objectif 4+| Visualiser l'ensemble des catégories du site web
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Visit_Categorie.1 ^|Cliquer sur "Catégorie". ^|L'ensemble des catégories apparaissent. ^|Les catégories existent. ^|OK
+^|Visit_Categorie.2 ^|Cliquer sur une catégorie pour accéder aux sous-catégories. ^|L'ensemble des sous-catégories de la catégorie choisie apparaissent. ^|Les sous-catégories existent. ^|OK
+|====
 
 === 2. Fonctionnalités client :
 [.text-justify]
