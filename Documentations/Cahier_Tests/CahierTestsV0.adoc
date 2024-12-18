@@ -17,7 +17,7 @@ image::../../images/LOGO IUT.png[IUT Blagnac, width=150, height=150]
 ---
 
 == I. Introduction
-=== 1. Objet :
+=== 1. Objet 
 [.text-justify]
 Ce document a été produit dans le cadre de la création et de la validation d'un site web e-commerce pour l'entreprise _"Abraca-dabra-cadabra"_.
 Le site permet aux utilisateurs de rechercher, comparer, acheter des produits, et aux administrateurs de gérer l'inventaire et les commandes.
