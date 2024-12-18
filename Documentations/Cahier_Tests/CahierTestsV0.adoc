@@ -152,9 +152,9 @@ Compléter et si on ne valide pas, ...
 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|Visit_Panier.1 ^|Cliquer sur l'icône 'Panier' dans le menu ^|Le total est mis à jour. ^|Le produit est dans le panier. ^| OK
+^|Visit_Panier.1 ^|Cliquer sur l'icône 'Panier' dans le menu ^|Le panier s'affiche ^| ^| OK
 ^|Visit_Panier.2 ^|Changer la quantité d’un produit. ^|Le total est mis à jour. ^|Le produit est dans le panier. ^| OK
-^|Visit_Panier.3 ^|Supprimer un produit. ^|Le panier n'est plus dans le panier et le total est mis à jour. ^|Le produit est dans le panier. ^| Non OK
+^|Visit_Panier.3 ^|Supprimer un produit. ^|Le panier n'est plus dans le panier et le total est mis à jour. ^|Le produit est dans le panier. ^| OK
 |====
 
 ==== 1.8 Création d'un compte :
@@ -201,42 +201,31 @@ Les clients ont accès aux mêmes fonctionnalités que les visiteurs, ainsi que 
 ^|Client_Avis.2 ^|Remplir le formulaire et confirmer ^|L'avis est maintenant visible sur la page produit et son espace client ^|Les données saisies sont valides ^| Non OK
 |====
 
-==== 2.2 Gestion du panier :
+==== 2.2 Gestion des commandes :
 
 |====
 >|Cas de test 4+|Test-02-02-01
->|Titre 4+|Gestion des produits dans le panier
->|Objectif 4+| Vérifier que les clients peuvent modifier leur panier
-
-5+|
-^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|Client_Panier.1 ^|Changer la quantité d’un produit. ^|Le total est mis à jour. ^|Le produit est dans le panier. ^| OK
-^|Client_Panier.2 ^|Supprimer un produit. ^|Le panier n'est plus dans le panier et le total est mis à jour. ^|Le produit est dans le panier. ^| Non OK
-|====
-
-==== 2.3 Gestion des commandes :
-
-|====
->|Cas de test 4+|Test-02-03-01
 >|Titre 4+|Gestion des commandes
 >|Objectif 4+| Vérifier que les clients peuvent passer commande et les consulter
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|Client_Commande.1 ^|Passer commande depuis le panier ^|Redirige vers un récapitulatif de commande ^|Le panier n'est pas vide ^| Non OK
+^|Client_Commande.1 ^|Cliquer sur 'Passer commande' depuis le panier ^|Redirige vers un récapitulatif de commande ^|Le panier n'est pas vide ^| OK
 ^|Client_Commande.2 ^|Saisir l'adresse de livraison, le mode de livraison, de paiement et valider ^|La commande est enregistrée^|Etre sur le récapitulatif de commande^| Non OK
 ^|Client_Commande.3 ^|Cliquer sur 'Mes commandes' ^| Affiche les commandes passées ^|Etre sur l'espace Client (icône 'Compte')^| Non OK
 |====
 
-==== 2.4 Points de fidélité :
+==== 2.3 Points de fidélité :
 
 |====
->|Cas de test 4+|Test-02-04-01
+>|Cas de test 4+|Test-02-03-01
 >|Titre 4+|Gestion des points de fidélité
 >|Objectif 4+| Vérifier que les clients peuvent consulter leurs points
 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|Client_Points.1 ^|Accéder à la section "Mes points". ^|Les points de fidélité sont affichés. ^|Le client a des points. ^|
+^|Client_Points.1 ^|Accéder à la section "Mes points". ^|Les points de fidélité sont affichés. ^|Le client a des points. ^| OK
+^|Client_Points.1 ^|Accéder à la section "Mes points". ^|Les points de fidélité ont augmenté ^|Le client a passé commande ^| Non OK
+
 |====
 
 === 3. Fonctionnalités administrateur 
