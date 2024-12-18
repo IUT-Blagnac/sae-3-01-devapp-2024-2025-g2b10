@@ -31,7 +31,7 @@ L'exécution des tests spécifiés au chapitre suivant requiert :
 * Un jeu de données réalistes (produits, utilisateurs enregistrés, avis, etc.).
 
 
-=== 1. Éléments à tester :
+=== 1. Éléments à tester 
 [.text-justify]
 Les fonctionnalités sont testées selon les **user stories** :
 
@@ -39,7 +39,7 @@ Les fonctionnalités sont testées selon les **user stories** :
 - **Client** : fonctionnalités avancées liées aux commandes, avis, et suivi de compte.
 - **Administrateur** : gestion des stocks, produits, et gestion clients.
 
-=== 2. Environnement de test :
+=== 2. Environnement de test 
 [.text-justify]
 Configuration recommandée :
 
