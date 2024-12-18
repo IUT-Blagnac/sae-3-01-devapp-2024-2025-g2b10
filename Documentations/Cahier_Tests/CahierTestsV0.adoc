@@ -22,7 +22,7 @@ image::../../images/LOGO IUT.png[IUT Blagnac, width=150, height=150]
 Ce document a été produit dans le cadre de la création et de la validation d'un site web e-commerce pour l'entreprise _"Abraca-dabra-cadabra"_.
 Le site permet aux utilisateurs de rechercher, comparer, acheter des produits, et aux administrateurs de gérer l'inventaire et les commandes.
 
-== II. Pre-Requis :
+== II. Pre-Requis 
 [.text-justify]
 L'exécution des tests spécifiés au chapitre suivant requiert :
 
@@ -46,8 +46,8 @@ Configuration recommandée :
 * Système d’exploitation Windows/MacOS/Linux.
 * Navigateurs pris en charge : Chrome, Firefox, Edge...
 
-== III. Cas de test :
-=== 1. Fonctionnalités visiteur :
+== III. Cas de test 
+=== 1. Fonctionnalités visiteur 
 ==== 1.1 Consultation des produits :
 
 |====
@@ -144,6 +144,8 @@ Compléter et si on ne valide pas, ...
 
 ==== 1.7 Gestion du panier :
 
+|====
+
 >|Cas de test 4+|Test-01-07-01
 >|Titre 4+|Gestion des produits dans le panier
 >|Objectif 4+| Vérifier que les clients peuvent accéder et modifier leur panier
@@ -182,7 +184,7 @@ Compléter et si on ne valide pas, ...
 ^|Visit_ConnCompte.1 ^|Cliquer sur l'icône 'Compte' dans le menu et remplir les champs obligatoires. ^|L’utilisateur est connecté. ^|Les données saisies sont valides. ^|OK
 |====
 
-=== 2. Fonctionnalités client :
+=== 2. Fonctionnalités client 
 [.text-justify]
 Les clients ont accès aux mêmes fonctionnalités que les visiteurs, ainsi que d'autres qui leur sont réservées.
 
@@ -237,7 +239,7 @@ Les clients ont accès aux mêmes fonctionnalités que les visiteurs, ainsi que 
 ^|Client_Points.1 ^|Accéder à la section "Mes points". ^|Les points de fidélité sont affichés. ^|Le client a des points. ^|
 |====
 
-=== 3. Fonctionnalités administrateur :
+=== 3. Fonctionnalités administrateur 
 ==== 3.1 Gestion des stocks :
 
 |====
