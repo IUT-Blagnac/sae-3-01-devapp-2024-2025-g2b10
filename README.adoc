@@ -107,6 +107,12 @@ ODJ : pensez à indiquer le temps consacré à chaque thème. CR : Bien pensez �
 note : 2,8/3
 note appel offre : 8,58/20 avec malus surnotation des autres équipes
 
+==== retour semaine 50
+ODJ OK CR ok mais préciser les changements dans le CR (ex. le point client n'est pas noté dans l'ODJ).
+note : 2,66/3
+
+
+
 == Réalisations 
 
 Nous mettons à disposition plusieurs documents pour vous aider à comprendre à utiliser notre projet. Ces documents incluent :
@@ -176,7 +182,7 @@ Il manque les rôles de chacun. Je ne trouve ni backlog de sprint, ni backlog pr
 Backlog : j'ai des US mais pas de backlog produit avec evaluation de la complexité: il manque les finalités (afin de ) dans les US et critères acceptabilité. Backlog de sprint : ok milestone de sprint indiqué mais confus j'ai un projet mais on ne sait pas dans quel sprint on est !  Les US ne sont pas demandées en IOT. Tasks : Il faut les assigner et les rattacher à une US, je dois voir les tâches en cours de traitement dans le board du projet. Tests ok mais mettre à jour les résultats ! DOCS : coneption ok, pour user et tech à avancer on est à mi projet !! release ok 
 
 === Retour semaine 50
-Attention la création de la structure du site Web n'est pas une US mais une tâche rattachée à une US. Je pense que le nom de votre US est maladroit. Dommage, le seul bémol est la gestion des sprints et surtout l'éclatement des US en tâches. Doc tec pensez à commenter les diagrammes. La dos user est surtout à destination du futur admin ... bien repenser la cible, les internautes auront une aide en ligne. Globalement c'est bien.
+Attention la création de la structure du site Web n'est pas une US mais une tâche rattachée à une US. Je pense que le nom de votre US est maladroit. Dommage, le seul bémol est la gestion des sprints et surtout l'éclatement des US en tâches. Doc tec pensez à commenter les diagrammes. La doc user est surtout à destination du futur admin ... bien repenser la cible, les internautes auront une aide en ligne. Globalement c'est bien.
 
 === Attendus
 Chaque sprint (semaine) vous devrez livrer une nouvelle version de votre application (release).
