@@ -27,13 +27,13 @@ image::../../images/LOGO IUT.png[IUT Blagnac, width=150, height=150]
   RCS (Registre du commerce et des sociétés).  
 
 - **Mail et numéro de téléphone :**  
-  Informations nécessaires pour contacter votre entreprise.  
+  Informations nécessaires pour contacter l'entreprise.  
 
 - **Identité de l'hébergeur :**  
   Nom et coordonnées de l’hébergeur du site web.  
 
 - **Conditions Générales de Vente (CGV) :**  
-  Les CGV encadrent les relations commerciales. *(À revoir.)*  
+  Les CGV encadrent les relations commerciales. 
 
 - **Données personnelles :**  
   Informer l'internaute sur la gestion et la protection de ses données personnelles.  
