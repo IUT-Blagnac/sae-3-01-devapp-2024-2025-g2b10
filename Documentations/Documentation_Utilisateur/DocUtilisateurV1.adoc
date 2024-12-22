@@ -38,8 +38,7 @@ Les administrateurs jouent un rôle central dans le bon fonctionnement du site e
 
 === 2. Connexion  
 . Ouvrez votre navigateur.  
-. Accédez à l’URL dédiée au panneau d’administration :  
-`http://193.54.227.208/~R2024SAE3004/admin`  
+. Accédez à l’URL dédiée au panneau d’administration
 . Entrez vos identifiants administrateur et cliquez sur "Se connecter".  
 . Vous serez redirigé vers le tableau de bord principal.  
 
