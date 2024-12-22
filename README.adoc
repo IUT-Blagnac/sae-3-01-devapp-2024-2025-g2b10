@@ -131,7 +131,7 @@ Ce document est destiné aux développeurs et contributeurs techniques. Il décr
 Ce document est destiné aux développeurs et contributeurs techniques. 
 Il contient des informations détaillées sur l'architecture, le code, et les technologies utilisées dans ce projet.
 
-- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Documentation_Technique/DocTechniqueV0.adoc[Documentation Technique]
+- Lien : https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Documentation_Technique/DocTechniqueV1.adoc[Documentation Technique]
 
 === 🧑‍💻 Documentation utilisateur
 Ce document s'adresse aux utilisateurs finaux. Il explique comment utiliser le projet et ses fonctionnalités.
