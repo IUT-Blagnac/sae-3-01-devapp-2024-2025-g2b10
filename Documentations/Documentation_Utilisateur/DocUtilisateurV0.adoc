@@ -1,20 +1,29 @@
-= Documentation Utilisateur - Abraca-dabra-cadabra
-:toc:
-:toc-title: Sommaire
+= Documentation Utilisateur - Abraca-dabra-cadabra  
+:toc: macro
+:toc-title: Sommaire  
 
-:Entreprise: Abraca-dabra-cadabra
-:Equipe:  
+*Entreprise* : Abraca-dabra-cadabra  
 
-Date: 20/11/2024
+*Equipe* :  2B10
 
-Créé par : _MARTINEZ Quentin_ | _CHAUVIERE Romy_ | _ESTIENNE Alban-Moussa_ | _PAPA-PATSOUMOUDOU Matthias_ | _GIARD--PELLAT Jules_ 
+*Membres* :
 
-Créé pour : _Esther Pendaries_
+** MARTINEZ Quentin
+** CHAUVIERE Romy
+** ESTIENNE Alban-Moussa
+** PAPA-PATSOUMOUDOU Matthias
+** GIARD--PELLAT Jules
 
-image::../../images/IUT.png[IUT Blagnac]
-image::../../images/LOGO IUT.png[IUT Blagnac, width=150, height=150]
+*Date* : 27/12/2024  
 
----
+*Créé pour* : _Esther Pendaries_  
+
+image::../../images/IUT.png[IUT Blagnac]  
+image::../../images/LOGO IUT.png[IUT Blagnac, width=150, height=150]  
+
+'''
+
+toc::[]
 
 == I. Introduction
 [.text-justify]
