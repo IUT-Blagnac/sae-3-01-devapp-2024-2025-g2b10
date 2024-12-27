@@ -22,7 +22,7 @@ image::../../images/LOGO IUT.png[IUT Blagnac, width=150, height=150]
 Ce document a été produit dans le cadre de la création et de la validation d'un site web e-commerce pour l'entreprise _"Abraca-dabra-cadabra"_.
 Le site permet aux utilisateurs de rechercher, comparer, acheter des produits, et aux administrateurs de gérer l'inventaire et les commandes.
 
-== II. Pre-Requis 
+== II. Pré-Requis 
 [.text-justify]
 L'exécution des tests spécifiés au chapitre suivant requiert :
 
@@ -79,7 +79,7 @@ Compléter et si on ne valide pas, ...
 
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
 ^|Visit_Recherche.1 ^|Saisir un mot-clé dans la barre de recherche sur le menu et valider. ^|Les produits correspondants s'affichent. ^|Des produits correspondent au mot-clé saisi. ^| OK
-^|Visit_Recherche.2 ^|Saisir un mot-clé inexistant. ^|Message "Aucun produit trouvé". ^|Aucun produit ne correspond au mot-clé saisi. ^| Non OK
+^|Visit_Recherche.2 ^|Saisir un mot-clé inexistant. ^|Message "Aucun produit trouvé". ^|Aucun produit ne correspond au mot-clé saisi. ^| OK
 
 |====
 
