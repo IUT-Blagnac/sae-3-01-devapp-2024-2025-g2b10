@@ -110,7 +110,7 @@ Compléter et si on ne valide pas, ...
 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|Visit_Detail.1 ^|Cliquer sur un produit. ^|La page de détail s’affiche avec description, prix, avis, stock, etc. ^|Le visteur est sur une page de consultation des produits ^| Non OK
+^|Visit_Detail.1 ^|Cliquer sur un produit. ^|La page de détail s’affiche avec description, prix, avis, stock, etc. ^|Le visteur est sur une page de consultation des produits ^| OK
 |====
 
 ==== 1.4 Ajout au panier :
@@ -197,7 +197,7 @@ Les clients ont accès aux mêmes fonctionnalités que les visiteurs, ainsi que 
 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|Client_Avis.1 ^|Cliquer sur "Écrire un avis". ^|Un formulaire s’affiche. ^|Le produit a été acheté. ^| Non OK
+^|Client_Avis.1 ^|Cliquer sur "Écrire un avis". ^|Un formulaire s’affiche. ^|Le produit a été acheté. ^| OK
 ^|Client_Avis.2 ^|Remplir le formulaire et confirmer ^|L'avis est maintenant visible sur la page produit et son espace client ^|Les données saisies sont valides ^| Non OK
 |====
 
@@ -210,8 +210,8 @@ Les clients ont accès aux mêmes fonctionnalités que les visiteurs, ainsi que 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
 ^|Client_Commande.1 ^|Cliquer sur 'Passer commande' depuis le panier ^|Redirige vers un récapitulatif de commande ^|Le panier n'est pas vide ^| OK
-^|Client_Commande.2 ^|Saisir l'adresse de livraison, le mode de livraison, de paiement et valider ^|La commande est enregistrée^|Etre sur le récapitulatif de commande^| Non OK
-^|Client_Commande.3 ^|Cliquer sur 'Mes commandes' ^| Affiche les commandes passées ^|Etre sur l'espace Client (icône 'Compte')^| Non OK
+^|Client_Commande.2 ^|Saisir l'adresse de livraison, le mode de livraison, de paiement et valider ^|La commande est enregistrée^|Etre sur le récapitulatif de commande^| OK
+^|Client_Commande.3 ^|Cliquer sur 'Mes commandes' ^| Affiche les commandes passées ^|Etre sur l'espace Client (icône 'Compte')^| OK
 |====
 
 ==== 2.3 Points de fidélité :
@@ -224,7 +224,7 @@ Les clients ont accès aux mêmes fonctionnalités que les visiteurs, ainsi que 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
 ^|Client_Points.1 ^|Accéder à la section "Mes points". ^|Les points de fidélité sont affichés. ^|Le client a des points. ^| OK
-^|Client_Points.1 ^|Accéder à la section "Mes points". ^|Les points de fidélité ont augmenté ^|Le client a passé commande ^| Non OK
+^|Client_Points.2 ^|Accéder à la section "Mes points". ^|Les points de fidélité ont augmenté ^|Le client a passé commande ^| OK
 
 |====
 
