@@ -95,8 +95,8 @@ Compléter et si on ne valide pas, ...
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
 ^|Visit_Tri.1 ^|Sélectionner le tri par "Prix croissant". ^|Les produits s’affichent dans l’ordre des prix croissants. ^|Des produits avec des prix différents existent. ^| OK
 ^|Visit_Tri.2 ^|Sélectionner le tri par "Prix décroissant". ^|Les produits s’affichent dans l’ordre des prix décroissants. ^|Des produits avec des prix différents existent. ^| OK
-^|Visit_Tri.3 ^|Sélectionner le tri par "Avis". ^|Les produits s’affichent dans l’ordre des notes. ^|Des produits avec des avis différents existent. ^| Non OK
-^|Visit_Tri.4 ^|Sélectionner le tri par "Groupe". ^|Les produits appartenant au groupe s'affichent. ^|Des produits appartenant à ce groupe existent. ^| Non OK
+^|Visit_Tri.3 ^|Sélectionner le tri par "Avis". ^|Les produits s’affichent dans l’ordre des notes. ^|Des produits avec des avis différents existent. ^| OK
+^|Visit_Tri.4 ^|Sélectionner le tri par "Groupe". ^|Les produits appartenant au groupe s'affichent. ^|Des produits appartenant à ce groupe existent. ^| OK
 |====
 
 ==== 1.4 Détails d'un produits :
@@ -198,7 +198,7 @@ Les clients ont accès aux mêmes fonctionnalités que les visiteurs, ainsi que 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
 ^|Client_Avis.1 ^|Cliquer sur "Écrire un avis". ^|Un formulaire s’affiche. ^|Le produit a été acheté. ^| OK
-^|Client_Avis.2 ^|Remplir le formulaire et confirmer ^|L'avis est maintenant visible sur la page produit et son espace client ^|Les données saisies sont valides ^| Non OK
+^|Client_Avis.2 ^|Remplir le formulaire et confirmer ^|L'avis est maintenant visible sur la page produit et son espace client ^|Les données saisies sont valides ^| OK
 |====
 
 ==== 2.2 Gestion des commandes :
