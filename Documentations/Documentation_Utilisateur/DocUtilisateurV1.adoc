@@ -100,6 +100,20 @@ Le tableau de bord fournit une vue d’ensemble des statistiques clés : command
 ** Configuration des e-mails automatiques.  
 . Sauvegardez vos modifications pour qu’elles soient prises en compte immédiatement.  
 
+=== IV.7. Diagrammes de collaboration
+
+==== IV.7.1. Diagramme de collaboration : Création d'un produit
+
+image::../../images/creation_produit_collaboration.png[Création d'un produit]
+
+Ce diagramme illustre les interactions entre les différents acteurs et composants du système lors de la création d'un produit. Il facilite la compréhension du processus en montrant le flux de communication et les étapes nécessaires.
+
+==== IV.7.2. Diagramme de collaboration : Suivi d'une commande complète
+
+image::../../images/suivi_commande_collaboration.png[Suivi d'une commande complète]
+
+Le diagramme de suivi de commande complète décrit les échanges entre les administrateurs, les clients, et les systèmes internes du site e-commerce, du moment où une commande est passée jusqu'à sa livraison. Il aide à visualiser les responsabilités et les actions à chaque étape.
+
 == V. Maintenance et bonnes pratiques  
 
 === 1. Sauvegardes régulières  
