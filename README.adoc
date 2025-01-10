@@ -98,7 +98,7 @@ Ce projet consiste en la création d'un site e-commerce spécialisé dans la ven
 |  | PHP v3| https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/releases/tag/v0.3.0[PHP v3]
 |  | Fiche Droit (adoc)| https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Fiche_conseil/Fiche_de_conseil.adoc[Fiche Conseil] 
 |  | Fiche Droit (pdf)| https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/Documentations/Fiche_conseil/Fiche_de_conseil.pdf[Fiche Conseil] 
-| Sem.52  | Ordre du jour #7      | https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%237.pdf[Ordre du jour #7] 
+| Sem.2  | Ordre du jour #7      | https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/ODJ/ODJ%237.pdf[Ordre du jour #7] 
 |  | Compte Rendu #7| https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/master/CR/CR%237.pdf[Compte Rendu #7] 
 |  | Documentation utilisateur| https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/blob/7d453a98a15683c76f45c9f5a53c9b32f516f22b/Documentations/Documentation_Utilisateur/DocUtilisateurV1.adoc[Documentation Utilisateur]
 |===
