@@ -210,8 +210,9 @@ Les clients ont accès aux mêmes fonctionnalités que les visiteurs, ainsi que 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
 ^|Client_Commande.1 ^|Cliquer sur 'Passer commande' depuis le panier ^|Redirige vers un récapitulatif de commande ^|Le panier n'est pas vide ^| OK
-^|Client_Commande.2 ^|Saisir l'adresse de livraison, le mode de livraison, de paiement et valider ^|La commande est enregistrée^|Etre sur le récapitulatif de commande^| OK
-^|Client_Commande.3 ^|Cliquer sur 'Mes commandes' ^| Affiche les commandes passées ^|Etre sur l'espace Client (icône 'Compte')^| OK
+^|Client_Commande.2 ^|Utiliser les points de fidélité ^|Le prix est réduit en fonction des points utilisés ^|Avoir des points de fidélité ^| OK
+^|Client_Commande.3 ^|Saisir l'adresse de livraison, le mode de livraison, de paiement et valider ^|La commande est enregistrée ^|Etre sur le récapitulatif de commande ^| OK
+^|Client_Commande.4 ^|Cliquer sur 'Mes commandes' ^| Affiche les commandes passées ^|Etre sur l'espace Client (icône 'Compte') ^| OK
 |====
 
 ==== 2.3 Points de fidélité :
@@ -225,6 +226,23 @@ Les clients ont accès aux mêmes fonctionnalités que les visiteurs, ainsi que 
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
 ^|Client_Points.1 ^|Accéder à la section "Mes points". ^|Les points de fidélité sont affichés. ^|Le client a des points. ^| OK
 ^|Client_Points.2 ^|Accéder à la section "Mes points". ^|Les points de fidélité ont augmenté ^|Le client a passé commande ^| OK
+
+|====
+
+==== 2.4 Modification informations personnelles :
+
+|====
+>|Cas de test 4+|Test-02-03-02
+>|Titre 4+|Modification des informations personnelles
+>|Objectif 4+|Vérifier que les clients peuvent modifier leurs informations personnelles
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|Client_Informations.1 ^|Accéder à la section "Modifier le prénom". ^|Le prénom est modifié et affiché correctement. ^|Le client est connecté. ^| OK
+^|Client_Informations.2 ^|Accéder à la section "Modifier le numéro de téléphone". ^|Le numéro de téléphone est modifié et affiché correctement. ^|Le client est connecté. ^| OK
+^|Client_Informations.3 ^|Accéder à la section "Changer le mot de passe". ^|Le mot de passe est changé avec succès. ^|Le client connaît l'ancien mot de passe. ^| OK
+^|Client_Informations.4 ^|Accéder à la section "Modifier l'adresse". ^|L'adresse est modifiée et affichée correctement. ^|Le client a une adresse enregistrée. ^| OK
+^|Client_Informations.5 ^|Accéder à la section "Supprimer l'adresse". ^|L'adresse est supprimée avec succès. ^|Le client a une adresse enregistrée. ^| OK
 
 |====
 
