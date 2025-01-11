@@ -38,22 +38,22 @@ Chaque membre de l'équipe se verra attribuer plusieurs de ces tâches :
 ==== Client
 
 - Créer un compte / Se connecter : Quentin, Romy, Alban
-- Consulter les produits :
-- Rechercher un produit
-- Trier les produits :
-- Consulter une catégorie :
-- Consulter le détail d'un produit :
-- Gérer le panier : 
-- Passer une commande :
-- Visualiser la commande :
-- Mettre un avis client sur un produit :
-- Gérer les points de fidélité :
+- Consulter les produits : Jules
+- Rechercher un produit : Matthias
+- Trier les produits : Romy
+- Consulter une catégorie : Jules
+- Consulter le détail d'un produit : Jules
+- Gérer le panier : Alban
+- Passer une commande : Alban
+- Visualiser la commande : Alban
+- Mettre un avis client sur un produit : Jules
+- Gérer les points de fidélité : Alban
 
 ==== Administrateur
 
-- Gérer les produits :
-- Gérer les catégories :
-- Gérer les comptes clients : 
+- Gérer les produits 
+- Gérer les catégories 
+- Gérer les comptes clients 
 
 == III. Architecture
 [.text-justify]
