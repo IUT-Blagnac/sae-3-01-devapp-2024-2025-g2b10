@@ -46,7 +46,7 @@ toc::[]
 
 == Sprint courant
 
-- https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/milestone/7[Sprint 7]
+- https://github.com/IUT-Blagnac/sae-3-01-devapp-2024-2025-g2b10/milestone/8[Sprint Semaine 2]
 
 == Equipe et rôle
 
