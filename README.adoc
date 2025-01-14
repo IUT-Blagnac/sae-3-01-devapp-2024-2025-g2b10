@@ -200,7 +200,7 @@ Attention la création de la structure du site Web n'est pas une US mais une tâ
 
 === Retour semaine 2
 Gestion du sprint cahotique (tâche créées il y a 16 h alors que le projet est terminé !! ) tâches non ratachées aux US c'est dommage. Doc utilisateur  manque qq copies écran pour bien comprendre mais utilisation de diag de BPMN TB. La doc tec date du 20/11 et ressemble à une doc de concpetion,il fallait la compléter pour permettre la maintenance du site. Test ok mais il manque les dernieres validation des tests pour l'admin.
-NOTE GPO (sous réserve d'ahamonisation avec JMB) : 12,64/20
+NOTE GPO (sous réserve d'ahamonisation avec JMB) : 15,40/20
 Note documentation en droit : 14/20  (bien mais pas d'issue proposée dans github au sprint 2)
 
 === Attendus
