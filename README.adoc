@@ -198,6 +198,11 @@ Backlog : j'ai des US mais pas de backlog produit avec evaluation de la complexi
 === Retour semaine 50
 Attention la création de la structure du site Web n'est pas une US mais une tâche rattachée à une US. Je pense que le nom de votre US est maladroit. Dommage, le seul bémol est la gestion des sprints et surtout l'éclatement des US en tâches. Doc tec pensez à commenter les diagrammes. La doc user est surtout à destination du futur admin ... bien repenser la cible, les internautes auront une aide en ligne. Globalement c'est bien.
 
+=== Retour semaine 2
+Gestion du sprint cahotique (tâche créées il y a 16 h alors que le projet est terminé !! ) tâches non ratachées aux US c'est dommage. Doc utilisateur  manque qq copies écran pour bien comprendre mais utilisation de diag de BPMN TB. La doc tec date du 20/11 et ressemble à une doc de concpetion,il fallait la compléter pour permettre la maintenance du site. Test ok mais il manque les dernieres validation des tests pour l'admin.
+NOTE GPO (sous réserve d'ahamonisation avec JMB) : 12,64/20
+Note documentation en droit : 14/20  (bien mais pas d'issue proposée dans github au sprint 2)
+
 === Attendus
 Chaque sprint (semaine) vous devrez livrer une nouvelle version de votre application (release).
 Utilisez pour cela les fonctionnalités de GitHub pour les https://docs.github.com/en/repositories/releasing-projects-on-github[Releases].
